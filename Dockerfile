@@ -20,4 +20,4 @@ RUN flutter build web
 
 
 FROM nginx:1.21.1-alpine
-COPY --from=build-env /home/satta/app/build/web /usr/share/nginx/html
+COPY --from=build-env ./app/build/web /usr/share/nginx/html
