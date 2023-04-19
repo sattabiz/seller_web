@@ -15,7 +15,7 @@ RUN flutter channel master  & \
 RUN mkdir ./app/
 COPY . ./app/
 WORKDIR ./app/
-
+RUN flutter create .
 RUN flutter build web --no-tree-shake-icons
 
 
