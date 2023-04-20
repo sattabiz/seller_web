@@ -10,4 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2 # Only works with v2
       - uses: subosito/flutter-action@v1
-      - uses: actions/custom-gh-pages
+      - uses: ./.github/actions/custom-gh-pages
