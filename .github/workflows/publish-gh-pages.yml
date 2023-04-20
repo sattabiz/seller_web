@@ -5,9 +5,18 @@ on:
     branches: [ gh-pages ]
 
 jobs:
-  generate_web:
+  push-gh-pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: subosito/flutter-action@v1
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/action
+      - uses: subosito/flutter-action@v1
+        - run: |
+              flutter config --enable-web
+              flutter create .
+        - run: flutter build web --release --base-href /
+        - run: |
+              git config user.name github-actions
+              git config user.email github-actions@github.com
+              git --work-tree build/web add --all
+              git commit -m "Automatic deployment by github-actions"
+              git push origin HEAD:gh-pages --force
