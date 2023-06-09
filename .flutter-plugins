@@ -1,11 +1,11 @@
 # This is a generated file; do not edit or check into version control.
-flutter_secure_storage=/home/atakan/.pub-cache/hosted/pub.dev/flutter_secure_storage-8.0.0/
-flutter_secure_storage_linux=/home/atakan/.pub-cache/hosted/pub.dev/flutter_secure_storage_linux-1.1.3/
-flutter_secure_storage_macos=/home/atakan/.pub-cache/hosted/pub.dev/flutter_secure_storage_macos-3.0.0/
-flutter_secure_storage_web=/home/atakan/.pub-cache/hosted/pub.dev/flutter_secure_storage_web-1.1.1/
-flutter_secure_storage_windows=/home/atakan/.pub-cache/hosted/pub.dev/flutter_secure_storage_windows-2.0.0/
-path_provider=/home/atakan/.pub-cache/hosted/pub.dev/path_provider-2.0.15/
-path_provider_android=/home/atakan/.pub-cache/hosted/pub.dev/path_provider_android-2.0.27/
-path_provider_foundation=/home/atakan/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.3/
-path_provider_linux=/home/atakan/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.10/
-path_provider_windows=/home/atakan/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.6/
+flutter_secure_storage=/home/bilge/.pub-cache/hosted/pub.dev/flutter_secure_storage-8.0.0/
+flutter_secure_storage_linux=/home/bilge/.pub-cache/hosted/pub.dev/flutter_secure_storage_linux-1.1.3/
+flutter_secure_storage_macos=/home/bilge/.pub-cache/hosted/pub.dev/flutter_secure_storage_macos-3.0.0/
+flutter_secure_storage_web=/home/bilge/.pub-cache/hosted/pub.dev/flutter_secure_storage_web-1.1.1/
+flutter_secure_storage_windows=/home/bilge/.pub-cache/hosted/pub.dev/flutter_secure_storage_windows-2.0.0/
+path_provider=/home/bilge/.pub-cache/hosted/pub.dev/path_provider-2.0.15/
+path_provider_android=/home/bilge/.pub-cache/hosted/pub.dev/path_provider_android-2.0.27/
+path_provider_foundation=/home/bilge/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.3/
+path_provider_linux=/home/bilge/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.11/
+path_provider_windows=/home/bilge/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.7/
