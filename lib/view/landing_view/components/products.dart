@@ -9,8 +9,8 @@ class Products extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const Color surfaceContainer = Color(0xFFECEEEB);
-    const productDetails = "Glopal Pallet Company is committed to ensure safe transportation of your products while helping you lower your packaging costs. Driven with this purpose, we provide the best quality hardwood, softwood and combo pallets with high load-bearing capacity. We can custom design any size pallets to perfectly meet the specific needs of your products.  Our experts will be happy to assist you in identifying the perfect size and material that will help you save space and packaging costs.All products can be Heat Treated to meet ISPM-15 specifications. Heat Treat certificates are available upon request.";
+     const Color surfaceContainer = Color(0xFFECEEEB);
+    
     return Row(
       children: [
         Expanded(
@@ -26,22 +26,12 @@ class Products extends ConsumerWidget {
             padding: const EdgeInsets.all(40.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children:  <Widget>[
-                AutoSizeText(
-                  "Palet Point", 
-                  style: Theme.of(context).textTheme.displayMedium, 
-                  maxLines: 2
-                ),
-                
+              children:  const <Widget>[
+                ProductTitle(),               
                 Flexible(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 60.0, right: 20.0),
-                    child: AutoSizeText(
-                      productDetails,
-                      softWrap: true,
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.titleLarge, 
-                    ),
+                    padding: EdgeInsets.only(left: 60.0, right: 20.0),
+                    child: ProductDetail(),
                   ),
                 ),
               ],
@@ -49,24 +39,80 @@ class Products extends ConsumerWidget {
           ),
         ),
         // SizedBox(width: 50),
-        Expanded(
+        const Expanded(
           flex: 6,
-          child: Container(
-            padding: EdgeInsets.all(60.0),
-            decoration: const BoxDecoration(
-              color: surfaceContainer,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              ),
-            ),
-            child: Image.asset(
-              'assets/images/product_image.jpg',
-              fit: BoxFit.contain,
-            ),
-          ),
+          child: ProductImage(), 
         ),
       ],
+    );
+  }
+}
+
+class ProductTitle extends ConsumerStatefulWidget {
+  const ProductTitle({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProductTitleState();
+}
+
+class _ProductTitleState extends ConsumerState<ProductTitle> {
+
+  @override
+  Widget build(BuildContext context) {
+    return  AutoSizeText(
+      "Palet Point", 
+      style: Theme.of(context).textTheme.displayMedium, 
+      maxLines: 2
+    );
+  }
+}
+
+class ProductDetail extends ConsumerStatefulWidget {
+  const ProductDetail({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProductDetailState();
+}
+
+class _ProductDetailState extends ConsumerState<ProductDetail> {
+
+  @override
+  Widget build(BuildContext context) {
+    const productDetails = "Glopal Pallet Company is committed to ensure safe transportation of your products while helping you lower your packaging costs. Driven with this purpose, we provide the best quality hardwood, softwood and combo pallets with high load-bearing capacity. We can custom design any size pallets to perfectly meet the specific needs of your products.  Our experts will be happy to assist you in identifying the perfect size and material that will help you save space and packaging costs.All products can be Heat Treated to meet ISPM-15 specifications. Heat Treat certificates are available upon request.";
+    return AutoSizeText(
+      productDetails,
+      softWrap: true,
+      textAlign: TextAlign.left,
+      style: Theme.of(context).textTheme.titleLarge, 
+    );
+  }
+}
+
+class ProductImage extends ConsumerStatefulWidget {
+  const ProductImage({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProductImageState();
+}
+
+class _ProductImageState extends ConsumerState<ProductImage> {
+  static const Color surfaceContainer = Color(0xFFECEEEB);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(60.0),
+      decoration: const BoxDecoration(
+        color: surfaceContainer,
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+      ),
+      child: Image.asset(
+        'assets/images/product_image.jpg',
+        fit: BoxFit.contain,
+      ),
     );
   }
 }

@@ -28,7 +28,7 @@ class LandingView extends ConsumerWidget {
               index: 0,
               child: Introduction(sectionIndex: 0)),
             AutoScrollTag(
-              key: ValueKey(1),
+              key: const ValueKey(1),
               controller: _scrollController,
               index: 1,
               child: Container(
@@ -38,13 +38,13 @@ class LandingView extends ConsumerWidget {
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surface,
                 ),
-                child: Products(sectionIndex: 1)),
+                child: const Products(sectionIndex: 1)),
             ),
             AutoScrollTag(
-              key: ValueKey(2),
+              key: const ValueKey(2),
               controller: _scrollController,
               index: 2,
-              child: Contact(sectionIndex: 2),
+              child: const Contact(sectionIndex: 2),
             ),
           ],        
         ),

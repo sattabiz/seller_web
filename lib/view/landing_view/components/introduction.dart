@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
 
 class Introduction extends ConsumerWidget {
   final int sectionIndex;
