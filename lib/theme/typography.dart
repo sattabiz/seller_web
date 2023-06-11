@@ -1,93 +1,88 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '/theme/theme_colors.dart';
 
-
-final themeText = TextTheme(
-    displayLarge: GoogleFonts.roboto(
+final themeText = const TextTheme().copyWith(
+    displayLarge: const TextStyle(
       fontSize: 57,
       fontWeight: FontWeight.w400,
       height: 1,
       letterSpacing: -0.25,
-      color: themeColor.onSurface,
     ),
-    displayMedium: GoogleFonts.roboto(
+    displayMedium: const TextStyle(
       fontSize: 45,
       fontWeight: FontWeight.w400,
       height: 1.16,
     ),
-    displaySmall: GoogleFonts.roboto(
+    displaySmall: const TextStyle(
       fontSize: 36,
       fontWeight: FontWeight.w400,
       height: 1.22,
       letterSpacing: 0,
     ),
-    headlineLarge: GoogleFonts.roboto(
+    headlineLarge: const TextStyle(
       fontSize: 32,
       fontWeight: FontWeight.w400,
       height: 1.1,
       letterSpacing: 0,
     ),
-    headlineMedium: GoogleFonts.roboto(
+    headlineMedium: const TextStyle(
       fontSize: 28,
       fontWeight: FontWeight.w400,
       height: 1.16,
     ),
-    headlineSmall: GoogleFonts.roboto(
+    headlineSmall: const TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.w400,
       height: 1.22,
-      color: themeColor.onSurfaceVariant,
     ),
-    titleLarge: GoogleFonts.roboto(
+    titleLarge: const TextStyle(
       fontSize: 22,
       fontWeight: FontWeight.w500,
       height: 1.1,
       letterSpacing: 0,
     ),
-    titleMedium: GoogleFonts.roboto(
+    titleMedium: const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w500,
       height: 1.45,
       letterSpacing: 0.15,
     ),
-    titleSmall: GoogleFonts.roboto(
+    titleSmall: const TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w500,
       height: 1.45,
       letterSpacing: 0.1,
     ),
-    bodyLarge: GoogleFonts.roboto(
+    bodyLarge: const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w400,
       height: 1.14,
       letterSpacing: 0.5,
     ),
-    bodyMedium: GoogleFonts.roboto(
+    bodyMedium: const TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w400,
       height: 1.16,
       letterSpacing: 0.25,
     ),
-    bodySmall: GoogleFonts.roboto(
+    bodySmall: const TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w400,
       height: 1.16,
       letterSpacing: 0.4,
     ),
-    labelLarge: GoogleFonts.roboto(
+    labelLarge: const TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w500,
       height: 1.43,
       letterSpacing: 0.1,
     ),
-    labelMedium: GoogleFonts.roboto(
+    labelMedium: const TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w500,
       height: 1.33,
       letterSpacing: 0.5,
     ),
-    labelSmall: GoogleFonts.roboto(
+    labelSmall: const TextStyle(
       fontSize: 11,
       fontWeight: FontWeight.w500,
       height: 1.45,

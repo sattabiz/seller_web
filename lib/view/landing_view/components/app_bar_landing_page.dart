@@ -31,8 +31,6 @@ class AppbarLandingPage extends StatelessWidget implements PreferredSizeWidget {
           label: 'İletişim',
           onPressed: () => _scrollToSection(context, 2),
         ),
-
-
        const SizedBox(width: 70,)
       ],
     );
