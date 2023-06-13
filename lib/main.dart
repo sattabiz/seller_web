@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seller_point/utils/routes.dart';
 import '/theme/theme.dart';
 import '/view/landing_view/landing_view.dart';
 
@@ -19,7 +20,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: theme,
+      routes: routes,
       home:  LandingView(),
     );
   }

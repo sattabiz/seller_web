@@ -69,6 +69,7 @@ class LogInButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
       onPressed: () {
+        Navigator.pushNamed(context, '/login');
       }, 
       child: const Text('Uye Girisi', style: TextStyle(color: Colors.white)),
     );
