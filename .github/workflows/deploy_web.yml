@@ -21,7 +21,6 @@ jobs:
     - uses: easingthemes/ssh-deploy@v4.1.8
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        ARGS: "-rlgoDzvc -i"
         SOURCE: "build/web/"
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.REMOTE_USER }}
