@@ -8,6 +8,7 @@ on:
       - main
 jobs:
   build_web:
+    environment: WebServerDeploy
     name: Build Flutter (Web)
     runs-on: ubuntu-latest
     steps:
