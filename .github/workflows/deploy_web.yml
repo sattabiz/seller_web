@@ -25,4 +25,6 @@ jobs:
         SOURCE: "build/web/"
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.REMOTE_USER }}
-        TARGET: ${{ env.REMOTE_TARGET }}
+        TARGET: ${{ vars.REMOTE_TARGET }}
+    - run: echo ${{ secrets.REMOTE_HOST }}
+    - run: echo ${{ vars.REMOTE_TARGET}}
