@@ -18,6 +18,7 @@ jobs:
     - run: flutter upgrade
     - run: flutter pub get
     - run: flutter config --enable-web
+    - run: flutter create .
     - run: flutter build web --web-renderer html
     - uses: easingthemes/ssh-deploy@v4.1.8
       env:
