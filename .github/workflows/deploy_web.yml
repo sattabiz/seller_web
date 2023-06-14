@@ -1,4 +1,4 @@
-name: CI
+name: WebServerDeployment
 on:
   push:
     branches:
@@ -18,12 +18,11 @@ jobs:
     - run: flutter pub get
     - run: flutter config --enable-web
     - run: flutter build web --web-renderer html
-    - name: Deploy to WebServer over SSH
-        uses: easingthemes/ssh-deploy@v4.1.8
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          ARGS: "-rlgoDzvc -i"
-          SOURCE: "build/web/"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ env.REMOTE_TARGET }}
+    - uses: easingthemes/ssh-deploy@v4.1.8
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        ARGS: "-rlgoDzvc -i"
+        SOURCE: "build/web/"
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        TARGET: ${{ env.REMOTE_TARGET }}
