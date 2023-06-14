@@ -11,12 +11,11 @@ jobs:
     name: Build Flutter (Web)
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - uses: subosito/flutter-action@v2.10.0
       with:
-          channel: 'dev'
-    - run: flutter upgrade
-    - run: flutter pub get
+          flutter-version: '3.7.10'
+          channel: 'stable'
     - run: flutter config --enable-web
     - run: flutter create .
     - run: flutter build web --web-renderer html
