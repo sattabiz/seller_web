@@ -20,13 +20,10 @@ jobs:
     - run: flutter config --enable-web
     - run: flutter create .
     - run: flutter build web --web-renderer html
-    - run: echo ${{ secrets.REMOTE_HOST }}
-    - run: echo ${{ vars.REMOTE_TARGET}}
     - uses: easingthemes/ssh-deploy@v4.1.8
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         SOURCE: "build/web/"
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.REMOTE_USER }}
-        TARGET: ${{ vars.REMOTE_TARGET }}
-
+        TARGET: "/var/www/html/paletpoint/"
