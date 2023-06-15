@@ -42,6 +42,11 @@ dependencies:
   scroll_to_index: ^3.0.1
   auto_size_text: ^3.0.0
   flutter_svg: ^2.0.1
+  flutter_i18n: ^0.32.4
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
+  data_table_2: ^2.4.2
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +59,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
 
+dependency_overrides:
+  intl: ^0.17.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -70,6 +77,8 @@ flutter:
     - assets/
     - assets/images/header_white_logo.png
     - assets/images/product_image.jpg
+    - assets/flutter_i18n/tr.yaml
+    - assets/flutter_i18n/en.yaml
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

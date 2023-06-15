@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../view_model/login_view_model.dart';
@@ -42,7 +43,7 @@ class loginCard extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Flexible(
-                            child: AutoSizeText("Üye Girişi",
+                            child: AutoSizeText(FlutterI18n.translate(context, "tr.login.signin"),
                                 minFontSize: 5,
                                 style: Theme.of(context).textTheme.titleLarge!),
                           ),
@@ -80,12 +81,12 @@ class loginCard extends ConsumerWidget {
                         border: const UnderlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
-                        labelText: 'E-posta',
-                        hintText: 'ornek@eposta.com',
+                        labelText: FlutterI18n.translate(context, "tr.login.e-mail"),
+                        hintText: FlutterI18n.translate(context, "tr.login.hint_text_email")
                       ),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
-                          return 'Lütfen Email Adresi giriniz.';
+                          return FlutterI18n.translate(context, "tr.login.email_validation");
                         }
                         return null;
                       },
@@ -107,12 +108,12 @@ class loginCard extends ConsumerWidget {
                         border: const UnderlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
-                        labelText: 'Parola',
+                        labelText: FlutterI18n.translate(context, "tr.login.password"),
                         hintText: '********',
                       ),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
-                          return 'Lütfen parola giriniz.';
+                          return FlutterI18n.translate(context, "tr.login.password_validation");
                         }
                         return null;
                       },
@@ -128,17 +129,17 @@ class loginCard extends ConsumerWidget {
                                 ref.watch(loginViewModelProvider);
                             if (loginState == LoginState.success) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Giriş başarılı!')),
+                                SnackBar(content: Text(FlutterI18n.translate(context, "tr.login.login_success"))),
                               );
                               Navigator.pushNamed(context, '/orderScreen');
                             } else if (loginState == LoginState.failure) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                    content: Text('email veya parola yanlis!')),
+                                    content: Text(FlutterI18n.translate(context, "tr.login.login_fail"))),
                               );
                             }
                           } catch (e) {
-                            print(e);
+                            // print(e);
                           }
                         }
                       },
@@ -150,9 +151,9 @@ class loginCard extends ConsumerWidget {
                 ),
                 InkWell(
                   onTap: () => _dialogBuilder(context),
-                  child: const Text(
-                    'Şifremi unuttum ',
-                    style: TextStyle(
+                  child:  Text(
+                    FlutterI18n.translate(context, "tr.login.forget_password"),
+                    style: const  TextStyle(
                       color: Colors.blue,
                       decoration: TextDecoration.underline,
                     ),
@@ -178,22 +179,22 @@ class loginCard extends ConsumerWidget {
 
                           if (loginState == LoginState.success) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Giriş başarılı!')),
+                              SnackBar(content: Text(FlutterI18n.translate(context, "tr.login.login_success"))),
                             );
                             await Navigator.pushNamed(context, '/orderScreen');
                           } else if (loginState == LoginState.failure) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                    content: Text('email veya parola yanlis!')),
+                                    content: Text(FlutterI18n.translate(context, "tr.login.login_fail"))),
                               );
                             }
                         } catch (e) {
-                          print(e);
+                          // print(e);
                         }
                       }
                     },
                     child: Text(
-                      'Giriş Yap',
+                      FlutterI18n.translate(context, "tr.login.login_button"),
                       style: Theme.of(context).textTheme.labelLarge!.copyWith(
                             color: Theme.of(context).colorScheme.onPrimary,
                           ),

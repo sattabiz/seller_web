@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -23,22 +24,22 @@ class OrderView extends ConsumerWidget {
             if (constraints.maxWidth < 1070) {
               return Scaffold(
                 drawer: const Drawer(child: NavigationRailDrawer()),
-                appBar: AppbarTop(),
-                body: BodyWidget(orderList: orderList, topic: 'Siparişler'),
+                appBar: AppbarTop(), //appbar
+                body: BodyWidget(orderList: orderList, topic: FlutterI18n.translate(context, "tr.order.orders")),
               );
             } else {
               return Scaffold(
-                appBar: AppbarTop(),
+                appBar: AppbarTop(), // appbar
                 body: SafeArea(
                   child: Row(
                     children: [
                       const Expanded(
                         flex: 3,
-                        child: NavigationRailDrawer(),
+                        child: NavigationRailDrawer(), //drawer
                       ),
                       Expanded(
                         flex: 9,
-                        child: BodyWidget(orderList: orderList, topic: 'Siparişler'),
+                        child: BodyWidget(orderList: orderList, topic: FlutterI18n.translate(context, "tr.order.orders")), //order screen body
                       ),
                     ],
                   ),
