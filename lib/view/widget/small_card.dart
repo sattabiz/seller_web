@@ -69,9 +69,7 @@ class smallCard extends ConsumerWidget {
           color: Theme.of(context).colorScheme.surfaceVariant,
           child: InkWell(
             onTap: () {
-              debugPrint(ref.watch(boolProvider).toString());
               ref.read(indexProvider.notifier).state = index;
-              debugPrint(index.toString());
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
