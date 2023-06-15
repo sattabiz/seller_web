@@ -127,7 +127,6 @@ class loginCard extends ConsumerWidget {
                             final loginState =
                                 ref.watch(loginViewModelProvider);
                             if (loginState == LoginState.success) {
-                              debugPrint(loginState.toString());
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text('Giriş başarılı!')),
                               );
@@ -178,7 +177,6 @@ class loginCard extends ConsumerWidget {
                           final loginState = ref.read(loginViewModelProvider);
 
                           if (loginState == LoginState.success) {
-                            debugPrint(loginState.toString());
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text('Giriş başarılı!')),
                             );
