@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:seller_point/view/widget/small_card.dart';
 
@@ -34,7 +35,7 @@ class BodyWidget extends StatelessWidget {
               Visibility(
                 visible: constraints.maxHeight > 300,
                 child: allMainPageContent(
-                  topic: 'Siparişler',
+                  topic: FlutterI18n.translate(context, "tr.order.orders"),
                 ),
               ),
               Flexible(
@@ -45,27 +46,17 @@ class BodyWidget extends StatelessWidget {
                   itemCount: orderList.length,
                   staggeredTileBuilder: (index) => StaggeredTile.fit(1),
                   itemBuilder: (context, index) {
-                    final item = orderList[index];
-                    var productNames = <String>[];
-                    var amounts = <String>[];
-                    for (int productIndex = 0;
-                        productIndex < (orderList[index].products?.length ?? 0);
-                        productIndex++) {
-                      productNames.add(
-                          orderList[index].products?[productIndex].name ?? '');
-                      amounts.add(orderList[index]
-                              .products?[productIndex]
-                              .amount
-                              ?.toString() ??
-                          '0');
-                    }
-                    return smallCard(
+                    return SmallCard(
                       index: index,
+                      id: orderList[index].id.toString(),
                       demandNo: orderList[index].demandNo.toString(),
+                      demandName: orderList[index].demandName.toString(),
                       orderDate: orderList[index].orderDate.toString(),
+                      deliveryDate: orderList[index].deliveryDate.toString(),
+                      paymentDueDate: orderList[index].paymentDueDate.toString(),
                       orderStatus: orderList[index].state.toString(),
-                      productNames: productNames,
-                      amounts: amounts,
+                      paymentType: orderList[index].paymentType.toString(),
+                      products: orderList[index].products, 
                     );
                   },
                 ),

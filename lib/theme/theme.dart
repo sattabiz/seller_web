@@ -13,8 +13,6 @@ ThemeData theme = ThemeData(
   navigationDrawerTheme: const NavigationDrawerThemeData().copyWith(),
   elevatedButtonTheme: elevatedButtonTheme,
   cardTheme: cardTheme,
-  dataTableTheme: dataTableTheme,
-
 );
 
 final elevatedButtonTheme = ElevatedButtonThemeData(
@@ -28,24 +26,4 @@ final elevatedButtonTheme = ElevatedButtonThemeData(
 final cardTheme = CardTheme(
     color: themeColor.surfaceVariant,
     elevation: 4
-);
-
-final dataTableTheme = const DataTableThemeData().copyWith(
-  // decoration:  BoxDecoration(
-  //   // borderRadius: BorderRadius.all(Radius.circular(10)),
-  //   color: themeColor.onPrimary,
-  //   border: Border.all(
-  //     color: Colors.transparent,
-  //     // width: 3,
-  //     // strokeAlign: BorderSide.strokeAlignInside,
-  //   ),
-    
-  // ),
-  // headingTextStyle: themeText.labelMedium,
-  // // headingRowColor: MaterialStateProperty.all<Color>(themeColor.primary),
-  // dataTextStyle: themeText.bodySmall,
-  // dataRowMaxHeight: 16,
-  
-
-
 );
