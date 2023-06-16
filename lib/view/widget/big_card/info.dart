@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
@@ -32,7 +33,7 @@ class Info extends ConsumerWidget {
           Row(     //row 1
             children:  [
               Text(
-                "Konu:",
+                FlutterI18n.translate(context, "tr.order.topic"),
                   style: Theme.of(context).textTheme.titleSmall,                        
                 ),
                 const SizedBox(width: 10.0),
@@ -46,15 +47,15 @@ class Info extends ConsumerWidget {
           Table(                               
             columnWidths: const <int, TableColumnWidth> {
               0: FlexColumnWidth(0.3),
-              1: FlexColumnWidth(0.5),
+              1: FlexColumnWidth(0.4),
               2: FlexColumnWidth(0.3),
-              3: FlexColumnWidth(0.5),
+              3: FlexColumnWidth(0.4),
             },
             children: [
               TableRow(
                 children: <Widget>[
                   Text(
-                    "Siparis Tarihi:",
+                    FlutterI18n.translate(context, "tr.order.order_date"),
                     style: Theme.of(context).textTheme.labelSmall,
                     //  maxLines: 1,                        
                   ),
@@ -63,7 +64,7 @@ class Info extends ConsumerWidget {
                     style: Theme.of(context).textTheme.bodySmall,                        
                   ), 
                   Text(
-                    "Teslim Tarihi",
+                    FlutterI18n.translate(context, "tr.order.delivery_date"),
                     style: Theme.of(context).textTheme.labelSmall,                        
                   ), 
                   Text(
@@ -79,7 +80,7 @@ class Info extends ConsumerWidget {
               TableRow(
                 children: <Widget>[
                   Text(
-                    "Odeme Sekli:",
+                    FlutterI18n.translate(context, "tr.order.payment_type"),
                     style: Theme.of(context).textTheme.labelSmall,                        
                   ),                                
                   Text(
@@ -87,7 +88,7 @@ class Info extends ConsumerWidget {
                     style: Theme.of(context).textTheme.bodySmall,                        
                   ),
                   Text(
-                    "Vade",
+                    FlutterI18n.translate(context, "tr.order.expiry"),
                     style: Theme.of(context).textTheme.labelSmall,                        
                     ), 
                   Text(
@@ -99,7 +100,7 @@ class Info extends ConsumerWidget {
               TableRow(
                 children: <Widget>[
                   Text(
-                    "Teklif No",
+                    FlutterI18n.translate(context, "tr.order.demand_no"),
                     style: Theme.of(context).textTheme.labelSmall,                        
                   ),                            
                   Text(
@@ -107,7 +108,7 @@ class Info extends ConsumerWidget {
                     style: Theme.of(context).textTheme.bodySmall,                        
                   ), 
                   Text(
-                    "Nakliye Odeme",
+                    FlutterI18n.translate(context, "tr.order.shipment_payment"),
                     style: Theme.of(context).textTheme.labelSmall,                        
                   ),              
                   Text(
