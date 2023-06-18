@@ -1,30 +1,20 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:data_table_2/data_table_2.dart';
 
-import '../../../model/get_order_list_model.dart';
-
-
-class ProductListTable extends StatelessWidget {
-  final List productList;
+class ProposalTable extends StatelessWidget {
+  final List productsProposalList;
   final String className;
 
-  const ProductListTable({
+  const ProposalTable({
     super.key, 
-    required this.productList,
+    required this.productsProposalList,
     required this.className
     });
 
-
-
   @override
   Widget build(BuildContext context) {
-    Map<String, String> description= {
-      'order': FlutterI18n.translate(context, "tr.order.description"),
-      'proposal': FlutterI18n.translate(context, "tr.proposal.proposal_note"),
-    };
     
     return DataTable2(
       columnSpacing: 10,
@@ -45,11 +35,11 @@ class ProductListTable extends StatelessWidget {
           fixedWidth: 20,
         ),
         DataColumn2(
-          label: AutoSizeText(FlutterI18n.translate(context, "tr.order.product"), maxLines: 1,),
+          label: AutoSizeText(FlutterI18n.translate(context, "tr.order.product")),
           size: ColumnSize.S,
         ),
         DataColumn2(
-          label: AutoSizeText(description[className] ?? ' '),  //tedarikci nocu
+          label: AutoSizeText(FlutterI18n.translate(context, "tr.proposal.proposal_note")),  //tedarikci nocu
           size: ColumnSize.M,
         ),
         DataColumn2(
@@ -67,15 +57,15 @@ class ProductListTable extends StatelessWidget {
           fixedWidth: 70,
         ),
       ],
-      rows: productList
+      rows: productsProposalList
           .map(
             (item) => DataRow2(
               // color: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
               cells: [
-              DataCell(AutoSizeText((productList.indexOf(item) + 1).toString(), textDirection: TextDirection.ltr,)),
-              DataCell(AutoSizeText(item.name.toString())), //product_name
-              DataCell(AutoSizeText(item.description.toString())), //propsal_note
-              DataCell(AutoSizeText(item.unit.toString())), //product_unit
+              DataCell(AutoSizeText((productsProposalList.indexOf(item) + 1).toString(), textDirection: TextDirection.ltr,)),
+              DataCell(AutoSizeText(item.productName.toString())), //product_name
+              DataCell(AutoSizeText(item.proposalNote.toString())), //propsal_note
+              DataCell(AutoSizeText(item.productUnit.toString())), //product_unit
               DataCell(AutoSizeText(item.price.toString())),
               DataCell(AutoSizeText(item.amount.toString(), textAlign: TextAlign.left)),
               // DataCell(Text('')),

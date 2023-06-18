@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'nav_rail_header_button.dart';
 
@@ -17,8 +18,14 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Herhangi bir navigasyon değişikliği olduğunda 'currentIndex' güncellenir.
-    currentIndex =
-        ModalRoute.of(context)!.settings.name == '/proposalScreen' ? 0 : 1;
+    final routeName = ModalRoute.of(context)!.settings.name;
+    if (routeName == '/proposalScreen') {
+      currentIndex = 0;
+    } else if (routeName == '/orderScreen') {
+      currentIndex = 1;
+    } else if (routeName == '/invoiceScreen') {
+      currentIndex = 2;
+    }
   }
 
   @override
@@ -55,23 +62,28 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
             drawerButton(
               context,
               'Teklif İstekleri',
-              Icons.newspaper,
+              'assets/proposal.svg',
               '/proposalScreen',
               0,
             ),
             const SizedBox(
               height: 16,
             ),
-            drawerButton(context, 'Siparişler', Icons.now_wallpaper_rounded,
-                '/orderScreen', 1),
+            drawerButton(
+                context, 'Siparişler', 'assets/order.svg', '/orderScreen', 1),
+            const SizedBox(
+              height: 16,
+            ),
+            drawerButton(context, 'Faturalar', 'assets/invoice.svg',
+                '/invoiceScreen', 2),
           ],
         ),
       ),
     );
   }
 
-  drawerButton(BuildContext context, String text, IconData icon, String route,
-      int index) {
+  drawerButton(
+      BuildContext context, String text, String icon, String route, int index) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return InkWell(
@@ -87,7 +99,9 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
               : Theme.of(context).colorScheme.surface,
         ),
         width: screenWidth * 0.98,
-        height:MediaQuery.of(context).size.width >650? screenHeight * 0.09:screenHeight * 0.2,
+        height: MediaQuery.of(context).size.width > 650
+            ? screenHeight * 0.09
+            : screenHeight * 0.2,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -95,10 +109,11 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
               flex: 1,
             ),
             Flexible(
-              child: Icon(
+              child: SvgPicture.asset(
                 icon,
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-                size: screenWidth * 0.015,
+                semanticsLabel: 'Order Status Icon',
+                width: 30.0,
+                height: 30.0,
               ),
             ),
             const SizedBox(

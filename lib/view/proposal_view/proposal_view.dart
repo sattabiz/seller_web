@@ -4,21 +4,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../model/get_order_list_model.dart';
-import '../../view_model/buyer_invoices_view_model.dart';
-import '../../view_model/order_list_view_model.dart';
+import '../../model/get_proposals_by_state.dart';
+import '../../view_model/proposal_view_model.dart';
 import '../widget/appbar.dart';
 import '../widget/main_page_content.dart';
 import '../widget/nav_rail.dart';
 import '../widget/small_card.dart';
 
 
-class OrderView extends ConsumerWidget {
-  const OrderView({Key? key}) : super(key: key);
+
+class proposalView extends ConsumerWidget {
+  const proposalView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final orderListAsyncValue = ref.watch(getOrderListProvider);
-    final ato = ref.watch(getInvoicesProvider);
+    final orderListAsyncValue = ref.watch(proposalListview);
 
     return orderListAsyncValue.when(
       data: (orderList) {
@@ -28,7 +28,7 @@ class OrderView extends ConsumerWidget {
               return Scaffold(
                 drawer: const Drawer(child: NavigationRailDrawer()),
                 appBar: AppbarTop(), //appbar
-                body: buildBody(orderList, context, FlutterI18n.translate(context, "tr.order.orders"), "order"),
+                body: buildBody(orderList, context, FlutterI18n.translate(context, "tr.proposal.proposals"), 'proposal'),
               );
             } else {
               return Scaffold(
@@ -42,7 +42,7 @@ class OrderView extends ConsumerWidget {
                       ),
                       Expanded(
                         flex: 9,
-                        child: buildBody(orderList, context, FlutterI18n.translate(context, "tr.order.orders"), "order"), //order screen body
+                        child: buildBody(orderList, context, FlutterI18n.translate(context, "tr.proposal.proposals"), 'proposal'), //order screen body
                       ),
                     ],
                   ),
@@ -62,7 +62,7 @@ class OrderView extends ConsumerWidget {
     );
   }
 
-  Padding buildBody(List<GetOrderlistModel> orderList, BuildContext context, String topic, String className) {
+  Padding buildBody(List<GetProposalModel> proposalList, BuildContext context, String topic, String className) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: LayoutBuilder(
@@ -81,21 +81,21 @@ class OrderView extends ConsumerWidget {
                   crossAxisCount: getCrossAxisCount(constraints),
                   mainAxisSpacing: 3,
                   crossAxisSpacing: 3,
-                  itemCount: orderList.length,
+                  itemCount: proposalList.length,
                   staggeredTileBuilder: (index) => StaggeredTile.fit(1),
                   itemBuilder: (context, index) {
                     return SmallCard(
                       index: index,
-                      id: orderList[index].id.toString(),
                       className: className,
-                      status: orderList[index].state.toString(),
-                      headerDate: orderList[index].orderDate.toString(),
-                      bodyHeader: orderList[index].demandName.toString(),
-                      paymentType: orderList[index].paymentType.toString(),
-                      demandNo: orderList[index].demandNo.toString(),
-                      deliveryDate: orderList[index].deliveryDate.toString(),
-                      paymentDueDate: orderList[index].paymentDueDate.toString(), 
-                      bodyList: orderList[index].products!,
+                      id: proposalList[index].proposalId.toString(),
+                      status: proposalList[index].proposalState.toString(),
+                      bodyHeader: proposalList[index].supplierCompany.toString(),
+                      headerDate: proposalList[index].proposalValidDate.toString(),
+                      paymentType: proposalList[index].paymentType.toString(),
+                      demandNo: proposalList[index].proposalId.toString(),  
+                      deliveryDate: proposalList[index].deliveryDate.toString(),
+                      paymentDueDate: proposalList[index].paymentDueDate.toString(),
+                      bodyList: proposalList[index].productProposals!, 
                     );
                   },
                 ),
