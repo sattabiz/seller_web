@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,18 +9,18 @@ class Info extends ConsumerWidget {
   final String orderDate;
   final dynamic paymentType;
   final String demandNo;
-  final String deliveryDate;
-  final String paymentDueDate;
+  final String ?deliveryDate;
+  final String ?paymentDueDate;
 
 
   const Info({
     Key? key,
-    required this.demandName,
+    required this.demandName,  //invoice'da gib fatura no yollacanacak
     required this.orderDate,
     required this.paymentType,
     required this.demandNo,
-    required this.deliveryDate,
-    required this.paymentDueDate,
+    this.deliveryDate,
+    this.paymentDueDate,
   }) : super(key: key);
 
   @override
@@ -32,19 +33,23 @@ class Info extends ConsumerWidget {
         children: [
           Row(     //row 1
             children:  [
-              Text(
-                FlutterI18n.translate(context, "tr.order.topic"),
-                  style: Theme.of(context).textTheme.titleSmall,                        
+              AutoSizeText( FlutterI18n.translate(context, "tr.order.topic"),
+                style: Theme.of(context).textTheme.titleSmall,
+                maxLines: 1,                        
                 ),
-                const SizedBox(width: 10.0),
-              Text(
+              const SizedBox(width: 10.0),
+              AutoSizeText(
                 demandName,
-                  style: Theme.of(context).textTheme.titleSmall,                        
+                  style: Theme.of(context).textTheme.titleSmall,
+                  minFontSize: 10.0,
+                  maxLines: 3,                        
                 ),                  
             ],
           ),
           const SizedBox(height: 14.0),
-          Table(                               
+          Table(                   
+            textDirection: TextDirection.ltr,
+            defaultColumnWidth: const FlexColumnWidth(1.0),            
             columnWidths: const <int, TableColumnWidth> {
               0: FlexColumnWidth(0.3),
               1: FlexColumnWidth(0.4),
@@ -54,21 +59,23 @@ class Info extends ConsumerWidget {
             children: [
               TableRow(
                 children: <Widget>[
-                  Text(
+                  AutoSizeText(
                     FlutterI18n.translate(context, "tr.order.order_date"),
                     style: Theme.of(context).textTheme.labelSmall,
-                    //  maxLines: 1,                        
+                    maxLines: 1,                        
                   ),
-                  Text(
+                  AutoSizeText(
                     orderDate,
-                    style: Theme.of(context).textTheme.bodySmall,                        
+                    style: Theme.of(context).textTheme.bodySmall,
+                    maxLines: 1,                        
                   ), 
-                  Text(
+                  AutoSizeText(
                     FlutterI18n.translate(context, "tr.order.delivery_date"),
-                    style: Theme.of(context).textTheme.labelSmall,                        
+                    style: Theme.of(context).textTheme.labelSmall,
+                    maxLines: 1,                        
                   ), 
-                  Text(
-                    deliveryDate,
+                  AutoSizeText(
+                    deliveryDate ?? '-',
                     style: Theme.of(context).textTheme.bodySmall,
                     overflow: TextOverflow.fade,
                     maxLines: 1,
@@ -81,19 +88,23 @@ class Info extends ConsumerWidget {
                 children: <Widget>[
                   Text(
                     FlutterI18n.translate(context, "tr.order.payment_type"),
-                    style: Theme.of(context).textTheme.labelSmall,                        
+                    style: Theme.of(context).textTheme.labelSmall,       
+                    maxLines: 1,                              
                   ),                                
                   Text(
                     paymentType,
-                    style: Theme.of(context).textTheme.bodySmall,                        
+                    style: Theme.of(context).textTheme.bodySmall,
+                    maxLines: 1,                                     
                   ),
                   Text(
                     FlutterI18n.translate(context, "tr.order.expiry"),
-                    style: Theme.of(context).textTheme.labelSmall,                        
+                    style: Theme.of(context).textTheme.labelSmall,
+                    maxLines: 1,                                     
                     ), 
                   Text(
-                    paymentDueDate,
-                    style: Theme.of(context).textTheme.bodySmall,                        
+                    paymentDueDate ?? '-',
+                    style: Theme.of(context).textTheme.bodySmall,
+                    maxLines: 1,                                     
                     ),            
                 ],
               ),                                 
@@ -101,21 +112,25 @@ class Info extends ConsumerWidget {
                 children: <Widget>[
                   Text(
                     FlutterI18n.translate(context, "tr.order.demand_no"),
-                    style: Theme.of(context).textTheme.labelSmall,                        
+                    style: Theme.of(context).textTheme.labelSmall,
+                    maxLines: 1,                        
                   ),                            
                   Text(
                     demandNo,
-                    style: Theme.of(context).textTheme.bodySmall,                        
+                    style: Theme.of(context).textTheme.bodySmall, 
+                    maxLines: 1,                       
                   ), 
                   Text(
                     FlutterI18n.translate(context, "tr.order.shipment_payment"),
-                    style: Theme.of(context).textTheme.labelSmall,                        
+                    style: Theme.of(context).textTheme.labelSmall,
+                    maxLines: 1,                        
                   ),              
                   Text(
                     "Satici",
-                    style: Theme.of(context).textTheme.bodySmall,                        
+                    style: Theme.of(context).textTheme.bodySmall,
+                    maxLines: 1,                        
                   ), 
-
+          
                 ],
               ),
             ],
