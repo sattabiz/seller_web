@@ -3,33 +3,68 @@ import '../config/apiUrls.dart';
 import '../model/login_model.dart';
 import '../storage/jwt_storage.dart';
 
+class AuthenticationService {
+  final Dio _dio = Dio(); // Singleton instance
+  final jwtStorageService _jwtStorage;
 
-final Dio _dio = Dio(); // Singleton instance
+  AuthenticationService() : _jwtStorage = jwtStorageService();
 
-Future<LoginModel> loginCall({
-  required String email,
-  required String password,
-}) async {
-  Map<String, dynamic> data = {
-    "api_user": {"email": email, "password": password}
-  };
-
-  try {
-    var _response = await _dio.post(
-      ApiUrls.login,
-      data: data,
-    );
+  Future<LoginModel> loginCall({
+    required String email,
+    required String password,
+  }) async {
+    Map<String, dynamic> data = {
+      "api_user": {"email": email, "password": password}
+    };
 
     try {
-      LoginModel _result = LoginModel.fromJson(_response.data);
-      await jwtStorageService().saveJwtData(_result);
-      return _result;
+      var _response = await _dio.post(
+        ApiUrls.login,
+        data: data,
+      );
+
+      try {
+        LoginModel _result = LoginModel.fromJson(_response.data);
+        await jwtStorageService().saveJwtData(_result);
+        return _result;
+      } catch (e) {
+        throw Exception("Data parsing error: $e");
+      }
+    } on DioError catch (e) {
+      throw Exception(
+          "Request failed with status: ${e.response?.statusCode}, ${e.response?.statusMessage}");
     } catch (e) {
-      throw Exception("Data parsing error: $e");
+      throw Exception("Error occurred: $e");
     }
-  } on DioError catch (e) {
-    throw Exception("Request failed with status: ${e.response?.statusCode}, ${e.response?.statusMessage}");
-  } catch (e) {
-    throw Exception("Error occurred: $e");
+  }
+
+  Future<void> logout() async {
+    // Get JWT token from storage
+    String jwtToken = await _jwtStorage.getJwtData();
+
+    try {
+      // Send DELETE request to logout endpoint
+      var response = await _dio.delete(
+        ApiUrls.logout,
+        options: Options(
+          headers: {
+            "Authorization": jwtToken,
+          },
+        ),
+      );
+
+      // Check response status
+      if (response.statusCode == 200) {
+        // Delete JWT token from storage
+        await _jwtStorage.deleteJwtData();
+      } else {
+        throw Exception("Logout failed with status: ${response.statusCode}");
+      }
+    } on DioError catch (e) {
+      throw Exception(
+          "Request failed with status: ${e.response?.statusCode}, ${e.response?.statusMessage}");
+    } catch (e) {
+      throw Exception("Error occurred: $e");
+    }
   }
 }

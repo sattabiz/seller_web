@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-
 enum SampleItem { itemOne, itemTwo }
 
 class DrawerHeaderButton extends StatefulWidget {
@@ -27,13 +26,11 @@ class _DrawerHeaderButtonState extends State<DrawerHeaderButton> {
     return Center(
       child: Builder(builder: (BuildContext context) {
         return InkWell(
-          onTap: () {
-            
-          },
+          onTap: () {},
           child: Container(
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-            width: MediaQuery.of(context).size.width >1500? MediaQuery.of(context).size.width* 0.13:MediaQuery.of(context).size.width* 0.6,
-            height: MediaQuery.of(context).size.width >800? MediaQuery.of(context).size.height* 0.080:MediaQuery.of(context).size.height * 0.2,
+            width: 250,
+            height: 90,
             child: Card(
               color: Theme.of(context).colorScheme.secondary,
               child: Center(
@@ -42,21 +39,19 @@ class _DrawerHeaderButtonState extends State<DrawerHeaderButton> {
                   children: [
                     Flexible(
                         child: Icon(
-                          Icons.add,
-                          color: Theme.of(context).colorScheme.onSecondary,
-                          size: 24,
-                        )),
-                    const SizedBox(width: 5,),
+                      Icons.add,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                      size: 24,
+                    )),
+                    const SizedBox(
+                      width: 5,
+                    ),
                     Flexible(
                       child: AutoSizeText(
                         'Yeni Teklif İsteği',
                         maxLines: 1,
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelLarge!
-                            .copyWith(
-                              color:
-                                  Theme.of(context).colorScheme.onSecondary,
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              color: Theme.of(context).colorScheme.onSecondary,
                             ),
                       ),
                     ),

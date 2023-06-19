@@ -98,10 +98,8 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
               ? Theme.of(context).colorScheme.secondaryContainer
               : Theme.of(context).colorScheme.surface,
         ),
-        width: screenWidth * 0.98,
-        height: MediaQuery.of(context).size.width > 650
-            ? screenHeight * 0.09
-            : screenHeight * 0.2,
+        width: 150,
+        height:90,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -143,6 +141,7 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
     );
   }
 }
+
 
 
 
