@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../model/login_model.dart';
 import '../service/login_service.dart';
-
 
 enum LoginState {
   //bu sonra utils/login_states e alinacak
@@ -22,11 +22,14 @@ class LoginViewModel extends StateNotifier<LoginState> {
   String? get errorMessage => _errorMessage;
 
   Future<void> login({required String email, required String password}) async {
+    final autService = AuthenticationService();
     state = LoginState.loading;
     try {
-      _loginModel = await loginCall(email: email, password: password);
+      _loginModel = await autService.loginCall(email: email, password: password);
       if (_loginModel!.status == 200) {
+        debugPrint(_loginModel!.status.toString());
         state = LoginState.success;
+        debugPrint(state.toString());
       } else {
         state = LoginState.failure;
         _errorMessage = 'Hatalı durum kodu: ${_loginModel!.status}';
