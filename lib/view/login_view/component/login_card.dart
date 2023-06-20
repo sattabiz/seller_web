@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../view_model/current_user_view_model.dart';
 import '../../../view_model/login_view_model.dart';
-
 
 class loginCard extends ConsumerWidget {
   loginCard({Key? key}) : super(key: key);
@@ -43,13 +43,15 @@ class loginCard extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Flexible(
-                            child: AutoSizeText(FlutterI18n.translate(context, "tr.login.signin"),
+                            child: AutoSizeText(
+                                FlutterI18n.translate(
+                                    context, "tr.login.signin"),
                                 minFontSize: 5,
                                 style: Theme.of(context).textTheme.titleLarge!),
                           ),
                           Flexible(
-                            child: IconButton(                              
-                              icon: Icon(                                
+                            child: IconButton(
+                              icon: Icon(
                                 Icons.close,
                                 size: screenWidth * 0.017,
                               ),
@@ -76,17 +78,19 @@ class loginCard extends ConsumerWidget {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Theme.of(context).colorScheme.surface,
-                        border: const UnderlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        ),
-                        labelText: FlutterI18n.translate(context, "tr.login.e-mail"),
-                        hintText: FlutterI18n.translate(context, "tr.login.hint_text_email")
-                      ),
+                          filled: true,
+                          fillColor: Theme.of(context).colorScheme.surface,
+                          border: const UnderlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          ),
+                          labelText:
+                              FlutterI18n.translate(context, "tr.login.e-mail"),
+                          hintText: FlutterI18n.translate(
+                              context, "tr.login.hint_text_email")),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
-                          return FlutterI18n.translate(context, "tr.login.email_validation");
+                          return FlutterI18n.translate(
+                              context, "tr.login.email_validation");
                         }
                         return null;
                       },
@@ -108,12 +112,14 @@ class loginCard extends ConsumerWidget {
                         border: const UnderlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
-                        labelText: FlutterI18n.translate(context, "tr.login.password"),
+                        labelText:
+                            FlutterI18n.translate(context, "tr.login.password"),
                         hintText: '********',
                       ),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
-                          return FlutterI18n.translate(context, "tr.login.password_validation");
+                          return FlutterI18n.translate(
+                              context, "tr.login.password_validation");
                         }
                         return null;
                       },
@@ -129,13 +135,16 @@ class loginCard extends ConsumerWidget {
                                 ref.watch(loginViewModelProvider);
                             if (loginState == LoginState.success) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(FlutterI18n.translate(context, "tr.login.login_success"))),
+                                SnackBar(
+                                    content: Text(FlutterI18n.translate(
+                                        context, "tr.login.login_success"))),
                               );
                               Navigator.pushNamed(context, '/orderScreen');
                             } else if (loginState == LoginState.failure) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                    content: Text(FlutterI18n.translate(context, "tr.login.login_fail"))),
+                                    content: Text(FlutterI18n.translate(
+                                        context, "tr.login.login_fail"))),
                               );
                             }
                           } catch (e) {
@@ -151,9 +160,9 @@ class loginCard extends ConsumerWidget {
                 ),
                 InkWell(
                   onTap: () => _dialogBuilder(context),
-                  child:  Text(
+                  child: Text(
                     FlutterI18n.translate(context, "tr.login.forget_password"),
-                    style: const  TextStyle(
+                    style: const TextStyle(
                       color: Colors.blue,
                       decoration: TextDecoration.underline,
                     ),
@@ -178,16 +187,22 @@ class loginCard extends ConsumerWidget {
                           final loginState = ref.read(loginViewModelProvider);
 
                           if (loginState == LoginState.success) {
+                            final currentUserInfo = ref.read(getCurrentUserInfoProvider);
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(FlutterI18n.translate(context, "tr.login.login_success"))),
+                              SnackBar(
+                                  content: Text(FlutterI18n.translate(
+                                      context, "tr.login.login_success"))),
                             );
+                            final currentUserAsyncValue =
+                                ref.watch(getCurrentUserInfoProvider);
                             await Navigator.pushNamed(context, '/orderScreen');
                           } else if (loginState == LoginState.failure) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text(FlutterI18n.translate(context, "tr.login.login_fail"))),
-                              );
-                            }
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(FlutterI18n.translate(
+                                      context, "tr.login.login_fail"))),
+                            );
+                          }
                         } catch (e) {
                           // print(e);
                         }
