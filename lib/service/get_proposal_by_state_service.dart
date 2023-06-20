@@ -23,9 +23,6 @@ class GetProposalListService {
           },
         ),
       );
-      // debugPrint('aaaaaaa${response.data['status'].toString()}');
-      // debugPrint('aaaaaaa${response.data['proposals'].toString()}');
-      // debugPrint('aaaaaaa${response.data.toString()}');
       List<dynamic> data = response.data['proposals'] ?? [];
       data.forEach((element) {
         GetProposalModel? getOrderlistModel = GetProposalModel.fromMap(element);

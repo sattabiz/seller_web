@@ -11,10 +11,20 @@ enum SampleItem { itemOne, itemTwo }
 
 class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
   const AppbarTop({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUserAsyncValue = ref.watch(getCurrentUserInfoProvider);
+    final currentUser = currentUserAsyncValue.maybeWhen(
+      data: (data) => data.currentUser,
+      orElse: () => null,
+    );
+    final company = currentUserAsyncValue.maybeWhen(
+      data: (data) => data.company,
+      orElse: () => null,
+    );
+    
     double screenWidth = MediaQuery.of(context).size.width;
     return PreferredSize(
       preferredSize: preferredSize,
@@ -29,40 +39,36 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
         ),
         actions: <Widget>[
           if (screenWidth > 1070)
-            ref.watch(getCurrentUserInfoProvider).when(
-                  data: (currentUser) => Flexible(
-                    child: AutoSizeText(
-                      
-                      currentUser[0] ?? '',
-                      maxLines: 1,
-                      style:
-                          Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                              ),
-                    ),
-                  ),
-                  loading: () => Container(), // Handle loading state if needed
-                  error: (error, stackTrace) =>
-                      Container(), // Handle error state if needed
+            Flexible(
+              child: currentUserAsyncValue.when(
+                data: (data) => AutoSizeText(
+                  company?.name ?? '',
+                  maxLines: 1,
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                 ),
+                loading: () => CircularProgressIndicator(),
+                error: (error, stackTrace) => Text('Error: $error'),
+              ),
+            ),
           SizedBox(
             width: screenWidth * 0.013,
           ),
           if (screenWidth > 600)
-            ref.watch(getCurrentUserInfoProvider).when(
-                  data: (currentUsern) => Flexible(
-                    child: AutoSizeText(
-                      currentUsern[1] ?? '',
-                      style:
-                          Theme.of(context).textTheme.titleMedium!.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                              ),
-                    ),
-                  ),
-                  loading: () => Container(), // Handle loading state if needed
-                  error: (error, stackTrace) =>
-                      Container(), // Handle error state if needed
+            Flexible(
+              child: currentUserAsyncValue.when(
+                data: (data) => AutoSizeText(
+                  currentUser?.fullName ?? '',
+                  maxLines: 1,
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                 ),
+                loading: () => CircularProgressIndicator(),
+                error: (error, stackTrace) => Text('Error: $error'),
+              ),
+            ),
           SizedBox(
             width: screenWidth * 0.013,
           ),
@@ -108,6 +114,7 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
                     if (logoutViewModel.state == LogoutState.success) {
                       final _jwt = await jwtStorageService().getJwtData();
                       debugPrint('asasa${_jwt}');
+                      
                       Navigator.pushNamed(context, '/login');
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

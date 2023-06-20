@@ -1,8 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import '../model/get_current_user_info_model.dart';
-import '../model/get_order_list_model.dart';
-import '../storage/current_user_storage.dart';
 import '../storage/jwt_storage.dart';
 
 class UserService {
@@ -10,7 +7,6 @@ class UserService {
       "https://test.satta.biz/api/v1/current_user_info.json";
 
   final Dio _dio = Dio();
-  final secureStorageService = SecureStorageService();
 
   Future<CurrentUserInfoModel> getCurrentUserInfo() async {
     _dio.options.responseType = ResponseType.json;
@@ -26,26 +22,19 @@ class UserService {
           },
         ),
       );
-      debugPrint(response.statusCode.toString());
-      debugPrint(response.data.toString());
-      secureStorageService.saveName(
-        response.data['company']['name'],
-      );
-      secureStorageService.saveFullName(
-        response.data['current_user']['full_name'],
-      );
-
-      if (response.statusCode == 200) {
-        CurrentUserInfoModel currentUserInfo =
-            CurrentUserInfoModel.fromMap(response.data);
-        return currentUserInfo;
-      } else {
-        throw DioException(
+      if (response.statusCode != 200) {
+        throw DioError(
             requestOptions: response.requestOptions,
             error: 'HTTP status error: ${response.statusCode}');
       }
+
+      CurrentUserInfoModel currentUserInfoModel =
+          CurrentUserInfoModel.fromMap(response.data);
+
+      return currentUserInfoModel;
     } catch (e) {
       throw e;
     }
   }
 }
+
