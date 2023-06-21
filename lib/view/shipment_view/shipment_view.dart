@@ -2,31 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:seller_point/view/widget/loading_widget.dart';
-import '../../model/get_order_list_model.dart';
-import '../../view_model/order_list_view_model.dart';
+
+import '../../model/shipment_model.dart';
+import '../../view_model/shipment_view_model.dart';
 import '../widget/appbar.dart';
+import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
 import '../widget/nav_rail.dart';
-import '../widget/small_card/small_card.dart';
-
-
-class OrderView extends ConsumerWidget {
-  const OrderView({Key? key}) : super(key: key);
+import '../widget/small_card/small_card_shipment.dart';
+class ShipmentView extends ConsumerWidget {
+ const ShipmentView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final orderListAsyncValue = ref.watch(getOrderListProvider);
-
-    return orderListAsyncValue.when(
-      data: (orderList) {
+    final shipmentListAsyncValue = ref.watch(shipmentProvider);
+    return shipmentListAsyncValue.when(
+      data: (shipmentList) {
         return LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             if (constraints.maxWidth < 1070) {
               return Scaffold(
                 drawer: const Drawer(child: NavigationRailDrawer()),
                 appBar: AppbarTop(), //appbar
-                body: buildBody(orderList, context, FlutterI18n.translate(context, "tr.order.orders"), "order"),
+                body: buildBody(shipmentList, context, FlutterI18n.translate(context, "tr.shipment.shipments"), "shipment"),
               );
             } else {
               return Scaffold(
@@ -40,7 +38,7 @@ class OrderView extends ConsumerWidget {
                       ),
                       Expanded(
                         flex: 9,
-                        child: buildBody(orderList, context, FlutterI18n.translate(context, "tr.order.orders"), "order"), //order screen body
+                        child: buildBody(shipmentList, context, FlutterI18n.translate(context, "tr.shipment.shipments"), "shipment"),
                       ),
                     ],
                   ),
@@ -55,12 +53,12 @@ class OrderView extends ConsumerWidget {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.pushNamed(context, '/login');
         });
-        return Text('An error occurred: $error');
+      return Text('An error occurred: $error');
       },
     );
   }
 
-  Padding buildBody(List<GetOrderlistModel> orderList, BuildContext context, String topic, String className) {
+  Padding buildBody(List<Shipment> shipmentList, BuildContext context, String topic, String className) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: LayoutBuilder(
@@ -79,21 +77,21 @@ class OrderView extends ConsumerWidget {
                   crossAxisCount: getCrossAxisCount(constraints),
                   mainAxisSpacing: 3,
                   crossAxisSpacing: 3,
-                  itemCount: orderList.length,
+                  itemCount: shipmentList.length,
                   staggeredTileBuilder: (index) => StaggeredTile.fit(1),
                   itemBuilder: (context, index) {
-                    return SmallCard(
+                    return SmallCardShipment(
                       index: index,
-                      id: orderList[index].id.toString(),
+                      id: shipmentList[index].shipmentId.toString(),
                       className: className,
-                      status: orderList[index].state.toString(),
-                      headerDate: orderList[index].orderDate.toString(),
-                      bodyHeader: orderList[index].demandName.toString(),
-                      paymentType: orderList[index].paymentType.toString(),
-                      demandNo: orderList[index].demandNo.toString(),
-                      deliveryDate: orderList[index].deliveryDate.toString(),
-                      paymentDueDate: orderList[index].paymentDueDate.toString(), 
-                      bodyList: orderList[index].products!,
+                      status: shipmentList[index].state.toString(),
+                      headerDate: shipmentList[index].shipmentDate.toString(),
+                      bodyHeader: shipmentList[index].waybillNo.toString(), //fatura_no
+                      // paymentType: shipmentList[index].paymentType.toString(), //shipment'da yok
+                      // demandNo: shipmentList[index].demandNo.toString(),
+                      // deliveryDate: shipmentList[index].deliveryDate.toString(),
+                      // paymentDueDate: shipmentList[index].paymentDueDate.toString(), 
+                      bodyList: shipmentList[index].products,
                     );
                   },
                 ),
@@ -114,4 +112,6 @@ class OrderView extends ConsumerWidget {
       return 1;
     }
   }
+
+  
 }

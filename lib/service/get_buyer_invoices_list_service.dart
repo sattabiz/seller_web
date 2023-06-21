@@ -27,12 +27,6 @@ class getInvoicesService {
         ),
       );
 
-
-
-      /* debugPrint('bbbbbbbbbbbbbb${response.data['status'].toString()}');
-      debugPrint('bbbbbbbbbbbbbbbbbb${response.data['invoices'].toString()}');
-      debugPrint('bbbbbbbbbbbbbbbbb${response.data.toString()}'); */
-
       if (response.statusCode != 200) {
         throw DioError(
             requestOptions: response.requestOptions,

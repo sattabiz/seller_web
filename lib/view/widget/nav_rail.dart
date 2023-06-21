@@ -23,8 +23,10 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
       currentIndex = 0;
     } else if (routeName == '/orderScreen') {
       currentIndex = 1;
+   } else if (routeName == '/shipmentScreen') {
+      currentIndex = 2;  
     } else if (routeName == '/invoiceScreen') {
-      currentIndex = 2;
+      currentIndex = 3;
     }
   }
 
@@ -60,22 +62,22 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
               height: 24,
             ),
             drawerButton(
-              context,
-              'Teklif İstekleri',
-              'assets/proposal.svg',
-              '/proposalScreen',
-              0,
-            ),
+              context,'Teklif İstekleri','assets/proposal.svg', '/proposalScreen',0),
             const SizedBox(
               height: 16,
             ),
             drawerButton(
-                context, 'Siparişler', 'assets/order.svg', '/orderScreen', 1),
+                context, 'Siparişler', 'assets/order.svg', '/orderScreen', 1),               
+            const SizedBox(
+              height: 16,
+            ),
+            drawerButton(
+              context, 'Sevkiyat', 'assets/order.svg', '/shipmentScreen', 2),
             const SizedBox(
               height: 16,
             ),
             drawerButton(context, 'Faturalar', 'assets/invoice.svg',
-                '/invoiceScreen', 2),
+                '/invoiceScreen', 3),
           ],
         ),
       ),

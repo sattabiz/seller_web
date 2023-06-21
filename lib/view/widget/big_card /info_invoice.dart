@@ -23,8 +23,8 @@ class InfoInvoice extends StatelessWidget {
 
   @override
   Widget  build(BuildContext context){
-    return Container(
-      padding: const EdgeInsets.all(20.0),
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, top: 16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,20 +37,22 @@ class InfoInvoice extends StatelessWidget {
               ),
             const SizedBox(width: 10.0),
             AutoSizeText(
-              invoiceNo,
+              orderDate,
                 style: Theme.of(context).textTheme.titleSmall,
                 minFontSize: 10.0,
                 maxLines: 3,                        
               ),                  
             ],
           ),
+          const SizedBox(height: 20.0),
           Row(     //row 1
             children:  [
               AutoSizeText(
                 FlutterI18n.translate(context, "tr.order.order_date"),
-                style: Theme.of(context).textTheme.labelSmall,
+                style: Theme.of(context).textTheme.bodySmall,
                 maxLines: 1,                        
               ),
+              const SizedBox(width: 10.0),
               AutoSizeText(
                 orderDate,
                 style: Theme.of(context).textTheme.bodySmall,
@@ -58,28 +60,32 @@ class InfoInvoice extends StatelessWidget {
               ),     
             ],
           ),
+          const SizedBox(height: 10.0),
           Row(     //row 1
             children:  [
-              Text(
+              AutoSizeText(
                 FlutterI18n.translate(context, "tr.order.payment_type"),
                 style: Theme.of(context).textTheme.labelSmall,       
                 maxLines: 1,                              
-              ),                                
-              Text(
-                paymentType,
+              ),                
+              const SizedBox(width: 10.0),                
+              AutoSizeText(
+                paymentType == null ? '-' : paymentType,
                 style: Theme.of(context).textTheme.bodySmall,
                 maxLines: 1,                                     
               ),
             ],
           ),
+          const SizedBox(height: 10.0),
           Row(     //row 1
             children:  [
-              Text(
+              AutoSizeText(
                 FlutterI18n.translate(context, "tr.order.demand_no"),
                 style: Theme.of(context).textTheme.labelSmall,
                 maxLines: 1,                        
-              ),                            
-              Text(
+              ),
+              const SizedBox(width: 10.0),                            
+              AutoSizeText(
                 demandNo,
                 style: Theme.of(context).textTheme.bodySmall, 
                 maxLines: 1,                       
