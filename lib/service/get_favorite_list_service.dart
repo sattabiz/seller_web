@@ -34,8 +34,6 @@ class getFavoriteListService {
 
       List _data = _response.data['favorite_lists'];
 
-      debugPrint("Received data from server: $_data");
-
       _data.forEach((element) {
         GetFavoriteListModel getOrderlistModel =
             GetFavoriteListModel.fromMap(element);

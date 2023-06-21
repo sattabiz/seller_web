@@ -27,7 +27,7 @@ class navigationRailFavoriteContent extends ConsumerWidget {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return favoriteListWidget();
+                            return favoriteListWidget(data: data[index]);
                           },
                         );
                       },

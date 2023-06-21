@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import 'create_proposal_button.dart';
-import 'new_offer_request_content.dart';
-import 'new_offer_request_table.dart';
+import 'create_proposal_view_content.dart';
+import 'create_proposal_view_table.dart';
 class createProposalView extends ConsumerWidget {
   const createProposalView({Key? key}) : super(key: key);
 

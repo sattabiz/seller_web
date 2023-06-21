@@ -1,30 +1,36 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:seller_point/model/get_favorite_list_model.dart';
 
 class favoriteListTable extends StatefulWidget {
-  const favoriteListTable({Key? key}) : super(key: key);
+  List<Product> items;
+  favoriteListTable({required this.items, Key? key}) : super(key: key);
 
   @override
   _FavoriteListTable createState() => _FavoriteListTable();
 }
 
 class _FavoriteListTable extends State<favoriteListTable> {
-  List<Widget> _items = [];
   final categories = ["Category 1", "Category 2", "Category 3"];
   String? selectedCategories;
   bool masterCheckBox = false;
+
+  List<Widget> _items = []; // We need to declare our list in the state class
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _addNewItem();
+      for (var product in widget.items) {
+        _addNewItem(product: product);
+      }
     });
   }
 
-  void _addNewItem() {
-    _items.add(_buildItem(key: UniqueKey(), isChecked: masterCheckBox));
+  void _addNewItem({required Product product}) {
+    _items.add(_buildItem(
+        key: UniqueKey(), isChecked: masterCheckBox, product: product));
     setState(() {});
   }
 
@@ -33,7 +39,8 @@ class _FavoriteListTable extends State<favoriteListTable> {
     setState(() {});
   }
 
-  Widget _buildItem({required Key? key, required bool isChecked}) {
+  Widget _buildItem(
+      {required Key? key, required bool isChecked, required Product product}) {
     final itemKey = GlobalKey();
     return Column(
       key: itemKey,
@@ -51,7 +58,9 @@ class _FavoriteListTable extends State<favoriteListTable> {
                         _items = _items.map((item) {
                           if (item.key == itemKey) {
                             return _buildItem(
-                                key: item.key, isChecked: value ?? false);
+                                key: item.key,
+                                isChecked: value ?? false,
+                                product: product);
                           } else {
                             return item;
                           }
@@ -96,6 +105,7 @@ class _FavoriteListTable extends State<favoriteListTable> {
                       border: OutlineInputBorder(),
                       labelText: 'Ürün',
                     ),
+                    initialValue: product.name,
                   ),
                 ),
                 const SizedBox(
@@ -108,6 +118,7 @@ class _FavoriteListTable extends State<favoriteListTable> {
                       labelText: 'Miktar',
                       suffixText: 'adet',
                     ),
+                    initialValue: product.requesterAmount.toString(),
                   ),
                 ),
                 const SizedBox(
@@ -115,9 +126,7 @@ class _FavoriteListTable extends State<favoriteListTable> {
                 ),
                 InkWell(
                   child: const Icon(Icons.attach_file),
-                  onTap: () {
-                    
-                  },
+                  onTap: () {},
                 ),
                 const SizedBox(
                   width: 16,
@@ -131,11 +140,7 @@ class _FavoriteListTable extends State<favoriteListTable> {
     );
   }
 
-  Widget _updateItemCheckbox(Widget item, bool value) {
-    final key = item.key;
-    final isChecked = value;
-    return _buildItem(key: key, isChecked: isChecked);
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -162,12 +167,7 @@ class _FavoriteListTable extends State<favoriteListTable> {
                   child: Checkbox(
                     value: masterCheckBox,
                     onChanged: (value) {
-                      setState(() {
-                        masterCheckBox = value ?? false;
-                        _items = _items.map((item) {
-                          return _updateItemCheckbox(item, masterCheckBox);
-                        }).toList();
-                      });
+                      
                     },
                   ),
                 ),
@@ -208,7 +208,7 @@ class _FavoriteListTable extends State<favoriteListTable> {
           Padding(
             padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
             child: InkWell(
-              onTap: () => _addNewItem(),
+              onTap: () {},
               child: const Icon(
                 Icons.add,
                 size: 30,
