@@ -28,7 +28,7 @@ class Header extends ConsumerWidget {
         topLeft: Radius.circular(15.0),
         topRight: Radius.circular(15.0),
         ),
-        color: Theme.of(context).colorScheme.surfaceVariant,
+        color: surfaceDim,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

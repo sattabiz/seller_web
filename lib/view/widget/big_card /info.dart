@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class Info extends ConsumerWidget {
   final String demandName;
   final String orderDate;
-  final dynamic paymentType;
+  final String ?paymentType;
   final String demandNo;
   final String ?deliveryDate;
   final String ?paymentDueDate;
@@ -17,7 +17,7 @@ class Info extends ConsumerWidget {
     Key? key,
     required this.demandName,  //invoice'da gib fatura no yollacanacak
     required this.orderDate,
-    required this.paymentType,
+    this.paymentType,
     required this.demandNo,
     this.deliveryDate,
     this.paymentDueDate,
@@ -92,7 +92,7 @@ class Info extends ConsumerWidget {
                     maxLines: 1,                              
                   ),                                
                   Text(
-                    paymentType,
+                    paymentType == null ? '-' : paymentType!,
                     style: Theme.of(context).textTheme.bodySmall,
                     maxLines: 1,                                     
                   ),
@@ -107,7 +107,7 @@ class Info extends ConsumerWidget {
                     maxLines: 1,                                     
                     ),            
                 ],
-              ),                                 
+              ),                               
               TableRow(
                 children: <Widget>[
                   Text(

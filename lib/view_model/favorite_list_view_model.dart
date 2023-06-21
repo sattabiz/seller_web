@@ -9,7 +9,6 @@ final favoriteListProvider = FutureProvider<List<GetFavoriteListModel>>((ref) as
   final _orderlistservice = getFavoriteListService();
   try {
     List<GetFavoriteListModel> _orderList = await _orderlistservice.getFavoriteListtData();
-    debugPrint("Received data from server: $_orderList");
     return _orderList;
   } catch (e) {
     if (e is DioException) {

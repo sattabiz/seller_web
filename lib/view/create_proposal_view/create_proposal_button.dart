@@ -25,7 +25,6 @@ class createProposalButton extends ConsumerWidget {
                   await _orderlistservice.createProposlPost(
                       _productsAttributes,
                       _contentItems);
-              debugPrint('Response: ${_orderList.toJson()}');
             } catch (e) {
               debugPrint('API çağrısında bir hata oluştu: $e');
             }

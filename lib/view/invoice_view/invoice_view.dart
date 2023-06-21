@@ -6,9 +6,10 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../../model/get_buyer_invoices_list_model.dart';
 import '../../view_model/buyer_invoices_view_model.dart';
 import '../widget/appbar.dart';
+import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
 import '../widget/nav_rail.dart';
-import '../widget/small_card.dart';
+import '../widget/small_card/small_card.dart';
 
 
 class invoiceView extends ConsumerWidget {
@@ -17,6 +18,7 @@ class invoiceView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final invoiceListAsyncValue = ref.watch(getInvoicesProvider);
+    // debugPrint(invoiceListAsyncValue.toString());
 
     return invoiceListAsyncValue.when(
       data: (invoiceList) {
@@ -50,7 +52,7 @@ class invoiceView extends ConsumerWidget {
           },
         );
       },
-      loading: () => const CircularProgressIndicator(),
+      loading: () => const LoadingWidget(),
       error: (error, stack) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.pushNamed(context, '/login');

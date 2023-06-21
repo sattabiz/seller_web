@@ -7,9 +7,10 @@ import '../../model/get_order_list_model.dart';
 import '../../model/get_proposals_by_state.dart';
 import '../../view_model/proposal_view_model.dart';
 import '../widget/appbar.dart';
+import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
 import '../widget/nav_rail.dart';
-import '../widget/small_card.dart';
+import '../widget/small_card/small_card.dart';
 
 
 
@@ -52,7 +53,7 @@ class proposalView extends ConsumerWidget {
           },
         );
       },
-      loading: () => const CircularProgressIndicator(),
+      loading: () => const LoadingWidget(),
       error: (error, stack) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.pushNamed(context, '/login');

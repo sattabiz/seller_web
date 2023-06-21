@@ -14,7 +14,9 @@ class InvoiceTable extends StatelessWidget {
     });
 
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
+    const surfaceDim = Color(0xFFD8DBD8);
+    
     return DataTable2(
       columnSpacing: 10,
       // horizontalMargin: 22,
@@ -24,7 +26,7 @@ class InvoiceTable extends StatelessWidget {
       headingTextStyle: Theme.of(context).textTheme.labelMedium,
       dataTextStyle: Theme.of(context).textTheme.bodySmall,
       dataRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.onPrimary),
-      headingRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.outlineVariant),
+      headingRowColor: MaterialStateProperty.all<Color>(surfaceDim),
       // empty: Placeholder(),
       columns: [
         const DataColumn2(
