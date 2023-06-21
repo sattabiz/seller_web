@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../../model/get_favorite_list_model.dart';
 import '../create_proposal_view/create_proposal_button.dart';
-import '../create_proposal_view/new_offer_request_content.dart';
+import '../create_proposal_view/create_proposal_view_content.dart';
 import 'favorite_list_table.dart';
 
-class favoriteListWidget extends StatefulWidget {
-  const favoriteListWidget({Key? key}) : super(key: key);
+class favoriteListWidget extends StatelessWidget {
+  final GetFavoriteListModel data;
+  const favoriteListWidget({required this.data, Key? key}) : super(key: key);
 
-  @override
-  _FavoriteListWidgetState createState() => _FavoriteListWidgetState();
-}
-
-class _FavoriteListWidgetState extends State<favoriteListWidget> {
   @override
   Widget build(BuildContext context) {
+  
     return AlertDialog(
       titlePadding: EdgeInsets.zero,
       title: Container(
@@ -59,8 +57,9 @@ class _FavoriteListWidgetState extends State<favoriteListWidget> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          createProposalViewContent(),
-          favoriteListTable(),
+          createProposalViewContent(topic: data.name!),
+          favoriteListTable(items: data.products ?? []),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

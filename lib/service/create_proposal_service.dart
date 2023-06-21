@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../model/create_proposal_model.dart';
 import '../storage/jwt_storage.dart';
-import '../view/create_proposal_view/new_offer_request_content.dart';
-import '../view/create_proposal_view/new_offer_request_table.dart';
+import '../view/create_proposal_view/create_proposal_view_content.dart';
+import '../view/create_proposal_view/create_proposal_view_table.dart';
 
 
 class createProposalService {

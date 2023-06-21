@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../model/create_proposal_model.dart';
 import '../../service/create_proposal_service.dart';
-import 'new_offer_request_content.dart';
-import 'new_offer_request_table.dart';
+import 'create_proposal_view_content.dart';
+import 'create_proposal_view_table.dart';
 
 class createProposalButton extends ConsumerWidget {
   const createProposalButton({Key? key}) : super(key: key);

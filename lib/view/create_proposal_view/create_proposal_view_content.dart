@@ -18,7 +18,8 @@ class OfferModel {
 final offerModelProvider = Provider<OfferModel>((ref) => OfferModel());
 
 class createProposalViewContent extends ConsumerWidget {
-  createProposalViewContent({Key? key}) : super(key: key);
+  final String topic;
+  createProposalViewContent({this.topic = ' ', Key? key}) : super(key: key);
   final _dropdownMaxValue = 150;
   final TextEditingController _topic = TextEditingController();
   final TextEditingController _deliveryDate = TextEditingController();
@@ -42,7 +43,7 @@ class createProposalViewContent extends ConsumerWidget {
               ),
               hintText: 'Konu',
             ),
-            controller: _topic,
+            initialValue: topic,
             validator: (String? value) {
               if (value == null || value.isEmpty) {
                 return 'Lütfen konu giriniz.';
@@ -110,6 +111,7 @@ class createProposalViewContent extends ConsumerWidget {
                       int differenceInDays =
                           pickedDate.difference(currentDate).inDays;
                       differenceInDays = differenceInDays + 1;
+                      debugPrint(differenceInDays.toString());
 
 
                       _validDays.text = pickedDate.toString();

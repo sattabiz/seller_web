@@ -113,8 +113,9 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
 
                     if (logoutViewModel.state == LogoutState.success) {
                       final _jwt = await jwtStorageService().getJwtData();
+                      debugPrint('asasa${_jwt}');
                       
-                      Navigator.pushNamed(context, '/login');
+                      Navigator.pushNamed(context, '/LandingScreen');
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
