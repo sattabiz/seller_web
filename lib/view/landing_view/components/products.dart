@@ -1,16 +1,19 @@
-import 'package:flutter/material.dart';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../model/get_current_user_info_model.dart';
+import '../../../view_model/current_user_landing_page.dart';
 
 class Products extends ConsumerWidget {
   final int sectionIndex;
-  const Products({Key? key, required this.sectionIndex})
-    : super(key: key);
+  const Products({Key? key, required this.sectionIndex}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-     const Color surfaceContainer = Color(0xFFECEEEB);
-    
+    const Color surfaceContainer = Color(0xFFECEEEB);
+
     return Row(
       children: [
         Expanded(
@@ -26,12 +29,12 @@ class Products extends ConsumerWidget {
             padding: const EdgeInsets.all(40.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children:  const <Widget>[
-                ProductTitle(),               
+              children: <Widget>[
+                ProductTitle(),
                 Flexible(
                   child: Padding(
                     padding: EdgeInsets.only(left: 60.0, right: 20.0),
-                    child: ProductDetail(),
+                    child: _ProductDetailState(),
                   ),
                 ),
               ],
@@ -41,7 +44,7 @@ class Products extends ConsumerWidget {
         // SizedBox(width: 50),
         const Expanded(
           flex: 6,
-          child: ProductImage(), 
+          child: ProductImage(),
         ),
       ],
     );
@@ -56,38 +59,64 @@ class ProductTitle extends ConsumerStatefulWidget {
 }
 
 class _ProductTitleState extends ConsumerState<ProductTitle> {
-
   @override
   Widget build(BuildContext context) {
-    return  AutoSizeText(
-      "Palet Point", 
-      style: Theme.of(context).textTheme.displayMedium, 
-      maxLines: 2
-    );
+    return AutoSizeText("Palet Point",
+        style: Theme.of(context).textTheme.displayMedium, maxLines: 2);
   }
 }
 
-class ProductDetail extends ConsumerStatefulWidget {
-  const ProductDetail({super.key});
-
+class _ProductDetailState extends ConsumerWidget {
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ProductDetailState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userInfoFuture = ref.watch(getCurrentUserLandingProvider);
+    return userInfoFuture.when(
+      data: (CurrentUserInfoModel data) {
+        final user = data.currentUser;
+        final company = data.company;
 
-class _ProductDetailState extends ConsumerState<ProductDetail> {
+        // return user and company object
+        final userProperties = user!.toMap().values.toList();
+        final companyProperties = company!.toMap().values.toList();
 
-  @override
-  Widget build(BuildContext context) {
-    const productDetails = "Glopal Pallet Company is committed to ensure safe transportation of your products while helping you lower your packaging costs. Driven with this purpose, we provide the best quality hardwood, softwood and combo pallets with high load-bearing capacity. We can custom design any size pallets to perfectly meet the specific needs of your products.  Our experts will be happy to assist you in identifying the perfect size and material that will help you save space and packaging costs.All products can be Heat Treated to meet ISPM-15 specifications. Heat Treat certificates are available upon request.";
-    return AutoSizeText(
-      productDetails,
-      softWrap: true,
-      textAlign: TextAlign.left,
-      style: Theme.of(context).textTheme.titleLarge, 
+        return ListView(
+          children: [
+            Text(
+              "User Info:",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            Wrap(
+              spacing: 8.0, 
+              runSpacing: 4.0, 
+              children: userProperties
+                  .map(
+                    (prop) => Text('${prop.toString()},',
+                        style: Theme.of(context).textTheme.bodySmall),
+                  )
+                  .toList(),
+            ),
+            Text(
+              "Company Info:",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            Wrap(
+              spacing: 8.0,
+              runSpacing: 4.0, 
+              children: companyProperties
+                  .map(
+                    (prop) => Text('${prop.toString()},',
+                        style: Theme.of(context).textTheme.bodySmall),
+                  )
+                  .toList(),
+            ),
+          ],
+        );
+      },
+      loading: () => CircularProgressIndicator(),
+      error: (error, stackTrace) => Text('Error: $error'),
     );
   }
 }
-
 class ProductImage extends ConsumerStatefulWidget {
   const ProductImage({super.key});
 
