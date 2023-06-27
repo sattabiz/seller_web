@@ -18,6 +18,7 @@ tr:
     proposal_stvs: "Teklif Verildi"
     product: "Ürün"
     amount: "Miktar"
+    description: "Tedarikci Notu"
     price: "Fiyat"
     proposal_note: "Tedarikci Notu"
     info_box_header: "Teklif Durumu"

@@ -20,7 +20,7 @@ jobs:
     - run: flutter build web --web-renderer html --dart-define=API_URL=$API_URL --dart-define=USERNAME=$USERNAME --dart-define=PASSWORD=$PASSWORD --dart-define=API_URL_CONTENT=$API_URL_CONTENT --dart-define=API_URL_CONTENT2=$API_URL_CONTENT2
       env:
         API_URL: "https://test.satta.biz/api/v1/login.json"
-        USERNAME: "sattadestek10@satta.biz"
+        USERNAME: "alperburat@gmail.com"
         PASSWORD: "deneme123"
         API_URL_CONTENT: "https://test.satta.biz/api/v1/current_user_info.json"
         API_URL_CONTENT2: "https://test.satta.biz/api/v1/seller_point_web_content.json"
