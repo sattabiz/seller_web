@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 
 import '../model/get_current_user_info_model.dart';
 import '../model/login_model.dart';
+import '../model/web_content_model.dart';
 import '../storage/jwt_storage_landing.dart';
 
 class LandingPageService {
@@ -43,8 +44,9 @@ class LandingPageService {
       throw Exception("Error occurred: $e");
     }
   }
-  static const _apiUrlContent =
-      String.fromEnvironment('API_URL_CONTENT', defaultValue: 'http://localhost');
+
+  static const _apiUrlContent = String.fromEnvironment('API_URL_CONTENT',
+      defaultValue: 'http://localhost');
 
   Future<CurrentUserInfoModel> getCurrentUserInfo() async {
     _dio.options.responseType = ResponseType.json;
@@ -76,4 +78,33 @@ class LandingPageService {
     }
   }
 
+  static const _apiUrlContent2 = String.fromEnvironment('API_URL_CONTENT2',
+      defaultValue: 'http://localhost');
+
+  Future getWebContentListData() async {
+    _dio.options.responseType = ResponseType.json;
+    List<WebContentModel> _list = [];
+
+    try {
+      final _jwt = await jwtStorageLandingService().getJwtData();
+
+      var response = await _dio.get(
+        _apiUrlContent2,
+        options: Options(
+          headers: {
+            "Authorization": _jwt,
+          },
+        ),
+      );
+
+      if (response.statusCode != 200) {
+        throw DioException(
+            requestOptions: response.requestOptions,
+            error: 'HTTP status error: ${response.statusCode}');
+      }
+      return response.data;
+    } catch (e) {
+      throw e;
+    }
+  }
 }
