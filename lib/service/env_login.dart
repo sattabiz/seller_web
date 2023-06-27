@@ -6,7 +6,6 @@ import '../model/get_current_user_info_model.dart';
 import '../model/login_model.dart';
 import '../model/web_content_model.dart';
 import '../storage/jwt_storage_landing.dart';
-
 class LandingPageService {
   final Dio _dio = Dio(); // Singleton instance
   final jwtStorageLandingService _jwtStorage;
@@ -68,7 +67,6 @@ class LandingPageService {
             error: 'HTTP status error: ${response.statusCode}');
       }
 
-
       CurrentUserInfoModel currentUserInfoModel =
           CurrentUserInfoModel.fromMap(response.data);
 
@@ -82,29 +80,32 @@ class LandingPageService {
       defaultValue: 'http://localhost');
 
   Future getWebContentListData() async {
-    _dio.options.responseType = ResponseType.json;
-    List<WebContentModel> _list = [];
+  _dio.options.responseType = ResponseType.json;
 
-    try {
-      final _jwt = await jwtStorageLandingService().getJwtData();
+  try {
+    final _jwt = await jwtStorageLandingService().getJwtData();
 
-      var response = await _dio.get(
-        _apiUrlContent2,
-        options: Options(
-          headers: {
-            "Authorization": _jwt,
-          },
-        ),
-      );
+    var response = await _dio.get(
+      _apiUrlContent2,
+      options: Options(
+        headers: {
+          "Authorization": _jwt,
+        },
+      ),
+    );
 
-      if (response.statusCode != 200) {
-        throw DioException(
-            requestOptions: response.requestOptions,
-            error: 'HTTP status error: ${response.statusCode}');
-      }
-      return response.data;
-    } catch (e) {
-      throw e;
+    if (response.statusCode != 200) {
+      throw DioException(
+          requestOptions: response.requestOptions,
+          error: 'HTTP status error: ${response.statusCode}');
     }
+
+    WebContentModel webContentModel = WebContentModel.fromMap(response.data);
+
+    return webContentModel;
+  } catch (e) {
+    throw e;
   }
+}
+
 }
