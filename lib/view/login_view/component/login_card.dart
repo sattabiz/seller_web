@@ -45,7 +45,7 @@ class loginCard extends ConsumerWidget {
                           Flexible(
                             child: AutoSizeText(
                                 FlutterI18n.translate(
-                                    context, "tr.login.signin"),
+                                    context, "tr.login.log_in"),
                                 minFontSize: 5,
                                 style: Theme.of(context).textTheme.titleLarge!),
                           ),

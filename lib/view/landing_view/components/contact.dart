@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Contact extends ConsumerWidget {
   final int sectionIndex;
-  const Contact({Key? key, required this.sectionIndex})
+  final String ?address;
+  final String ?footer;
+  const Contact({
+    Key? key, 
+    required this.sectionIndex,
+    this.address,
+    this.footer, 
+  })
     : super(key: key);
 
   @override
@@ -17,28 +25,19 @@ class Contact extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           AutoSizeText(
-            "İletişim",
+            FlutterI18n.translate(context, "tr.login.contact"),
             style: Theme.of(context).textTheme.displayLarge,
           ),
           const Spacer(flex: 1),
           AutoSizeText(
-            "Yeni Mahalle İncirlik Bulvarı C Blok No:17/ C20 Sarıçam /ADANA-TURKİYE",
+            address ?? " ",
             style: Theme.of(context).textTheme.titleMedium,
-            maxLines: 2,
-          ),
-          AutoSizeText(
-            "hasansilah@glopal.com.tr - halukcig@glopal.com.t",
-            style: Theme.of(context).textTheme.titleMedium,
-            maxLines: 2,
-          ),
-          AutoSizeText(
-            "+90 533 327 73 73 / +90 533 405 30 59",
-            style: Theme.of(context).textTheme.titleMedium,
-            maxLines: 2,
+            maxLines: 3,
+            textAlign: TextAlign.center,
           ),
           const Spacer(flex: 3),
           AutoSizeText(
-            "@2023 Glopal Palet Company",
+            footer ?? " ",
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const Spacer(flex: 1)

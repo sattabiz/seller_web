@@ -44,8 +44,7 @@ class LandingPageService {
     }
   }
 
-  static const _apiUrlContent = String.fromEnvironment('API_URL_CONTENT',
-      defaultValue: 'http://localhost');
+  static const _apiUrlContent = String.fromEnvironment('API_URL_CONTENT');
 
   Future<CurrentUserInfoModel> getCurrentUserInfo() async {
     _dio.options.responseType = ResponseType.json;
@@ -76,8 +75,7 @@ class LandingPageService {
     }
   }
 
-  static const _apiUrlContent2 = String.fromEnvironment('API_URL_CONTENT2',
-      defaultValue: 'http://localhost');
+  static const _apiUrlContent2 = String.fromEnvironment('API_URL_CONTENT2');
 
   Future getWebContentListData() async {
   _dio.options.responseType = ResponseType.json;

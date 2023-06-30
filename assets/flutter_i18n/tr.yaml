@@ -1,6 +1,7 @@
 tr:
   login:
-    signin: "Üye Girişi"
+    log_in: "Üye Girişi"
+    sign_in: "Üye Ol"
     e-mail: "E-posta"
     hint_text_email: "ornek@eposta.com"
     email_validation: "Lütfen geçerli bir e-posta adresi giriniz"
@@ -10,6 +11,7 @@ tr:
     login_fail: "E-mail veya parola hatalı"
     forget_password: "Şifremi unuttum"
     login_button: "Giriş Yap"
+    contact: "İletişim"
 
   proposal:
     proposals: "Teklifler"

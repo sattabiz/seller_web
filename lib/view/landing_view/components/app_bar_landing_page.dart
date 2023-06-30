@@ -53,10 +53,10 @@ class HoverActionButton extends StatefulWidget {
       : super(key: key);
 
   @override
-  _HoverActionButtonState createState() => _HoverActionButtonState();
+  HoverActionButtonState createState() => HoverActionButtonState();
 }
 
-class _HoverActionButtonState extends State<HoverActionButton> {
+class HoverActionButtonState extends State<HoverActionButton> {
   bool _isHovered = false;
 
   @override
@@ -67,8 +67,9 @@ class _HoverActionButtonState extends State<HoverActionButton> {
       cursor: MaterialStateMouseCursor.clickable,
       child: InkWell(        
         onTap: widget.onPressed,
+        splashColor: Theme.of(context).colorScheme.primary,
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 200),
           curve: Curves.easeIn,
           // padding: EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
