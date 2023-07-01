@@ -26,7 +26,7 @@ class Introduction extends StatelessWidget {
       children : [
         Container(  
         width: double.infinity,
-        height: 400,
+        height: 600,
         padding: const EdgeInsets.all(32.0),
         decoration: BoxDecoration(
           color: surfaceContainer,
@@ -102,11 +102,14 @@ class LogInButton extends StatelessWidget {
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.secondary),
+        fixedSize: MaterialStateProperty.all<Size>(const Size(150, 50)),
       ), 
       child:  Text(
         FlutterI18n.translate(context, "tr.login.log_in"), 
-        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-          color: Theme.of(context).colorScheme.onPrimary),
+        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+          color: Theme.of(context).colorScheme.onPrimary,
+          fontSize: 20,
+          fontWeight: FontWeight.w500),
       ),
     );
   }
@@ -127,10 +130,11 @@ class SignIn extends StatelessWidget {
       child:  Text(
         FlutterI18n.translate(context, "tr.login.sign_in"), 
         style: TextStyle(
-          color: Theme.of(context).colorScheme.scrim,
-          fontSize: 18,
-          fontWeight: FontWeight.w400,
+          color: Theme.of(context).colorScheme.onPrimary,
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
           decoration: TextDecoration.underline,
+          decorationColor: Theme.of(context).colorScheme.onPrimary,
         ),
         textAlign: TextAlign.center,
       ),

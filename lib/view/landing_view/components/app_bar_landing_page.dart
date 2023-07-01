@@ -70,7 +70,7 @@ class HoverActionButtonState extends State<HoverActionButton> {
         splashColor: Theme.of(context).colorScheme.primary,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          curve: Curves.easeIn,
+          // curve: Curves.easeIn,
           // padding: EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
             border: Border(
@@ -84,12 +84,13 @@ class HoverActionButtonState extends State<HoverActionButton> {
           ),
           child: Text(
             widget.label,
-            style: _isHovered 
-            ? Theme.of(context).textTheme.titleLarge!.copyWith(
-              color: Theme.of(context).colorScheme.onPrimary,
-              fontSize: 20,
-            )
-            :  Theme.of(context).textTheme.titleMedium!.copyWith(
+            style:  
+            // ? Theme.of(context).textTheme.titleMedium!.copyWith(
+            //   color: Theme.of(context).colorScheme.onPrimary,
+            //   fontSize: 20,
+            //   fontWeight: FontWeight.bold,
+            // )
+            Theme.of(context).textTheme.titleMedium!.copyWith(
               color: Theme.of(context).colorScheme.onPrimary,
             ), 
           ),
