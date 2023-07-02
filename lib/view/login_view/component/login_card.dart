@@ -23,7 +23,7 @@ class loginCard extends ConsumerWidget {
       child: Container(
         constraints: BoxConstraints(minHeight: 400, minWidth: 500),
         width: screenWidth * 0.35,
-        height: screenHeight * 0.50,
+        height: screenHeight * 0.45,
         child: Card(
           color: Theme.of(context).colorScheme.surfaceVariant,
           shape: RoundedRectangleBorder(
@@ -51,12 +51,12 @@ class loginCard extends ConsumerWidget {
                           ),
                           Flexible(
                             child: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.close,
-                                size: screenWidth * 0.017,
+                                size: 30,
                               ),
                               onPressed: () {
-                                // Kapat butonuna tıklama işlemini
+                                Navigator.of(context).pop();
                               },
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
@@ -85,8 +85,7 @@ class loginCard extends ConsumerWidget {
                           ),
                           labelText:
                               FlutterI18n.translate(context, "tr.login.e-mail"),
-                          hintText: FlutterI18n.translate(
-                              context, "tr.login.hint_text_email")),
+                          ),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
                           return FlutterI18n.translate(
@@ -114,7 +113,6 @@ class loginCard extends ConsumerWidget {
                         ),
                         labelText:
                             FlutterI18n.translate(context, "tr.login.password"),
-                        hintText: '********',
                       ),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
@@ -216,6 +214,7 @@ class loginCard extends ConsumerWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 40,)
               ],
             ),
           ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-
 class OfferModel {
   String name;
   String deliveryDate;
@@ -11,8 +10,8 @@ class OfferModel {
 
   OfferModel()
       : name = '',
-        deliveryDate = '',
-        validDays = 0;
+        deliveryDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now().add(Duration(days: 3, hours: 17 - DateTime.now().hour))),
+        validDays = 3;
 }
 
 final offerModelProvider = Provider<OfferModel>((ref) => OfferModel());
@@ -22,8 +21,15 @@ class createProposalViewContent extends ConsumerWidget {
   createProposalViewContent({this.topic = ' ', Key? key}) : super(key: key);
   final _dropdownMaxValue = 150;
   final TextEditingController _topic = TextEditingController();
-  final TextEditingController _deliveryDate = TextEditingController();
-  final TextEditingController _validDays = TextEditingController();
+  final TextEditingController _deliveryDate = TextEditingController(
+    text:
+        DateFormat('yyyy-MM-dd').format(DateTime.now().add(Duration(days: 3))),
+  );
+  final TextEditingController _validDays = TextEditingController(
+    text: DateFormat('yyyy-MM-dd 17:00:00')
+        .format(DateTime.now().add(Duration(days: 3))),
+  );
+
   int? _selectedDay;
   int? _selectedDay2;
 
@@ -36,13 +42,13 @@ class createProposalViewContent extends ConsumerWidget {
         children: [
           TextFormField(
             decoration: InputDecoration(
-              filled: true,
-              fillColor: Theme.of(context).colorScheme.surface,
-              border: const UnderlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-              ),
-              hintText: 'Konu',
-            ),
+                filled: true,
+                fillColor: Theme.of(context).colorScheme.surface,
+                border: const UnderlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
+                hintText: 'Konu',
+                labelText: 'Konu'),
             initialValue: topic,
             validator: (String? value) {
               if (value == null || value.isEmpty) {
@@ -68,7 +74,6 @@ class createProposalViewContent extends ConsumerWidget {
                     filled: true,
                     fillColor: Theme.of(context).colorScheme.surface,
                     border: const UnderlineInputBorder(),
-                    labelText: 'tarih giriniz',
                   ),
                   readOnly: true,
                   onTap: () async {
@@ -93,11 +98,10 @@ class createProposalViewContent extends ConsumerWidget {
                 child: TextField(
                   controller: _validDays,
                   decoration: InputDecoration(
-                    suffixIcon: const Icon(Icons.calendar_today),
+                    suffixIcon: const Icon(Icons.calendar_month),
                     filled: true,
                     fillColor: Theme.of(context).colorScheme.surface,
                     border: const UnderlineInputBorder(),
-                    labelText: 'Son teklif verme tarihini giriniz',
                   ),
                   readOnly: true,
                   onTap: () async {
@@ -113,8 +117,9 @@ class createProposalViewContent extends ConsumerWidget {
                       differenceInDays = differenceInDays + 1;
                       debugPrint(differenceInDays.toString());
 
-
-                      _validDays.text = pickedDate.toString();
+                      String formattedDate =
+                          DateFormat('yyyy-MM-dd').format(pickedDate);
+                      _validDays.text = formattedDate;
                       offerModel.validDays = differenceInDays;
                     } else {}
                   },
@@ -153,16 +158,18 @@ class createProposalViewContent extends ConsumerWidget {
           Row(
             children: [
               Expanded(
+                flex: 3,
                 child: DropdownButtonFormField(
                   decoration: InputDecoration(
                       hintText: 'Gun giriniz',
                       filled: true,
                       fillColor: Theme.of(context).colorScheme.surface,
-                      border: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(8))),
+                      border: const UnderlineInputBorder()
+                      ),
                   isExpanded: true,
                   alignment: Alignment.centerRight,
-                  value: offerModel.selectedDay,
+                  value: offerModel.selectedDay ??
+                      120, // Eğer seçilen değer null ise 120'yi kullan
                   icon: const Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
@@ -178,41 +185,34 @@ class createProposalViewContent extends ConsumerWidget {
                   }).toList(),
                 ),
               ),
-              const Spacer(
-                flex: 2,
-              ),
+              const Spacer(flex: 1,),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 14.0),
-                  child: DropdownButtonFormField(
-                    decoration: InputDecoration(
-                        hintText: 'Gun giriniz',
-                        filled: true,
-                        fillColor: Theme.of(context).colorScheme.surface,
-                        border: UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(8))),
-                    isExpanded: true,
-                    alignment: Alignment.centerRight,
-                    value: offerModel.selectedDay2,
-                    icon: const Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    onChanged: (int? value) {
-                      offerModel.selectedDay2 = value;
-                    },
-                    items: <int>[for (var i = 0; i <= _dropdownMaxValue; i++) i]
-                        .map<DropdownMenuItem<int>>((int value) {
-                      return DropdownMenuItem(
-                        value: value,
-                        child: Text(value.toString()),
-                      );
-                    }).toList(),
-                  ),
+                flex: 3,
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                      hintText: 'Alıcı',
+                      filled: true,
+                      fillColor: Theme.of(context).colorScheme.surface,
+                      border: const UnderlineInputBorder()),
+                  isExpanded: true,
+                  alignment: Alignment.centerRight,
+                  value: offerModel.selectedDay2,
+                  icon: const Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  onChanged: (int? value) {
+                    offerModel.selectedDay2 = value;
+                  },
+                  items: <int>[for (var i = 0; i <= _dropdownMaxValue; i++) i]
+                      .map<DropdownMenuItem<int>>((int value) {
+                    return DropdownMenuItem(
+                      value: value,
+                      child: Text(value.toString()),
+                    );
+                  }).toList(),
                 ),
               ),
-              const Spacer(
-                flex: 3,
-              ),
+              const Spacer(flex: 2,)
             ],
           ),
           const SizedBox(

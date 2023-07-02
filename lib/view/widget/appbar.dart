@@ -38,11 +38,11 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
           fit: BoxFit.fill,
         ),
         actions: <Widget>[
-          if (screenWidth > 1070)
+          if (screenWidth > 800)
             Flexible(
               child: currentUserAsyncValue.when(
                 data: (data) => AutoSizeText(
-                  company?.name ?? '',
+                  company?.name?.split(' ').take(2).join(' ')?? '',
                   maxLines: 1,
                   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                         color: Theme.of(context).colorScheme.onPrimary,

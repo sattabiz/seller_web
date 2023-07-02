@@ -8,6 +8,7 @@ import '../../view_model/buyer_invoices_view_model.dart';
 import '../widget/appbar.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
+import '../widget/nav_drawer.dart';
 import '../widget/nav_rail.dart';
 import '../widget/small_card/small_card.dart';
 
@@ -26,9 +27,13 @@ class invoiceView extends ConsumerWidget {
           builder: (BuildContext context, BoxConstraints constraints) {
             if (constraints.maxWidth < 1070) {
               return Scaffold(
-                drawer: const Drawer(child: NavigationRailDrawer()),
                 appBar: AppbarTop(), //appbar
-                body: buildBody(invoiceList, context, FlutterI18n.translate(context, "tr.invoice.invoices"), "invoice"),
+                body: Row(
+                  children: [
+                    NavigationRailWidget(),
+                    Expanded(child: buildBody(invoiceList, context, FlutterI18n.translate(context, "tr.invoice.invoices"), "invoice")),
+                  ],
+                ),
               );
             } else {
               return Scaffold(

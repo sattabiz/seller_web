@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 import 'create_proposal_button.dart';
@@ -19,8 +20,8 @@ class createProposalView extends ConsumerWidget {
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30))), //for border radiuss
         alignment: Alignment.center,
-        width: MediaQuery.of(context).size.width * 0.65,
-        height: MediaQuery.of(context).size.height * 0.05,
+        width: 1250,
+        height: 70,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,7 +29,11 @@ class createProposalView extends ConsumerWidget {
             const SizedBox(
               width: 30,
             ),
-            const Icon(Icons.star_half_outlined),
+            SvgPicture.asset(
+              'assets/flare.svg',
+              width: 30.0,
+              height: 30.0,
+            ),
             const SizedBox(
               width: 15,
             ),
@@ -42,7 +47,11 @@ class createProposalView extends ConsumerWidget {
               ),
             ),
             InkWell(
-              child: Icon(Icons.exit_to_app_sharp),
+              child: SvgPicture.asset(
+                'assets/close.svg',
+                width: 30.0,
+                height: 30.0,
+              ),
               onTap: () => Navigator.of(context).pop(),
             ), // to return to the page
             const SizedBox(
@@ -68,7 +77,8 @@ class createProposalView extends ConsumerWidget {
                       padding: const EdgeInsets.only(top: 20.0, right: 16),
                       child: ElevatedButton(
                         onPressed: () {
-                          final formItems = ref.read(formItemProvider.notifier).state;
+                          final formItems =
+                              ref.read(formItemProvider.notifier).state;
 
                           debugPrint('Number of items: ${formItems.length}');
 
