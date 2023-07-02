@@ -10,9 +10,9 @@ class getOrderlistService {
 
   final Dio _dio = Dio();
 
-  Future<List<GetOrderlistModel>> getOrderlistData() async {
+  Future<List<GetOrderlistModel>?> getOrderlistData() async {
     _dio.options.responseType = ResponseType.json;
-    List<GetOrderlistModel> _list = [];
+    List<GetOrderlistModel>? _list;
 
     try {
       final _jwt = await jwtStorageService().getJwtData();
@@ -32,14 +32,15 @@ class getOrderlistService {
             error: 'HTTP status error: ${response.statusCode}');
       }
 
+      _list = [];
       List data = response.data['order'];
       data.forEach((element) {
         GetOrderlistModel getOrderlistModel =
             GetOrderlistModel.fromMap(element);
-        _list.add(getOrderlistModel);
+        _list!.add(getOrderlistModel);
       });
     } catch (e) {
-      throw e;
+      return null;
     }
 
     return _list;

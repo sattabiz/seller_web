@@ -8,6 +8,7 @@ import '../../view_model/shipment_view_model.dart';
 import '../widget/appbar.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
+import '../widget/nav_drawer.dart';
 import '../widget/nav_rail.dart';
 import '../widget/small_card/small_card_shipment.dart';
 class ShipmentView extends ConsumerWidget {
@@ -22,9 +23,13 @@ class ShipmentView extends ConsumerWidget {
           builder: (BuildContext context, BoxConstraints constraints) {
             if (constraints.maxWidth < 1070) {
               return Scaffold(
-                drawer: const Drawer(child: NavigationRailDrawer()),
                 appBar: AppbarTop(), //appbar
-                body: buildBody(shipmentList, context, FlutterI18n.translate(context, "tr.shipment.shipments"), "shipment"),
+                body: Row(
+                  children: [
+                    const NavigationRailWidget(),
+                    Expanded(child: buildBody(shipmentList, context, FlutterI18n.translate(context, "tr.shipment.shipments"), "shipment")),
+                  ],
+                ),
               );
             } else {
               return Scaffold(

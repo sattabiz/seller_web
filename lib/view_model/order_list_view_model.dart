@@ -6,19 +6,20 @@ import '../model/get_order_list_model.dart';
 import '../service/get_order_list_service.dart';
 
 
+
 final getOrderListProvider = FutureProvider<List<GetOrderlistModel>>((ref) async {
   final _orderlistservice = getOrderlistService();
+  List<GetOrderlistModel>? _orderList;
   try {
-    List<GetOrderlistModel> _orderList = await _orderlistservice.getOrderlistData();
-    return _orderList;
+    _orderList = await _orderlistservice.getOrderlistData();
   } catch (e) {
     if (e is DioException) {
       if (e.response?.statusCode != 200) {
         ref.read(navigatorKeyProvider).currentState!.pushNamed("/login");
       }
     }
-    throw e;
   }
+  return _orderList ?? [];  // null durumunda boş liste döndürür
 });
 
 final navigatorKeyProvider = Provider<GlobalKey<NavigatorState>>((ref) {

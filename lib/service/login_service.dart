@@ -30,7 +30,7 @@ class AuthenticationService {
       } catch (e) {
         throw Exception("Data parsing error: $e");
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw Exception(
           "Request failed with status: ${e.response?.statusCode}, ${e.response?.statusMessage}");
     } catch (e) {

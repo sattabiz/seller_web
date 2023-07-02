@@ -9,6 +9,7 @@ import '../../view_model/proposal_view_model.dart';
 import '../widget/appbar.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
+import '../widget/nav_drawer.dart';
 import '../widget/nav_rail.dart';
 import '../widget/small_card/small_card.dart';
 
@@ -27,9 +28,13 @@ class proposalView extends ConsumerWidget {
           builder: (BuildContext context, BoxConstraints constraints) {
             if (constraints.maxWidth < 1070) {
               return Scaffold(
-                drawer: const Drawer(child: NavigationRailDrawer()),
                 appBar: AppbarTop(), //appbar
-                body: buildBody(orderList, context, FlutterI18n.translate(context, "tr.proposal.proposals"), 'proposal'),
+                body: Row(
+                  children: [
+                    const NavigationRailWidget(),
+                    Expanded(child: buildBody(orderList, context, FlutterI18n.translate(context, "tr.proposal.proposals"), 'proposal')),
+                  ],
+                ),
               );
             } else {
               return Scaffold(

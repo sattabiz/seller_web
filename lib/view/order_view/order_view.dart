@@ -7,6 +7,7 @@ import '../../model/get_order_list_model.dart';
 import '../../view_model/order_list_view_model.dart';
 import '../widget/appbar.dart';
 import '../widget/main_page_content.dart';
+import '../widget/nav_drawer.dart';
 import '../widget/nav_rail.dart';
 import '../widget/small_card/small_card.dart';
 
@@ -24,9 +25,13 @@ class OrderView extends ConsumerWidget {
           builder: (BuildContext context, BoxConstraints constraints) {
             if (constraints.maxWidth < 1070) {
               return Scaffold(
-                drawer: const Drawer(child: NavigationRailDrawer()),
                 appBar: AppbarTop(), //appbar
-                body: buildBody(orderList, context, FlutterI18n.translate(context, "tr.order.orders"), "order"),
+                body: Row(
+                  children: [
+                    NavigationRailWidget(),
+                    Expanded(child: buildBody(orderList, context, FlutterI18n.translate(context, "tr.order.orders"), "order")),
+                  ],
+                ),
               );
             } else {
               return Scaffold(
