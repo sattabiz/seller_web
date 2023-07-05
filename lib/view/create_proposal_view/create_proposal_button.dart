@@ -33,7 +33,6 @@ class createProposalButton extends ConsumerWidget {
                         _contentItems, 
                         landingProvider
                     );
-                debugPrint('Response: ${_orderList.toJson()}');
               } catch (e) {
                 debugPrint('API çağrısında bir hata oluştu: $e');
               }

@@ -32,8 +32,6 @@ class createProposalService {
       };
     }
 
-    debugPrint('Products Attributes: $_productsAttributes');
-
     var response = await dio.post(
       ApiUrls.createProposal,
       options: Options(
@@ -54,7 +52,6 @@ class createProposalService {
     
     if (response.statusCode == 200) {
       // If the server returns a 200 OK response, then parse the JSON.
-      debugPrint('Response Data: ${response.data}');
       return CreateProposalModel.fromMap(response.data);
     } else {
       // If the server did not return a 200 OK response, then throw an exception.

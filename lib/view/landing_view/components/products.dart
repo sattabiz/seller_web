@@ -3,23 +3,26 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 class Products extends StatelessWidget {
   final int sectionIndex;
-  final String  ?productDetails;
-  final String ?productImage;
   final int ?index;
+  final String ?title;
+  final String ?productDetails;
+  final String ?productImage;
+
   const Products({
     Key? key, 
     required this.sectionIndex,
-    this.index, this.productDetails, this.productImage,
+    this.index,
+    this.title,
+    this.productDetails,
+    this.productImage,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     
-
     return Padding(
       padding: const EdgeInsets.only(left: 80.0, right: 80.0, top: 40.0, bottom: 40.0),
       child: Container(
-        
         height: 400,
         decoration:  BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
@@ -27,13 +30,23 @@ class Products extends StatelessWidget {
             topLeft: Radius.circular(20),
             bottomLeft: Radius.circular(20), 
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+              offset: const Offset(0, 12),
+              blurRadius: 30,
+            ),
+          ],
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               flex: 6,
-              child: ProductTitle(productDetails: productDetails ?? " ",),
+              child: ProductTitle(
+                title: title ?? " ",
+                productDetails: productDetails ?? " "
+              ),
             ),
             // SizedBox(width: 50),
             Expanded(
@@ -49,14 +62,15 @@ class Products extends StatelessWidget {
 
 class ProductTitle extends StatelessWidget {
   final String ?productDetails;
+  final String ?title;
 
-  const ProductTitle({super.key, this.productDetails});
+  const ProductTitle({super.key, this.productDetails, this.title});
 
   @override
   Widget build(BuildContext context) {
     const Color surfaceContainer = Color(0xFFECEEEB);
     return Container(
-      alignment: Alignment.center,
+      alignment: AlignmentGeometry.lerp(Alignment.topCenter, Alignment.center, 2.0),
       decoration: const BoxDecoration(
         color: surfaceContainer,
         borderRadius: BorderRadius.only(
@@ -64,10 +78,26 @@ class ProductTitle extends StatelessWidget {
           bottomLeft: Radius.circular(20),
         ),
       ),
-      child: AutoSizeText(productDetails ?? " ",
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w400,
-          ), maxLines: 4),
+      child: ListView(
+        scrollDirection: Axis.vertical,
+        padding: const EdgeInsets.all(20.0),
+        children: [
+          const SizedBox(height: 30),
+          AutoSizeText(title ?? " ",
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,  
+          ),
+          const SizedBox(height: 20),
+          AutoSizeText(productDetails ?? " ",
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.w400,
+            ),
+            textAlign: TextAlign.center, 
+          ),
+        ], 
+      ),
     );
   }
   
@@ -101,8 +131,8 @@ class ProductImage extends StatelessWidget {
             productImage ?? " ",
             errorBuilder: (context, error, stackTrace) => const SizedBox(),
             fit: BoxFit.cover,
-            width: 320,
-            height: 320,
+            width: 360,
+            height: 360,
           ),
       ),
     );

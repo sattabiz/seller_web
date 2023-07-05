@@ -32,7 +32,7 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
         automaticallyImplyLeading: MediaQuery.of(context).size.width < 1070,
         title: SvgPicture.asset(
-          'assets/paletPointWhite 1.svg',
+          'assets/white-logo.svg',
           semanticsLabel: 'logo',
           width: 180.0,
           fit: BoxFit.fill,
@@ -112,9 +112,7 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
                     await logoutViewModel.logout();
 
                     if (logoutViewModel.state == LogoutState.success) {
-                      final _jwt = await jwtStorageService().getJwtData();
-                      debugPrint('asasa${_jwt}');
-                      
+                      final _jwt = await jwtStorageService().getJwtData();                      
                       Navigator.pushNamed(context, '/LandingScreen');
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

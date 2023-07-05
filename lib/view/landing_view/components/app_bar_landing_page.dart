@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class AppbarLandingPage extends StatelessWidget implements PreferredSizeWidget {
@@ -11,10 +12,14 @@ class AppbarLandingPage extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.primary,
       automaticallyImplyLeading: false,
-      title: Image.asset(
-        'assets/images/header_white_logo.png',
-        height: 55,
-        fit: BoxFit.contain,
+      title: Padding(
+        padding: const EdgeInsets.only(left: 65.0),
+        child: SvgPicture.asset(
+          'assets/white-logo.svg',
+          height: 48,
+          fit: BoxFit.contain,
+          // alignment: Alignment.centerRight,
+        ),
       ),
       actions: <Widget>[
         HoverActionButton(
@@ -37,10 +42,14 @@ class AppbarLandingPage extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   void _scrollToSection(BuildContext context, int index) {  //for scrolling related section in landing page
-    scrollController.scrollToIndex(index, preferPosition: AutoScrollPosition.begin, duration: Duration(milliseconds: 500),);
+    scrollController.scrollToIndex(
+      index, 
+      preferPosition: AutoScrollPosition.begin, 
+      duration: const Duration(milliseconds: 500),
+    );
   }
 
 }
@@ -67,30 +76,33 @@ class HoverActionButtonState extends State<HoverActionButton> {
       cursor: MaterialStateMouseCursor.clickable,
       child: InkWell(        
         onTap: widget.onPressed,
-        splashColor: Theme.of(context).colorScheme.primary,
+        mouseCursor: _isHovered ? SystemMouseCursors.click : SystemMouseCursors.basic,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          // curve: Curves.easeIn,
-          // padding: EdgeInsets.symmetric(horizontal: 16),
+          curve: Curves.easeInOut,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
             border: Border(
               bottom: BorderSide(
                 color: _isHovered
                     ? Theme.of(context).colorScheme.onPrimary
-                    : Colors.transparent,
-                    width: 2
+                    : Theme.of(context).colorScheme.primary,
+                    width: 2,
               ),
             ),
           ),
-          child: Text(
+          child: Text(                                                                                                                
             widget.label,
-            style:  
-            // ? Theme.of(context).textTheme.titleMedium!.copyWith(
-            //   color: Theme.of(context).colorScheme.onPrimary,
-            //   fontSize: 20,
-            //   fontWeight: FontWeight.bold,
-            // )
-            Theme.of(context).textTheme.titleMedium!.copyWith(
+            textAlign: TextAlign.right,
+            softWrap: true,
+            style:  _isHovered
+            ? Theme.of(context).textTheme.titleLarge!.copyWith(
+              fontSize: 18,
+              color: Theme.of(context).colorScheme.onPrimary,
+              height: 1.8,
+            )
+            : Theme.of(context).textTheme.titleMedium!.copyWith(
               color: Theme.of(context).colorScheme.onPrimary,
             ), 
           ),
