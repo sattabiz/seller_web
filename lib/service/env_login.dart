@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 
+import '../config/apiUrls.dart';
 import '../model/get_current_user_info_model.dart';
 import '../model/login_model.dart';
 import '../model/web_content_model.dart';
@@ -13,8 +14,6 @@ class LandingPageService {
       String.fromEnvironment('USERNAME', defaultValue: 'defaultuser');
   static const _defaultPass =
       String.fromEnvironment('PASSWORD', defaultValue: 'defaultpass');
-  static const _apiUrl =
-      String.fromEnvironment('API_URL', defaultValue: 'http://localhost');
 
   LandingPageService() : _jwtStorage = jwtStorageLandingService();
 
@@ -25,7 +24,7 @@ class LandingPageService {
 
     try {
       var _response = await _dio.post(
-        _apiUrl,
+        ApiUrls.login,
         data: data,
       );
 
@@ -44,38 +43,6 @@ class LandingPageService {
     }
   }
 
-  static const _apiUrlContent = String.fromEnvironment('API_URL_CONTENT');
-
-  Future<CurrentUserInfoModel> getCurrentUserInfo() async {
-    _dio.options.responseType = ResponseType.json;
-
-    try {
-      final _jwt = await jwtStorageLandingService().getJwtData();
-
-      var response = await _dio.get(
-        _apiUrlContent,
-        options: Options(
-          headers: {
-            "Authorization": _jwt,
-          },
-        ),
-      );
-      if (response.statusCode != 200) {
-        throw DioException(
-            requestOptions: response.requestOptions,
-            error: 'HTTP status error: ${response.statusCode}');
-      }
-
-      CurrentUserInfoModel currentUserInfoModel =
-          CurrentUserInfoModel.fromMap(response.data);
-
-      return currentUserInfoModel;
-    } catch (e) {
-      throw e;
-    }
-  }
-
-  static const _apiUrlContent2 = String.fromEnvironment('API_URL_CONTENT2');
 
   Future getWebContentListData() async {
   _dio.options.responseType = ResponseType.json;
@@ -84,7 +51,7 @@ class LandingPageService {
     final _jwt = await jwtStorageLandingService().getJwtData();
 
     var response = await _dio.get(
-      _apiUrlContent2,
+      ApiUrls.webContent,
       options: Options(
         headers: {
           "Authorization": _jwt,

@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:seller_point/config/apiUrls.dart';
 import '../model/shipment_model.dart';
 import '../storage/jwt_storage.dart';
 
 class GetShipmentListService{
-  static const String _url =
-      "https://test.satta.biz/api/v1/shipment_list.json?state='order_on_the_way','delivered'";
 
   Future<List<Shipment>> getShipmentListService() async {
     final dio = Dio();
@@ -15,7 +14,7 @@ class GetShipmentListService{
     try {
       final _jwt = await jwtStorageService().getJwtData();
       var response = await dio.get(
-        _url,
+        ApiUrls.shipment,
         options: Options(
           headers: {
             "Authorization": _jwt,

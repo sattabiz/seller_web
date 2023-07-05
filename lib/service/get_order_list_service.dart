@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+import '../config/apiUrls.dart';
 import '../model/get_order_list_model.dart';
 import '../storage/jwt_storage.dart';
 
 class getOrderlistService {
-  static const String _url =
-      "https://test.satta.biz/api/v1/order_list.json?state='order_approved','order_confirmed','order_prepared','order_on_the_way','order_delivered'";
 
   final Dio _dio = Dio();
 
@@ -18,7 +17,7 @@ class getOrderlistService {
       final _jwt = await jwtStorageService().getJwtData();
 
       var response = await _dio.get(
-        _url,
+        ApiUrls.order,
         options: Options(
           headers: {
             "Authorization": _jwt,
