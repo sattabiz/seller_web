@@ -1,0 +1,31 @@
+name: ProductionDeployment
+on:
+  push:
+    branches:
+      - main
+      
+jobs:
+  build_web:
+    environment: production_env
+    name: Build Flutter (Web)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: subosito/flutter-action@v2.10.0
+      with:
+          flutter-version: '3.7.10'
+          channel: 'stable'
+    - run: flutter config --enable-web
+    - run: flutter create .
+    - run: flutter build web --web-renderer html --dart-define=API_URL=$API_URL --dart-define=USERNAME=$USERNAME --dart-define=PASSWORD=$PASSWORD
+      env:
+        API_URL: ${{ secrets.API_URL }}
+        USERNAME: ${{ secrets.SERVICE_USER }}
+        PASSWORD: ${{ secrets.SERVICE_PASSWORD }}
+    - uses: easingthemes/ssh-deploy@v4.1.8
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SOURCE: "build/web/"
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        TARGET: ${{ secrets.REMOTE_TARGET }}
