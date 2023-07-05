@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import '../config/apiUrls.dart';
 import '../model/create_proposal_model.dart';
 import '../model/web_content_model.dart';
 import '../storage/jwt_storage.dart';
@@ -8,8 +9,6 @@ import '../view/create_proposal_view/create_proposal_view_table.dart';
 
 
 class createProposalService {
-  static const String _url =
-      "https://test.satta.biz/api/v1/demand_proposal_sp.json";
 
   Future<CreateProposalModel> createProposlPost(List<FormItem> _formItems, OfferModel _contentItems, WebContentModel _company_id) async {
     final dio = Dio();
@@ -36,7 +35,7 @@ class createProposalService {
     debugPrint('Products Attributes: $_productsAttributes');
 
     var response = await dio.post(
-      _url,
+      ApiUrls.createProposal,
       options: Options(
         headers: {
           "Authorization": _jwt,

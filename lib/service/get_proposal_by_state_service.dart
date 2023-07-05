@@ -2,12 +2,11 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
+import '../config/apiUrls.dart';
 import '../model/get_proposals_by_state.dart';
 import '../storage/jwt_storage.dart';
 
 class GetProposalListService {
-  static const String _url =
-      "https://test.satta.biz/api/v1/proposals_by_state.json?proposal_state='pending'";
 
   Future<List<GetProposalModel>> getProposalListData() async {
     final dio = Dio();
@@ -16,7 +15,7 @@ class GetProposalListService {
     try {
       final _jwt = await jwtStorageService().getJwtData();
       var response = await dio.get(
-        _url,
+        ApiUrls.proposal,
         options: Options(
           headers: {
             "Authorization": _jwt,
