@@ -1,13 +1,10 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
-
+import '../config/apiUrls.dart';
 import '../model/get_buyer_invoices_list_model.dart';
 import '../storage/jwt_storage.dart';
 
 class getInvoicesService {
-  static const String _url =
-      'https://test.satta.biz/api/v1/buyer_invoice_list.json?state="invoice_discounted","invoice_paid","invoice_pending","invoice_approved_dbs"&saved_to_erp=false';
 
   final Dio _dio = Dio();
 
@@ -19,7 +16,7 @@ class getInvoicesService {
       final _jwt = await jwtStorageService().getJwtData();
 
       var response = await _dio.get(
-        _url,
+        ApiUrls.invoices,
         options: Options(
           headers: {
             "Authorization": _jwt,

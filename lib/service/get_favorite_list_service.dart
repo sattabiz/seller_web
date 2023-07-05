@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+import '../config/apiUrls.dart';
 import '../model/get_favorite_list_model.dart';
 import '../storage/jwt_storage.dart';
 
 class getFavoriteListService {
-  static const String _url =
-      "https://test.satta.biz/api/v1/list_favorite_list.json";
 
   final Dio _dio = Dio();
 
@@ -18,7 +17,7 @@ class getFavoriteListService {
       final _jwt = await jwtStorageService().getJwtData();
 
       var _response = await _dio.get(
-        _url,
+        ApiUrls.favoriteList,
         options: Options(
           headers: {
             "Authorization": _jwt,

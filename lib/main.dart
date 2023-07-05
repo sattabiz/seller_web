@@ -13,7 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LandingPageService authService = LandingPageService();
   await authService.loginCall();
-  await authService.getCurrentUserInfo();
+  await authService.getWebContentListData();
   runApp(const ProviderScope(
       child: MyApp(),
     ),);
