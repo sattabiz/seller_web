@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
+import '../config/apiUrls.dart';
 import '../model/get_current_user_info_model.dart';
 import '../storage/jwt_storage.dart';
 
 class UserService {
-  static const String _url =
-      "https://test.satta.biz/api/v1/current_user_info.json";
 
   final Dio _dio = Dio();
 
@@ -15,7 +14,7 @@ class UserService {
       final _jwt = await jwtStorageService().getJwtData();
 
       var response = await _dio.get(
-        _url,
+        ApiUrls.userInfo,
         options: Options(
           headers: {
             "Authorization": _jwt,

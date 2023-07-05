@@ -17,13 +17,11 @@ jobs:
           channel: 'stable'
     - run: flutter config --enable-web
     - run: flutter create .
-    - run: flutter build web --web-renderer html --dart-define=API_URL=$API_URL --dart-define=USERNAME=$USERNAME --dart-define=PASSWORD=$PASSWORD --dart-define=API_URL_CONTENT=$API_URL_CONTENT --dart-define=API_URL_CONTENT2=$API_URL_CONTENT2
+    - run: flutter build web --web-renderer html --dart-define=API_URL=$API_URL --dart-define=USERNAME=$USERNAME --dart-define=PASSWORD=$PASSWORD
       env:
-        API_URL: "https://test.satta.biz/api/v1/login.json"
+        API_URL: "https://test.satta.biz/api/v1"
         USERNAME: "alperburat@gmail.com"
         PASSWORD: "deneme123"
-        API_URL_CONTENT: "https://test.satta.biz/api/v1/current_user_info.json"
-        API_URL_CONTENT2: "https://test.satta.biz/api/v1/seller_point_web_content.json"
     - uses: easingthemes/ssh-deploy@v4.1.8
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
