@@ -22,39 +22,39 @@ class Introduction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const Color surfaceContainer = Color(0xFFECEEEB);
-    return Stack(
-      children : [
-        Container(  
-        width: double.infinity,
-        height: 600,
-        padding: const EdgeInsets.all(32.0),
-        decoration: BoxDecoration(
-          color: surfaceContainer,
-          image: DecorationImage(
-            image: NetworkImage(bgImage ?? ""),
-            // errorBuilder: (context, error, stackTrace) => const SizedBox(), 
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children:  <Widget>[
-            Title(title),
-            const Padding(padding: EdgeInsets.only(top: 16.0)),
-            SizedBox(
-              width: 500,
-              height: 108,
-              child: About(introduction ?? ""),
-            ),
-            const Spacer(flex: 1),
-            const LogInButton(),
-            const SizedBox(height: 10),
-            const SignIn(),
-      
-          ],
+    return Container(  
+      width: double.infinity,
+      height: 600,
+      padding: const EdgeInsets.all(32.0),
+      decoration: BoxDecoration(
+        color: surfaceContainer,
+        image: DecorationImage(
+          image: NetworkImage(bgImage ?? ""),
+          // errorBuilder: (context, error, stackTrace) => const SizedBox(), 
+          fit: BoxFit.cover,
         ),
       ),
-      ]
+      child: Flex(
+        direction: Axis.vertical,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:  <Widget>[
+          Title(title),
+          const Padding(padding: EdgeInsets.only(top: 16.0)),
+          Flexible(
+            flex: 3,
+            fit: FlexFit.loose,
+            child: SizedBox(
+              width: 700,
+              child: About(introduction ?? "")),
+          ),
+          const Spacer(flex: 1),
+          const LogInButton(),
+          const SizedBox(height: 10),
+          const SignIn(),
+        
+        ],
+      ),
     );
   }
 }
@@ -80,13 +80,15 @@ class About extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoSizeText(
-      introduction,
-      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-        color: Theme.of(context).colorScheme.onPrimary,
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Text(
+        introduction,
+        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+        textAlign: TextAlign.center,
       ),
-      maxLines: 3,
-      textAlign: TextAlign.center,
     );
   }
 }

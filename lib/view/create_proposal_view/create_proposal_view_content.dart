@@ -115,7 +115,6 @@ class createProposalViewContent extends ConsumerWidget {
                       int differenceInDays =
                           pickedDate.difference(currentDate).inDays;
                       differenceInDays = differenceInDays + 1;
-                      debugPrint(differenceInDays.toString());
 
                       String formattedDate =
                           DateFormat('yyyy-MM-dd').format(pickedDate);

@@ -6,11 +6,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class Contact extends ConsumerWidget {
   final int sectionIndex;
   final String ?address;
+  final String ?contactInfo;
   final String ?footer;
   const Contact({
     Key? key, 
     required this.sectionIndex,
     this.address,
+    this.contactInfo,
     this.footer, 
   })
     : super(key: key);
@@ -29,14 +31,21 @@ class Contact extends ConsumerWidget {
             style: Theme.of(context).textTheme.displayLarge,
           ),
           const Spacer(flex: 1),
-          AutoSizeText(
+          Text(
             address ?? " ",
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context).textTheme.titleLarge,
+            maxLines: 3,
+            textAlign: TextAlign.center,
+          ),
+          const Spacer(flex: 1),
+          Text(
+            contactInfo ?? " ",
+            style: Theme.of(context).textTheme.titleLarge,
             maxLines: 3,
             textAlign: TextAlign.center,
           ),
           const Spacer(flex: 3),
-          AutoSizeText(
+          Text(
             footer ?? " ",
             style: Theme.of(context).textTheme.titleMedium,
           ),
