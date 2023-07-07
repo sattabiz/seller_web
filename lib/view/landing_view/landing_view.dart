@@ -23,6 +23,7 @@ class LandingView extends ConsumerWidget {
     final landingProvider = ref.watch(getLandingViewContentProvider);
     return landingProvider.when(
       data: (contentList) {
+        contentList.products!.sort((a, b) => a.categoryId.compareTo(b.categoryId));
         return Scaffold(
           appBar: AppbarLandingPage(scrollController: _scrollController,),
           body: SingleChildScrollView(
@@ -49,7 +50,7 @@ class LandingView extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      for (int i = 0; i < contentList.products!.length; i++)                      
+                      for (int i = 0; contentList.products!.length > i ; i++ )                      
                         Products(
                           sectionIndex: 1,
                           title: contentList.products![i].title ?? " ",

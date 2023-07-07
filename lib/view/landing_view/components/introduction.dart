@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seller_point/view/landing_view/components/page_indicator.dart';
 
 class Introduction extends StatelessWidget {
   final int sectionIndex;
@@ -22,6 +22,10 @@ class Introduction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const Color surfaceContainer = Color(0xFFECEEEB);
+    PageController  controller = PageController(viewportFraction: 0.8);
+    List<String>  paragraphs = introduction!.split("\n");
+    final list = paragraphs.asMap();
+
     return Container(  
       width: double.infinity,
       height: 600,
@@ -40,14 +44,10 @@ class Introduction extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children:  <Widget>[
           Title(title),
-          const Padding(padding: EdgeInsets.only(top: 16.0)),
-          Flexible(
-            flex: 3,
-            fit: FlexFit.loose,
-            child: SizedBox(
-              width: 700,
-              child: About(introduction ?? "")),
-          ),
+          const Padding(padding: EdgeInsets.only(top: 32.0)),
+          Expanded(
+            flex: 4,
+            child: About(introduction!)),
           const Spacer(flex: 1),
           const LogInButton(),
           const SizedBox(height: 10),
