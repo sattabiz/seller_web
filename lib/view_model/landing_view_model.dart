@@ -10,7 +10,6 @@ final getLandingViewContentProvider = FutureProvider<WebContentModel>((ref) asyn
   WebContentModel contentList;
   try {
     contentList = await landingPageService.getWebContentListData();
-    debugPrint("content: $contentList");
     return contentList;
   } catch (e) {
     if (e is DioException) {

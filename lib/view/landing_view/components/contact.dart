@@ -32,14 +32,14 @@ class Contact extends ConsumerWidget {
           ),
           const Spacer(flex: 1),
           Text(
-            address ?? " ",
+            contactInfo ?? " ",
             style: Theme.of(context).textTheme.titleLarge,
             maxLines: 3,
             textAlign: TextAlign.center,
           ),
           const Spacer(flex: 1),
           Text(
-            contactInfo ?? " ",
+            address ?? " ",
             style: Theme.of(context).textTheme.titleLarge,
             maxLines: 3,
             textAlign: TextAlign.center,

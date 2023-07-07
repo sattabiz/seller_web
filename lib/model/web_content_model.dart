@@ -55,17 +55,17 @@ class WebContentModel {
   String toString() {
     return 'WebContentModel(companyId: $companyId, title: $title, introduction: $introduction, address: $address, footer: $footer, bgImage: $bgImage, contactInfo: $contactInfo , products: $products)';
   }
-    
+
 }
 
 class Product {
-    int? categoryId;
+    int categoryId;
     String? title;
     String? productDetails;
     String? productImage;
 
     Product({
-        this.categoryId,
+        required this.categoryId,
         this.title,
         this.productDetails,
         this.productImage,
