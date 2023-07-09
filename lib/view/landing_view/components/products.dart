@@ -24,19 +24,18 @@ class Products extends StatelessWidget {
       padding: const EdgeInsets.only(left: 80.0, right: 80.0, top: 40.0, bottom: 40.0),
       child: Container(
         height: 400,
-        decoration:  BoxDecoration(
+        decoration: ShapeDecoration(
           color: Theme.of(context).colorScheme.surface,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            bottomLeft: Radius.circular(20), 
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
           ),
-          boxShadow: [
+          shadows:[ 
             BoxShadow(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
               offset: const Offset(0, 12),
-              blurRadius: 30,
+              blurRadius: 20,
             ),
-          ],
+          ]
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,12 +67,11 @@ class ProductTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color surfaceContainer = Color(0xFFECEEEB);
     return Container(
       alignment: AlignmentGeometry.lerp(Alignment.topCenter, Alignment.center, 2.0),
-      decoration: const BoxDecoration(
-        color: surfaceContainer,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           bottomLeft: Radius.circular(20),
         ),
@@ -107,8 +105,6 @@ class ProductImage extends StatelessWidget {
   final String ?productImage;
   const ProductImage({super.key, this.productImage});
 
-  static const Color surfaceContainer = Color(0xFFECEEEB);
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -118,9 +114,9 @@ class ProductImage extends StatelessWidget {
         maxHeight: 400,
         maxWidth: 200,
       ),
-      decoration: const BoxDecoration(
-        color: surfaceContainer,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: const BorderRadius.only(
           topRight: Radius.circular(20),
           bottomRight: Radius.circular(20),
         ),
@@ -130,7 +126,7 @@ class ProductImage extends StatelessWidget {
         child: Image.network(
             productImage ?? " ",
             errorBuilder: (context, error, stackTrace) => const SizedBox(),
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
             width: 360,
             height: 360,
           ),

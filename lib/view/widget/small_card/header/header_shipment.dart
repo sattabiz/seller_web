@@ -14,11 +14,10 @@ const HeaderShipment({ Key? key, required this.id, required this.status, require
 
   @override
   Widget build(BuildContext context){
-        const surfaceDim = Color(0xFFD8DBD8);
     return Container(
-      decoration: const BoxDecoration(
-          color: surfaceDim,
-          borderRadius:  BorderRadius.only(
+      decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondaryContainer,
+          borderRadius:  const BorderRadius.only(
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10))),
       child: Padding(

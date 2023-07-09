@@ -50,8 +50,6 @@ class BigCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    const surfaceDim = Color(0xFFD8DBD8);
-
 
     Map<String, Widget> tableListMap= {
       'proposal': ProposalTable(productsProposalList: tableList, className: className),
@@ -70,7 +68,7 @@ class BigCard extends ConsumerWidget {
       constraints: BoxConstraints.tightFor(width: width * 0.7, height: height * 0.8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Theme.of(context).colorScheme.surfaceVariant,
+        color: Theme.of(context).colorScheme.surface,
       ),
       child: Column(
         children: [

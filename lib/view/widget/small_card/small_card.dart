@@ -78,13 +78,11 @@ class SmallCard extends ConsumerWidget {
       'order': HeaderOrder(id: id,status: status,headerDate: formattedDate,newMessageSvg: newMessageSvg, className: className,),
       'invoice': HeaderInvoice(id: id,status: status,headerDate: formattedDate,newMessageSvg: newMessageSvg, className: className,),
     };
-    const surfaceDim = Color(0xFFD8DBD8);
-
     return Padding(
       padding: const EdgeInsets.only(right: 15, bottom: 15),
       child: Card(
           elevation: 0,
-          color: Theme.of(context).colorScheme.surfaceVariant,
+          color: Theme.of(context).colorScheme.surface,
           child: InkWell(
             onTap: () {
               showDialog(

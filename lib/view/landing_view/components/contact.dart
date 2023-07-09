@@ -28,7 +28,9 @@ class Contact extends ConsumerWidget {
         children: [
           AutoSizeText(
             FlutterI18n.translate(context, "tr.login.contact"),
-            style: Theme.of(context).textTheme.displayLarge,
+            style: Theme.of(context).textTheme.displayLarge!.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
           const Spacer(flex: 1),
           Text(
