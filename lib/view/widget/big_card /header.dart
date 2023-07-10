@@ -19,16 +19,15 @@ class Header extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const surfaceDim = Color(0xFFD8DBD8);
     return Container(
       // padding: EdgeInsets.all(10.0),
-      constraints: BoxConstraints.tightFor(height: 80.0),
+      constraints: const BoxConstraints.tightFor(height: 80.0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(15.0),
         topRight: Radius.circular(15.0),
         ),
-        color: surfaceDim,
+        color: Theme.of(context).colorScheme.secondaryContainer,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +59,7 @@ class Header extends ConsumerWidget {
                 iconSize: 36.0,
                 icon: Icon(
                   Icons.close,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
                   // opticalSize: 36,
                 ),
               ),

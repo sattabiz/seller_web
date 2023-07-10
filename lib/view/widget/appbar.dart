@@ -29,7 +29,7 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
     return PreferredSize(
       preferredSize: preferredSize,
       child: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         automaticallyImplyLeading: MediaQuery.of(context).size.width < 1070,
         title: SvgPicture.asset(
           'assets/white-logo.svg',

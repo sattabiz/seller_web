@@ -73,7 +73,7 @@ class SmallCardShipment extends ConsumerWidget {
       padding: const EdgeInsets.only(right: 15, bottom: 15),
       child: Card(
           elevation: 0,
-          color: Theme.of(context).colorScheme.surfaceVariant,
+          color: Theme.of(context).colorScheme.surface,
           child: InkWell(
             onTap: () {
               showDialog(

@@ -21,17 +21,12 @@ class Introduction extends StatelessWidget {
         
   @override
   Widget build(BuildContext context) {
-    const Color surfaceContainer = Color(0xFFECEEEB);
-    PageController  controller = PageController(viewportFraction: 0.8);
-    List<String>  paragraphs = introduction!.split("\n");
-    final list = paragraphs.asMap();
-
     return Container(  
       width: double.infinity,
       height: 600,
       padding: const EdgeInsets.all(32.0),
       decoration: BoxDecoration(
-        color: surfaceContainer,
+        color: Theme.of(context).colorScheme.surface,
         image: DecorationImage(
           image: NetworkImage(bgImage ?? ""),
           // errorBuilder: (context, error, stackTrace) => const SizedBox(), 
@@ -47,7 +42,7 @@ class Introduction extends StatelessWidget {
           const Padding(padding: EdgeInsets.only(top: 32.0)),
           Expanded(
             flex: 4,
-            child: About(introduction!)),
+            child: PageIndicator(paragraphs: introduction!)),
           const Spacer(flex: 1),
           const LogInButton(),
           const SizedBox(height: 10),
@@ -103,7 +98,7 @@ class LogInButton extends StatelessWidget {
         Navigator.pushNamed(context, '/login');
       },
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.secondary),
+        backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
         fixedSize: MaterialStateProperty.all<Size>(const Size(150, 50)),
       ), 
       child:  Text(

@@ -1,114 +1,61 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class PageIndicator extends StatefulWidget {
+class PageIndicator extends StatelessWidget {
   final String paragraphs;
   
-
-
-  const PageIndicator({
+  PageIndicator({
      Key? key,
      required this.paragraphs,
   }) : super(key: key);
 
-  @override
-  _PageIndicatorState createState() => _PageIndicatorState();
-}
-
-class _PageIndicatorState extends State<PageIndicator> {
-
-  var controller;  
-  @override
-  void initState() {
-      controller =  PageController(
-      viewportFraction:0.8,
-    );
-    super.initState();
-}
-
+  final controller = PageController();
 
   @override
   Widget build(BuildContext context) {
-    List<String>  text = widget.paragraphs.split("\n");
-    text.removeWhere((element) => element.isEmpty);
+    List<String>  text = paragraphs.split('\n');
     final list = text.asMap();
-
-    debugPrint('paragraphs: ${list}');
-    // final container = List.generate(
-    // list.length,
-    // (index) => Container(
-    //       decoration: BoxDecoration(
-    //         borderRadius: BorderRadius.circular(16),
-    //       ),
-    //       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-    //       child: Container(
-    //         height: 280,
-    //         child: Center(
-    //           child: Text(
-    //             "${list[index]}",
-    //             style: TextStyle(color: Colors.white),
-    //         )),
-    //       ),
-    //     ));
-
-
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(
-          child: ListView(
+        SizedBox(
+          height: 250,
+          child: PageView(
             controller: controller,
             scrollDirection: Axis.vertical,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            // shrinkWrap: true,
             children: [
               for (int i = 0; list.length > i ; i++ )
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  child: Container(
-                    height: 280,
-                    child: Center(
-                      child: Text(
-                        "${list[i]}",
-                        style: TextStyle(color: Colors.white),
-                    )),
+                Center(
+                  child: AutoSizeText(
+                    "${list[i]}",
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
                   ),
                 ),
             ],
-   
           ),
         ),
-        SizedBox(height: 16.0),
-        SmoothPageIndicator(
-          controller: controller,
-          // curve: Curves.easeInOut,
-          // duration: const Duration(milliseconds: 600),
-          count: list.length,
-          axisDirection: Axis.horizontal,
-          effect: WormEffect(
-            activeDotColor: Colors.blue,
-            dotColor: Colors.grey,
-            dotHeight: 8,
-            dotWidth: 8,
+        // SizedBox(height: 16.0),
+        Flexible(
+          child: SmoothPageIndicator(
+            controller: controller,
+            count: list.length,
+            effect: WormEffect(
+              dotColor: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+              activeDotColor: Theme.of(context).colorScheme.primary,
+              type: WormType.thin,
+            ),
           ),
         ),
       ],
-        
-        );
-      }
-    }
+    );
+  }
+}
 
-
-
-
-
-
-
-    
-      
-    // Column(
+// Column(
     //   crossAxisAlignment: CrossAxisAlignment.center,
     //   children: [
     //     SizedBox(

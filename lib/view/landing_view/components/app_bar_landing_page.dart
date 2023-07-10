@@ -10,7 +10,7 @@ class AppbarLandingPage extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       automaticallyImplyLeading: false,
       title: Padding(
         padding: const EdgeInsets.only(left: 65.0),
@@ -82,12 +82,12 @@ class HoverActionButtonState extends State<HoverActionButton> {
           curve: Curves.easeInOut,
           padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.secondary,
             border: Border(
               bottom: BorderSide(
                 color: _isHovered
                     ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).colorScheme.primary,
+                    : Theme.of(context).colorScheme.secondary,
                     width: 2,
               ),
             ),

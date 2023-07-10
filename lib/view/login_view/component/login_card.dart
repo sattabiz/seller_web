@@ -25,7 +25,7 @@ class loginCard extends ConsumerWidget {
         width: screenWidth * 0.35,
         height: screenHeight * 0.45,
         child: Card(
-          color: Theme.of(context).colorScheme.surfaceVariant,
+          color: Theme.of(context).colorScheme.surface,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
           ),
@@ -35,7 +35,7 @@ class loginCard extends ConsumerWidget {
               children: [
                 Flexible(
                   child: Container(
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Theme.of(context).colorScheme.secondaryContainer,
                     child: Padding(
                       padding: const EdgeInsets.only(
                           right: 32.0, left: 32, top: 16, bottom: 16),
@@ -174,7 +174,7 @@ class loginCard extends ConsumerWidget {
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
@@ -188,8 +188,7 @@ class loginCard extends ConsumerWidget {
                             final currentUserInfo = ref.read(getCurrentUserInfoProvider);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                  content: Text(FlutterI18n.translate(
-                                      context, "tr.login.login_success"))),
+                                  content: Text(FlutterI18n.translate(context, "tr.login.login_success"))),
                             );
                             final currentUserAsyncValue =
                                 ref.watch(getCurrentUserInfoProvider);
@@ -197,8 +196,7 @@ class loginCard extends ConsumerWidget {
                           } else if (loginState == LoginState.failure) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                  content: Text(FlutterI18n.translate(
-                                      context, "tr.login.login_fail"))),
+                                  content: Text(FlutterI18n.translate(context, "tr.login.login_fail"))),
                             );
                           }
                         } catch (e) {
