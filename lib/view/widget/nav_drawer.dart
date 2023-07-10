@@ -97,7 +97,7 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),
           color: currentIndex == index
-              ? Theme.of(context).colorScheme.secondaryContainer
+              ? Theme.of(context).colorScheme.primaryContainer
               : Theme.of(context).colorScheme.surface,
         ),
         width: screenWidth * 0.98,
@@ -126,7 +126,7 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
               child: AutoSizeText(
                 text,
                 style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
                     ),
               ),
             ),
@@ -134,7 +134,7 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
               child: AutoSizeText(
                 '24',
                 style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
                     ),
               ),
             ),

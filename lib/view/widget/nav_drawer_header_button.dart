@@ -99,7 +99,7 @@ class _DrawerHeaderButtonState extends State<DrawerHeaderButton> {
                 ? MediaQuery.of(context).size.height * 0.080
                 : MediaQuery.of(context).size.height * 0.2,
             child: Card(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).colorScheme.primary,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +107,7 @@ class _DrawerHeaderButtonState extends State<DrawerHeaderButton> {
                     Flexible(
                         child: Icon(
                       Icons.add,
-                      color: Theme.of(context).colorScheme.onSecondary,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       size: 24,
                     )),
                     const SizedBox(
@@ -118,7 +118,7 @@ class _DrawerHeaderButtonState extends State<DrawerHeaderButton> {
                         'Yeni Teklif İsteği',
                         maxLines: 1,
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                              color: Theme.of(context).colorScheme.onSecondary,
+                              color: Theme.of(context).colorScheme.onPrimary,
                             ),
                       ),
                     ),
