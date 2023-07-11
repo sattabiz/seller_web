@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -12,31 +13,42 @@ class AppbarLandingPage extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       automaticallyImplyLeading: false,
-      title: Padding(
-        padding: const EdgeInsets.only(left: 65.0),
-        child: SvgPicture.asset(
+      title: Align(
+        alignment: AlignmentGeometry.lerp(
+          Alignment.centerLeft,
+          Alignment.center,
+          0.2,
+        )!,
+        child: screenSize.width > 490
+        ? SvgPicture.asset(
           'assets/white-logo.svg',
           height: 48,
-          fit: BoxFit.contain,
+          // width: 200,
+          fit: BoxFit.fill,
           // alignment: Alignment.centerRight,
-        ),
+        )
+        : Image.asset(
+          'assets/favicon.png',
+          height: 48,
+          fit: BoxFit.fill,
+        )
       ),
       actions: <Widget>[
         HoverActionButton(
           label: 'Ana Sayfa',
           onPressed: () => _scrollToSection(context, 0),
         ),
-        SizedBox(width: screenSize.width / 25),
+        SizedBox(width: screenSize.width / 30),
         HoverActionButton(
           label: 'Ürünler',
           onPressed: () => _scrollToSection(context, 1),
         ),
-        SizedBox(width: screenSize.width / 25),
+        SizedBox(width: screenSize.width / 30),
         HoverActionButton(
           label: 'İletişim',
           onPressed: () => _scrollToSection(context, 2),
         ),
-       const SizedBox(width: 70,)
+        SizedBox(width: screenSize.width / 20),
       ],
     );
   }
@@ -92,7 +104,7 @@ class HoverActionButtonState extends State<HoverActionButton> {
               ),
             ),
           ),
-          child: Text(                                                                                                                
+          child: AutoSizeText(                                                                                                                
             widget.label,
             textAlign: TextAlign.right,
             softWrap: true,

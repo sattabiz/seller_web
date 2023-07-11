@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-class Products extends StatelessWidget {
+class ProductsSmall extends StatelessWidget {
   final int sectionIndex;
   final int ?index;
   final String ?title;
   final String ?productDetails;
   final String ?productImage;
 
-  const Products({
+  const ProductsSmall({
     Key? key, 
     required this.sectionIndex,
     this.index,
@@ -37,9 +37,13 @@ class Products extends StatelessWidget {
             ),
           ]
         ),
-        child: Row(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Expanded(
+              flex: 6,
+              child: ProductImage(productImage: productImage ?? " "),
+            ),
             Expanded(
               flex: 6,
               child: ProductTitle(
@@ -48,10 +52,6 @@ class Products extends StatelessWidget {
               ),
             ),
             // SizedBox(width: 50),
-            Expanded(
-            flex: 6,
-            child: ProductImage(productImage: productImage ?? " "),
-            ),
           ],
         ),
       ),
@@ -69,6 +69,7 @@ class ProductTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: AlignmentGeometry.lerp(Alignment.topCenter, Alignment.center, 2.0),
+      margin: const EdgeInsets.only(bottom: 20.0, top: 20.0),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.only(
@@ -82,17 +83,19 @@ class ProductTitle extends StatelessWidget {
         children: [
           const SizedBox(height: 30),
           AutoSizeText(title ?? " ",
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+            style: Theme.of(context).textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w500,
             ),
-            textAlign: TextAlign.center,  
+            textAlign: TextAlign.center,
+            minFontSize: 10,  
           ),
           const SizedBox(height: 20),
           AutoSizeText(productDetails ?? " ",
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontWeight: FontWeight.w400,
             ),
-            textAlign: TextAlign.center, 
+            textAlign: TextAlign.center,
+            minFontSize: 8, 
           ),
         ], 
       ),
@@ -108,11 +111,11 @@ class ProductImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: const EdgeInsets.all(60.0),
+      padding: const EdgeInsets.only(top: 20.0),
       alignment: AlignmentDirectional.center,
       constraints: const BoxConstraints(
         maxHeight: 400,
-        maxWidth: 200,
+        maxWidth: 300,
       ),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,

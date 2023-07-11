@@ -48,7 +48,7 @@ dependencies:
   intl: ^0.17.0
   data_table_2: ^2.4.2
   timer_count_down: ^2.2.2
-  smooth_page_indicator: ^1.1.0
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

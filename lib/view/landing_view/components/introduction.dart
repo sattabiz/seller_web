@@ -21,6 +21,7 @@ class Introduction extends StatelessWidget {
         
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Container(  
       width: double.infinity,
       height: 600,
@@ -36,16 +37,16 @@ class Introduction extends StatelessWidget {
       child: Flex(
         direction: Axis.vertical,
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children:  <Widget>[
+          SizedBox(height: screenSize.height / 15),
           Title(title),
-          const Padding(padding: EdgeInsets.only(top: 32.0)),
           Expanded(
             flex: 4,
             child: PageIndicator(paragraphs: introduction!)),
           const Spacer(flex: 1),
           const LogInButton(),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           const SignIn(),
         
         ],
@@ -64,29 +65,30 @@ class Title extends StatelessWidget {
       style: Theme.of(context).textTheme.displayLarge!.copyWith(
         color: Theme.of(context).colorScheme.onPrimary,
       ),
-      maxLines: 2
+      maxLines: 2,
+      textAlign: TextAlign.center,
     );
   }
 }
 
-class About extends StatelessWidget {
-  final String introduction;
-  const About(this.introduction, {super.key});
+// class About extends StatelessWidget {
+//   final String introduction;
+//   const About(this.introduction, {super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Text(
-        introduction,
-        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-          color: Theme.of(context).colorScheme.onPrimary,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return SingleChildScrollView(
+//       scrollDirection: Axis.vertical,
+//       child: Text(
+//         introduction,
+//         style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+//           color: Theme.of(context).colorScheme.onPrimary,
+//         ),
+//         textAlign: TextAlign.center,
+//       ),
+//     );
+//   }
+// }
 
 class LogInButton extends StatelessWidget {
   const LogInButton({super.key});
