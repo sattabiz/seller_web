@@ -6,6 +6,7 @@ tr:
     hint_text_email: "ornek@eposta.com"
     email_validation: "Lütfen geçerli bir e-posta adresi giriniz"
     password: "Parola"
+    send: "Gönder"
     password_validation: "Lütfen geçerli bir parola giriniz"
     login_success: "Giriş başarılı"
     login_fail: "E-mail veya parola hatalı"

@@ -6,6 +6,7 @@ import '/view/landing_view/components/introduction.dart';
 import '/view/landing_view/components/app_bar_landing_page.dart';
 import '/view/landing_view/components/products.dart';
 import '/view/landing_view/components/contact.dart';
+import '/view/landing_view/components/products_small.dart';
 
 class LandingView extends ConsumerWidget {
   final int ?sectionIndex;
@@ -47,18 +48,49 @@ class LandingView extends ConsumerWidget {
                   key: const ValueKey(1),
                   controller: _scrollController,
                   index: 1,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      for (int i = 0; contentList.products!.length > i ; i++ )                      
-                        Products(
-                          sectionIndex: 1,
-                          title: contentList.products![i].title ?? " ",
-                          productDetails: contentList.products![i].productDetails,
-                          productImage: contentList.products![i].productImage,
-                        ),
-                    ],
-                  ),
+                  child: LayoutBuilder(
+                    builder: (BuildContext context, BoxConstraints constraints) {
+                      if (constraints.maxWidth > 800) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            for (int i = 0; contentList.products!.length > i ; i++ )                      
+                              Products(
+                                sectionIndex: 1,
+                                title: contentList.products![i].title ?? " ",
+                                productDetails: contentList.products![i].productDetails,
+                                productImage: contentList.products![i].productImage,
+                              ),
+                          ],
+                        );
+                      } else {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            for (int i = 0; contentList.products!.length > i ; i++ )                      
+                              ProductsSmall(
+                                sectionIndex: 1,
+                                title: contentList.products![i].title ?? " ",
+                                productDetails: contentList.products![i].productDetails,
+                                productImage: contentList.products![i].productImage,
+                              ),
+                          ],
+                        );
+                      }
+                    }
+                ),
+                  // child: Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: [
+                  //     for (int i = 0; contentList.products!.length > i ; i++ )                      
+                  //       Products(
+                  //         sectionIndex: 1,
+                  //         title: contentList.products![i].title ?? " ",
+                  //         productDetails: contentList.products![i].productDetails,
+                  //         productImage: contentList.products![i].productImage,
+                  //       ),
+                  //   ],
+                  // ),
                 ),
                 AutoScrollTag(
                   key: const ValueKey(2),
