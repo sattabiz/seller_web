@@ -19,7 +19,7 @@ class PageIndicator extends StatelessWidget {
         height: 240,
         viewportFraction: 1,
         autoPlay: true,
-        autoPlayInterval: const Duration(seconds: 4),
+        autoPlayInterval: const Duration(seconds: 15),
         autoPlayAnimationDuration: const Duration(milliseconds: 800),
         autoPlayCurve: Curves.easeInOutCirc,
         ),

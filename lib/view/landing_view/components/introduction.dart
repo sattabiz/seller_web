@@ -25,7 +25,7 @@ class Introduction extends StatelessWidget {
     return Container(  
       width: double.infinity,
       height: 600,
-      padding: const EdgeInsets.all(32.0),
+      padding: const EdgeInsets.only(top: 32.0),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         image: DecorationImage(
@@ -37,18 +37,21 @@ class Introduction extends StatelessWidget {
       child: Flex(
         direction: Axis.vertical,
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:  <Widget>[
-          SizedBox(height: screenSize.height / 15),
+          // SizedBox(height: screenSize.height / 50),
           Title(title),
           Expanded(
-            flex: 4,
-            child: PageIndicator(paragraphs: introduction!)),
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: PageIndicator(paragraphs: introduction!),
+            )),
           const Spacer(flex: 1),
           const LogInButton(),
           const SizedBox(height: 12),
           const SignIn(),
-        
+          const Spacer(flex: 1),        
         ],
       ),
     );
@@ -60,13 +63,16 @@ class Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoSizeText(
-      title, 
-      style: Theme.of(context).textTheme.displayLarge!.copyWith(
-        color: Theme.of(context).colorScheme.onPrimary,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 18.0),
+      child: AutoSizeText(
+        title, 
+        style: Theme.of(context).textTheme.displayLarge!.copyWith(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+        maxLines: 2,
+        textAlign: TextAlign.center,
       ),
-      maxLines: 2,
-      textAlign: TextAlign.center,
     );
   }
 }

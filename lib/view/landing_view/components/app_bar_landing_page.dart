@@ -30,7 +30,7 @@ class AppbarLandingPage extends StatelessWidget implements PreferredSizeWidget {
         : Image.asset(
           'assets/favicon.png',
           height: 48,
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
         )
       ),
       actions: <Widget>[

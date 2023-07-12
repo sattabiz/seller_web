@@ -29,7 +29,7 @@ class loginCard extends ConsumerWidget {
             minWidth: 400,
           ),
           width: 500,
-          height: 400,
+          height: 380,
           child: Form(
             key: _formKey,
             child: Flex(
@@ -221,7 +221,7 @@ class loginCard extends ConsumerWidget {
                     ),
                   ),
                 ),
-                // const SizedBox(height: 40,)
+                const SizedBox(height: 20,)
               ],
             ),
           ),
@@ -236,7 +236,7 @@ class loginCard extends ConsumerWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(FlutterI18n.translate(context, "tr.login.forget_password")),
+          title: Text(FlutterI18n.translate(context, "tr.login.new_password")),
           content: SizedBox(
             width: 500,
             child: TextFormField(
