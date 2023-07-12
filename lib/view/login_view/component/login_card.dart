@@ -47,7 +47,7 @@ class loginCard extends ConsumerWidget {
                         topLeft: Radius.circular(16.0),
                         topRight: Radius.circular(16.0),
                       ),
-                    ), 
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -56,15 +56,18 @@ class loginCard extends ConsumerWidget {
                           child: Text(
                             FlutterI18n.translate(context, "tr.login.log_in"),
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              color: Theme.of(context).colorScheme.shadow,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  color: Theme.of(context).colorScheme.shadow,
+                                ),
                           ),
                         ),
                         IconButton(
                           padding: const EdgeInsets.only(right: 25.0),
                           alignment: Alignment.centerRight,
-                          icon:  Icon(
+                          icon: Icon(
                             Icons.close,
                             size: 35,
                             color: Theme.of(context).colorScheme.shadow,
@@ -87,22 +90,30 @@ class loginCard extends ConsumerWidget {
                     padding: const EdgeInsets.only(left: 25.0, right: 25.0),
                     child: TextFormField(
                       controller: _emailController,
-                      keyboardType: TextInputType.emailAddress, 
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8),
+                        fillColor: Theme.of(context)
+                            .colorScheme
+                            .onPrimary
+                            .withOpacity(0.8),
                         labelText:
-                          FlutterI18n.translate(context, "tr.login.e-mail"),
-                        floatingLabelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                        errorStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: Theme.of(context).colorScheme.error,
-                        ),
+                            FlutterI18n.translate(context, "tr.login.e-mail"),
+                        floatingLabelStyle:
+                            Theme.of(context).textTheme.bodySmall!.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                                ),
+                        errorStyle:
+                            Theme.of(context).textTheme.bodySmall!.copyWith(
+                                  color: Theme.of(context).colorScheme.error,
+                                ),
                       ),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
-                          return FlutterI18n.translate(context, "tr.login.email_validation");
+                          return FlutterI18n.translate(
+                              context, "tr.login.email_validation");
                         }
                         return null;
                       },
@@ -118,16 +129,23 @@ class loginCard extends ConsumerWidget {
                       obscureText: true,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8),
+                        fillColor: Theme.of(context)
+                            .colorScheme
+                            .onPrimary
+                            .withOpacity(0.8),
                         labelText:
-                              FlutterI18n.translate(context, "tr.login.password"),
-                        floatingLabelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: Theme.of(context).colorScheme.onSurfaceVariant,
-                          ),
-                        ),
+                            FlutterI18n.translate(context, "tr.login.password"),
+                        floatingLabelStyle:
+                            Theme.of(context).textTheme.bodySmall!.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                                ),
+                      ),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
-                          return FlutterI18n.translate(context, "tr.login.password_validation");
+                          return FlutterI18n.translate(
+                              context, "tr.login.password_validation");
                         }
                         return null;
                       },
@@ -141,17 +159,21 @@ class loginCard extends ConsumerWidget {
                                     password: _passwordController.text);
                             final loginState =
                                 ref.watch(loginViewModelProvider);
+                            ref.refresh(getCurrentUserInfoProvider);
+                            await ref.read(getCurrentUserInfoProvider);
                             if (loginState == LoginState.success) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text(FlutterI18n.translate(context, "tr.login.login_success")),
+                                  content: Text(FlutterI18n.translate(
+                                      context, "tr.login.login_success")),
                                 ),
                               );
                               Navigator.pushNamed(context, '/orderScreen');
                             } else if (loginState == LoginState.failure) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text(FlutterI18n.translate(context, "tr.login.login_fail")),
+                                  content: Text(FlutterI18n.translate(
+                                      context, "tr.login.login_fail")),
                                 ),
                               );
                             }
@@ -168,10 +190,11 @@ class loginCard extends ConsumerWidget {
                   child: Text(
                     FlutterI18n.translate(context, "tr.login.forget_password"),
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: Theme.of(context).colorScheme.outline,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Theme.of(context).colorScheme.outline,
-                    ),
+                          color: Theme.of(context).colorScheme.outline,
+                          decoration: TextDecoration.underline,
+                          decorationColor:
+                              Theme.of(context).colorScheme.outline,
+                        ),
                   ),
                 ),
                 const SizedBox(
@@ -192,20 +215,21 @@ class loginCard extends ConsumerWidget {
                               email: _emailController.text,
                               password: _passwordController.text);
                           final loginState = ref.read(loginViewModelProvider);
-                    
+
                           if (loginState == LoginState.success) {
-                            final currentUserInfo = ref.read(getCurrentUserInfoProvider);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                  content: Text(FlutterI18n.translate(context, "tr.login.login_success"))),
+                                  content: Text(FlutterI18n.translate(
+                                      context, "tr.login.login_success"))),
                             );
-                            final currentUserAsyncValue =
-                                ref.watch(getCurrentUserInfoProvider);
+                            ref.refresh(getCurrentUserInfoProvider);
+                            await ref.read(getCurrentUserInfoProvider);
                             await Navigator.pushNamed(context, '/orderScreen');
                           } else if (loginState == LoginState.failure) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                  content: Text(FlutterI18n.translate(context, "tr.login.login_fail"))),
+                                  content: Text(FlutterI18n.translate(
+                                      context, "tr.login.login_fail"))),
                             );
                           }
                         } catch (e) {
@@ -221,7 +245,9 @@ class loginCard extends ConsumerWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20,)
+                const SizedBox(
+                  height: 20,
+                )
               ],
             ),
           ),
@@ -244,11 +270,13 @@ class loginCard extends ConsumerWidget {
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: FlutterI18n.translate(context, "tr.login.e-mail"),
-                hintText: FlutterI18n.translate(context, "tr.login.hint_text_email"),
+                hintText:
+                    FlutterI18n.translate(context, "tr.login.hint_text_email"),
               ),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
-                  return  FlutterI18n.translate(context, "tr.login.email_validation");
+                  return FlutterI18n.translate(
+                      context, "tr.login.email_validation");
                 }
                 return null;
               },

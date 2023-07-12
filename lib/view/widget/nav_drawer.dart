@@ -69,35 +69,21 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
             const SizedBox(
               height: 24,
             ),
-            InkWell(
-              onTap: () async{
-                ref.refresh(proposalListview);
-                await ref.read(proposalListview);
-                setState(() {
-                  ref.refresh(proposalListview.future);
-                });
-              },
-              child: RefreshIndicator(
-                onRefresh: () => ref.refresh(proposalListview.future),
-                child: drawerButton(context, 'Teklif İstekleri',
-                    'assets/proposal.svg', '/proposalScreen', 0),
-              ),
+            RefreshIndicator(
+              onRefresh: () => ref.refresh(proposalListview.future),
+              child: drawerButton(context, 'Teklif İstekleri',
+                  'assets/proposal.svg', '/proposalScreen', 0),
             ),
             const SizedBox(
               height: 16,
             ),
-            ElevatedButton(
-              onPressed: () async{
-                ref.read(counterProvider).increment();
+            RefreshIndicator(
+              onRefresh:() async{
+                ref.refresh(getOrderListProvider);
+                await ref.read(getOrderListProvider.future);
               },
-              child: RefreshIndicator(
-                onRefresh:() async{
-                  ref.refresh(getOrderListProvider);
-                  await ref.read(getOrderListProvider.future);
-                },
-                child: drawerButton(
-                    context, 'Siparişler', 'assets/order.svg', '/orderScreen', 1),
-              ),
+              child: drawerButton(
+                  context, 'Siparişler', 'assets/order.svg', '/orderScreen', 1),
             ),
             const SizedBox(
               height: 16,
