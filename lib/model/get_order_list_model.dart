@@ -2,27 +2,27 @@ import 'dart:convert';
 
 class GetOrderlistModel {
     GetOrderlistModel({
-        this.id,
-        this.proposalId,
-        this.companyId,
-        this.supplier,
-        this.supplierErpId,
-        this.supplierTaxId,
-        this.state,
-        this.deliveryDate,
-        this.paymentDueDate,
-        this.paymentType,
-        this.orderDate,
-        this.demandName,
-        this.demandNo,
-        this.demandCreatorName,
-        this.demandCreatorEmail,
-        this.procurementName,
-        this.procurementEmail,
+        required this.id,
+        required this.proposalId,
+        required this.companyId,
+        required this.supplier,
+        required this.supplierErpId, 
+        this.supplierTaxId,                         //dokumanda eksik
+        required this.state,
+        required this.deliveryDate,
+        required this.paymentDueDate,
+        required this.paymentType,
+        required this.orderDate,
+        required this.demandName,
+        required this.demandNo,
+        required this.demandCreatorName,
+        required this.demandCreatorEmail,
+        required this.procurementName,
+        required this.procurementEmail,
         this.costCenterName,
         this.costCenterErpId,
         this.approvers,
-        this.products,
+        required this.products,
     });
 
     int ?id;
@@ -45,7 +45,7 @@ class GetOrderlistModel {
     String ?costCenterName;
     String ?costCenterErpId;
     List<Approver> ?approvers;
-    List<Product> ?products;
+    List<Product> products;
 
     factory GetOrderlistModel.fromJson(String str) => GetOrderlistModel.fromMap(json.decode(str));
 
@@ -98,7 +98,7 @@ class GetOrderlistModel {
         "cost_center_name": costCenterName,
         "cost_center_erp_id": costCenterErpId,
         "approvers": List<dynamic>.from(approvers!.map((x) => x.toMap())),
-        "products": List<dynamic>.from(products!.map((x) => x.toMap())),
+        "products": List<dynamic>.from(products.map((x) => x.toMap())),
     };
 
 
@@ -138,31 +138,31 @@ class Approver {
 
 class Product {
     Product({
-        this.productProposalId,
-        this.name,
+        required this.productProposalId,
+        required this.name,
         this.categoryId,
         this.categoryErpId,
         this.description,
         this.amount,
-        this.unit,
-        this.price,
+        required this.unit,
+        required this.price,
         this.currencyCode,
         this.erpId,
         this.productErpId,
         this.proposalNote,
     });
 
-    int ?productProposalId;
-    String ?name;
+    int productProposalId;
+    String name;
     int ?categoryId;
-    dynamic ?categoryErpId;
+    String ?categoryErpId;
     String ?description;
     double ?amount;
-    String ?unit;
-    double ?price;
+    String unit;
+    double price;
     String ?currencyCode;
-    dynamic erpId;
-    dynamic productErpId;
+    String ?erpId;
+    String ?productErpId;
     String ?proposalNote;
 
     factory Product.fromJson(String str) => Product.fromMap(json.decode(str));

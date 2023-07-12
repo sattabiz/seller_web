@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../service/login_service.dart';
+import '../service/authantication_service.dart';
 
 
 enum LogoutState {

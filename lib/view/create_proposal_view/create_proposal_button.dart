@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../model/create_proposal_model.dart';
 import '../../service/create_proposal_service.dart';
+import '../../view_model/create_proposal_view_model.dart';
 import '../../view_model/landing_view_model.dart';
 import 'create_proposal_view_content.dart';
 import 'create_proposal_view_table.dart';
