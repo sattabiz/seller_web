@@ -44,7 +44,7 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
                 data: (data) => AutoSizeText(
                   company?.name?.split(' ').take(2).join(' ')?? '',
                   maxLines: 1,
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         color: Theme.of(context).colorScheme.onPrimary,
                       ),
                 ),

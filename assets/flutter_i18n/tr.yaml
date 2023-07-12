@@ -11,6 +11,7 @@ tr:
     login_success: "Giriş başarılı"
     login_fail: "E-mail veya parola hatalı"
     forget_password: "Şifremi unuttum"
+    new_password: "Yeni Şifre Talebi"
     login_button: "Giriş Yap"
     contact: "İletişim"
 

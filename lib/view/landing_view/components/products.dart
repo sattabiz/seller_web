@@ -69,6 +69,7 @@ class ProductTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: AlignmentGeometry.lerp(Alignment.topCenter, Alignment.center, 2.0),
+      margin: const EdgeInsets.only(bottom: 20.0),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.only(
@@ -82,14 +83,14 @@ class ProductTitle extends StatelessWidget {
         children: [
           const SizedBox(height: 30),
           AutoSizeText(title ?? " ",
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,  
           ),
           const SizedBox(height: 20),
           AutoSizeText(productDetails ?? " ",
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w400,
             ),
             textAlign: TextAlign.center, 
@@ -117,12 +118,12 @@ class ProductImage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(20),
-          bottomRight: Radius.circular(20),
+          topRight: Radius.circular(12),
+          bottomRight: Radius.circular(12),
         ),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(12),
         child: Image.network(
             productImage ?? " ",
             errorBuilder: (context, error, stackTrace) => const SizedBox(),

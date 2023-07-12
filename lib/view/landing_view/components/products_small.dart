@@ -41,7 +41,7 @@ class ProductsSmall extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              flex: 6,
+              flex: 5,
               child: ProductImage(productImage: productImage ?? " "),
             ),
             Expanded(
@@ -69,7 +69,7 @@ class ProductTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: AlignmentGeometry.lerp(Alignment.topCenter, Alignment.center, 2.0),
-      margin: const EdgeInsets.only(bottom: 20.0, top: 20.0),
+      margin: const EdgeInsets.only(bottom: 20.0),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.only(
@@ -89,7 +89,6 @@ class ProductTitle extends StatelessWidget {
             textAlign: TextAlign.center,
             minFontSize: 10,  
           ),
-          const SizedBox(height: 20),
           AutoSizeText(productDetails ?? " ",
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontWeight: FontWeight.w400,
@@ -111,7 +110,7 @@ class ProductImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 20.0),
+      // padding: const EdgeInsets.all(30.0),
       alignment: AlignmentDirectional.center,
       constraints: const BoxConstraints(
         maxHeight: 400,
@@ -120,12 +119,15 @@ class ProductImage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(20),
-          bottomRight: Radius.circular(20),
+          topRight: Radius.circular(12),
+          topLeft: Radius.circular(12),
         ),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(12),
+          topLeft: Radius.circular(12),
+        ),
         child: Image.network(
             productImage ?? " ",
             errorBuilder: (context, error, stackTrace) => const SizedBox(),

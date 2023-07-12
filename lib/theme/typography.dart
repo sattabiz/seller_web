@@ -71,7 +71,7 @@ final themeText = const TextTheme().copyWith(
       letterSpacing: 0.4,
     ),
     labelLarge: const TextStyle(
-      fontSize: 12,
+      fontSize: 14,
       fontWeight: FontWeight.w500,
       height: 1.43,
       letterSpacing: 0.1,
