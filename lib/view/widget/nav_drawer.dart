@@ -1,17 +1,23 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../view_model/buyer_invoices_view_model.dart';
+import '../../view_model/order_list_view_model.dart';
+import '../../view_model/proposal_view_model.dart';
+import '../../view_model/provider_controller.dart';
+import '../../view_model/shipment_view_model.dart';
 import 'nav_drawer_header_button.dart';
 
-class NavigationRailDrawer extends StatefulWidget {
+class NavigationRailDrawer extends ConsumerStatefulWidget {
   const NavigationRailDrawer({Key? key}) : super(key: key);
 
   @override
   _NavigationRailDrawerState createState() => _NavigationRailDrawerState();
 }
 
-class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
+class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
   int currentIndex = 0;
 
   @override
@@ -23,15 +29,17 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
       currentIndex = 0;
     } else if (routeName == '/orderScreen') {
       currentIndex = 1;
-   } else if (routeName == '/shipmentScreen') {
-      currentIndex = 2;  
+    } else if (routeName == '/shipmentScreen') {
+      currentIndex = 2;
     } else if (routeName == '/invoiceScreen') {
       currentIndex = 3;
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Drawer(
@@ -61,23 +69,52 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
             const SizedBox(
               height: 24,
             ),
-            drawerButton(
-              context,'Teklif İstekleri','assets/proposal.svg', '/proposalScreen',0),
+            InkWell(
+              onTap: () async{
+                ref.refresh(proposalListview);
+                await ref.read(proposalListview);
+                setState(() {
+                  ref.refresh(proposalListview.future);
+                });
+              },
+              child: RefreshIndicator(
+                onRefresh: () => ref.refresh(proposalListview.future),
+                child: drawerButton(context, 'Teklif İstekleri',
+                    'assets/proposal.svg', '/proposalScreen', 0),
+              ),
+            ),
             const SizedBox(
               height: 16,
             ),
-            drawerButton(
-                context, 'Siparişler', 'assets/order.svg', '/orderScreen', 1),               
+            ElevatedButton(
+              onPressed: () async{
+                ref.read(counterProvider).increment();
+              },
+              child: RefreshIndicator(
+                onRefresh:() async{
+                  ref.refresh(getOrderListProvider);
+                  await ref.read(getOrderListProvider.future);
+                },
+                child: drawerButton(
+                    context, 'Siparişler', 'assets/order.svg', '/orderScreen', 1),
+              ),
+            ),
             const SizedBox(
               height: 16,
             ),
-            drawerButton(
-              context, 'Sevkiyat', 'assets/order.svg', '/shipmentScreen', 2),
+            RefreshIndicator(
+              onRefresh: () => ref.refresh(shipmentProvider.future),
+              child: drawerButton(context, 'Sevkiyat', 'assets/order.svg',
+                  '/shipmentScreen', 2),
+            ),
             const SizedBox(
               height: 16,
             ),
-            drawerButton(context, 'Faturalar', 'assets/invoice.svg',
+            RefreshIndicator(
+              onRefresh: () => ref.refresh(getInvoicesProvider.future),
+              child:drawerButton(context, 'Faturalar', 'assets/invoice.svg',
                 '/invoiceScreen', 3),
+            ),
           ],
         ),
       ),
@@ -85,7 +122,12 @@ class _NavigationRailDrawerState extends State<NavigationRailDrawer> {
   }
 
   drawerButton(
-      BuildContext context, String text, String icon, String route, int index) {
+    BuildContext context,
+    String text,
+    String icon,
+    String route,
+    int index,
+  ) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return InkWell(

@@ -98,7 +98,7 @@ class OrderView extends ConsumerWidget {
                       demandNo: orderList[index].demandNo.toString(),
                       deliveryDate: orderList[index].deliveryDate.toString(),
                       paymentDueDate: orderList[index].paymentDueDate.toString(), 
-                      bodyList: orderList[index].products!,
+                      bodyList: orderList[index].products,
                     );
                   },
                 ),

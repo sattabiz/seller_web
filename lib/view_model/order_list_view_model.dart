@@ -2,24 +2,37 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../config/apiUrls.dart';
 import '../model/get_order_list_model.dart';
 import '../service/get_order_list_service.dart';
+import '../service/get_services.dart';
 
 
 
-final getOrderListProvider = FutureProvider<List<GetOrderlistModel>>((ref) async {
-  final _orderlistservice = getOrderlistService();
-  List<GetOrderlistModel>? _orderList;
+final getOrderListProvider =
+    FutureProvider.autoDispose<List<GetOrderlistModel>>((ref) async {
+  final apiService = ApiService();
+  Response response;
   try {
-    _orderList = await _orderlistservice.getOrderlistData();
+    response = await apiService.get(url: ApiUrls.order);
   } catch (e) {
     if (e is DioException) {
       if (e.response?.statusCode != 200) {
         ref.read(navigatorKeyProvider).currentState!.pushNamed("/login");
       }
     }
+    rethrow;
   }
-  return _orderList ?? [];  // null durumunda boş liste döndürür
+  debugPrint('aaaaaaaaaasssssssssss 3434 dfsdf${response.data.toString()} sdfsdfsdfsd34234234');
+  List<GetOrderlistModel> _orderList = [];
+  if (response.data['order'] != null) {
+    _orderList = (response.data['order'] as List)
+        .map((e) => GetOrderlistModel.fromMap(e))
+        .toList();
+  }
+  ref.onDispose(() {_orderList.remove(_orderList);});
+
+  return _orderList;
 });
 
 final navigatorKeyProvider = Provider<GlobalKey<NavigatorState>>((ref) {

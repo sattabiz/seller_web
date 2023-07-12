@@ -118,7 +118,7 @@ class ProductProposal {
   String? erpId;
   int? companyProductId;
   DateTime? updatedAt;
-  int? price;
+  double? price;
   String? url;
   String? description;
   int? productId;
@@ -128,7 +128,7 @@ class ProductProposal {
   String? proposalNote;
   int? taxRate;
   String? currencyCode;
-  int? amount;
+  double? amount;
 
   ProductProposal({
     this.productProposalId,

@@ -1,39 +1,33 @@
 import 'package:dio/dio.dart';
-import '../config/apiUrls.dart';
-import '../model/get_current_user_info_model.dart';
 import '../storage/jwt_storage.dart';
 
-class UserService {
-
+class ApiService {
   final Dio _dio = Dio();
 
-  Future<CurrentUserInfoModel> getCurrentUserInfo() async {
-    _dio.options.responseType = ResponseType.json;
-
+  Future<Response> get({required String url}) async {
     try {
       final _jwt = await jwtStorageService().getJwtData();
 
       var response = await _dio.get(
-        ApiUrls.userInfo,
+        url,
         options: Options(
           headers: {
             "Authorization": _jwt,
           },
         ),
-      ); 
+      );
+
       if (response.statusCode != 200) {
-        throw DioError(
+        throw DioException(
             requestOptions: response.requestOptions,
             error: 'HTTP status error: ${response.statusCode}');
       }
 
-      CurrentUserInfoModel currentUserInfoModel =
-          CurrentUserInfoModel.fromMap(response.data);
-
-      return currentUserInfoModel;
+      return response;
     } catch (e) {
       throw e;
     }
   }
 }
+
 
