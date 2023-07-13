@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../storage/jwt_storage.dart';
 import '../../view_model/current_user_view_model.dart';
 import '../../view_model/logout_view_model.dart';
+import '../../view_model/provider_controller.dart';
 
 enum SampleItem { itemOne, itemTwo }
 
@@ -112,7 +113,8 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
                     await logoutViewModel.logout();
 
                     if (logoutViewModel.state == LogoutState.success) {
-                      final _jwt = await jwtStorageService().getJwtData();                      
+                      final _jwt = await jwtStorageService().getJwtData();
+                      ref.read(drawerCountProvider.notifier).state = 0;                      
                       Navigator.pushNamed(context, '/LandingScreen');
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
