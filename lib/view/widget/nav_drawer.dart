@@ -10,168 +10,133 @@ import '../../view_model/provider_controller.dart';
 import '../../view_model/shipment_view_model.dart';
 import 'nav_drawer_header_button.dart';
 
-class NavigationRailDrawer extends ConsumerStatefulWidget {
-  const NavigationRailDrawer({Key? key}) : super(key: key);
+class NavigationRailDrawer extends ConsumerWidget {
+const NavigationRailDrawer({Key? key}) : super(key: key);
 
-  @override
-  _NavigationRailDrawerState createState() => _NavigationRailDrawerState();
+@override
+Widget build(BuildContext context, WidgetRef ref) {
+double screenWidth = MediaQuery.of(context).size.width;
+double screenHeight = MediaQuery.of(context).size.height;
+return Drawer(
+child: Padding(
+padding: EdgeInsets.all(screenWidth * 0.01),
+child: ListView(
+padding: EdgeInsets.all(screenWidth * 0.005),
+children: [
+DrawerHeader(
+child: Column(
+children: [
+SizedBox(
+height: screenHeight * 0.01,
+),
+Flexible(child: DrawerHeaderButton()),
+],
+),
+),
+SizedBox(
+height: screenHeight * 0.01,
+),
+Padding(
+padding: const EdgeInsets.only(left: 10.0),
+child: Text('İşlemler',
+style: Theme.of(context).textTheme.titleMedium),
+),
+const SizedBox(
+height: 24,
+),
+drawerButton(context, 'Teklif İstekleri',
+'assets/proposal.svg', '/proposalScreen', 0, ref, proposalListview),
+const SizedBox(
+height: 16,
+),
+drawerButton(context, 'Siparişler', 'assets/order.svg',
+'/orderScreen', 1, ref, getOrderListProvider),
+const SizedBox(
+height: 16,
+),
+drawerButton(context, 'Sevkiyat', 'assets/order.svg',
+'/shipmentScreen', 2, ref, shipmentProvider),
+const SizedBox(
+height: 16,
+),
+drawerButton(context, 'Faturalar', 'assets/invoice.svg',
+'/invoiceScreen', 3, ref, getInvoicesProvider),
+],
+),
+),
+);
 }
 
-class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
-  int currentIndex = 0;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Herhangi bir navigasyon değişikliği olduğunda 'currentIndex' güncellenir.
-    final routeName = ModalRoute.of(context)!.settings.name;
-    if (routeName == '/proposalScreen') {
-      currentIndex = 0;
-    } else if (routeName == '/orderScreen') {
-      currentIndex = 1;
-    } else if (routeName == '/shipmentScreen') {
-      currentIndex = 2;
-    } else if (routeName == '/invoiceScreen') {
-      currentIndex = 3;
-    }
-  }
-
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Drawer(
-      child: Padding(
-        padding: EdgeInsets.all(screenWidth * 0.01),
-        child: ListView(
-          padding: EdgeInsets.all(screenWidth * 0.005),
-          children: [
-            DrawerHeader(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: screenHeight * 0.01,
-                  ),
-                  Flexible(child: DrawerHeaderButton()),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.01,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: Text('İşlemler',
-                  style: Theme.of(context).textTheme.titleMedium),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            RefreshIndicator(
-              onRefresh: () => ref.refresh(proposalListview.future),
-              child: drawerButton(context, 'Teklif İstekleri',
-                  'assets/proposal.svg', '/proposalScreen', 0),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            RefreshIndicator(
-              onRefresh:() async{
-                ref.refresh(getOrderListProvider);
-                await ref.read(getOrderListProvider.future);
-              },
-              child: drawerButton(
-                  context, 'Siparişler', 'assets/order.svg', '/orderScreen', 1),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            RefreshIndicator(
-              onRefresh: () => ref.refresh(shipmentProvider.future),
-              child: drawerButton(context, 'Sevkiyat', 'assets/order.svg',
-                  '/shipmentScreen', 2),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            RefreshIndicator(
-              onRefresh: () => ref.refresh(getInvoicesProvider.future),
-              child:drawerButton(context, 'Faturalar', 'assets/invoice.svg',
-                '/invoiceScreen', 3),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  drawerButton(
-    BuildContext context,
-    String text,
-    String icon,
-    String route,
-    int index,
-  ) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return InkWell(
-      borderRadius: BorderRadius.circular(50),
-      onTap: () async {
-        Navigator.pushNamed(context, route);
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: currentIndex == index
-              ? Theme.of(context).colorScheme.primaryContainer
-              : Theme.of(context).colorScheme.surface,
-        ),
-        width: screenWidth * 0.98,
-        height: MediaQuery.of(context).size.width > 650
-            ? screenHeight * 0.09
-            : screenHeight * 0.2,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Spacer(
-              flex: 1,
-            ),
-            Flexible(
-              child: SvgPicture.asset(
-                icon,
-                semanticsLabel: 'Order Status Icon',
-                width: 30.0,
-                height: 30.0,
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              flex: 10,
-              child: AutoSizeText(
-                text,
-                style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    ),
-              ),
-            ),
-            Flexible(
-              child: AutoSizeText(
-                '24',
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    ),
-              ),
-            ),
-            const Spacer()
-          ],
-        ),
-      ),
-    );
-  }
+drawerButton(
+BuildContext context,
+String text,
+String icon,
+String route,
+int index,
+WidgetRef ref,
+AutoDisposeFutureProvider<List<dynamic>> provider,
+) {
+double screenWidth = MediaQuery.of(context).size.width;
+double screenHeight = MediaQuery.of(context).size.height;
+return InkWell(
+borderRadius: BorderRadius.circular(50),
+onTap: () async {
+ref.refresh(provider);
+ref.read(provider.future);
+ref.read(drawerCountProvider.notifier).state = index; 
+Navigator.pushNamed(context, route);
+},
+child: Container(
+decoration: BoxDecoration(
+borderRadius: BorderRadius.circular(50),
+color: ref.watch(drawerCountProvider) == index
+? Theme.of(context).colorScheme.primaryContainer
+: Theme.of(context).colorScheme.surface,
+),
+width: screenWidth * 0.98,
+height: MediaQuery.of(context).size.width > 650
+? screenHeight * 0.09
+: screenHeight * 0.2,
+child: Row(
+mainAxisAlignment: MainAxisAlignment.start,
+children: [
+const Spacer(
+flex: 1,
+),
+Flexible(
+child: SvgPicture.asset(
+icon,
+semanticsLabel: 'Order Status Icon',
+width: 30.0,
+height: 30.0,
+),
+),
+const SizedBox(
+width: 10,
+),
+Expanded(
+flex: 10,
+child: AutoSizeText(
+text,
+style: Theme.of(context).textTheme.labelLarge!.copyWith(
+color: Theme.of(context).colorScheme.onPrimaryContainer,
+),
+),
+),
+Flexible(
+child: AutoSizeText(
+'24',
+style: Theme.of(context).textTheme.labelMedium!.copyWith(
+color: Theme.of(context).colorScheme.onPrimaryContainer,
+),
+),
+),
+const Spacer()
+],
+),
+),
+);
+}
 }
 
 

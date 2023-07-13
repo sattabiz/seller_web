@@ -6,7 +6,7 @@ import '../model/get_buyer_invoices_list_model.dart';
 import '../service/get_services.dart';
 import 'order_list_view_model.dart';
 
-final getInvoicesProvider = FutureProvider<List<GetInvoicesModel>>((ref) async {
+final getInvoicesProvider = FutureProvider.autoDispose<List<GetInvoicesModel>>((ref) async {
   final apiService = ApiService();
   Response response;
   try {

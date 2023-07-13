@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../view_model/buyer_invoices_view_model.dart';
 import '../../../view_model/current_user_view_model.dart';
 import '../../../view_model/login_view_model.dart';
+import '../../../view_model/order_list_view_model.dart';
+import '../../../view_model/proposal_view_model.dart';
+import '../../../view_model/shipment_view_model.dart';
 
 class loginCard extends ConsumerWidget {
   loginCard({Key? key}) : super(key: key);
@@ -159,16 +163,21 @@ class loginCard extends ConsumerWidget {
                                     password: _passwordController.text);
                             final loginState =
                                 ref.watch(loginViewModelProvider);
-                            ref.refresh(getCurrentUserInfoProvider);
-                            await ref.read(getCurrentUserInfoProvider);
+
                             if (loginState == LoginState.success) {
+                              ref.refresh(getCurrentUserInfoProvider);
+                              ref.refresh(getInvoicesProvider);
+                              ref.refresh(proposalListview);
+                              ref.refresh(getOrderListProvider);
+                              ref.refresh(shipmentProvider);
+                              await ref.read(getCurrentUserInfoProvider);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(FlutterI18n.translate(
                                       context, "tr.login.login_success")),
                                 ),
                               );
-                              Navigator.pushNamed(context, '/orderScreen');
+                              Navigator.pushNamed(context, '/proposalScreen');
                             } else if (loginState == LoginState.failure) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -223,8 +232,13 @@ class loginCard extends ConsumerWidget {
                                       context, "tr.login.login_success"))),
                             );
                             ref.refresh(getCurrentUserInfoProvider);
+                            ref.refresh(getInvoicesProvider);
+                            ref.refresh(proposalListview);
+                            ref.refresh(getOrderListProvider);
+                            ref.refresh(shipmentProvider);
                             await ref.read(getCurrentUserInfoProvider);
-                            await Navigator.pushNamed(context, '/orderScreen');
+                            await Navigator.pushNamed(
+                                context, '/proposalScreen');
                           } else if (loginState == LoginState.failure) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
