@@ -29,6 +29,8 @@ tr:
     row_1: "Revizyon"
     row_2: "STVS"
     row_3: "TGS"
+    create_proposal_btn: "Teklif İste"
+    save_list_btn: "Listelerime Kaydet"
   order:
     orders: "Siparişler"
     order_pending: "Teklif İstendi"  

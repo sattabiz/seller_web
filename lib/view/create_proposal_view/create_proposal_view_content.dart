@@ -30,8 +30,8 @@ class createProposalViewContent extends ConsumerWidget {
         .format(DateTime.now().add(Duration(days: 3))),
   );
 
-  int? _selectedDay;
-  int? _selectedDay2;
+  // int? _selectedDay;
+  // int? _selectedDay2;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -42,13 +42,14 @@ class createProposalViewContent extends ConsumerWidget {
         children: [
           TextFormField(
             decoration: InputDecoration(
-                filled: true,
-                fillColor: Theme.of(context).colorScheme.surface,
-                border: const UnderlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                hintText: 'Konu',
-                labelText: 'Konu'),
+              filled: true,
+              fillColor: Theme.of(context).colorScheme.surface,
+              hintText: 'Konu',
+              hintStyle: Theme.of(context).textTheme.bodySmall,
+              labelText: 'Konu',
+              labelStyle: Theme.of(context).textTheme.bodyMedium,
+              focusColor: Theme.of(context).colorScheme.onSecondaryContainer,
+            ),
             initialValue: topic,
             validator: (String? value) {
               if (value == null || value.isEmpty) {
@@ -169,7 +170,7 @@ class createProposalViewContent extends ConsumerWidget {
                   alignment: Alignment.centerRight,
                   value: offerModel.selectedDay ??
                       120, // Eğer seçilen değer null ise 120'yi kullan
-                  icon: const Icon(Icons.arrow_downward),
+                  icon: const Icon(Icons.keyboard_arrow_down_outlined),
                   iconSize: 24,
                   elevation: 16,
                   onChanged: (int? value) {
@@ -196,7 +197,7 @@ class createProposalViewContent extends ConsumerWidget {
                   isExpanded: true,
                   alignment: Alignment.centerRight,
                   value: offerModel.selectedDay2,
-                  icon: const Icon(Icons.arrow_downward),
+                  icon: const Icon(Icons.keyboard_arrow_down_outlined),
                   iconSize: 24,
                   elevation: 16,
                   onChanged: (int? value) {

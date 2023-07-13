@@ -32,11 +32,15 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
       child: AppBar(
         backgroundColor: Theme.of(context).colorScheme.secondary,
         automaticallyImplyLeading: MediaQuery.of(context).size.width < 1070,
-        title: SvgPicture.asset(
-          'assets/white-logo.svg',
-          semanticsLabel: 'logo',
-          width: 180.0,
-          fit: BoxFit.fill,
+        title:  Padding(
+          padding: const EdgeInsets.only(left: 16.0),
+        
+          child: SvgPicture.asset(
+            'assets/white-logo.svg',
+            semanticsLabel: 'logo',
+            width: 180.0,
+            fit: BoxFit.cover,
+          ),
         ),
         actions: <Widget>[
           if (screenWidth > 800)

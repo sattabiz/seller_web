@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -14,13 +15,15 @@ class createProposalView extends ConsumerWidget {
     return AlertDialog(
       titlePadding: EdgeInsets.all(0),
       title: Container(
-        decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30))), //for border radiuss
         alignment: Alignment.center,
-        width: 1250,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondaryContainer,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+          ),
+        ),
+        width: 900,
         height: 70,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,45 +63,36 @@ class createProposalView extends ConsumerWidget {
           ],
         ),
       ),
-      content: Padding(
-        padding:
-            const EdgeInsets.only(left: 22.0, right: 22.0, top: 15, bottom: 15),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              createProposalViewContent(),
-              createProposalViewTable(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  createProposalButton(),
-                  Padding(
-                      padding: const EdgeInsets.only(top: 20.0, right: 16),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          final formItems =
-                              ref.read(formItemProvider.notifier).state;
-
-                          debugPrint('Number of items: ${formItems.length}');
-
-                          for (var item in formItems) {
-                            debugPrint('Category: ${item.category}');
-                            debugPrint('Product: ${item.product}');
-                            debugPrint('Amount: ${item.amount}');
-                          }
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.all(15.0),
-                          child: Text('Listelerime Kaydet'),
-                        ),
-                      ))
-                ],
-              )
-            ],
-          ),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            createProposalViewContent(),
+            createProposalViewTable(),
+          ],
         ),
       ),
+      actions: [
+        const createProposalButton(),
+        const SizedBox(width: 480),
+        ElevatedButton(
+          style: ButtonStyle(
+            fixedSize: MaterialStateProperty.all(const Size(200, 40)),
+            backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primaryContainer),
+            // alignment: Alignment.centerRight
+          ),
+          onPressed: () {
+            final formItems = ref.read(formItemProvider.notifier).state;
+          },
+          child: Text(
+            FlutterI18n.translate(context, 'tr.proposal.save_list_btn'),
+            style: Theme.of(context).textTheme.labelLarge!.copyWith(
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
+            )
+          ),
+        )
+    
+      ],
     );
   }
 }
