@@ -26,6 +26,5 @@ final proposalListview = FutureProvider.autoDispose<List<GetProposalModel>>((ref
         .map((e) => GetProposalModel.fromMap(e))
         .toList();
   }
-  debugPrint('aaaaaaaaaasssssssssss 3434 dfsdf${_proposalList.toString()} sdfsdfsdfsd34234234');
   return _proposalList; 
 });

@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:seller_point/view/landing_view/landing_view.dart';
 
 import '../../storage/jwt_storage.dart';
 import '../../view_model/current_user_view_model.dart';
@@ -106,9 +108,9 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                     items: <PopupMenuEntry<SampleItem>>[
-                      const PopupMenuItem<SampleItem>(
+                      PopupMenuItem<SampleItem>(
                         value: SampleItem.itemOne,
-                        child: Text('Çıkış Yap'),
+                        child: Text(FlutterI18n.translate(context, 'tr.login.logout')),
                       ),
                     ]).then((SampleItem? item) async {
                   if (item == SampleItem.itemOne) {
@@ -119,7 +121,13 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
                     if (logoutViewModel.state == LogoutState.success) {
                       final _jwt = await jwtStorageService().getJwtData();
                       ref.read(drawerCountProvider.notifier).state = 0;                      
-                      Navigator.pushNamed(context, '/LandingScreen');
+                      Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) => LandingView(),
+                          transitionDuration: const Duration(seconds: 0)
+                        ) 
+                      );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

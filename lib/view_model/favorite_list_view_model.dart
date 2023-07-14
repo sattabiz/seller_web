@@ -20,7 +20,6 @@ final favoriteListProvider = FutureProvider<List<GetFavoriteListModel>>((ref) as
     }
     rethrow;
   }
-  //debugPrint('aaaaaaaaaasssssssssss 3434 dfsdf${response.data.toString()} sdfsdfsdfsd34234234');
   List<GetFavoriteListModel> _favoriteList = [];
   if (response.data['favorite_lists'] != null) {
     _favoriteList = (response.data['favorite_lists'] as List)

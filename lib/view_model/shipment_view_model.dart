@@ -23,7 +23,6 @@ final shipmentProvider = FutureProvider.autoDispose<List<Shipment>>((ref) async 
   }
 
   List<Shipment> _shipmentList = [];
-  debugPrint('response 3434 dfsdf${response.toString()} sdfsdfsdfsd34234234');
   if (response.data['shipments'] != null) {
     _shipmentList = (response.data['shipments'] as List)
         .map((e) => Shipment.fromMap(e))

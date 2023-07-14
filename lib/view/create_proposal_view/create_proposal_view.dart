@@ -13,6 +13,9 @@ class createProposalView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
+      // actionsAlignment: MainAxisAlignment.spaceEvenly,
+      actionsOverflowButtonSpacing: 500,
+      // actionsOverflowAlignment: OverflowBarAlignment.center,
       titlePadding: EdgeInsets.all(0),
       title: Container(
         alignment: Alignment.center,
@@ -23,7 +26,7 @@ class createProposalView extends ConsumerWidget {
             topRight: Radius.circular(16),
           ),
         ),
-        width: 900,
+        width: 1000,
         height: 70,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,7 +46,7 @@ class createProposalView extends ConsumerWidget {
             Expanded(
               flex: 14,
               child: Text(
-                'Yeni Teklif İsteği',
+                FlutterI18n.translate(context, 'tr.proposal.new_proposal_request'),
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
@@ -74,7 +77,8 @@ class createProposalView extends ConsumerWidget {
       ),
       actions: [
         const createProposalButton(),
-        const SizedBox(width: 480),
+        const SizedBox(width: 400),
+        const SizedBox(width: 190),
         ElevatedButton(
           style: ButtonStyle(
             fixedSize: MaterialStateProperty.all(const Size(200, 40)),

@@ -2,6 +2,7 @@ tr:
   login:
     log_in: "Üye Girişi"
     sign_in: "Üye Ol"
+    logout: "Çıkış Yap"
     e-mail: "E-posta"
     hint_text_email: "ornek@eposta.com"
     email_validation: "Lütfen geçerli bir e-posta adresi giriniz"
@@ -31,6 +32,7 @@ tr:
     row_3: "TGS"
     create_proposal_btn: "Teklif İste"
     save_list_btn: "Listelerime Kaydet"
+    new_proposal_request: "Yeni Teklif İsteği"
   order:
     orders: "Siparişler"
     order_pending: "Teklif İstendi"  

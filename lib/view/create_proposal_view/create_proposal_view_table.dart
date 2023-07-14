@@ -86,7 +86,7 @@ class createProposalViewTable extends ConsumerWidget {
                     height: 16,
                   ),
                   Container(
-                    constraints: const BoxConstraints(maxHeight: 350),
+                    constraints: const BoxConstraints(maxHeight: 350, maxWidth: 940),
                     // color: Theme.of(context).colorScheme.onPrimary,
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(
@@ -94,8 +94,7 @@ class createProposalViewTable extends ConsumerWidget {
                       child: Column(
                         children: [
                           for (var i = 0; i < formItems.length; i++)
-                            _buildItem(
-                                context, formItems[i], i, ref, productDetails),
+                            _buildItem(context, formItems[i], i, ref, productDetails),
                         ],
                       ),
                     ),
@@ -136,43 +135,62 @@ class createProposalViewTable extends ConsumerWidget {
                 },
               ),
             ),
-            Flexible(
+            Expanded(
               child: DropdownButtonFormField(
-                decoration: const InputDecoration(
-                    filled: true,
-                    border: OutlineInputBorder(),
+                menuMaxHeight: 100,
+                alignment: Alignment.centerLeft,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.onPrimary,
+                  constraints: const BoxConstraints(maxHeight: 40),
+                  border: const OutlineInputBorder(),
+                  hintText: 'Kategori',
+                  hintStyle: Theme.of(context).textTheme.bodySmall,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
                   ),
                 // isExpanded: true,
-                icon: const Icon(Icons.keyboard_arrow_down_outlined),
+                icon: const Icon(
+                  Icons.keyboard_arrow_down_outlined,
+                  textDirection: TextDirection.rtl,
+                  ),
                 iconSize: 24,
                 // elevation: 16,
                 items: productDetails.map((detail) {
                   return DropdownMenuItem(
                     value: detail,
-                    alignment: AlignmentDirectional.bottomStart,
                     child: Text(
                       truncateToTwoWords(detail!),
                     ),
                   );
                 }).toList(),
                 onChanged: (value) {
-                  formItem.category = value as String?;
+                  formItem.category = value;
                 },
-                hint: Text('Kategori',
-                style: Theme.of(context).textTheme.bodySmall,
-                ),
+                // hint: Text(
+                //   'Kategori',
+                //   style: Theme.of(context).textTheme.bodySmall,
+                //   textAlign: TextAlign.start,
+                // ),
               ),
             ),
             const SizedBox(
               width: 16,
             ),
             Flexible(
-              flex: 2,
               child: TextFormField(
+                enableInteractiveSelection: false,
                 decoration:  InputDecoration(
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.onPrimary,
                   border:const  OutlineInputBorder(),
+                  constraints: BoxConstraints(maxHeight: 40),
                   labelText: 'Ürün',
                   suffixText: 'adet',
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
                   labelStyle: Theme.of(context).textTheme.bodySmall,
                 ),
                 onChanged: (value) {
@@ -183,11 +201,18 @@ class createProposalViewTable extends ConsumerWidget {
             const SizedBox(
               width: 16,
             ),
-            Expanded(
+            Flexible(
               child: TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  constraints: const BoxConstraints(maxHeight: 40),
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.onPrimary,
+                  border: const OutlineInputBorder(),
                   labelText: 'Miktar',
+                  labelStyle: Theme.of(context).textTheme.bodySmall,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
                   suffixText: 'adet',
                 ),
                 onChanged: (value) {
@@ -203,7 +228,7 @@ class createProposalViewTable extends ConsumerWidget {
               onTap: () {},
             ),
             const SizedBox(
-              width: 16,
+              width: 10,
             ),
           ],
         ),
