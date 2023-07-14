@@ -48,17 +48,20 @@ class createProposalViewTable extends ConsumerWidget {
                 .map((product) => product.productDetails)
                 .toList();
             return Card(
+              color: Theme.of(context).colorScheme.onPrimary,
+              elevation: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15),
-                        )),
-                    height: MediaQuery.of(context).size.height * 0.05,
+                      color: Theme.of(context).colorScheme.secondaryContainer,
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          topRight: Radius.circular(8),
+                      )
+                    ),
+                    height: 50,
                     child: Row(
                       children: const [
                         SizedBox(
@@ -83,15 +86,15 @@ class createProposalViewTable extends ConsumerWidget {
                     height: 16,
                   ),
                   Container(
-                    constraints: const BoxConstraints(maxHeight: 350),
+                    constraints: const BoxConstraints(maxHeight: 350, maxWidth: 940),
+                    // color: Theme.of(context).colorScheme.onPrimary,
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
                       child: Column(
                         children: [
                           for (var i = 0; i < formItems.length; i++)
-                            _buildItem(
-                                context, formItems[i], i, ref, productDetails),
+                            _buildItem(context, formItems[i], i, ref, productDetails),
                         ],
                       ),
                     ),
@@ -133,18 +136,27 @@ class createProposalViewTable extends ConsumerWidget {
               ),
             ),
             Expanded(
-              flex: 2,
               child: DropdownButtonFormField(
+                menuMaxHeight: 100,
+                alignment: Alignment.centerLeft,
                 decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Theme.of(context).colorScheme.surface,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    )),
-                isExpanded: true,
-                icon: const Icon(Icons.arrow_downward),
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.onPrimary,
+                  constraints: const BoxConstraints(maxHeight: 40),
+                  border: const OutlineInputBorder(),
+                  hintText: 'Kategori',
+                  hintStyle: Theme.of(context).textTheme.bodySmall,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                  ),
+                // isExpanded: true,
+                icon: const Icon(
+                  Icons.keyboard_arrow_down_outlined,
+                  textDirection: TextDirection.rtl,
+                  ),
                 iconSize: 24,
-                elevation: 16,
+                // elevation: 16,
                 items: productDetails.map((detail) {
                   return DropdownMenuItem(
                     value: detail,
@@ -154,21 +166,32 @@ class createProposalViewTable extends ConsumerWidget {
                   );
                 }).toList(),
                 onChanged: (value) {
-                  formItem.category = value as String?;
+                  formItem.category = value;
                 },
-                hint: Text('Kategori Seç'),
+                // hint: Text(
+                //   'Kategori',
+                //   style: Theme.of(context).textTheme.bodySmall,
+                //   textAlign: TextAlign.start,
+                // ),
               ),
             ),
             const SizedBox(
               width: 16,
             ),
-            Expanded(
-              flex: 4,
+            Flexible(
               child: TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                enableInteractiveSelection: false,
+                decoration:  InputDecoration(
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.onPrimary,
+                  border:const  OutlineInputBorder(),
+                  constraints: BoxConstraints(maxHeight: 40),
                   labelText: 'Ürün',
                   suffixText: 'adet',
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                  labelStyle: Theme.of(context).textTheme.bodySmall,
                 ),
                 onChanged: (value) {
                   formItem.product = value;
@@ -178,11 +201,18 @@ class createProposalViewTable extends ConsumerWidget {
             const SizedBox(
               width: 16,
             ),
-            Expanded(
+            Flexible(
               child: TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  constraints: const BoxConstraints(maxHeight: 40),
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.onPrimary,
+                  border: const OutlineInputBorder(),
                   labelText: 'Miktar',
+                  labelStyle: Theme.of(context).textTheme.bodySmall,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
                   suffixText: 'adet',
                 ),
                 onChanged: (value) {
@@ -198,7 +228,7 @@ class createProposalViewTable extends ConsumerWidget {
               onTap: () {},
             ),
             const SizedBox(
-              width: 16,
+              width: 10,
             ),
           ],
         ),

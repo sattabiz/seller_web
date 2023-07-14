@@ -36,6 +36,9 @@ const HeaderShipment({ Key? key, required this.id, required this.status, require
                     height: 30.0,
                   ),
                 ),
+                const SizedBox(
+                  width: 15,
+                ),
                 Expanded(
                     flex: 15,
                     child: AutoSizeText(    // headerStatus

@@ -37,6 +37,9 @@ const HeaderInvoice({ Key? key, required this.id, required this.status, required
                     height: 30.0,
                   ),
                 ),
+                const SizedBox(
+                  width: 15,
+                ),
                 Expanded(
                     flex: 15,
                     child: AutoSizeText(    // headerStatus

@@ -101,14 +101,14 @@ class loginCard extends ConsumerWidget {
                             .colorScheme
                             .onPrimary
                             .withOpacity(0.8),
-                        labelText:
-                            FlutterI18n.translate(context, "tr.login.e-mail"),
+                        labelText: FlutterI18n.translate(context, "tr.login.e-mail"),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                        ),
                         floatingLabelStyle:
-                            Theme.of(context).textTheme.bodySmall!.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurfaceVariant,
-                                ),
+                          Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
                         errorStyle:
                             Theme.of(context).textTheme.bodySmall!.copyWith(
                                   color: Theme.of(context).colorScheme.error,
@@ -137,14 +137,14 @@ class loginCard extends ConsumerWidget {
                             .colorScheme
                             .onPrimary
                             .withOpacity(0.8),
-                        labelText:
-                            FlutterI18n.translate(context, "tr.login.password"),
+                        labelText: FlutterI18n.translate(context, "tr.login.password"),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                        ),
                         floatingLabelStyle:
-                            Theme.of(context).textTheme.bodySmall!.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurfaceVariant,
-                                ),
+                          Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
                       ),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {

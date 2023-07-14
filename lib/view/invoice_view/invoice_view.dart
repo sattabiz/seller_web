@@ -19,7 +19,6 @@ class invoiceView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final invoiceListAsyncValue = ref.watch(getInvoicesProvider);
-    // debugPrint(invoiceListAsyncValue.toString());
 
     return invoiceListAsyncValue.when(
       data: (invoiceList) {

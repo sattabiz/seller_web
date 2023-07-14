@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:seller_point/view/landing_view/components/page_indicator.dart';
+import 'package:seller_point/view/login_view/login_view.dart';
 
 class Introduction extends StatelessWidget {
   final int sectionIndex;
@@ -103,7 +104,13 @@ class LogInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, '/login');
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation1, animation2) => LoginView(),
+            transitionDuration: const Duration(seconds: 0)
+          ) 
+        );
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
