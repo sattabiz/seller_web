@@ -65,14 +65,14 @@ class createProposalView extends ConsumerWidget {
           ],
         ),
       ),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            createProposalViewContent(),
-            createProposalViewTable(),
-          ],
-        ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          createProposalViewContent(),
+          Expanded(
+            flex: 4,
+            child: createProposalViewTable()),
+        ],
       ),
       actions: [
         const createProposalButton(),
