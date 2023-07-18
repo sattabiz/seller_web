@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:seller_point/view/widget/loading_widget.dart';
 import '../../model/get_order_list_model.dart';
 import '../../view_model/order_list_view_model.dart';
+import '../../view_model/provider_controller.dart';
 import '../widget/appbar.dart';
 import '../widget/main_page_content.dart';
 import '../widget/nav_drawer.dart';
@@ -18,12 +19,11 @@ class OrderView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final orderListAsyncValue = ref.watch(getOrderListProvider);
-
     return orderListAsyncValue.when(
       data: (orderList) {
         return LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            if (constraints.maxWidth < 1070) {
+            if (constraints.maxWidth <= 1100) {
               return Scaffold(
                 appBar: AppbarTop(), //appbar
                 body: Row(
@@ -44,8 +44,8 @@ class OrderView extends ConsumerWidget {
                         child: NavigationRailDrawer(), //drawer
                       ),
                       Expanded(
-                        flex: 9,
-                        child: buildBody(orderList, context, FlutterI18n.translate(context, "tr.order.orders"), "order"), //order screen body
+                        flex: 10,
+                        child: Padding(padding:const EdgeInsets.only(left: 10) ,child: buildBody(orderList, context, FlutterI18n.translate(context, "tr.order.orders"), "order")), //order screen body
                       ),
                     ],
                   ),
@@ -111,9 +111,9 @@ class OrderView extends ConsumerWidget {
   }
 
   int getCrossAxisCount(BoxConstraints constraints) {
-    if (constraints.maxWidth > 1250) {
+    if (constraints.maxWidth > 900) {
       return 3;
-    } else if (constraints.maxWidth > 600) {
+    } else if (constraints.maxWidth > 550) {
       return 2;
     } else {
       return 1;

@@ -24,7 +24,7 @@ class HeaderProposal extends StatelessWidget {
   Widget build(BuildContext context){
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceVariant,
+          color: Theme.of(context).colorScheme.secondaryContainer,
           borderRadius:  const BorderRadius.only(
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10))),

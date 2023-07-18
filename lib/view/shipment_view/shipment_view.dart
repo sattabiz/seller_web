@@ -21,7 +21,7 @@ class ShipmentView extends ConsumerWidget {
       data: (shipmentList) {
         return LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            if (constraints.maxWidth < 1070) {
+            if (constraints.maxWidth <= 1100) {
               return Scaffold(
                 appBar: AppbarTop(), //appbar
                 body: Row(
@@ -42,7 +42,7 @@ class ShipmentView extends ConsumerWidget {
                         child: NavigationRailDrawer(), //drawer
                       ),
                       Expanded(
-                        flex: 9,
+                        flex: 10,
                         child: buildBody(shipmentList, context, FlutterI18n.translate(context, "tr.shipment.shipments"), "shipment"),
                       ),
                     ],
@@ -109,9 +109,9 @@ class ShipmentView extends ConsumerWidget {
   }
 
   int getCrossAxisCount(BoxConstraints constraints) {
-    if (constraints.maxWidth > 1250) {
+    if (constraints.maxWidth > 900) {
       return 3;
-    } else if (constraints.maxWidth > 600) {
+    } else if (constraints.maxWidth > 550) {
       return 2;
     } else {
       return 1;

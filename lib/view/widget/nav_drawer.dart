@@ -11,132 +11,134 @@ import '../../view_model/shipment_view_model.dart';
 import 'nav_drawer_header_button.dart';
 
 class NavigationRailDrawer extends ConsumerWidget {
-const NavigationRailDrawer({Key? key}) : super(key: key);
+  const NavigationRailDrawer({Key? key}) : super(key: key);
 
-@override
-Widget build(BuildContext context, WidgetRef ref) {
-double screenWidth = MediaQuery.of(context).size.width;
-double screenHeight = MediaQuery.of(context).size.height;
-return Drawer(
-child: Padding(
-padding: EdgeInsets.all(screenWidth * 0.01),
-child: ListView(
-padding: EdgeInsets.all(screenWidth * 0.005),
-children: [
-DrawerHeader(
-child: Column(
-children: [
-SizedBox(
-height: screenHeight * 0.01,
-),
-Flexible(child: DrawerHeaderButton()),
-],
-),
-),
-SizedBox(
-height: screenHeight * 0.01,
-),
-Padding(
-padding: const EdgeInsets.only(left: 10.0),
-child: Text('İşlemler',
-style: Theme.of(context).textTheme.titleMedium),
-),
-const SizedBox(
-height: 24,
-),
-drawerButton(context, 'Teklif İstekleri',
-'assets/proposal.svg', '/proposalScreen', 0, ref, proposalListview),
-const SizedBox(
-height: 16,
-),
-drawerButton(context, 'Siparişler', 'assets/order.svg',
-'/orderScreen', 1, ref, getOrderListProvider),
-const SizedBox(
-height: 16,
-),
-drawerButton(context, 'Sevkiyat', 'assets/order.svg',
-'/shipmentScreen', 2, ref, shipmentProvider),
-const SizedBox(
-height: 16,
-),
-drawerButton(context, 'Faturalar', 'assets/invoice.svg',
-'/invoiceScreen', 3, ref, getInvoicesProvider),
-],
-),
-),
-);
-}
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Drawer(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      child: Padding(
+        padding: EdgeInsets.all(screenWidth * 0.01),
+        child: ListView(
+          padding: EdgeInsets.all(screenWidth * 0.005),
+          children: [
+            DrawerHeader(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: screenHeight * 0.01,
+                  ),
+                  Flexible(child: DrawerHeaderButton()),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: screenHeight * 0.01,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0),
+              child: Text('İşlemler',
+                  style: Theme.of(context).textTheme.titleMedium),
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            drawerButton(context, 'Teklif İstekleri', 'assets/proposal.svg',
+                '/proposalScreen', 0, ref, proposalListview),
+            const SizedBox(
+              height: 16,
+            ),
+            drawerButton(context, 'Siparişler', 'assets/order.svg',
+                '/orderScreen', 1, ref, getOrderListProvider),
+            const SizedBox(
+              height: 16,
+            ),
+            drawerButton(context, 'Sevkiyat', 'assets/order.svg',
+                '/shipmentScreen', 2, ref, shipmentProvider),
+            const SizedBox(
+              height: 16,
+            ),
+            drawerButton(context, 'Faturalar', 'assets/invoice.svg',
+                '/invoiceScreen', 3, ref, getInvoicesProvider),
+          ],
+        ),
+      ),
+    );
+  }
 
-drawerButton(
-BuildContext context,
-String text,
-String icon,
-String route,
-int index,
-WidgetRef ref,
-AutoDisposeFutureProvider<List<dynamic>> provider,
-) {
-double screenWidth = MediaQuery.of(context).size.width;
-double screenHeight = MediaQuery.of(context).size.height;
-return InkWell(
-borderRadius: BorderRadius.circular(50),
-onTap: () async {
-ref.refresh(provider);
-ref.read(provider.future);
-ref.read(drawerCountProvider.notifier).state = index; 
-Navigator.pushNamed(context, route);
-},
-child: Container(
-decoration: BoxDecoration(
-borderRadius: BorderRadius.circular(50),
-color: ref.watch(drawerCountProvider) == index
-? Theme.of(context).colorScheme.primaryContainer
-: Theme.of(context).colorScheme.surface,
-),
-width: screenWidth * 0.98,
-height: MediaQuery.of(context).size.width > 650
-? screenHeight * 0.09
-: screenHeight * 0.2,
-child: Row(
-mainAxisAlignment: MainAxisAlignment.start,
-children: [
-const Spacer(
-flex: 1,
-),
-Flexible(
-child: SvgPicture.asset(
-icon,
-semanticsLabel: 'Order Status Icon',
-width: 30.0,
-height: 30.0,
-),
-),
-const SizedBox(
-width: 10,
-),
-Expanded(
-flex: 10,
-child: AutoSizeText(
-text,
-style: Theme.of(context).textTheme.labelLarge!.copyWith(
-color: Theme.of(context).colorScheme.onPrimaryContainer,
-),
-),
-),
-Flexible(
-child: AutoSizeText(
-'24',
-style: Theme.of(context).textTheme.labelMedium!.copyWith(
-color: Theme.of(context).colorScheme.onPrimaryContainer,
-),
-),
-),
-const Spacer()
-],
-),
-),
-);
-}
+  drawerButton(
+    BuildContext context,
+    String text,
+    String icon,
+    String route,
+    int index,
+    WidgetRef ref,
+    AutoDisposeFutureProvider<List<dynamic>> provider,
+  ) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return InkWell(
+      borderRadius: BorderRadius.circular(50),
+      onTap: () async {
+        ref.refresh(provider);
+        ref.read(provider.future);
+        ref.read(drawerCountProvider.notifier).state = index;
+        Navigator.pushNamed(context, route);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          color: ref.watch(drawerCountProvider) == index
+              ? Theme.of(context).colorScheme.primaryContainer
+              : Colors.transparent,
+        ),
+        width: screenWidth * 0.98,
+        height: MediaQuery.of(context).size.width > 650
+            ? screenHeight * 0.09
+            : screenHeight * 0.2,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const Spacer(
+              flex: 1,
+            ),
+            Flexible(
+              child: SvgPicture.asset(
+                icon,
+                semanticsLabel: 'Order Status Icon',
+                width: 30.0,
+                height: 30.0,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              flex: 9,
+              child: AutoSizeText(
+                text,
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
+              ),
+            ),
+            Flexible(
+              child: AutoSizeText(
+                '24',
+                maxLines: 1,
+                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
+              ),
+            ),
+            const Spacer()
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 
