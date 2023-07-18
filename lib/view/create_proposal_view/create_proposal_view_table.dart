@@ -41,6 +41,7 @@ String truncateToTwoWords(String text) {
 class createProposalViewTable extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var screenHeight = MediaQuery.of(context).size.height;
     final formItems = ref.watch(formItemProvider);
     return ref.watch(getLandingViewContentProvider).when(
           data: (webContent) {
@@ -84,35 +85,43 @@ class createProposalViewTable extends ConsumerWidget {
                   const SizedBox(
                     height: 16,
                   ),
-                  SizedBox(
-                    height: 290,
+                  Container(
+                    height: screenHeight - 550,
+                    constraints: const BoxConstraints(
+                      minHeight: 200,
+                    ),
                     child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            child: Column(
-                              children: [
-                                for (var i = 0; i < formItems.length; i++)
-                                  _buildItem(context, formItems[i], i, ref,
-                                      productDetails),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 10.0, bottom: 10.0),
-                            child: InkWell(
-                              onTap: () => ref
-                                  .read(formItemProvider.notifier)
-                                  .addItem(FormItem()),
-                              child: const Icon(
-                                Icons.add,
-                                size: 30,
+                      child: Container(
+                        constraints: const BoxConstraints(
+                          maxHeight: double.infinity
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              child: Column(
+                                children: [
+                                  for (var i = 0; i < formItems.length; i++)
+                                    _buildItem(context, formItems[i], i, ref,
+                                        productDetails),
+                                ],
                               ),
                             ),
-                          )
-                        ],
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10.0, bottom: 10.0),
+                              child: InkWell(
+                                onTap: () => ref
+                                    .read(formItemProvider.notifier)
+                                    .addItem(FormItem()),
+                                child: const Icon(
+                                  Icons.add,
+                                  size: 30,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
