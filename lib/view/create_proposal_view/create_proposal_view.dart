@@ -14,7 +14,6 @@ class createProposalView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
       // actionsAlignment: MainAxisAlignment.spaceEvenly,
-      actionsOverflowButtonSpacing: 500,
       // actionsOverflowAlignment: OverflowBarAlignment.center,
       titlePadding: EdgeInsets.all(0),
       title: Container(
@@ -22,8 +21,8 @@ class createProposalView extends ConsumerWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondaryContainer,
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
+            topLeft: Radius.circular(32),
+            topRight: Radius.circular(32),
           ),
         ),
         width: 1000,
@@ -53,10 +52,10 @@ class createProposalView extends ConsumerWidget {
               ),
             ),
             InkWell(
-              child: SvgPicture.asset(
-                'assets/close.svg',
-                width: 30.0,
-                height: 30.0,
+              child: Icon(
+                Icons.close,
+                size: 35,
+                color: Theme.of(context).colorScheme.shadow,
               ),
               onTap: () => Navigator.of(context).pop(),
             ), // to return to the page

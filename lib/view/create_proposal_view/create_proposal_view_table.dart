@@ -14,7 +14,7 @@ class FormItem {
 // State Notifier Provider for form items
 final formItemProvider =
     StateNotifierProvider.autoDispose<FormItemsNotifier, List<FormItem>>((ref) {
-  return FormItemsNotifier([]);
+  return FormItemsNotifier([FormItem()]);
 });
 
 class FormItemsNotifier extends StateNotifier<List<FormItem>> {
@@ -55,12 +55,11 @@ class createProposalViewTable extends ConsumerWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondaryContainer,
-                      borderRadius: const BorderRadius.only(
+                        color: Theme.of(context).colorScheme.secondaryContainer,
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(8),
                           topRight: Radius.circular(8),
-                      )
-                    ),
+                        )),
                     height: 50,
                     child: Row(
                       children: const [
@@ -85,32 +84,38 @@ class createProposalViewTable extends ConsumerWidget {
                   const SizedBox(
                     height: 16,
                   ),
-                  Container(
-                    constraints: const BoxConstraints(maxHeight: 350, maxWidth: 940),
-                    // color: Theme.of(context).colorScheme.onPrimary,
+                  SizedBox(
+                    height: 290,
                     child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics()),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          for (var i = 0; i < formItems.length; i++)
-                            _buildItem(context, formItems[i], i, ref, productDetails),
+                          SizedBox(
+                            child: Column(
+                              children: [
+                                for (var i = 0; i < formItems.length; i++)
+                                  _buildItem(context, formItems[i], i, ref,
+                                      productDetails),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 10.0, bottom: 10.0),
+                            child: InkWell(
+                              onTap: () => ref
+                                  .read(formItemProvider.notifier)
+                                  .addItem(FormItem()),
+                              child: const Icon(
+                                Icons.add,
+                                size: 30,
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
-                    child: InkWell(
-                      onTap: () => ref
-                          .read(formItemProvider.notifier)
-                          .addItem(FormItem()),
-                      child: const Icon(
-                        Icons.add,
-                        size: 30,
-                      ),
-                    ),
-                  )
                 ],
               ),
             );
@@ -147,14 +152,15 @@ class createProposalViewTable extends ConsumerWidget {
                   hintText: 'Kategori',
                   hintStyle: Theme.of(context).textTheme.bodySmall,
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
-                  ),
+                ),
                 // isExpanded: true,
                 icon: const Icon(
                   Icons.keyboard_arrow_down_outlined,
                   textDirection: TextDirection.rtl,
-                  ),
+                ),
                 iconSize: 24,
                 // elevation: 16,
                 items: productDetails.map((detail) {
@@ -180,16 +186,17 @@ class createProposalViewTable extends ConsumerWidget {
             ),
             Flexible(
               child: TextFormField(
+                cursorColor: Theme.of(context).colorScheme.onBackground,
                 enableInteractiveSelection: false,
-                decoration:  InputDecoration(
+                decoration: InputDecoration(
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.onPrimary,
-                  border:const  OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   constraints: BoxConstraints(maxHeight: 40),
                   labelText: 'Ürün',
-                  suffixText: 'adet',
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
                   labelStyle: Theme.of(context).textTheme.bodySmall,
                 ),
@@ -203,6 +210,7 @@ class createProposalViewTable extends ConsumerWidget {
             ),
             Flexible(
               child: TextFormField(
+                cursorColor: Theme.of(context).colorScheme.onBackground,
                 decoration: InputDecoration(
                   constraints: const BoxConstraints(maxHeight: 40),
                   filled: true,
@@ -211,7 +219,8 @@ class createProposalViewTable extends ConsumerWidget {
                   labelText: 'Miktar',
                   labelStyle: Theme.of(context).textTheme.bodySmall,
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
                   suffixText: 'adet',
                 ),
