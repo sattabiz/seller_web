@@ -7,7 +7,7 @@ class ThemeColor {  // abstrac class olmali ?
   static const Color onPrimaryContainer = Color(0xFF370E00);
   static const Color secondary = Color(0xFF006B57);
   static const Color onSecondary = Color(0xFFFFFFFF);
-  static const Color secondaryContainer = Color(0xFFD3DBD5);
+  static const Color secondaryContainer = Color(0xFFCED6D0);
   static const Color onSecondaryContainer = Color(0xFF002019);
   static const Color tertiary = Color(0xFF416277);
   static const Color onTertiary = Color(0xFFFFFFFF);
@@ -20,7 +20,7 @@ class ThemeColor {  // abstrac class olmali ?
   static const Color outline = Color(0xFF6F7975);
   static const Color background = Color(0xFFFBFDFA);
   static const Color onBackground = Color(0xFF191C1B);
-  static const Color surface = Color(0xFFEEf0EE);
+  static const Color surface = Color(0xFFF3F5F3);
   static const Color onSurface = Color(0xFF191C1B);
   static const Color surfaceVariant = Color(0xFFE1E3E0);
   static const Color onSurfaceVariant = Color(0xFF3F4945);

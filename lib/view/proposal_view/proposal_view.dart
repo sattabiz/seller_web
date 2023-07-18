@@ -26,7 +26,7 @@ class proposalView extends ConsumerWidget {
       data: (orderList) {
         return LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            if (constraints.maxWidth < 1070) {
+            if (constraints.maxWidth <= 1100) {
               return Scaffold(
                 appBar: AppbarTop(), //appbar
                 body: Row(
@@ -47,7 +47,7 @@ class proposalView extends ConsumerWidget {
                         child: NavigationRailDrawer(), //drawer
                       ),
                       Expanded(
-                        flex: 9,
+                        flex: 10,
                         child: buildBody(orderList, context, FlutterI18n.translate(context, "tr.proposal.proposals"), 'proposal'), //order screen body
                       ),
                     ],
@@ -114,9 +114,9 @@ class proposalView extends ConsumerWidget {
   }
 
   int getCrossAxisCount(BoxConstraints constraints) {
-    if (constraints.maxWidth > 1250) {
+    if (constraints.maxWidth > 900) {
       return 3;
-    } else if (constraints.maxWidth > 600) {
+    } else if (constraints.maxWidth > 550) {
       return 2;
     } else {
       return 1;

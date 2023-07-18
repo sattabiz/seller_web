@@ -24,7 +24,7 @@ class invoiceView extends ConsumerWidget {
       data: (invoiceList) {
         return LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            if (constraints.maxWidth < 1070) {
+            if (constraints.maxWidth <= 1100) {
               return Scaffold(
                 appBar: AppbarTop(), //appbar
                 body: Row(
@@ -45,7 +45,7 @@ class invoiceView extends ConsumerWidget {
                         child: NavigationRailDrawer(), //drawer
                       ),
                       Expanded(
-                        flex: 9,
+                        flex: 10,
                         child: buildBody(invoiceList, context, FlutterI18n.translate(context, "tr.invoice.invoices"), "invoice"), //order screen body
                       ),
                     ],
@@ -110,9 +110,9 @@ class invoiceView extends ConsumerWidget {
   }
 
   int getCrossAxisCount(BoxConstraints constraints) {
-    if (constraints.maxWidth > 1250) {
+    if (constraints.maxWidth > 900) {
       return 3;
-    } else if (constraints.maxWidth > 600) {
+    } else if (constraints.maxWidth > 550) {
       return 2;
     } else {
       return 1;

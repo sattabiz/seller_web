@@ -114,7 +114,7 @@ class _DrawerHeaderButtonState extends State<DrawerHeaderButton> {
                       width: 5,
                     ),
                     Flexible(
-                      child: AutoSizeText(
+                      child: Text(
                         'Yeni Teklif İsteği',
                         maxLines: 1,
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
