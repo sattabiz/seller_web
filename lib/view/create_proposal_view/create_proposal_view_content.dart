@@ -40,16 +40,18 @@ class createProposalViewContent extends ConsumerWidget {
     return Column(
       children: [
         TextFormField(
+          cursorColor: Theme.of(context).colorScheme.onBackground,
           decoration: InputDecoration(
             filled: true,
             fillColor: Theme.of(context).colorScheme.onPrimary,
-            hintText: 'Konu',
-            hintStyle: Theme.of(context).textTheme.bodySmall,
             labelText: 'Konu',
             labelStyle: Theme.of(context).textTheme.bodyMedium,
             focusColor: Theme.of(context).colorScheme.onSecondaryContainer,
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+            ),
+            floatingLabelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
           ),
           initialValue: topic,
@@ -71,6 +73,7 @@ class createProposalViewContent extends ConsumerWidget {
             Expanded(
               flex: 3,
               child: TextField(
+                cursorColor: Theme.of(context).colorScheme.onBackground,
                 controller: _deliveryDate,
                 decoration: InputDecoration(
                   suffixIcon: const Icon(Icons.calendar_month),
@@ -102,6 +105,7 @@ class createProposalViewContent extends ConsumerWidget {
             Expanded(
               flex: 3,
               child: TextField(
+                cursorColor: Theme.of(context).colorScheme.onBackground,
                 controller: _validDays,
                 decoration: InputDecoration(
                   suffixIcon: const Icon(Icons.calendar_month),

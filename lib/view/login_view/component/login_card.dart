@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -93,6 +92,7 @@ class loginCard extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 25.0, right: 25.0),
                     child: TextFormField(
+                      cursorColor: Theme.of(context).colorScheme.onBackground,
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
@@ -129,6 +129,7 @@ class loginCard extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 25.0, right: 25.0),
                     child: TextFormField(
+                      cursorColor: Theme.of(context).colorScheme.onBackground,
                       controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
