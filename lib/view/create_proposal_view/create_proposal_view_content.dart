@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+
 class OfferModel {
   String name;
   String deliveryDate;
   int validDays;
-  int? selectedDay;
-  int? selectedDay2;
+  bool includeShipmentCost;
+  int patmentDueDate;
 
   OfferModel()
       : name = '',
-        deliveryDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now().add(Duration(days: 3, hours: 17 - DateTime.now().hour))),
-        validDays = 3;
+        deliveryDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()
+            .add(Duration(days: 3, hours: 17 - DateTime.now().hour))),
+        validDays = 3,
+        includeShipmentCost = true,
+        patmentDueDate = 30;
 }
 
 final offerModelProvider = Provider<OfferModel>((ref) => OfferModel());
@@ -48,11 +52,12 @@ class createProposalViewContent extends ConsumerWidget {
             labelStyle: Theme.of(context).textTheme.bodyMedium,
             focusColor: Theme.of(context).colorScheme.onSecondaryContainer,
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             floatingLabelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-            ),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
           ),
           initialValue: topic,
           validator: (String? value) {
@@ -81,7 +86,8 @@ class createProposalViewContent extends ConsumerWidget {
                   fillColor: Theme.of(context).colorScheme.onPrimary,
                   border: const UnderlineInputBorder(),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
                 ),
                 readOnly: true,
@@ -94,8 +100,7 @@ class createProposalViewContent extends ConsumerWidget {
                   if (pickedDate != null) {
                     String formattedDate =
                         DateFormat('yyyy-MM-dd').format(pickedDate);
-                    _deliveryDate.text =
-                        formattedDate; // <- Bu satır eklenmeli
+                    _deliveryDate.text = formattedDate; // <- Bu satır eklenmeli
                     offerModel.deliveryDate = formattedDate;
                   } else {}
                 },
@@ -112,7 +117,8 @@ class createProposalViewContent extends ConsumerWidget {
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.onPrimary,
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
                   border: const UnderlineInputBorder(),
                 ),
@@ -173,55 +179,23 @@ class createProposalViewContent extends ConsumerWidget {
               flex: 3,
               child: DropdownButtonFormField(
                 decoration: InputDecoration(
-                  hintText: 'Gun giriniz',
-                  filled: true,
-                  fillColor: Theme.of(context).colorScheme.onPrimary,
-                  border: const UnderlineInputBorder(),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                  ),
-
-                ),
-                isExpanded: true,
-                alignment: Alignment.centerRight,
-                value: offerModel.selectedDay ??
-                    120, // Eğer seçilen değer null ise 120'yi kullan
-                icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                iconSize: 24,
-                elevation: 16,
-                onChanged: (int? value) {
-                  offerModel.selectedDay = value;
-                },
-                items: <int>[for (var i = 0; i <= _dropdownMaxValue; i++) i]
-                    .map<DropdownMenuItem<int>>((int value) {
-                  return DropdownMenuItem(
-                    value: value,
-                    child: Text(value.toString()),
-                  );
-                }).toList(),
-              ),
-            ),
-            const Spacer(flex: 1,),
-            Expanded(
-              flex: 3,
-              child: DropdownButtonFormField(
-                decoration: InputDecoration(
                   hintText: 'Alıcı',
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.onPrimary,
                   border: const UnderlineInputBorder(),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
                 ),
                 isExpanded: true,
                 alignment: Alignment.centerRight,
-                value: offerModel.selectedDay2,
+                value: offerModel.patmentDueDate,
                 icon: const Icon(Icons.keyboard_arrow_down_outlined),
                 iconSize: 24,
                 elevation: 16,
                 onChanged: (int? value) {
-                  offerModel.selectedDay2 = value;
+                  offerModel.patmentDueDate = value ?? 30;
                 },
                 items: <int>[for (var i = 0; i <= _dropdownMaxValue; i++) i]
                     .map<DropdownMenuItem<int>>((int value) {
@@ -232,7 +206,45 @@ class createProposalViewContent extends ConsumerWidget {
                 }).toList(),
               ),
             ),
-            const Spacer(flex: 2,)
+            const Spacer(
+              flex: 1,
+            ),
+            Expanded(
+              flex: 3,
+              child: DropdownButtonFormField<bool>(
+                decoration: InputDecoration(
+                  hintText: 'Seçim yapınız',
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.onPrimary,
+                  border: const UnderlineInputBorder(),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                ),
+                isExpanded: true,
+                alignment: Alignment.centerRight,
+                value: offerModel
+                    .includeShipmentCost, // Eğer seçilen değer null ise varsayılan değer null olacak
+                icon: const Icon(Icons.keyboard_arrow_down_outlined),
+                iconSize: 24,
+                elevation: 16,
+                onChanged: (bool? value) {
+                  // <---- burada bool? döndürmelisiniz
+                  offerModel.includeShipmentCost = value ?? false;
+                },
+                items: <bool>[true, false]
+                    .map<DropdownMenuItem<bool>>((bool value) {
+                  return DropdownMenuItem(
+                    value: value,
+                    child: Text(value ? "Alıcı" : "Satıcı"),
+                  );
+                }).toList(),
+              ),
+            ),
+            const Spacer(
+              flex: 2,
+            )
           ],
         ),
         const SizedBox(

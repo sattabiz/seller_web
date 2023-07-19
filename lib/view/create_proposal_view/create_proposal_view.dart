@@ -15,7 +15,7 @@ class createProposalView extends ConsumerWidget {
     return AlertDialog(
       // actionsAlignment: MainAxisAlignment.spaceEvenly,
       // actionsOverflowAlignment: OverflowBarAlignment.center,
-      titlePadding: EdgeInsets.all(0),
+      titlePadding: const EdgeInsets.all(0),
       title: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -69,9 +69,7 @@ class createProposalView extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           createProposalViewContent(),
-          Expanded(
-            flex: 4,
-            child: createProposalViewTable()),
+          Flexible(child: createProposalViewTable()),
         ],
       ),
       actions: [

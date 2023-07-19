@@ -5,6 +5,7 @@ import '../../model/create_proposal_model.dart';
 import '../../service/create_proposal_service.dart';
 import '../../view_model/create_proposal_view_model.dart';
 import '../../view_model/landing_view_model.dart';
+import '../../view_model/proposal_view_model.dart';
 import 'create_proposal_view_content.dart';
 import 'create_proposal_view_table.dart';
 
@@ -29,6 +30,8 @@ class createProposalButton extends ConsumerWidget {
           if (landingProvider != null) {
             final _orderlistservice = createProposalService();
             try {
+              debugPrint(_contentItems.includeShipmentCost.toString());
+              debugPrint(_contentItems.patmentDueDate.toString());
               CreateProposalModel _orderList =
                   await _orderlistservice.createProposlPost(
                       _productsAttributes,
@@ -39,6 +42,8 @@ class createProposalButton extends ConsumerWidget {
               debugPrint('API çağrısında bir hata oluştu: $e');
             }
             ref.refresh(formItemProvider);
+            ref.refresh(proposalListview);
+            Navigator.pushNamed(context, '/proposalScreen');
           } else {
             debugPrint('LandingProvider verisi mevcut değil');
           }
