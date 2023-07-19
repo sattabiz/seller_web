@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import '../storage/jwt_storage.dart';
 
 class ApiService {
@@ -7,6 +8,7 @@ class ApiService {
   Future<Response> get({required String url}) async {
     try {
       final _jwt = await jwtStorageService().getJwtData();
+      //debugPrint(url.toString());
 
       var response = await _dio.get(
         url,

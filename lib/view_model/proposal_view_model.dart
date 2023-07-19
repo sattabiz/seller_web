@@ -4,11 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config/apiUrls.dart';
 import '../model/get_proposals_by_state.dart';
 import '../service/get_services.dart';
+import 'landing_view_model.dart';
 import 'order_list_view_model.dart';
 
 final proposalListview = FutureProvider.autoDispose<List<GetProposalModel>>((ref) async {
   final apiService = ApiService();
   Response response;
+  final landingViewResponse = ref.watch(getLandingViewContentProvider).value;
+  final supplier_id = landingViewResponse!.companyId;
+
   try {
     response = await apiService.get(url: ApiUrls.proposal);
   } catch (e) {

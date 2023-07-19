@@ -21,6 +21,7 @@ class proposalView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final orderListAsyncValue = ref.watch(proposalListview);
+    print(orderListAsyncValue.toString());
 
     return orderListAsyncValue.when(
       data: (orderList) {
