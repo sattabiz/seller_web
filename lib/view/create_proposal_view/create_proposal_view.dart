@@ -13,8 +13,9 @@ class createProposalView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
-      // actionsAlignment: MainAxisAlignment.spaceEvenly,
-      // actionsOverflowAlignment: OverflowBarAlignment.center,
+      actionsAlignment: MainAxisAlignment.spaceAround,
+      actionsOverflowButtonSpacing: 200,
+      actionsOverflowAlignment: OverflowBarAlignment.start,
       titlePadding: const EdgeInsets.all(0),
       title: Container(
         alignment: Alignment.center,
@@ -80,8 +81,8 @@ class createProposalView extends ConsumerWidget {
       ),
       actions: [
         const createProposalButton(),
-        const SizedBox(width: 400),
-        const SizedBox(width: 190),
+        // const SizedBox(width: 400),
+        // const Spacer(flex: 3),
         ElevatedButton(
           style: ButtonStyle(
             fixedSize: MaterialStateProperty.all(const Size(200, 40)),

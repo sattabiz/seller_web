@@ -30,8 +30,8 @@ class createProposalButton extends ConsumerWidget {
           if (landingProvider != null) {
             final _orderlistservice = createProposalService();
             try {
-              debugPrint(_contentItems.includeShipmentCost.toString());
-              debugPrint(_contentItems.patmentDueDate.toString());
+              // debugPrint(_contentItems.includeShipmentCost.toString());
+              // debugPrint(_contentItems.patmentDueDate.toString());
               CreateProposalModel _orderList =
                   await _orderlistservice.createProposlPost(
                       _productsAttributes,

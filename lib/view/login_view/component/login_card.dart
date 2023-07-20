@@ -41,7 +41,7 @@ class loginCard extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Container(
                     // height: 50,
                     decoration: BoxDecoration(
