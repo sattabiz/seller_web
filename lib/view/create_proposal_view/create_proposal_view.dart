@@ -65,12 +65,18 @@ class createProposalView extends ConsumerWidget {
           ],
         ),
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          createProposalViewContent(),
-          Flexible(child: createProposalViewTable()),
-        ],
+      content: Padding(
+        padding:
+            const EdgeInsets.only(left: 22.0, right: 22.0, top: 15, bottom: 15),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              createProposalViewContent(),
+              createProposalViewTable(),
+            ],
+          ),
+        ),
       ),
       actions: [
         const createProposalButton(),

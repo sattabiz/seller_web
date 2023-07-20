@@ -41,87 +41,76 @@ String truncateToTwoWords(String text) {
 class createProposalViewTable extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var screenHeight = MediaQuery.of(context).size.height;
     final formItems = ref.watch(formItemProvider);
     return ref.watch(getLandingViewContentProvider).when(
           data: (webContent) {
-            final productDetails =
-                webContent.products!.map((product) => product.title).toList();
+            final productDetails = webContent.products!
+                .map((product) => product.productDetails)
+                .toList();
             return Card(
-                color: Theme.of(context).colorScheme.onPrimary,
-                elevation: 2,
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondaryContainer,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(8),
-                                topRight: Radius.circular(8))),
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 50,
-                            ),
-                            Text(
-                              'Kategori',
-                              textDirection: TextDirection.ltr,
-                              style: Theme.of(context).textTheme.labelMedium,
-                            ), // textdirection text sola yaslar
-                            const Spacer(),
-                            Flexible(
-                              flex: 1,
-                              child: Text(
-                                'Ürün',
-                                textDirection: TextDirection.ltr,
-                                style: Theme.of(context).textTheme.labelMedium,
-                              ),
-                            ),
-                            const Spacer(
-                              flex: 3,
-                            ),
-                            Text(
-                              'Miktar',
-                              textDirection: TextDirection.ltr,
-                              style: Theme.of(context).textTheme.labelMedium,
-                            ),
-                          ],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surface,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                        )),
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    child: Row(
+                      children: const [
+                        SizedBox(
+                          width: 50,
                         ),
-                      ),
-                      Container(
-                        width: 1000,
-                        height: MediaQuery.of(context).size.height / 4,
-                        padding: const EdgeInsets.only(top: 10),
-                        child: ListView.builder(
-                          itemCount: formItems.length,
-                          itemBuilder: (context, index) {
-                            return _buildItem(context, formItems[index], index,
-                                ref, productDetails);
-                          },
+                        Expanded(flex: 4, child: Text('Kategori')),
+                        Spacer(
+                          flex: 2,
                         ),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 10.0, bottom: 10.0),
-                        child: InkWell(
-                          onTap: () => ref
-                              .read(formItemProvider.notifier)
-                              .addItem(FormItem()),
-                          child: const Icon(
-                            Icons.add,
-                            size: 30,
-                          ),
+                        Expanded(flex: 8, child: Text('Ürün')),
+                        Spacer(
+                          flex: 4,
                         ),
-                      )
-                    ],
+                        Expanded(flex: 3, child: Text('Miktar')),
+                        SizedBox(
+                          width: 50,
+                        ),
+                      ],
+                    ),
                   ),
-                ));
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Container(
+                    constraints: const BoxConstraints(maxHeight: 350),
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(
+                          parent: AlwaysScrollableScrollPhysics()),
+                      child: Column(
+                        children: [
+                          for (var i = 0; i < formItems.length; i++)
+                            _buildItem(
+                                context, formItems[i], i, ref, productDetails),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
+                    child: InkWell(
+                      onTap: () => ref
+                          .read(formItemProvider.notifier)
+                          .addItem(FormItem()),
+                      child: const Icon(
+                        Icons.add,
+                        size: 30,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
           },
           loading: () => const CircularProgressIndicator(),
           error: (_, __) => Text('Bir hata oluştu'),
