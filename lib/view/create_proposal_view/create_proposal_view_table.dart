@@ -117,64 +117,66 @@ class createProposalViewTable extends ConsumerWidget {
         );
   }
 
-  Widget _buildItem(BuildContext context, FormItem formItem, int index,
-      WidgetRef ref, List<String?> productDetails) {
+  Widget _buildItem(BuildContext context, FormItem formItem, int index, WidgetRef ref, List<String?> productDetails) {
+    final List<DropdownMenuEntry<String>> dropDownMenuCategory = <DropdownMenuEntry<String>>[];
+    productDetails.map((detail) {
+      dropDownMenuCategory.add(
+        DropdownMenuEntry<String>(
+          value: detail.toString(),
+          label: truncateToTwoWords(detail!),
+   
+        ),
+      );
+    }).toList();
+
     return Row(
       children: [
         Padding(
           padding: const EdgeInsets.all(11.0),
           child: InkWell(
-            child: Icon(Icons.close),
+            child: const Icon(Icons.close),
             onTap: () {
               ref.read(formItemProvider.notifier).removeItem(index);
             },
           ),
         ),
-        Expanded(
-          child: DropdownButtonFormField(
-            menuMaxHeight: 100,
-            alignment: Alignment.centerLeft,
-            decoration: InputDecoration(
+        Flexible(
+          flex: 1,
+          child: DropdownMenu<String>(
+            menuHeight: 100,
+            width: 220,
+            inputDecorationTheme: InputDecorationTheme(
               filled: true,
               fillColor: Theme.of(context).colorScheme.onPrimary,
               constraints: const BoxConstraints(maxHeight: 40),
+              contentPadding: const EdgeInsets.only(left: 10.0),
+              floatingLabelAlignment: FloatingLabelAlignment.start,
               border: const OutlineInputBorder(),
-              hintText: 'Kategori',
-              hintStyle: Theme.of(context).textTheme.bodySmall,
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant),
+                borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              ),
+            ),        
+            label:  Text(
+              'Kategori',
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.start,
+              ),
+            menuStyle: MenuStyle(
+              alignment: AlignmentGeometry.lerp(
+                  Alignment.bottomLeft, Alignment.bottomLeft, 0.5,
               ),
             ),
-            // isExpanded: true,
-            icon: const Icon(
-              Icons.keyboard_arrow_down_outlined,
-              textDirection: TextDirection.rtl,
-            ),
-            iconSize: 24,
-            // elevation: 16,
-            items: productDetails.map((detail) {
-              return DropdownMenuItem(
-                value: detail,
-                child: Text(
-                  truncateToTwoWords(detail!),
-                ),
-              );
-            }).toList(),
-            onChanged: (value) {
+            dropdownMenuEntries: dropDownMenuCategory,
+            onSelected: (value) {
               formItem.category = value;
             },
-            // hint: Text(
-            //   'Kategori',
-            //   style: Theme.of(context).textTheme.bodySmall,
-            //   textAlign: TextAlign.start,
-            // ),
           ),
         ),
         const SizedBox(
           width: 16,
         ),
-        Flexible(
+        Container(
+          constraints: const BoxConstraints(maxWidth: 430),
           child: TextFormField(
             cursorColor: Theme.of(context).colorScheme.onBackground,
             enableInteractiveSelection: false,
@@ -182,7 +184,7 @@ class createProposalViewTable extends ConsumerWidget {
               filled: true,
               fillColor: Theme.of(context).colorScheme.onPrimary,
               border: const OutlineInputBorder(),
-              constraints: BoxConstraints(maxHeight: 40),
+              constraints: const BoxConstraints(maxHeight: 40),
               labelText: 'Ürün',
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
@@ -198,7 +200,8 @@ class createProposalViewTable extends ConsumerWidget {
         const SizedBox(
           width: 16,
         ),
-        Flexible(
+        Container(
+          constraints: const BoxConstraints(maxWidth: 120),
           child: TextFormField(
             cursorColor: Theme.of(context).colorScheme.onBackground,
             decoration: InputDecoration(

@@ -21,6 +21,7 @@ tr:
     pending: "Teklif Istendi"
     replied: "Teklif verildi"
     proposal_stvs: "Teklif Verildi"
+    last_offer: "Son Teklif"
     product: "Ürün"
     amount: "Miktar"
     description: "Tedarikci Notu"

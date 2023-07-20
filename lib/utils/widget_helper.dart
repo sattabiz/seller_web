@@ -1,5 +1,8 @@
 
-  Map<String, String> statusIconMap = {
+  import 'package:flutter/material.dart';
+  import 'package:flutter/widgets.dart';
+
+Map<String, String> statusIconMap = {
     'pending': 'assets/pending2.svg',
     'replied': 'assets/exportNotes.svg',
     'proposal_stvs': 'assets/exportNotes.svg',
@@ -16,3 +19,31 @@
     'delivered': 'assets/package.svg',
   };
 
+class ScreenSize {
+   MediaQueryData ?mediaQueryData;
+   double ?screenWidth;
+   double ?screenHeight;
+   double ?widthLarge;
+   double ?heightLarge;
+
+
+  //  ScreenSize( {
+  //   Key? key,
+  //   this.mediaQueryData,
+  //   this.screenWidth,
+  //   this.screenHeight,
+  //   this.widthLarge,
+  //   this.heightLarge,
+  // });
+
+
+  void init(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
+    screenWidth = mediaQueryData!.size.width;
+    screenHeight = mediaQueryData!.size.height;
+    widthLarge = screenWidth! / 1280 ;
+    heightLarge = screenHeight! / 720 ;
+
+  }
+
+}

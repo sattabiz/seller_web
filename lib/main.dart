@@ -30,6 +30,9 @@ class MyApp extends StatelessWidget {
       theme: theme,
       routes: routes,
       localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         FlutterI18nDelegate(
           missingTranslationHandler: (key, locale) {
             print("--- Missing Key: $key, languageCode: ${locale!.languageCode}");

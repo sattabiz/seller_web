@@ -39,6 +39,34 @@ class createProposalViewContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final List<DropdownMenuEntry<int>> dropDownMenuDate = <DropdownMenuEntry<int>>[];
+    for (var i = 0; i <= _dropdownMaxValue; i++) {
+      dropDownMenuDate.add(
+        DropdownMenuEntry<int>(
+          value: i,
+          label: i.toString(),
+        ),
+      );
+    }
+
+    // final List<DropdownMenuEntry<bool>> dropDownMenuTrackings = <DropdownMenuEntry<bool>>[];
+    // if (true) {
+    //   dropDownMenuTrackings.add(
+    //     const DropdownMenuEntry<bool>(
+    //       value: true,
+    //       label: 'Alıcı',
+    //     ),
+    //   );
+    // } else if (false){
+    //   dropDownMenuTrackings.add(
+    //    const DropdownMenuEntry<bool>(
+    //       value: false,
+    //       label: 'Satıcı',
+    //     ),
+    //   );
+      
+    // }
+
     final offerModel = ref.read(offerModelProvider);
 
     return Column(
@@ -51,6 +79,7 @@ class createProposalViewContent extends ConsumerWidget {
             labelText: 'Konu',
             labelStyle: Theme.of(context).textTheme.bodyMedium,
             focusColor: Theme.of(context).colorScheme.onSecondaryContainer,
+            // constraints: const BoxConstraints(maxHeight: 40),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                   color: Theme.of(context).colorScheme.onSurfaceVariant),
@@ -84,6 +113,7 @@ class createProposalViewContent extends ConsumerWidget {
                   suffixIcon: const Icon(Icons.calendar_month),
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.onPrimary,
+                  constraints: const BoxConstraints(maxHeight: 40),
                   border: const UnderlineInputBorder(),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
@@ -116,6 +146,7 @@ class createProposalViewContent extends ConsumerWidget {
                   suffixIcon: const Icon(Icons.calendar_month),
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.onPrimary,
+                  constraints: const BoxConstraints(maxHeight: 40),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                         color: Theme.of(context).colorScheme.onSurfaceVariant),
@@ -177,33 +208,31 @@ class createProposalViewContent extends ConsumerWidget {
           children: [
             Expanded(
               flex: 3,
-              child: DropdownButtonFormField(
-                decoration: InputDecoration(
-                  hintText: 'Alıcı',
+              child: DropdownMenu<int>(
+                controller: _topic,
+                width: 310,
+                menuHeight: 200,
+                inputDecorationTheme: InputDecorationTheme(
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.onPrimary,
+                  constraints: const BoxConstraints(maxHeight: 40),
+                  contentPadding: EdgeInsets.only(left: 10.0),
+                  floatingLabelAlignment: FloatingLabelAlignment.start,
                   border: const UnderlineInputBorder(),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                ),        
+                label:  Text(
+                  'Gun',
+                  style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                menuStyle: MenuStyle(
+                  alignment: AlignmentGeometry.lerp(
+                      Alignment.bottomLeft, Alignment.bottomLeft, 0.5,
                   ),
                 ),
-                isExpanded: true,
-                alignment: Alignment.centerRight,
-                value: offerModel.patmentDueDate,
-                icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                iconSize: 24,
-                elevation: 16,
-                onChanged: (int? value) {
-                  offerModel.patmentDueDate = value ?? 30;
-                },
-                items: <int>[for (var i = 0; i <= _dropdownMaxValue; i++) i]
-                    .map<DropdownMenuItem<int>>((int value) {
-                  return DropdownMenuItem(
-                    value: value,
-                    child: Text(value.toString()),
-                  );
-                }).toList(),
+                dropdownMenuEntries: dropDownMenuDate,
               ),
             ),
             const Spacer(
@@ -211,33 +240,37 @@ class createProposalViewContent extends ConsumerWidget {
             ),
             Expanded(
               flex: 3,
-              child: DropdownButtonFormField<bool>(
-                decoration: InputDecoration(
-                  hintText: 'Seçim yapınız',
+              child: DropdownMenu<bool>(
+                width: 310,
+                menuHeight: 200,
+                inputDecorationTheme: InputDecorationTheme(
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.onPrimary,
+                  constraints: const BoxConstraints(maxHeight: 40),
+                  contentPadding: EdgeInsets.only(left: 10.0),
+                  floatingLabelAlignment: FloatingLabelAlignment.start,
                   border: const UnderlineInputBorder(),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant),
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                ),        
+                label:  Text(
+                  'Nakliye',
+                  style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                menuStyle: MenuStyle(
+                  alignment: AlignmentGeometry.lerp(
+                      Alignment.bottomLeft, Alignment.bottomLeft, 0.5,
                   ),
                 ),
-                isExpanded: true,
-                alignment: Alignment.centerRight,
-                value: offerModel
-                    .includeShipmentCost, // Eğer seçilen değer null ise varsayılan değer null olacak
-                icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                iconSize: 24,
-                elevation: 16,
-                onChanged: (bool? value) {
-                  // <---- burada bool? döndürmelisiniz
+                onSelected: (bool? value) {
                   offerModel.includeShipmentCost = value ?? false;
                 },
-                items: <bool>[true, false]
-                    .map<DropdownMenuItem<bool>>((bool value) {
-                  return DropdownMenuItem(
+                dropdownMenuEntries: <bool>[true, false]
+                    .map<DropdownMenuEntry<bool>>((bool value) {
+                  return DropdownMenuEntry<bool>(
                     value: value,
-                    child: Text(value ? "Alıcı" : "Satıcı"),
+                    label: value ? "Alıcı" : "Satıcı"
                   );
                 }).toList(),
               ),
