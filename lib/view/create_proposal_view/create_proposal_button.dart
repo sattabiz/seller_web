@@ -8,6 +8,7 @@ import '../../view_model/landing_view_model.dart';
 import '../../view_model/proposal_view_model.dart';
 import 'create_proposal_view_content.dart';
 import 'create_proposal_view_table.dart';
+import 'dart:ui';
 
 class createProposalButton extends ConsumerWidget {
   const createProposalButton({Key? key}) : super(key: key);
@@ -18,7 +19,6 @@ class createProposalButton extends ConsumerWidget {
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
           fixedSize: MaterialStateProperty.all(const Size(150, 40)),
-          // alignment: Alignment.centerLeft
         ),
         onPressed: () async {
           List<FormItem> _productsAttributes = ref.watch(formItemProvider);
@@ -30,8 +30,6 @@ class createProposalButton extends ConsumerWidget {
           if (landingProvider != null) {
             final _orderlistservice = createProposalService();
             try {
-              // debugPrint(_contentItems.includeShipmentCost.toString());
-              // debugPrint(_contentItems.patmentDueDate.toString());
               CreateProposalModel _orderList =
                   await _orderlistservice.createProposlPost(
                       _productsAttributes,
