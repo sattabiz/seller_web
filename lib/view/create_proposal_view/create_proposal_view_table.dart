@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../view_model/landing_view_model.dart';
+
 
 class FormItem {
   String? category;
@@ -48,12 +48,14 @@ class createProposalViewTable extends ConsumerWidget {
                 .map((product) => product.productDetails)
                 .toList();
             return Card(
+              color: Theme.of(context).colorScheme.onPrimary,
+              surfaceTintColor: Theme.of(context).colorScheme.onPrimary,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
+                        color: Theme.of(context).colorScheme.surfaceVariant,
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(15),
                           topRight: Radius.circular(15),
@@ -72,7 +74,7 @@ class createProposalViewTable extends ConsumerWidget {
                         Spacer(
                           flex: 4,
                         ),
-                        Expanded(flex: 3, child: Text('Miktar')),
+                        Expanded(flex: 4, child: Text('Miktar')),
                         SizedBox(
                           width: 50,
                         ),
@@ -83,10 +85,12 @@ class createProposalViewTable extends ConsumerWidget {
                     height: 16,
                   ),
                   Container(
-                    constraints: const BoxConstraints(maxHeight: 350),
+                    constraints: const BoxConstraints(maxHeight: 400),
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics()),
+                          parent: AlwaysScrollableScrollPhysics(
+                              parent: ClampingScrollPhysics(),
+                          )),
                       child: Column(
                         children: [
                           for (var i = 0; i < formItems.length; i++)
@@ -99,6 +103,7 @@ class createProposalViewTable extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
                     child: InkWell(
+                      hoverColor: Colors.transparent,
                       onTap: () => ref
                           .read(formItemProvider.notifier)
                           .addItem(FormItem()),
@@ -118,6 +123,9 @@ class createProposalViewTable extends ConsumerWidget {
   }
 
   Widget _buildItem(BuildContext context, FormItem formItem, int index, WidgetRef ref, List<String?> productDetails) {
+    double screenWidth = MediaQuery.of(context).size.width / 1250;
+    double screenHeight = MediaQuery.of(context).size.height / 720;
+
     final List<DropdownMenuEntry<String>> dropDownMenuCategory = <DropdownMenuEntry<String>>[];
     productDetails.map((detail) {
       dropDownMenuCategory.add(
@@ -129,109 +137,225 @@ class createProposalViewTable extends ConsumerWidget {
       );
     }).toList();
 
-    return Row(
+    return Flex(
+      direction: Axis.horizontal,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(11.0),
-          child: InkWell(
-            child: const Icon(Icons.close),
-            onTap: () {
-              ref.read(formItemProvider.notifier).removeItem(index);
-            },
+        SizedBox(
+          width: 50,
+          child: Padding(
+            padding: const EdgeInsets.all(11.0),
+            child: InkWell(
+              hoverColor: Colors.transparent,
+              child: const Icon(Icons.close),
+              onTap: () {
+                ref.read(formItemProvider.notifier).removeItem(index);
+              },
+            ),
           ),
         ),
-        Flexible(
+        DropdownMenu<String>(
+          menuHeight: 100,
+          width: screenWidth * 160,
+          inputDecorationTheme: InputDecorationTheme(
+            filled: true,
+            fillColor: Theme.of(context).colorScheme.onPrimary,
+            constraints:  const BoxConstraints(maxHeight: 40),
+            contentPadding: const EdgeInsets.only(left: 10.0),
+            floatingLabelAlignment: FloatingLabelAlignment.start,
+            border: const OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+            ),
+          ),        
+          label:  Text(
+            'Kategori',
+            style: Theme.of(context).textTheme.bodySmall,
+            textAlign: TextAlign.start,
+            ),
+          menuStyle: MenuStyle(
+            fixedSize: MaterialStateProperty.all(Size(screenWidth * 160, 100)),
+            alignment: AlignmentGeometry.lerp(
+                Alignment.bottomLeft, Alignment.bottomLeft, 0.5,
+            ),
+          ),
+          dropdownMenuEntries: dropDownMenuCategory,
+          onSelected: (value) {
+            formItem.category = value;
+          },
+        ),
+        Spacer(
           flex: 1,
-          child: DropdownMenu<String>(
-            menuHeight: 100,
-            width: 220,
-            inputDecorationTheme: InputDecorationTheme(
-              filled: true,
-              fillColor: Theme.of(context).colorScheme.onPrimary,
-              constraints: const BoxConstraints(maxHeight: 40),
-              contentPadding: const EdgeInsets.only(left: 10.0),
-              floatingLabelAlignment: FloatingLabelAlignment.start,
-              border: const OutlineInputBorder(),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        ),
+        Expanded(
+          flex: 10, 
+          child: Container(
+            // width: 460,
+            // constraints:  BoxConstraints(maxWidth: screenWidth * 430, minWidth: screenWidth * 50),
+            child: TextFormField(
+              cursorColor: Theme.of(context).colorScheme.onBackground,
+              enableInteractiveSelection: false,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Theme.of(context).colorScheme.onPrimary,
+                border: const OutlineInputBorder(),
+                contentPadding: const EdgeInsets.only(left: 10.0, top: 0.0, bottom: 0.0, right: 0.0),
+                constraints: const BoxConstraints(maxHeight: 40),
+                labelText: 'Ürün',
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                ),
+                labelStyle: Theme.of(context).textTheme.bodySmall,
               ),
-            ),        
-            label:  Text(
-              'Kategori',
-              style: Theme.of(context).textTheme.bodySmall,
-              textAlign: TextAlign.start,
-              ),
-            menuStyle: MenuStyle(
-              alignment: AlignmentGeometry.lerp(
-                  Alignment.bottomLeft, Alignment.bottomLeft, 0.5,
-              ),
+              onChanged: (value) {
+                formItem.product = value;
+              },
             ),
-            dropdownMenuEntries: dropDownMenuCategory,
-            onSelected: (value) {
-              formItem.category = value;
-            },
           ),
         ),
-        const SizedBox(
-          width: 16,
+        const Spacer(
+          flex: 1,
         ),
-        Container(
-          constraints: const BoxConstraints(maxWidth: 430),
-          child: TextFormField(
-            cursorColor: Theme.of(context).colorScheme.onBackground,
-            enableInteractiveSelection: false,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Theme.of(context).colorScheme.onPrimary,
-              border: const OutlineInputBorder(),
-              constraints: const BoxConstraints(maxHeight: 40),
-              labelText: 'Ürün',
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant),
+        Expanded(
+          flex: 4, 
+          child: Container(
+            width: 120,
+            // constraints: BoxConstraints(maxWidth: screenWidth * 120, minWidth: screenWidth * 40),
+            child: TextFormField(
+              cursorColor: Theme.of(context).colorScheme.onBackground,
+              decoration: InputDecoration(
+                constraints: const BoxConstraints(maxHeight: 40),
+                filled: true,
+                fillColor: Theme.of(context).colorScheme.onPrimary,
+                border: const OutlineInputBorder(),
+                contentPadding: const EdgeInsets.only(left: 10.0, top: 0.0, bottom: 0.0, right: 0.0),
+                labelText: 'Miktar',
+                labelStyle: Theme.of(context).textTheme.bodySmall,
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant),
+                ),
+                suffixText: 'adet',
               ),
-              labelStyle: Theme.of(context).textTheme.bodySmall,
+              onChanged: (value) {
+                formItem.amount = value;
+              },
             ),
-            onChanged: (value) {
-              formItem.product = value;
-            },
           ),
         ),
-        const SizedBox(
-          width: 16,
-        ),
-        Container(
-          constraints: const BoxConstraints(maxWidth: 120),
-          child: TextFormField(
-            cursorColor: Theme.of(context).colorScheme.onBackground,
-            decoration: InputDecoration(
-              constraints: const BoxConstraints(maxHeight: 40),
-              filled: true,
-              fillColor: Theme.of(context).colorScheme.onPrimary,
-              border: const OutlineInputBorder(),
-              labelText: 'Miktar',
-              labelStyle: Theme.of(context).textTheme.bodySmall,
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant),
-              ),
-              suffixText: 'adet',
-            ),
-            onChanged: (value) {
-              formItem.amount = value;
-            },
+        SizedBox(
+          width: 50,
+          child: IconButton(
+            icon: const Icon(Icons.attach_file),
+            iconSize: 25,
+            onPressed: () {},
           ),
         ),
-        const SizedBox(
-          width: 16,
-        ),
-        InkWell(
-          child: const Icon(Icons.attach_file),
-          onTap: () {},
-        ),
-        const SizedBox(
-          width: 10,
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.all(11.0),
+        //   child: InkWell(
+        //     hoverColor: Colors.transparent,
+        //     child: const Icon(Icons.close),
+        //     onTap: () {
+        //       ref.read(formItemProvider.notifier).removeItem(index);
+        //     },
+        //   ),
+        // ),
+        // Flexible(
+        //   // width: 330,
+        //   // constraints: BoxConstraints(maxWidth: screenWidth * 220, minWidth: screenWidth * 50),
+        //   child: DropdownMenu<String>(
+        //     menuHeight: 100,
+        //     width: 220,
+        //     inputDecorationTheme: InputDecorationTheme(
+        //       filled: true,
+        //       fillColor: Theme.of(context).colorScheme.onPrimary,
+        //       constraints:  BoxConstraints(maxHeight: 40, minWidth: screenWidth * 50),
+        //       contentPadding: const EdgeInsets.only(left: 10.0),
+        //       floatingLabelAlignment: FloatingLabelAlignment.start,
+        //       border: const OutlineInputBorder(),
+        //       focusedBorder: OutlineInputBorder(
+        //         borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        //       ),
+        //     ),        
+        //     label:  Text(
+        //       'Kategori',
+        //       style: Theme.of(context).textTheme.bodySmall,
+        //       textAlign: TextAlign.start,
+        //       ),
+        //     menuStyle: MenuStyle(
+        //       alignment: AlignmentGeometry.lerp(
+        //           Alignment.bottomLeft, Alignment.bottomLeft, 0.5,
+        //       ),
+        //     ),
+        //     dropdownMenuEntries: dropDownMenuCategory,
+        //     onSelected: (value) {
+        //       formItem.category = value;
+        //     },
+        //   ),
+        // ),
+        //  ConstrainedBox(
+        //   constraints:  BoxConstraints(maxWidth: screenWidth * 30, minWidth: screenWidth * 10),
+        // ),
+        // Container(
+        //   width: 460,
+        //   constraints:  BoxConstraints(maxWidth: screenWidth * 430, minWidth: screenWidth * 50),
+        //   child: TextFormField(
+        //     cursorColor: Theme.of(context).colorScheme.onBackground,
+        //     enableInteractiveSelection: false,
+        //     decoration: InputDecoration(
+        //       filled: true,
+        //       fillColor: Theme.of(context).colorScheme.onPrimary,
+        //       border: const OutlineInputBorder(),
+        //       contentPadding: const EdgeInsets.only(left: 10.0, top: 0.0, bottom: 0.0, right: 0.0),
+        //       constraints: const BoxConstraints(maxHeight: 40),
+        //       labelText: 'Ürün',
+        //       focusedBorder: OutlineInputBorder(
+        //         borderSide: BorderSide(
+        //             color: Theme.of(context).colorScheme.onSurfaceVariant),
+        //       ),
+        //       labelStyle: Theme.of(context).textTheme.bodySmall,
+        //     ),
+        //     onChanged: (value) {
+        //       formItem.product = value;
+        //     },
+        //   ),
+        // ),
+        // ConstrainedBox(
+        //   constraints:  BoxConstraints(maxWidth: screenWidth * 30, minWidth: screenWidth * 10),
+        // ),
+        // Container(
+        //   width: 120,
+        //   constraints: BoxConstraints(maxWidth: screenWidth * 120, minWidth: screenWidth * 40),
+        //   child: TextFormField(
+        //     cursorColor: Theme.of(context).colorScheme.onBackground,
+        //     decoration: InputDecoration(
+        //       constraints: const BoxConstraints(maxHeight: 40),
+        //       filled: true,
+        //       fillColor: Theme.of(context).colorScheme.onPrimary,
+        //       border: const OutlineInputBorder(),
+        //       contentPadding: const EdgeInsets.only(left: 10.0, top: 0.0, bottom: 0.0, right: 0.0),
+        //       labelText: 'Miktar',
+        //       labelStyle: Theme.of(context).textTheme.bodySmall,
+        //       focusedBorder: OutlineInputBorder(
+        //         borderSide: BorderSide(
+        //             color: Theme.of(context).colorScheme.onSurfaceVariant),
+        //       ),
+        //       suffixText: 'adet',
+        //     ),
+        //     onChanged: (value) {
+        //       formItem.amount = value;
+        //     },
+        //   ),
+        // ),
+        // ConstrainedBox(
+        //   constraints:  BoxConstraints(maxWidth: screenWidth * 30, minWidth: screenWidth * 10),
+        // ),
+        // IconButton(
+        //   icon: const Icon(Icons.attach_file),
+        //   iconSize: 25,
+        //   onPressed: () {},
+        // ),
       ],
     );
   }
