@@ -2,6 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:seller_point/view/invoice_view/invoice_view.dart';
+import 'package:seller_point/view/order_view/order_view.dart';
+import 'package:seller_point/view/proposal_view/proposal_view.dart';
+import 'package:seller_point/view/shipment_view/shipment_view.dart';
 
 import '../../view_model/buyer_invoices_view_model.dart';
 import '../../view_model/order_list_view_model.dart';
@@ -46,22 +50,22 @@ class NavigationRailDrawer extends ConsumerWidget {
               height: 24,
             ),
             drawerButton(context, 'Teklif İstekleri', 'assets/proposal.svg',
-                '/proposalScreen', 0, ref, proposalListview),
+                proposalView(), 0, ref, proposalListview),
             const SizedBox(
               height: 16,
             ),
             drawerButton(context, 'Siparişler', 'assets/order.svg',
-                '/orderScreen', 1, ref, getOrderListProvider),
+                OrderView(), 1, ref, getOrderListProvider),
             const SizedBox(
               height: 16,
             ),
             drawerButton(context, 'Sevkiyat', 'assets/order.svg',
-                '/shipmentScreen', 2, ref, shipmentProvider),
+                ShipmentView(), 2, ref, shipmentProvider),
             const SizedBox(
               height: 16,
             ),
             drawerButton(context, 'Faturalar', 'assets/invoice.svg',
-                '/invoiceScreen', 3, ref, getInvoicesProvider),
+                invoiceView(), 3, ref, getInvoicesProvider),
           ],
         ),
       ),
@@ -72,7 +76,7 @@ class NavigationRailDrawer extends ConsumerWidget {
     BuildContext context,
     String text,
     String icon,
-    String route,
+    Widget route,
     int index,
     WidgetRef ref,
     AutoDisposeFutureProvider<List<dynamic>> provider,
@@ -85,7 +89,13 @@ class NavigationRailDrawer extends ConsumerWidget {
         ref.refresh(provider);
         ref.read(provider.future);
         ref.read(drawerCountProvider.notifier).state = index;
-        Navigator.pushNamed(context, route);
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation1, animation2) => route,
+            transitionDuration: const Duration(seconds: 0)
+          ) 
+        );
       },
       child: Container(
         decoration: BoxDecoration(

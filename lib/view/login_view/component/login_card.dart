@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seller_point/view/proposal_view/proposal_view.dart';
 
 import '../../../view_model/buyer_invoices_view_model.dart';
 import '../../../view_model/current_user_view_model.dart';
@@ -8,6 +9,7 @@ import '../../../view_model/login_view_model.dart';
 import '../../../view_model/order_list_view_model.dart';
 import '../../../view_model/proposal_view_model.dart';
 import '../../../view_model/shipment_view_model.dart';
+import '../../landing_view/landing_view.dart';
 
 class loginCard extends ConsumerWidget {
   loginCard({Key? key}) : super(key: key);
@@ -76,7 +78,13 @@ class loginCard extends ConsumerWidget {
                             color: Theme.of(context).colorScheme.shadow,
                           ),
                           onPressed: () {
-                            Navigator.of(context).pop();
+                            Navigator.pushReplacement(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation1, animation2) => LandingView(),
+                                transitionDuration: const Duration(seconds: 0)
+                              ) 
+                            );
                           },
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
@@ -178,7 +186,13 @@ class loginCard extends ConsumerWidget {
                                       context, "tr.login.login_success")),
                                 ),
                               );
-                              Navigator.pushNamed(context, '/proposalScreen');
+                              Navigator.pushReplacement(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (context, animation1, animation2) => proposalView(),
+                                  transitionDuration: const Duration(seconds: 0)
+                                ) 
+                              );
                             } else if (loginState == LoginState.failure) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -238,8 +252,13 @@ class loginCard extends ConsumerWidget {
                             ref.refresh(getOrderListProvider);
                             ref.refresh(shipmentProvider);
                             await ref.read(getCurrentUserInfoProvider);
-                            await Navigator.pushNamed(
-                                context, '/proposalScreen');
+                            await Navigator.pushReplacement(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation1, animation2) => proposalView(),
+                                transitionDuration: const Duration(seconds: 0)
+                              ) 
+                            );
                           } else if (loginState == LoginState.failure) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
