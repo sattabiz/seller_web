@@ -26,7 +26,7 @@ class Introduction extends StatelessWidget {
     return Container(  
       width: double.infinity,
       height: 600,
-      padding: const EdgeInsets.only(top: 32.0),
+      padding: const EdgeInsets.only(top: 60.0),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         image: DecorationImage(
