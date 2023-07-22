@@ -9,8 +9,6 @@ class postService {
     final dio = Dio();
     dio.options.responseType = ResponseType.json;  //this code can make more secure
     final _jwt = await jwtStorageService().getJwtData();
-    // debugPrint(data.toString());
-
 
     var response = await dio.post(
       url,

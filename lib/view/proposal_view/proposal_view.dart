@@ -13,18 +13,15 @@ import '../widget/nav_drawer.dart';
 import '../widget/nav_rail.dart';
 import '../widget/small_card/small_card.dart';
 
-
-
 class proposalView extends ConsumerWidget {
   const proposalView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final orderListAsyncValue = ref.watch(proposalListview);
-    print(orderListAsyncValue.toString());
-
-    return orderListAsyncValue.when(
-      data: (orderList) {
+    final proposalListAsyncValue = ref.watch(proposalListview);
+    print('sayfa calisti ${proposalListAsyncValue.toString()}');
+    return proposalListAsyncValue.when(
+      data: (proposalList) {
         return LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             if (constraints.maxWidth <= 1100) {
@@ -33,7 +30,13 @@ class proposalView extends ConsumerWidget {
                 body: Row(
                   children: [
                     const NavigationRailWidget(),
-                    Expanded(child: buildBody(orderList, context, FlutterI18n.translate(context, "tr.proposal.proposals"), 'proposal')),
+                    Expanded(
+                        child: buildBody(
+                            proposalList,
+                            context,
+                            FlutterI18n.translate(
+                                context, "tr.proposal.proposals"),
+                            'proposal')),
                   ],
                 ),
               );
@@ -49,7 +52,15 @@ class proposalView extends ConsumerWidget {
                       ),
                       Expanded(
                         flex: 10,
-                        child: buildBody(orderList, context, FlutterI18n.translate(context, "tr.proposal.proposals"), 'proposal'), //order screen body
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: buildBody(
+                              proposalList,
+                              context,
+                              FlutterI18n.translate(
+                                  context, "tr.proposal.proposals"),
+                              'proposal'),
+                        ), //order screen body
                       ),
                     ],
                   ),
@@ -61,15 +72,17 @@ class proposalView extends ConsumerWidget {
       },
       loading: () => const LoadingWidget(),
       error: (error, stack) {
+        print('Hata: $error');
+        print('Stack trace: $stack');
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushNamed(context, '/login');
         });
         return Text('An error occurred: $error');
       },
     );
   }
 
-  Padding buildBody(List<GetProposalModel> proposalList, BuildContext context, String topic, String className) {
+  Padding buildBody(List<GetProposalModel> proposalList, BuildContext context,
+      String topic, String className) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: LayoutBuilder(
@@ -96,13 +109,16 @@ class proposalView extends ConsumerWidget {
                       className: className,
                       id: proposalList[index].proposalId.toString(),
                       status: proposalList[index].proposalState.toString(),
-                      bodyHeader: proposalList[index].supplierCompany.toString(),
-                      headerDate: proposalList[index].proposalValidDate.toString(),
+                      bodyHeader:
+                          proposalList[index].supplierCompany.toString(),
+                      headerDate:
+                          proposalList[index].proposalValidDate.toString(),
                       paymentType: proposalList[index].paymentType.toString(),
-                      demandNo: proposalList[index].proposalId.toString(),  
+                      demandNo: proposalList[index].proposalId.toString(),
                       deliveryDate: proposalList[index].deliveryDate.toString(),
-                      paymentDueDate: proposalList[index].paymentDueDate.toString(),
-                      bodyList: proposalList[index].productProposals!, 
+                      paymentDueDate:
+                          proposalList[index].paymentDueDate.toString(),
+                      bodyList: proposalList[index].productProposals!,
                     );
                   },
                 ),

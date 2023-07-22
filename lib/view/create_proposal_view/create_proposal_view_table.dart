@@ -3,6 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../view_model/landing_view_model.dart';
 
 
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../view_model/landing_view_model.dart';
+
+
 class FormItem {
   String? category;
   String? product;
@@ -45,7 +50,7 @@ class createProposalViewTable extends ConsumerWidget {
     return ref.watch(getLandingViewContentProvider).when(
           data: (webContent) {
             final productDetails = webContent.products!
-                .map((product) => product.productDetails)
+                .map((product) => product.title)
                 .toList();
             return Card(
               color: Theme.of(context).colorScheme.onPrimary,

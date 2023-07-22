@@ -97,6 +97,7 @@ class createProposalViewContent extends ConsumerWidget {
           },
           onChanged: (value) {
             offerModel.name = value;
+            value=ref.read(offerModelProvider).name;
           },
         ),
         const SizedBox(
@@ -132,6 +133,7 @@ class createProposalViewContent extends ConsumerWidget {
                         DateFormat('yyyy-MM-dd').format(pickedDate);
                     _deliveryDate.text = formattedDate; // <- Bu satır eklenmeli
                     offerModel.deliveryDate = formattedDate;
+                    formattedDate=ref.read(offerModelProvider).deliveryDate;
                   } else {}
                 },
               ),
@@ -170,6 +172,7 @@ class createProposalViewContent extends ConsumerWidget {
                         DateFormat('yyyy-MM-dd').format(pickedDate);
                     _validDays.text = formattedDate;
                     offerModel.validDays = differenceInDays;
+                    differenceInDays=ref.read(offerModelProvider).validDays;
                   } else {}
                 },
               ),
@@ -232,6 +235,11 @@ class createProposalViewContent extends ConsumerWidget {
                       Alignment.bottomLeft, Alignment.bottomLeft, 0.5,
                   ),
                 ),
+                onSelected: (value) {
+                  offerModel.patmentDueDate = value ?? 0;
+                  debugPrint(offerModel.includeShipmentCost.toString());
+                  value = ref.read(offerModelProvider).patmentDueDate;
+                },
                 dropdownMenuEntries: dropDownMenuDate,
               ),
             ),
@@ -265,12 +273,14 @@ class createProposalViewContent extends ConsumerWidget {
                 ),
                 onSelected: (bool? value) {
                   offerModel.includeShipmentCost = value ?? false;
+                  debugPrint(offerModel.includeShipmentCost.toString());
+                  value = ref.read(offerModelProvider).includeShipmentCost;
                 },
                 dropdownMenuEntries: <bool>[true, false]
                     .map<DropdownMenuEntry<bool>>((bool value) {
                   return DropdownMenuEntry<bool>(
                     value: value,
-                    label: value ? "Alıcı" : "Satıcı"
+                    label: value ? "Satıcı" : "Alıcı"
                   );
                 }).toList(),
               ),
