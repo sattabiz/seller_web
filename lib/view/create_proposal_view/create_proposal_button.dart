@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seller_point/view_model/create_proposal_view_model.dart';
 import '../../model/create_proposal_model.dart';
 import '../../service/create_proposal_service.dart';
-import '../../view_model/create_proposal_view_model.dart';
 import '../../view_model/landing_view_model.dart';
 import '../../view_model/proposal_view_model.dart';
 import 'create_proposal_view_content.dart';
@@ -28,19 +28,13 @@ class createProposalButton extends ConsumerWidget {
           final landingProviderAsyncValue = ref.watch(getLandingViewContentProvider);
           final landingProvider = landingProviderAsyncValue.value;
           if (landingProvider != null) {
-            final _orderlistservice = createProposalService();
             try {
-              CreateProposalModel _orderList =
-                  await _orderlistservice.createProposlPost(
-                      _productsAttributes,
-                      _contentItems, 
-                      landingProvider
-                  );
+              ref.watch(createProposalProvider);
             } catch (e) {
               debugPrint('API çağrısında bir hata oluştu: $e');
             }
             ref.refresh(formItemProvider);
-            ref.refresh(proposalListview);
+            ref.refresh(offerModelProvider);
             Navigator.pushNamed(context, '/proposalScreen');
           } else {
             debugPrint('LandingProvider verisi mevcut değil');

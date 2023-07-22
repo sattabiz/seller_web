@@ -7,8 +7,6 @@ import '../model/get_order_list_model.dart';
 import '../service/get_order_list_service.dart';
 import '../service/get_services.dart';
 
-
-
 final getOrderListProvider =
     FutureProvider.autoDispose<List<GetOrderlistModel>>((ref) async {
   final apiService = ApiService();
@@ -23,14 +21,12 @@ final getOrderListProvider =
     }
     rethrow;
   }
-  //debugPrint('aaaaaaaaaasssssssssss 3434 dfsdf${response.data.toString()} sdfsdfsdfsd34234234');
   List<GetOrderlistModel> _orderList = [];
   if (response.data['order'] != null) {
     _orderList = (response.data['order'] as List)
         .map((e) => GetOrderlistModel.fromMap(e))
         .toList();
   }
-  ref.onDispose(() {_orderList.remove(_orderList);});
 
   return _orderList;
 });

@@ -18,6 +18,13 @@ final createProposalProvider =
   OfferModel _contentItems = ref.watch(offerModelProvider);
   final landingProviderAsyncValue = ref.watch(getLandingViewContentProvider);
   final _company_id = landingProviderAsyncValue.value;
+  /* print(_contentItems.patmentDueDate.toString());
+  print(_contentItems.includeShipmentCost.toString());
+  print(_formItems.toString());
+  print(_company_id!.companyId.toString());
+  print(_contentItems.validDays.toString());
+  print(_contentItems.name.toString());
+  print(_contentItems.deliveryDate.toString()); */
   Map<String, dynamic> _productsAttributes = {};
   for (int i = 0; i < _formItems.length; i++) {
     _productsAttributes['$i'] = {

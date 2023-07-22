@@ -59,8 +59,9 @@ class NavigationRailDrawer extends ConsumerWidget {
             const SizedBox(
               height: 16,
             ),
-            drawerButton(context, 'Sevkiyat', 'assets/order.svg',
+            drawerButton(context, 'Sevkiyat', 'assets/shipment.svg',
                 ShipmentView(), 2, ref, shipmentProvider),
+
             const SizedBox(
               height: 16,
             ),
