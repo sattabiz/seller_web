@@ -34,6 +34,7 @@ tr:
     create_proposal_btn: "Teklif İste"
     save_list_btn: "Listelerime Kaydet"
     new_proposal_request: "Yeni Teklif İsteği"
+    no_offer: "Teklif verilmedi"
   order:
     orders: "Siparişler"
     order_pending: "Teklif İstendi"  
