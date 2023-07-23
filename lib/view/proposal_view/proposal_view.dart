@@ -19,6 +19,7 @@ class proposalView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final proposalListAsyncValue = ref.watch(proposalListview);
+    Duration(seconds: 2);
     print('sayfa calisti ${proposalListAsyncValue.toString()}');
     return proposalListAsyncValue.when(
       data: (proposalList) {
