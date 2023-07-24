@@ -14,7 +14,7 @@ class OfferModel {
         deliveryDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()
             .add(Duration(days: 3, hours: 17 - DateTime.now().hour))),
         validDays = 3,
-        includeShipmentCost = true,
+        includeShipmentCost = false,
         patmentDueDate = 30;
 }
 
@@ -24,7 +24,9 @@ class createProposalViewContent extends ConsumerWidget {
   final String topic;
   createProposalViewContent({this.topic = ' ', Key? key}) : super(key: key);
   final _dropdownMaxValue = 150;
-  final TextEditingController _topic = TextEditingController();
+  final TextEditingController _paymentDueDate = TextEditingController(text: '30');
+  final TextEditingController _includeShipmentCost = TextEditingController(text: 'Alıcı');
+
   final TextEditingController _deliveryDate = TextEditingController(
     text:
         DateFormat('yyyy-MM-dd').format(DateTime.now().add(Duration(days: 3))),
@@ -39,15 +41,12 @@ class createProposalViewContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<DropdownMenuEntry<int>> dropDownMenuDate = <DropdownMenuEntry<int>>[];
-    for (var i = 0; i <= _dropdownMaxValue; i++) {
-      dropDownMenuDate.add(
-        DropdownMenuEntry<int>(
-          value: i,
-          label: i.toString(),
-        ),
-      );
-    }
+    List<DropdownMenuEntry<int>> dropDownMenuDate = [7,15,21,30,45,60,75,90,120,150,180].map((int value) {
+  return DropdownMenuEntry<int>(
+    value: value,
+    label: value.toString(),
+  );
+}).toList();
 
     // final List<DropdownMenuEntry<bool>> dropDownMenuTrackings = <DropdownMenuEntry<bool>>[];
     // if (true) {
@@ -212,7 +211,7 @@ class createProposalViewContent extends ConsumerWidget {
             Expanded(
               flex: 3,
               child: DropdownMenu<int>(
-                controller: _topic,
+                controller: _paymentDueDate,
                 width: 310,
                 menuHeight: 200,
                 inputDecorationTheme: InputDecorationTheme(
@@ -236,7 +235,7 @@ class createProposalViewContent extends ConsumerWidget {
                   ),
                 ),
                 onSelected: (value) {
-                  offerModel.patmentDueDate = value ?? 0;
+                  offerModel.patmentDueDate = value ?? 30;
                   debugPrint(offerModel.includeShipmentCost.toString());
                   value = ref.read(offerModelProvider).patmentDueDate;
                 },
@@ -251,6 +250,7 @@ class createProposalViewContent extends ConsumerWidget {
               child: DropdownMenu<bool>(
                 width: 310,
                 menuHeight: 200,
+                controller: _includeShipmentCost,
                 inputDecorationTheme: InputDecorationTheme(
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.onPrimary,
