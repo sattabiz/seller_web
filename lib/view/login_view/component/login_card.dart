@@ -82,7 +82,8 @@ class loginCard extends ConsumerWidget {
                               context,
                               PageRouteBuilder(
                                 pageBuilder: (context, animation1, animation2) => LandingView(),
-                                transitionDuration: const Duration(seconds: 0)
+                                transitionDuration: const Duration(seconds: 0),
+                                settings: RouteSettings(name: '/landing'),
                               ) 
                             );
                           },
@@ -190,7 +191,8 @@ class loginCard extends ConsumerWidget {
                                 context,
                                 PageRouteBuilder(
                                   pageBuilder: (context, animation1, animation2) => proposalView(),
-                                  transitionDuration: const Duration(seconds: 0)
+                                  transitionDuration: const Duration(seconds: 0),
+                                  settings: RouteSettings(name: '/proposal'),
                                 ) 
                               );
                             } else if (loginState == LoginState.failure) {
@@ -256,7 +258,8 @@ class loginCard extends ConsumerWidget {
                               context,
                               PageRouteBuilder(
                                 pageBuilder: (context, animation1, animation2) => proposalView(),
-                                transitionDuration: const Duration(seconds: 0)
+                                transitionDuration: const Duration(seconds: 0),
+                                settings: RouteSettings(name: '/proposal'),
                               ) 
                             );
                           } else if (loginState == LoginState.failure) {

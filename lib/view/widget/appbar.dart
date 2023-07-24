@@ -125,7 +125,8 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
                         context,
                         PageRouteBuilder(
                           pageBuilder: (context, animation1, animation2) => LandingView(),
-                          transitionDuration: const Duration(seconds: 0)
+                          transitionDuration: const Duration(seconds: 0),
+                          settings: RouteSettings(name: '/landing')
                         ) 
                       );
                     } else {
