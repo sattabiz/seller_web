@@ -27,8 +27,8 @@ const String newMessage = 'assets/newMessage.svg';
 final Widget newMessageSvg = SvgPicture.asset(
   newMessage,
   semanticsLabel: 'Acme Logo',
-  width: 30.0,
-  height: 35.0,
+  width: 22.0,
+  height: 20.0,
 );
 
 class SmallCard extends ConsumerWidget {
@@ -119,18 +119,13 @@ class SmallCard extends ConsumerWidget {
                 headerWidget[className]!,
                 BodyHeader( bodyHeader: bodyHeader,status: status,className: className),
                 const SizedBox(height: 4),
-                 ListHeader(status: status), //list header
-                const SizedBox(
-                  height: 10,
-                ),
-                for (int i = 0; i < bodyList.length; i++)
-                  BodyProposal(
-                    id: id,
-                    i: i, 
-                    status: status, 
-                    className: className, 
-                    bodyHeader: bodyHeader, 
-                    bodyList: bodyList,
+                BodyProposal(
+                  id: id,
+                  // i: i, 
+                  status: status, 
+                  className: className, 
+                  bodyHeader: bodyHeader, 
+                  bodyList: bodyList,
                   ),
                 const SizedBox(
                   height: 15,

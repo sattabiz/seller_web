@@ -30,29 +30,26 @@ class HeaderProposal extends StatelessWidget {
               topRight: Radius.circular(10))),
       child: Padding(
         padding: const EdgeInsets.only(
-            top: 10, right: 15, left: 20, bottom: 10),
+            top: 10, right: 15, left: 20, bottom: 5),
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Flexible(  // icon
-                  child: SvgPicture.asset(
-                    statusIconMap[status] ?? '', 
-                    semanticsLabel: 'Order Status Icon',
-                    width: 30.0,
-                    height: 30.0,
-                  ),
+                SvgPicture.asset(
+                  statusIconMap[status] ?? '', 
+                  width: 23.0,
+                  height: 23.0,
                 ),
                 const SizedBox(
                   width: 15,
                 ),
                 Expanded(
-                    flex: 15,
-                    child: AutoSizeText(    // headerStatus
+                    flex: 8,
+                    child: Text(    // headerStatus
                       FlutterI18n.translate(context, "tr.proposal.$status"),
-                      style:
-                          Theme.of(context).textTheme.titleMedium!,
+                      style: Theme.of(context).textTheme.titleLarge!,
+                      maxLines: 1,
                     )),
                 Flexible(child: newMessageSvg ?? const SizedBox(width: 1)),
               ],
@@ -64,12 +61,17 @@ class HeaderProposal extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // headerId
-                Flexible(
-                  child:  AutoSizeText(
-                    FlutterI18n.translate(context, "tr.order.no" ) + id,
-                    style: Theme.of(context).textTheme.titleMedium!,
-                    )
+                Text(
+                  FlutterI18n.translate(context, "tr.order.no" ),
+                  style:Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.w500
+                  ),
                 ),
+                Text(
+                  id,
+                  style:Theme.of(context).textTheme.labelLarge!,
+                ),
+                const Spacer(flex: 1),
                  // header date
                 Flexible( 
                   child: CountdownDate(headerDate: headerDate),

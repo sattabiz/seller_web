@@ -3,9 +3,10 @@
   import 'package:flutter/widgets.dart';
 
 Map<String, String> statusIconMap = {
-    'pending': 'assets/pending2.svg',
+    'pending': 'assets/proposal_pending.svg',
     'replied': 'assets/exportNotes.svg',
     'proposal_stvs': 'assets/exportNotes.svg',
+    'last_offer': 'assets/exportNotes.svg',
     // 'order_pending': 'assets/exportNotes.svg',
     'order_approved': 'assets/exportNotes.svg',
     'order_confirmed': 'assets/conveyor.svg',

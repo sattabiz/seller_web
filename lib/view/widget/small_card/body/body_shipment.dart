@@ -41,7 +41,9 @@ class BodyShipment extends StatelessWidget {
                   Expanded(
                     flex: 1,
                     child: 
-                      AutoSizeText((i + 1).toString(),
+                      Text(
+                        (i + 1).toString(),
+                        style: Theme.of(context).textTheme.bodySmall,
                         textDirection: TextDirection.ltr,
                         maxLines: 1
                       ),
@@ -49,8 +51,9 @@ class BodyShipment extends StatelessWidget {
                   Expanded(
                     flex: 10,
                     child: 
-                      AutoSizeText(
+                      Text(
                         bodyList[i].name.toString(),
+                        style: Theme.of(context).textTheme.bodySmall,
                         textDirection: TextDirection.ltr,
                         maxLines: 1
                       ),
@@ -72,8 +75,9 @@ class BodyShipment extends StatelessWidget {
                   status == 'order_on_the_way'
                   ? Expanded(
                     flex: 6,
-                    child: AutoSizeText(
+                    child: Text(
                       bodyList[i].shippedAmount.toString() + 'adet',
+                      style: Theme.of(context).textTheme.bodySmall,
                       textDirection: TextDirection.ltr,
                       maxLines: 1,
                     )
@@ -81,13 +85,12 @@ class BodyShipment extends StatelessWidget {
                   : const Spacer(flex:6),
                   Expanded(
                     flex: 4,
-                    child: status == 'order_on_the_way'
-                    ? AutoSizeText(
-                      bodyList[i].price.toString() + ' ₺',
-                      textDirection: TextDirection.ltr,
-                      maxLines: 1)
-                    : AutoSizeText(
-                      bodyList[i].shippedAmount.toString() + ' adet',
+                    child: 
+                     Text(
+                      status == 'order_on_the_way'
+                      ? bodyList[i].price.toString() + ' ₺'
+                      : bodyList[i].shippedAmount.toString() + ' adet',
+                      style: Theme.of(context).textTheme.bodySmall,
                       textDirection: TextDirection.ltr,
                       maxLines: 1)
                   ),
