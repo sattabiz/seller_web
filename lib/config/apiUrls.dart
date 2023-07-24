@@ -4,7 +4,7 @@ class ApiUrls{
   
   static const String login = "$baseUrl/login.json";
   static const String logout = "$baseUrl/logout.json";
-  static const String proposal = "$baseUrl/proposals_by_state_sp.json?proposal_state='pending','replied','proposal_stvs','no_offer'&supplier_id=91";
+  static const String proposal = "$baseUrl/proposals_by_state_sp.json?proposal_state='pending','replied','proposal_stvs','last_offer'&supplier_id=91";
   static const String order = "$baseUrl/order_list.json?state='order_approved','order_confirmed','order_prepared','order_on_the_way','order_delivered'";
   static const String shipment = "$baseUrl/shipment_list.json?state='order_on_the_way','delivered'";
   static const String invoices = '$baseUrl/buyer_invoice_list.json?state="invoice_discounted","invoice_paid","invoice_pending","invoice_approved_dbs"&saved_to_erp=false';
