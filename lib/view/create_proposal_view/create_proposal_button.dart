@@ -8,7 +8,6 @@ import '../../view_model/landing_view_model.dart';
 import '../../view_model/proposal_view_model.dart';
 import 'create_proposal_view_content.dart';
 import 'create_proposal_view_table.dart';
-import 'dart:ui';
 
 class createProposalButton extends ConsumerWidget {
   const createProposalButton({Key? key}) : super(key: key);
@@ -35,7 +34,7 @@ class createProposalButton extends ConsumerWidget {
             }
             ref.refresh(formItemProvider);
             ref.refresh(offerModelProvider);
-            Navigator.pushNamed(context, '/proposalScreen');
+            Navigator.pop(context);
           } else {
             debugPrint('LandingProvider verisi mevcut değil');
           }

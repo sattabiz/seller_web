@@ -24,9 +24,9 @@ const ListHeaderShipment({ Key? key }) : super(key: key);
                 ),
                 Expanded(
                   flex: 2,
-                  child: AutoSizeText(
-                    FlutterI18n.translate(
-                        context, "tr.order.product"),
+                  child: Text(
+                    FlutterI18n.translate(context, "tr.order.product"),
+                    style: Theme.of(context).textTheme.bodySmall,
                     textDirection: TextDirection.ltr,
                     maxLines: 1,
                   ),
@@ -47,8 +47,9 @@ const ListHeaderShipment({ Key? key }) : super(key: key);
               ),
               Flexible(
                   flex: 4,
-                  child: AutoSizeText(
+                  child: Text(
                     FlutterI18n.translate(context, "tr.order.amount"),
+                    style: Theme.of(context).textTheme.bodySmall,
                     maxLines: 1,
                     textDirection: TextDirection.ltr,
                   )),

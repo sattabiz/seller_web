@@ -17,10 +17,17 @@ class BodyHeader extends StatelessWidget {
   Widget build(BuildContext context){
     return  Padding(
     padding: const EdgeInsets.only(
-        bottom: 8.0, top: 8.0, left: 16.0),
-    child: className == 'invoice' && status == 'order_on_the_way'
-    ? AutoSizeText(FlutterI18n.translate(context, "tr.shipment.invoice_no") + bodyHeader)
-    : Text(bodyHeader)
+        bottom: 4.0, top: 5.0, left: 16.0),
+    child: 
+    className == 'invoice' && status == 'order_on_the_way'
+    ? Text(
+      FlutterI18n.translate(context, "tr.shipment.invoice_no") + bodyHeader,
+      style: Theme.of(context).textTheme.titleSmall,
+    )
+    : Text(
+      bodyHeader,
+      style: Theme.of(context).textTheme.titleSmall,
+    )
     );
   }
 }
