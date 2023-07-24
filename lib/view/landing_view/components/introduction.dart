@@ -108,7 +108,8 @@ class LogInButton extends StatelessWidget {
           context,
           PageRouteBuilder(
             pageBuilder: (context, animation1, animation2) => LoginView(),
-            transitionDuration: const Duration(seconds: 0)
+            transitionDuration: const Duration(seconds: 0),
+            settings: RouteSettings(name: '/login')
           ) 
         );
       },

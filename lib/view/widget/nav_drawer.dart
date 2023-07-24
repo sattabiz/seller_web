@@ -50,23 +50,22 @@ class NavigationRailDrawer extends ConsumerWidget {
               height: 24,
             ),
             drawerButton(context, 'Teklif İstekleri', 'assets/proposal.svg',
-                proposalView(), 0, ref, proposalListview),
+                proposalView(), 0, ref, proposalListview, '/proposal'),
             const SizedBox(
               height: 16,
             ),
             drawerButton(context, 'Siparişler', 'assets/order.svg',
-                OrderView(), 1, ref, getOrderListProvider),
+                OrderView(), 1, ref, getOrderListProvider, '/order'),
             const SizedBox(
               height: 16,
             ),
-            drawerButton(context, 'Sevkiyat', 'assets/shipment.svg',
-                ShipmentView(), 2, ref, shipmentProvider),
-
+            drawerButton(context, 'Sevkiyat', 'assets/order.svg',
+                ShipmentView(), 2, ref, shipmentProvider, '/shipment'),
             const SizedBox(
               height: 16,
             ),
             drawerButton(context, 'Faturalar', 'assets/invoice.svg',
-                invoiceView(), 3, ref, getInvoicesProvider),
+                invoiceView(), 3, ref, getInvoicesProvider, '/invoice'),
           ],
         ),
       ),
@@ -81,6 +80,7 @@ class NavigationRailDrawer extends ConsumerWidget {
     int index,
     WidgetRef ref,
     AutoDisposeFutureProvider<List<dynamic>> provider,
+    String url,
   ) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -91,11 +91,12 @@ class NavigationRailDrawer extends ConsumerWidget {
         ref.read(provider.future);
         ref.read(drawerCountProvider.notifier).state = index;
         Navigator.pushReplacement(
-          context,
+          context, 
           PageRouteBuilder(
             pageBuilder: (context, animation1, animation2) => route,
-            transitionDuration: const Duration(seconds: 0)
-          ) 
+            transitionDuration: const Duration(seconds: 0),
+            settings: RouteSettings(name: url)
+          ), 
         );
       },
       child: Container(
