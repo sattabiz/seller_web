@@ -12,10 +12,10 @@ import '../view/shipment_view/shipment_view.dart';
 final Map<String, WidgetBuilder> routes = {
   '/LandingScreen': (BuildContext context) => LandingView(),
   '/login': (BuildContext context) => LoginView(),
-  '/proposalScreen': (BuildContext context) => proposalView(),
-  '/orderScreen': (BuildContext context) => OrderView(),
-  '/shipmentScreen': (BuildContext context) => ShipmentView(),
-  '/invoiceScreen': (BuildContext context) => invoiceView(),
+  '/proposal': (BuildContext context) => proposalView(),
+  '/order': (BuildContext context) => OrderView(),
+  '/shipment': (BuildContext context) => ShipmentView(),
+  '/invoice': (BuildContext context) => invoiceView(),
 
 
 
