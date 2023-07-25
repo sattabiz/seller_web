@@ -46,8 +46,14 @@ const InfoBox({
             Expanded(
               child: Container(
                 padding: const EdgeInsets.only(left: 10.0, top: 5.0),
-                color: surfaceDim,
-                child: AutoSizeText(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                ),
+                child: Text(
                   header,
                   style: Theme.of(context).textTheme.titleSmall,
                   maxLines: 1,
@@ -61,7 +67,7 @@ const InfoBox({
                     flex: 2,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10.0),
-                      child: AutoSizeText(
+                      child: Text(
                         FlutterI18n.translate(context, "tr.$className.row_1"),
                         style: Theme.of(context).textTheme.bodySmall,
                         textDirection: TextDirection.ltr,
@@ -71,7 +77,7 @@ const InfoBox({
                   ),
                   Expanded(
                     flex: 2,
-                    child: AutoSizeText(
+                    child: Text(
                       '-',
                       style: Theme.of(context).textTheme.bodySmall,
                       textDirection: TextDirection.ltr,
@@ -87,7 +93,7 @@ const InfoBox({
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10.0),
-                      child: AutoSizeText(
+                      child: Text(
                         FlutterI18n.translate(context, "tr.$className.row_2"),
                         style: Theme.of(context).textTheme.bodySmall,
                         textDirection: TextDirection.ltr,
@@ -106,7 +112,7 @@ const InfoBox({
                     flex: 2,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10.0),
-                      child: AutoSizeText(
+                      child: Text(
                         FlutterI18n.translate(context, "tr.$className.row_3"),
                         style: Theme.of(context).textTheme.bodySmall,
                         textDirection: TextDirection.ltr,

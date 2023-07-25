@@ -60,29 +60,44 @@ class BodyProposal extends StatelessWidget {
         for (int i = 0; i < bodyList.length; i++)
           TableRow(
             children: [
-              Text(
-                  ((i) + 1).toString(),
+              Padding(
+                padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+                child: Text(
+                    ((i) + 1).toString(),
+                    style: Theme.of(context).textTheme.bodySmall,
+                    textAlign: TextAlign.center,
+                  ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+                child: Text(
+                  className == 'proposal'
+                  ? bodyList[i].productName.toString()
+                  : bodyList[i].name.toString(),     
                   style: Theme.of(context).textTheme.bodySmall,
-                  textAlign: TextAlign.center,
+                  maxLines: 1),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+                child: Text(
+                  (className=='invoice' || className=='shipment')
+                  ? '${bodyList[i].shippedAmount} adet'
+                  : '${bodyList[i].amount} adet',
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
-              Text(
-                className == 'proposal'
-                ? bodyList[i].productName.toString()
-                : bodyList[i].name.toString(),     
-                style: Theme.of(context).textTheme.bodySmall,
-                maxLines: 1),
-              Text(
-                (className=='invoice' || className=='shipment')
-                ? '${bodyList[i].shippedAmount} adet'
-                : '${bodyList[i].amount} adet',
-                style: Theme.of(context).textTheme.bodySmall,
               ),
               bodyList[i].price == null
-              ? const Text('-')
-              : Text(
-                '${bodyList[i].price} ₺',
-                style: Theme.of(context).textTheme.bodySmall,
-                maxLines: 1,
+              ? const Padding(
+                padding:  EdgeInsets.only(top: 4.0, bottom: 4.0),
+                  child:  Text('-'),
+              )
+              : Padding(
+                padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+                child: Text(
+                  '${bodyList[i].price} ₺',
+                  style: Theme.of(context).textTheme.bodySmall,
+                  maxLines: 1,
+                ),
               ),
             ]
           ),

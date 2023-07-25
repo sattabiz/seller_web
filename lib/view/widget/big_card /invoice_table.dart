@@ -18,58 +18,54 @@ class InvoiceTable extends StatelessWidget {
     const surfaceDim = Color(0xFFD8DBD8);
     
     return DataTable2(
-      columnSpacing: 10,
-      // horizontalMargin: 22,
+      columnSpacing: 5,
       fixedTopRows: 1,
-      dataRowHeight: 25,
-      headingRowHeight: 30,
+      dataRowHeight: 30,
+      headingRowHeight: 35,
       headingTextStyle: Theme.of(context).textTheme.labelMedium,
       dataTextStyle: Theme.of(context).textTheme.bodySmall,
       dataRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.onPrimary),
-      headingRowColor: MaterialStateProperty.all<Color>(surfaceDim),
-      // empty: Placeholder(),
+      headingRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.surfaceVariant),
       columns: [
         const DataColumn2(
           // fixedWidth: 33,
-          label: AutoSizeText('#', maxLines: 1, textDirection: TextDirection.rtl),
+          label: Text('#', textDirection: TextDirection.rtl),
           numeric: true,
           fixedWidth: 20,
         ),
         DataColumn2(
-          label: AutoSizeText(FlutterI18n.translate(context, "tr.order.product")),
-          size: ColumnSize.S,
+          label: Text(FlutterI18n.translate(context, "tr.order.product")),
+          size: ColumnSize.L,
         ),
         DataColumn2(
-          label: AutoSizeText(FlutterI18n.translate(context, "tr.order.description")),  //tedarikci nocu
+          label: Text(FlutterI18n.translate(context, "tr.order.description")),  //tedarikci nocu
           size: ColumnSize.M,
         ),
         DataColumn2(
-          label: AutoSizeText(FlutterI18n.translate(context, "tr.order.amount")),
+          label: Text(FlutterI18n.translate(context, "tr.order.amount")),
           size: ColumnSize.S,
         ),
         DataColumn2(
-          label: AutoSizeText(FlutterI18n.translate(context, "tr.order.price")),
+          label: Text(FlutterI18n.translate(context, "tr.order.price")),
           size: ColumnSize.S,
         ),
         DataColumn2(
-          label: AutoSizeText(FlutterI18n.translate(context, "tr.order.total")),
+          label: Text(FlutterI18n.translate(context, "tr.order.total")),
           numeric: true,
-          // size: ColumnSize.S,
-          fixedWidth: 70,
+          size: ColumnSize.S,
+          // fixedWidth: 70,
         ),
       ],
       rows: invoiceProductList
           .map(
             (item) => DataRow2(
-              // color: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
               cells: [
-              DataCell(AutoSizeText((invoiceProductList.indexOf(item) + 1).toString(), textDirection: TextDirection.ltr,)),
-              DataCell(AutoSizeText(item.name.toString())), //product_name
-              DataCell(AutoSizeText(item.proposalNote.toString())), //propsal_note
-              DataCell(AutoSizeText(item.unit.toString())), //product_unit
-              DataCell(AutoSizeText(item.price.toString())),
-              DataCell(AutoSizeText(item.shippedAmount.toString(), textAlign: TextAlign.left)),
-              // DataCell(Text('')),
+                DataCell(Text((invoiceProductList.indexOf(item) + 1).toString(), textDirection: TextDirection.ltr,)),
+                DataCell(Text(item.name.toString())), //product_name
+                DataCell(Text(item.proposalNote.toString())), //propsal_note
+                DataCell(Text(item.unit.toString())), //product_unit
+                DataCell(Text(item.price.toString())),
+                DataCell(Text(item.shippedAmount.toString(), textAlign: TextAlign.left)),
             ]),
           )
           .toList(),

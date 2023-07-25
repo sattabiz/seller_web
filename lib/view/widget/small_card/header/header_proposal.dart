@@ -38,8 +38,8 @@ class HeaderProposal extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   statusIconMap[status] ?? '', 
-                  width: 23.0,
-                  height: 23.0,
+                  width: 20.0,
+                  height: 20.0,
                 ),
                 const SizedBox(
                   width: 15,
