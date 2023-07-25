@@ -14,48 +14,56 @@ class ProposalTable extends StatelessWidget {
     });
 
   @override
-  Widget build(BuildContext context) {
-    const surfaceDim = Color(0xFFD8DBD8);
-    
+  Widget build(BuildContext context) {    
     return DataTable2(
-      columnSpacing: 10,
-      // horizontalMargin: 22,
+      columnSpacing: 5,
       fixedTopRows: 1,
-      dataRowHeight: 25,
-      headingRowHeight: 30,
+      dataRowHeight: 30,
+      headingRowHeight: 35,
       headingTextStyle: Theme.of(context).textTheme.labelMedium,
       dataTextStyle: Theme.of(context).textTheme.bodySmall,
       dataRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.onPrimary),
-      headingRowColor: MaterialStateProperty.all<Color>(surfaceDim),
-      // empty: Placeholder(),
+      headingRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.surfaceVariant),
       columns: [
         const DataColumn2(
-          // fixedWidth: 33,
-          label: AutoSizeText('#', maxLines: 1, textDirection: TextDirection.rtl),
+          label: Text(
+            '#', 
+            textAlign: TextAlign.left,
+          ),
           numeric: true,
-          fixedWidth: 20,
+          fixedWidth: 18,
         ),
         DataColumn2(
-          label: AutoSizeText(FlutterI18n.translate(context, "tr.order.product")),
-          size: ColumnSize.S,
+          label: Text(
+            FlutterI18n.translate(context, "tr.order.product"),
+          ),
+          size: ColumnSize.L,
         ),
         DataColumn2(
-          label: AutoSizeText(FlutterI18n.translate(context, "tr.proposal.proposal_note")),  //tedarikci nocu
+          label: Text(
+            FlutterI18n.translate(context, "tr.proposal.proposal_note"),
+          ),  //tedarikci nocu
           size: ColumnSize.M,
         ),
         DataColumn2(
-          label: AutoSizeText(FlutterI18n.translate(context, "tr.order.amount")),
+          label: Text(
+            FlutterI18n.translate(context, "tr.order.amount"),
+          ),
           size: ColumnSize.S,
         ),
         DataColumn2(
-          label: AutoSizeText(FlutterI18n.translate(context, "tr.order.price")),
-          size: ColumnSize.S,
-        ),
-        DataColumn2(
-          label: AutoSizeText(FlutterI18n.translate(context, "tr.order.total")),
+          label: Text(
+            FlutterI18n.translate(context, "tr.order.price"),
+          ),
           numeric: true,
-          // size: ColumnSize.S,
-          fixedWidth: 70,
+          size: ColumnSize.S,
+        ),
+        DataColumn2(
+          label: Text(
+            FlutterI18n.translate(context, "tr.order.total"),
+          ),
+          numeric: true,
+          size: ColumnSize.S,
         ),
       ],
       rows: productsProposalList
@@ -63,12 +71,38 @@ class ProposalTable extends StatelessWidget {
             (item) => DataRow2(
               // color: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
               cells: [
-              DataCell(AutoSizeText((productsProposalList.indexOf(item) + 1).toString(), textDirection: TextDirection.ltr,)),
-              DataCell(AutoSizeText(item.productName.toString())), //product_name
-              DataCell(AutoSizeText(item.proposalNote.toString())), //propsal_note
-              DataCell(AutoSizeText(item.productUnit.toString())), //product_unit
-              DataCell(AutoSizeText(item.price.toString())),
-              DataCell(AutoSizeText(item.amount.toString(), textAlign: TextAlign.left)),
+              DataCell(
+                Text(
+                  (productsProposalList.indexOf(item) + 1).toString(),
+                  textDirection: TextDirection.ltr,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              DataCell(
+                Text(
+                  item.productName.toString(),
+                ),
+              ), //product_name
+              DataCell(
+                Text(
+                  item.proposalNote.toString() == null ? '-' : item.proposalNote.toString(),
+                )
+              ), //propsal_note
+              DataCell(
+                Text(
+                  item.productUnit.toString(),
+                )
+              ), //product_unit
+              DataCell(
+                Text(
+                  item.price.toString(),
+                )
+              ),
+              DataCell(
+                Text(
+                  item.amount.toString(),
+                ),
+              ),
               // DataCell(Text('')),
             ]),
           )

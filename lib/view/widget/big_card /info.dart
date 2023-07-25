@@ -33,17 +33,16 @@ class Info extends ConsumerWidget {
         children: [
           Row(     //row 1
             children:  [
-              AutoSizeText( FlutterI18n.translate(context, "tr.order.topic"),
+              Text( FlutterI18n.translate(context, "tr.order.topic"),
                 style: Theme.of(context).textTheme.titleSmall,
                 maxLines: 1,                        
                 ),
               const SizedBox(width: 10.0),
-              AutoSizeText(
+              Text(
                 demandName,
-                  style: Theme.of(context).textTheme.titleSmall,
-                  minFontSize: 10.0,
-                  maxLines: 3,                        
-                ),                  
+                style: Theme.of(context).textTheme.titleSmall,
+                maxLines: 3,                        
+              ),                  
             ],
           ),
           const SizedBox(height: 14.0),
@@ -59,53 +58,63 @@ class Info extends ConsumerWidget {
             children: [
               TableRow(
                 children: <Widget>[
-                  AutoSizeText(
+                  Text(
                     FlutterI18n.translate(context, "tr.order.order_date"),
                     style: Theme.of(context).textTheme.labelSmall,
                     maxLines: 1,                        
                   ),
-                  AutoSizeText(
+                  Text(
                     orderDate,
                     style: Theme.of(context).textTheme.bodySmall,
                     maxLines: 1,                        
                   ), 
-                  AutoSizeText(
+                  Text(
                     FlutterI18n.translate(context, "tr.order.delivery_date"),
                     style: Theme.of(context).textTheme.labelSmall,
                     maxLines: 1,                        
                   ), 
-                  AutoSizeText(
+                  Text(
                     deliveryDate ?? '-',
                     style: Theme.of(context).textTheme.bodySmall,
-                    overflow: TextOverflow.fade,
-                    maxLines: 1,
-                    softWrap: false,                        
+                    maxLines: 1,                    
                   ), 
                   
                 ],
               ),
               TableRow(
                 children: <Widget>[
-                  Text(
-                    FlutterI18n.translate(context, "tr.order.payment_type"),
-                    style: Theme.of(context).textTheme.labelSmall,       
-                    maxLines: 1,                              
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: Text(
+                      FlutterI18n.translate(context, "tr.order.payment_type"),
+                      style: Theme.of(context).textTheme.labelSmall,       
+                      maxLines: 1,                              
+                    ),
                   ),                                
-                  Text(
-                    paymentType == null ? '-' : paymentType!,
-                    style: Theme.of(context).textTheme.bodySmall,
-                    maxLines: 1,                                     
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: Text(
+                      paymentType == null ? '-' : paymentType!,
+                      style: Theme.of(context).textTheme.bodySmall,
+                      maxLines: 1,                                     
+                    ),
                   ),
-                  Text(
-                    FlutterI18n.translate(context, "tr.order.expiry"),
-                    style: Theme.of(context).textTheme.labelSmall,
-                    maxLines: 1,                                     
-                    ), 
-                  Text(
-                    paymentDueDate ?? '-',
-                    style: Theme.of(context).textTheme.bodySmall,
-                    maxLines: 1,                                     
-                    ),            
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: Text(
+                      FlutterI18n.translate(context, "tr.order.expiry"),
+                      style: Theme.of(context).textTheme.labelSmall,
+                      maxLines: 1,                                     
+                      ),
+                  ), 
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: Text(
+                      paymentDueDate ?? '-',
+                      style: Theme.of(context).textTheme.bodySmall,
+                      maxLines: 1,                                     
+                      ),
+                  ),            
                 ],
               ),                               
               TableRow(

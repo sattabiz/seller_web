@@ -85,7 +85,7 @@ class OrderView extends ConsumerWidget {
                   mainAxisSpacing: 3,
                   crossAxisSpacing: 3,
                   itemCount: orderList.length,
-                  staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                  staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
                   itemBuilder: (context, index) {
                     return SmallCard(
                       index: index,

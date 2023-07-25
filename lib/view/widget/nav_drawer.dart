@@ -95,7 +95,7 @@ class NavigationRailDrawer extends ConsumerWidget {
           PageRouteBuilder(
             pageBuilder: (context, animation1, animation2) => route,
             transitionDuration: const Duration(seconds: 0),
-            settings: RouteSettings(name: url)
+            settings: RouteSettings(name: url, arguments: route)
           ), 
         );
       },
