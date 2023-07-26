@@ -177,7 +177,7 @@ class loginCard extends ConsumerWidget {
                             if (loginState == LoginState.success) {
                               ref.refresh(getCurrentUserInfoProvider);
                               ref.refresh(getInvoicesProvider);
-                              ref.refresh(proposalListview);
+                              ref.refresh(getProposalListProvider);
                               ref.refresh(getOrderListProvider);
                               ref.refresh(shipmentProvider);
                               await ref.read(getCurrentUserInfoProvider);
@@ -250,7 +250,7 @@ class loginCard extends ConsumerWidget {
                             );
                             ref.refresh(getCurrentUserInfoProvider);
                             ref.refresh(getInvoicesProvider);
-                            ref.refresh(proposalListview);
+                            ref.refresh(getProposalListProvider);
                             ref.refresh(getOrderListProvider);
                             ref.refresh(shipmentProvider);
                             await ref.read(getCurrentUserInfoProvider);

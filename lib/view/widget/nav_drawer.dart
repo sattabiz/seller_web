@@ -50,7 +50,7 @@ class NavigationRailDrawer extends ConsumerWidget {
               height: 24,
             ),
             drawerButton(context, 'Teklif İstekleri', 'assets/proposal.svg',
-                proposalView(), 0, ref, proposalListview, '/proposal'),
+                proposalView(), 0, ref, getProposalListProvider, '/proposal'),
             const SizedBox(
               height: 16,
             ),

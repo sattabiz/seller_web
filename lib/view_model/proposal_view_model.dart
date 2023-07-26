@@ -4,21 +4,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config/apiUrls.dart';
 import '../model/get_proposals_by_state.dart';
 import '../service/get_services.dart';
+import '../storage/current_user_storage.dart';
 import 'landing_view_model.dart';
 import 'order_list_view_model.dart';
 
-final proposalListview = FutureProvider.autoDispose<List<GetProposalModel>>((ref) async {
+final getProposalListProvider =
+    FutureProvider.autoDispose<List<GetProposalModel>>((ref) async {
   final apiService = ApiService();
   //debugPrint('provider calisti');
   Response response;
-  final landingViewResponse = ref.watch(getLandingViewContentProvider).value;
-  final supplier_id = landingViewResponse!.companyId;
-
+  final _companyIdAsyncValue = await CompanyIdStorageLandingService().getCompanyIdData();
+  int company_id = int.parse(_companyIdAsyncValue);
   try {
-    response = await apiService.get(url: ApiUrls.proposal);
+    response = await apiService.get(url: ApiUrls.proposal(company_id));
   } catch (e) {
     if (e is DioException) {
       if (e.response?.statusCode != 200) {
+        debugPrint('hata verdiiiigigigi');
         ref.read(navigatorKeyProvider).currentState!.pushNamed("/login");
       }
     }
@@ -31,7 +33,6 @@ final proposalListview = FutureProvider.autoDispose<List<GetProposalModel>>((ref
         .map((e) => GetProposalModel.fromMap(e))
         .toList();
   }
-  ref.onDispose(() {_proposalList.remove(_proposalList);});
   //debugPrint(_proposalList.toString());
-  return _proposalList; 
+  return _proposalList;
 });

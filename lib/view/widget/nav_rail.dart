@@ -55,8 +55,8 @@ class _NavigationRailWidgetState extends ConsumerState<NavigationRailWidget> {
         setState(() {
           currentIndex = index;
           if(index == 0){
-            ref.refresh(proposalListview);
-            ref.read(proposalListview.future);
+            ref.refresh(getProposalListProvider);
+            ref.read(getProposalListProvider.future);
           }else if(index == 1){
             ref.refresh(getOrderListProvider);
             ref.read(getOrderListProvider.future);

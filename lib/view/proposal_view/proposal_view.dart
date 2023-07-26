@@ -18,9 +18,7 @@ class proposalView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final proposalListAsyncValue = ref.watch(proposalListview);
-    Duration(seconds: 2);
-    print('sayfa calisti ${proposalListAsyncValue.toString()}');
+    final proposalListAsyncValue = ref.watch(getProposalListProvider);
     return proposalListAsyncValue.when(
       data: (proposalList) {
         return LayoutBuilder(
@@ -75,8 +73,7 @@ class proposalView extends ConsumerWidget {
       error: (error, stack) {
         print('Hata: $error');
         print('Stack trace: $stack');
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-        });
+        WidgetsBinding.instance.addPostFrameCallback((_) {});
         return Text('An error occurred: $error');
       },
     );
