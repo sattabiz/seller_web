@@ -2,9 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
-
-import '../countdown_date.dart';
-
 class InfoBox extends StatelessWidget {
   final String header;
   final String className;
@@ -23,7 +20,6 @@ const InfoBox({
 
   @override
   Widget build(BuildContext context){
-    const surfaceDim = Color(0xFFD8DBD8);
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0),
       child: Container(

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../utils/widget_helper.dart';
 import '../big_card /big_card.dart';
+import '../big_card /buttons/button_widget.dart';
 import 'body/body_header.dart';
 import 'body/body_shipment.dart';
 import 'body/list_header_shipment.dart';
@@ -67,8 +68,6 @@ class SmallCardShipment extends ConsumerWidget {
     String formattedDate =
         "${parsedDate.year}-${parsedDate.month.toString().padLeft(2, '0')}-${parsedDate.day.toString().padLeft(2, '0')}";
 
-    const surfaceDim = Color(0xFFD8DBD8);
-
     return Padding(
       padding: const EdgeInsets.only(right: 15, bottom: 15),
       child: Card(
@@ -97,6 +96,10 @@ class SmallCardShipment extends ConsumerWidget {
                             infoBoxRow1: carrier,
                             infoBoxRow2: trackingNo,
                             infoBoxRow3: 'Merkez',
+                            buttons: ButtonWidget(
+                              className: className,
+                              status: status,
+                            ),
                             tableList: bodyList),
                       );
                     },

@@ -34,14 +34,15 @@ class Info extends ConsumerWidget {
           Row(     //row 1
             children:  [
               Text( FlutterI18n.translate(context, "tr.order.topic"),
-                style: Theme.of(context).textTheme.titleSmall,
-                maxLines: 1,                        
+                style: Theme.of(context).textTheme.titleSmall,                     
                 ),
               const SizedBox(width: 10.0),
-              Text(
-                demandName,
-                style: Theme.of(context).textTheme.titleSmall,
-                maxLines: 3,                        
+              Expanded(
+                child: Text(
+                  demandName,
+                  style: Theme.of(context).textTheme.titleSmall,
+                  maxLines: 3,
+                ),
               ),                  
             ],
           ),

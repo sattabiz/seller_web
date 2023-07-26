@@ -7,6 +7,7 @@ import '../../model/get_order_list_model.dart';
 import '../../model/get_proposals_by_state.dart';
 import '../../view_model/proposal_view_model.dart';
 import '../widget/appbar.dart';
+import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
 import '../widget/nav_drawer.dart';
@@ -79,8 +80,7 @@ class proposalView extends ConsumerWidget {
     );
   }
 
-  Padding buildBody(List<GetProposalModel> proposalList, BuildContext context,
-      String topic, String className) {
+  Padding buildBody(List<GetProposalModel> proposalList, BuildContext context, String topic, String className) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: LayoutBuilder(
@@ -117,6 +117,10 @@ class proposalView extends ConsumerWidget {
                       paymentDueDate:
                           proposalList[index].paymentDueDate.toString(),
                       bodyList: proposalList[index].productProposals!,
+                      bigCardButtons: ButtonWidget(
+                        className: className,
+                        status: proposalList[index].proposalState.toString(),
+                      ),
                     );
                   },
                 ),

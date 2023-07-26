@@ -1,11 +1,6 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:data_table_2/data_table_2.dart';
-
-import '../../../model/get_order_list_model.dart';
-
 
 class ProductListTable extends StatelessWidget {
   final List productList;
@@ -17,16 +12,12 @@ class ProductListTable extends StatelessWidget {
     required this.className
     });
 
-
-
   @override
   Widget build(BuildContext context) {
     Map<String, String> description= {
       'order': FlutterI18n.translate(context, "tr.order.description"),
       'proposal': FlutterI18n.translate(context, "tr.proposal.proposal_note"),
     };
-    const surfaceDim = Color(0xFFD8DBD8);
-
 
     return DataTable2(
       columnSpacing: 5,

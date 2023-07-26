@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../view_model/create_order_view_model.dart';
-import 'info_box.dart';
-import 'info_invoice.dart';
-import 'invoice_table.dart';
-import 'product_table.dart';
-import 'header.dart';
-import 'info.dart';
-import 'proposal_table.dart';
-import 'shipment_table.dart';
+import 'package:seller_point/view/widget/big_card%20/table/invoice_table.dart';
+import 'package:seller_point/view/widget/big_card%20/table/product_table.dart';
+import 'package:seller_point/view/widget/big_card%20/table/proposal_table.dart';
+import 'package:seller_point/view/widget/big_card%20/table/shipment_table.dart';
+import 'buttons/reject_button.dart';
+import 'header/header.dart';
+import 'info/info.dart';
+import 'info/info_box.dart';
+import 'info/info_invoice.dart';
+
 final proposalIdProvider = StateProvider<String?>((ref) => '');
 
 
@@ -24,10 +26,12 @@ class BigCard extends ConsumerWidget {
   final String ?demandNo; //info_3 (column1)
   final String ?deliveryDate; //info_1 (column2)
   final String ?paymentDueDate; //info_2 (column2)
+  final String ?paymentDate;
   final String ?statusMap;
   final String ?infoBoxRow1;
   final String ?infoBoxRow2;
   final String ?infoBoxRow3;
+  final Widget buttons;
   final List tableList; //body_table
 
   const BigCard( {
@@ -46,6 +50,8 @@ class BigCard extends ConsumerWidget {
     this.infoBoxRow1,
     this.infoBoxRow2,
     this.infoBoxRow3,
+    this.paymentDate,
+    required this.buttons,
     required this.tableList,
   }) : super(key: key);
 
@@ -60,6 +66,10 @@ class BigCard extends ConsumerWidget {
       'shipment': ShipmentTable(shipmentProductList: tableList, className: className),
       'invoice': InvoiceTable(invoiceProductList: tableList, className: className),
     };
+
+    bool orderButtonBool () {
+      return status == 'replied' || status == 'last_offer' || status == 'proposal_stvs'|| status == 'invoice_pending';
+    }
 
      //formating dateTime object
     final DateTime parsedDate = DateTime.parse(date);
@@ -96,9 +106,10 @@ class BigCard extends ConsumerWidget {
                               className == 'invoice'
                               ? InfoInvoice(
                                 invoiceNo: id,
-                                orderDate: formattedDate,
+                                invoiceDate: formattedDate,
                                 paymentType: paymentType,
-                                demandNo: demandNo ?? '-',
+                                orderId: demandNo ?? '-',
+                                paymentDate: paymentDate ?? '-',
                                 className: className,
                               )
                               : Info(
@@ -127,12 +138,12 @@ class BigCard extends ConsumerWidget {
                         ],
                       ),  //info        
                       Expanded(
-                        flex: 4,
+                        flex: 3,
                         // fit: FlexFit.loose,
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
                           child: Container(
-                            height: height * 0.7 * 0.7,  //table-height ama responsive yapilacak
+                            // height: height * 0.7 * 0.7,  //table-height ama responsive yapilacak
                             decoration: BoxDecoration(
                               borderRadius: const  BorderRadius.all(Radius.circular(10)),
                               color: Theme.of(context).colorScheme.onPrimary,
@@ -141,23 +152,15 @@ class BigCard extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      // )
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 16),
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primaryContainer),
-                            fixedSize: const MaterialStatePropertyAll(Size(140, 40))
-                          ),
-                          onPressed: () async{
-ref.read(proposalIdProvider.notifier).state=id;
-ref.watch(createOrderProvider);
-}, 
-                          child: Text(
-                            FlutterI18n.translate(context, "tr.$className.button_big_card"),
-                            style: TextStyle(color: Theme.of(context).colorScheme.onPrimaryContainer),),
-                        ),
-                      ),
+                      buttons,
+                      // orderButtonBool()
+                      // ? const SizedBox(height: 10) 
+                      // : const SizedBox(height: 0),
+       
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 16, bottom: 16),
+                      //   child: RejectButton(),
+                      // ),
                     ],
                   ),
                 ),

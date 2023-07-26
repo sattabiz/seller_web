@@ -55,8 +55,11 @@ class Header extends ConsumerWidget {
                   Navigator.pop(context); // close the big card
                 },
                 alignment: Alignment.topRight,
-                padding: const EdgeInsets.only(top: 0.0, right: 8.0, bottom: 0.0, left: 8.0),
+                padding: const EdgeInsets.only(top: 0.0, right: 16.0, bottom: 0.0, left: 0.0),
                 iconSize: 36.0,
+                hoverColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
                 icon: Icon(
                   Icons.close,
                   color: Theme.of(context).colorScheme.onSecondaryContainer,

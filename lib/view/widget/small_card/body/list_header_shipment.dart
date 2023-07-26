@@ -26,7 +26,7 @@ const ListHeaderShipment({ Key? key }) : super(key: key);
                   flex: 2,
                   child: Text(
                     FlutterI18n.translate(context, "tr.order.product"),
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.labelMedium,
                     textDirection: TextDirection.ltr,
                     maxLines: 1,
                   ),
@@ -49,7 +49,7 @@ const ListHeaderShipment({ Key? key }) : super(key: key);
                   flex: 4,
                   child: Text(
                     FlutterI18n.translate(context, "tr.order.amount"),
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.labelMedium,
                     maxLines: 1,
                     textDirection: TextDirection.ltr,
                   )),
