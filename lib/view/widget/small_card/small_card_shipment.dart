@@ -6,6 +6,7 @@ import '../../../utils/widget_helper.dart';
 import '../big_card /big_card.dart';
 import '../big_card /buttons/button_widget.dart';
 import 'body/body_header.dart';
+import 'body/body_proposal.dart';
 import 'body/body_shipment.dart';
 import 'body/list_header_shipment.dart';
 import 'header/header_shipment.dart';
@@ -110,22 +111,28 @@ class SmallCardShipment extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HeaderShipment(id: id, status: status, headerDate: formattedDate),
-                BodyHeader( bodyHeader: bodyHeader,status: status,className: className),
+                HeaderShipment(id: id, status: status, headerDate: formattedDate, newMessageSvg: newMessageSvg),
+                bodyHeader == null
+                ? const SizedBox(height: 0)
+                : BodyHeader( bodyHeader: bodyHeader,status: status,className: className),
                 const SizedBox(height: 4),
-                const ListHeaderShipment(), //list header
-                const SizedBox(
-                  height: 10,
-                ),
-                for (int i = 0; i < bodyList.length; i++)
-                  BodyShipment(
+                // const ListHeaderShipment(), //list header
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                status == 'order_on_the_way'
+                ? BodyProposal(
                     id: id,
-                    i: i, 
                     status: status, 
                     className: className, 
-                    bodyHeader: bodyHeader, 
                     bodyList: bodyList,
-                  ),
+                )
+                : BodyShipment(
+                    id: id,
+                    status: status, 
+                    className: className, 
+                    bodyList: bodyList,
+                ),
                 const SizedBox(
                   height: 15,
                 )

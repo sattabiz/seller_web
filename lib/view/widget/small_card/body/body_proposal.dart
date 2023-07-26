@@ -8,7 +8,6 @@ class BodyProposal extends StatelessWidget {
   // final int i;
   final String status;
   final String className;
-  final String bodyHeader;
   final List bodyList;
 
   const BodyProposal({ 
@@ -17,7 +16,6 @@ class BodyProposal extends StatelessWidget {
     // required this.i, 
     required this.status, 
     required this.className, 
-    required this.bodyHeader, 
     required this.bodyList
   }) : super(key: key);
 

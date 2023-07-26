@@ -50,7 +50,7 @@ tr:
     order_header: "Sipariş"
     ship: "Sevk"
     price: "Fiyat"
-    order_no: "Sipariş No"
+    order_no: "Sipariş No: "
     topic: "Konu:"
     delivery_date: "Teslim Tarihi: "
     payment_type: "Ödeme Şekli: "

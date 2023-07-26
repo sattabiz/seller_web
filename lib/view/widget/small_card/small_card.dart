@@ -133,7 +133,6 @@ class SmallCard extends ConsumerWidget {
                   // i: i, 
                   status: status, 
                   className: className, 
-                  bodyHeader: bodyHeader, 
                   bodyList: bodyList,
                   ),
                 const SizedBox(

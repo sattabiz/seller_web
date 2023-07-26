@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 class BodyHeader extends StatelessWidget {
-  final String bodyHeader;
+  final String ?bodyHeader;
   final String status;
   final String className;
   const BodyHeader({ 
   Key? key, 
-    required this.bodyHeader, 
+    this.bodyHeader, 
     required this.status, 
     required this.className
   }) : super(key: key);
@@ -21,11 +21,11 @@ class BodyHeader extends StatelessWidget {
     child: 
     className == 'invoice' && status == 'order_on_the_way'
     ? Text(
-      FlutterI18n.translate(context, "tr.shipment.invoice_no") + bodyHeader,
+      FlutterI18n.translate(context, "tr.shipment.invoice_no") + bodyHeader!,
       style: Theme.of(context).textTheme.titleSmall,
     )
     : Text(
-      bodyHeader,
+      bodyHeader ?? '-',
       style: Theme.of(context).textTheme.titleSmall,
     )
     );
