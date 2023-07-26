@@ -6,6 +6,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../../model/get_buyer_invoices_list_model.dart';
 import '../../view_model/buyer_invoices_view_model.dart';
 import '../widget/appbar.dart';
+import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
 import '../widget/nav_drawer.dart';
@@ -97,7 +98,15 @@ class invoiceView extends ConsumerWidget {
                       bodyHeader: 'Fatura No: ${invoiceList[index].invoiceNo.toString()}',
                       paymentType: invoiceList[index].paymentType.toString(),
                       demandNo: invoiceList[index].orderId.toString(),
+                      paymentDate: invoiceList[index].paymentDate.toString(),
                       bodyList: invoiceList[index].products!,
+                      bigCardButtons: 
+                      invoiceList[index].state.toString() == 'invoice_pending'
+                      ? ButtonWidget(
+                          className: className,
+                          status: invoiceList[index].state.toString(),
+                        )
+                      : const SizedBox(height: 20),
                     );
                   },
                 ),

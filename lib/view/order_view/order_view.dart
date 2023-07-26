@@ -5,8 +5,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:seller_point/view/widget/loading_widget.dart';
 import '../../model/get_order_list_model.dart';
 import '../../view_model/order_list_view_model.dart';
-import '../../view_model/provider_controller.dart';
 import '../widget/appbar.dart';
+import '../widget/big_card /buttons/button_widget.dart';
+import '../widget/big_card /buttons/reject_button.dart';
 import '../widget/main_page_content.dart';
 import '../widget/nav_drawer.dart';
 import '../widget/nav_rail.dart';
@@ -99,6 +100,10 @@ class OrderView extends ConsumerWidget {
                       deliveryDate: orderList[index].deliveryDate.toString(),
                       paymentDueDate: orderList[index].paymentDueDate.toString(), 
                       bodyList: orderList[index].products,
+                      bigCardButtons: ButtonWidget(
+                        className: className,
+                        status: orderList[index].state.toString(),
+                      ),
                     );
                   },
                 ),

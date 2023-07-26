@@ -47,7 +47,9 @@ class SmallCard extends ConsumerWidget {
   final String ?infoBoxRow1;
   final String ?infoBoxRow2;
   final String ?infoBoxRow3;
+  final String ?paymentDate;
   final List bodyList;
+  final Widget ?bigCardButtons;
 
   const SmallCard({
     Key? key,
@@ -64,7 +66,9 @@ class SmallCard extends ConsumerWidget {
     this.infoBoxRow1,
     this.infoBoxRow2,
     this.infoBoxRow3,
+    this.paymentDate,
     required this.bodyList,
+    this.bigCardButtons,
   }) : super(key: key);
 
   @override
@@ -109,6 +113,8 @@ class SmallCard extends ConsumerWidget {
                             infoBoxRow1: infoBoxRow1 ?? '-',
                             infoBoxRow2: infoBoxRow2 ?? '-',
                             infoBoxRow3: 'Merkez',
+                            paymentDate: paymentDate ?? '-',
+                            buttons: bigCardButtons ?? Container(),
                             tableList: bodyList),
                       );
                     },
