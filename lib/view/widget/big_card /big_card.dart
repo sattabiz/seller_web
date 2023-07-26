@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../view_model/create_order_view_model.dart';
 import 'info_box.dart';
 import 'info_invoice.dart';
 import 'invoice_table.dart';
@@ -9,6 +10,8 @@ import 'header.dart';
 import 'info.dart';
 import 'proposal_table.dart';
 import 'shipment_table.dart';
+final proposalIdProvider = StateProvider<String?>((ref) => '');
+
 
 class BigCard extends ConsumerWidget {
   final String id; //header_no
@@ -108,18 +111,18 @@ class BigCard extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          Flexible(
-                            flex: 4,
-                            child: (className == 'proposal' || className == 'shipment')
-                            ? InfoBox(
-                              header: FlutterI18n.translate(context, "tr.$className.info_box_header"),
-                              className: className,
-                              row1: infoBoxRow1 ?? '-',
-                              row2: infoBoxRow2 ?? '-',
-                              row3: infoBoxRow2 ?? '-',
-                            )
-                            : const SizedBox(width: 2),
-                          ), 
+                        Flexible(
+                          flex: 4,
+                          child: (className == 'proposal' || className == 'shipment')
+                          ? InfoBox(
+                            header: FlutterI18n.translate(context, "tr.$className.info_box_header"),
+                            className: className,
+                            row1: infoBoxRow1 ?? '-',
+                            row2: infoBoxRow2 ?? '-',
+                            row3: infoBoxRow2 ?? '-',
+                          )
+: const SizedBox(width: 2),
+                        ), 
 
                         ],
                       ),  //info        
@@ -146,8 +149,10 @@ class BigCard extends ConsumerWidget {
                             backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primaryContainer),
                             fixedSize: const MaterialStatePropertyAll(Size(140, 40))
                           ),
-                          onPressed: () {
-                          }, 
+                          onPressed: () async{
+ref.read(proposalIdProvider.notifier).state=id;
+ref.watch(createOrderProvider);
+}, 
                           child: Text(
                             FlutterI18n.translate(context, "tr.$className.button_big_card"),
                             style: TextStyle(color: Theme.of(context).colorScheme.onPrimaryContainer),),

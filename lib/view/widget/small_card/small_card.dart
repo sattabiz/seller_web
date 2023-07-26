@@ -23,6 +23,8 @@ class BoolNotifier extends StateNotifier<bool> {
 final boolProvider =
     StateNotifierProvider<BoolNotifier, bool>((ref) => BoolNotifier());
 
+final proposalIndexProvider = StateProvider<int?>((ref) => 1);
+
 const String newMessage = 'assets/newMessage.svg';
 final Widget newMessageSvg = SvgPicture.asset(
   newMessage,
@@ -85,6 +87,7 @@ class SmallCard extends ConsumerWidget {
           color: Theme.of(context).colorScheme.surface,
           child: InkWell(
             onTap: () {
+              ref.read(proposalIndexProvider.notifier).state=index;
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
