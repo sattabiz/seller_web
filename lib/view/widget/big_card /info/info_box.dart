@@ -74,7 +74,7 @@ const InfoBox({
                   Expanded(
                     flex: 2,
                     child: Text(
-                      '-',
+                      row1!,
                       style: Theme.of(context).textTheme.bodySmall,
                       textDirection: TextDirection.ltr,
                       maxLines: 1,

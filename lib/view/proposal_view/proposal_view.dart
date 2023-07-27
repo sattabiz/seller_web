@@ -108,7 +108,7 @@ class proposalView extends ConsumerWidget {
                       id: proposalList[index].proposalId.toString(),
                       status: proposalList[index].proposalState.toString(),
                       bodyHeader:
-                          proposalList[index].supplierCompany.toString(),
+                          proposalList[index].demandListName.toString(),
                       headerDate:
                           proposalList[index].proposalValidDate.toString(),
                       paymentType: proposalList[index].paymentType.toString(),
@@ -117,6 +117,8 @@ class proposalView extends ConsumerWidget {
                       paymentDueDate:
                           proposalList[index].paymentDueDate.toString(),
                       bodyList: proposalList[index].productProposals!,
+                      infoBoxRow1: proposalList[index].updateCounter.toString(),
+                      infoBoxRow3: proposalList[index].proposalValidPeriod.toString(),
                       bigCardButtons: ButtonWidget(
                         className: className,
                         status: proposalList[index].proposalState.toString(),

@@ -23,10 +23,8 @@ class createProposalButton extends ConsumerWidget {
           List<FormItem> _productsAttributes = ref.watch(formItemProvider);
           final _contentItems = ref.watch(offerModelProvider);
           
-          // Changes start here
-          final landingProviderAsyncValue = ref.watch(getLandingViewContentProvider);
-          final landingProvider = landingProviderAsyncValue.value;
-          if (landingProvider != null) {
+          
+          if (_productsAttributes != null) {
             try {
               ref.watch(createProposalProvider);
             } catch (e) {
@@ -38,7 +36,6 @@ class createProposalButton extends ConsumerWidget {
           } else {
             debugPrint('LandingProvider verisi mevcut değil');
           }
-          // Changes end here
         },
         child: Text(
           FlutterI18n.translate(context, 'tr.proposal.create_proposal_btn'),

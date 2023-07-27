@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seller_point/view_model/proposal_view_model.dart';
 
 import '../config/apiUrls.dart';
 import '../model/create_proposal_model.dart';
@@ -48,6 +49,8 @@ final createProposalProvider =
 
   try {
     response = await apiService.post(url: ApiUrls.createProposal, data: data);
+    await ref.refresh(getProposalListProvider);
+            ref.read(getProposalListProvider.future);
   } catch (e) {
     if (e is DioException) {
       if (e.response?.statusCode != 200) {
