@@ -14,13 +14,12 @@ final getProposalListProvider =
   //debugPrint('provider calisti');
   Response response;
   final _companyIdAsyncValue = await CompanyIdStorageLandingService().getCompanyIdData();
-  int company_id = int.parse(_companyIdAsyncValue);
+
   try {
-    response = await apiService.get(url: ApiUrls.proposal(company_id));
+    response = await apiService.get(url: ApiUrls.proposal(_companyIdAsyncValue));
   } catch (e) {
     if (e is DioException) {
       if (e.response?.statusCode != 200) {
-        debugPrint('hata verdiiiigigigi');
         ref.read(navigatorKeyProvider).currentState!.pushNamed("/login");
       }
     }
