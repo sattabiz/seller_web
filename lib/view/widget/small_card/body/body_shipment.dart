@@ -53,7 +53,7 @@ class BodyShipment extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Text(
                     ((i) + 1).toString(),
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
               ),
@@ -61,14 +61,14 @@ class BodyShipment extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Text(
                   bodyList[i].name.toString(),     
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.bodyMedium,
                   maxLines: 1),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Text(
                   '${bodyList[i].shippedAmount} adet',
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
             ]

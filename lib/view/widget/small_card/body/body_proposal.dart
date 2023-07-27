@@ -1,11 +1,9 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 
 class BodyProposal extends StatelessWidget {
   final String id;
-  // final int i;
   final String status;
   final String className;
   final List bodyList;
@@ -13,7 +11,6 @@ class BodyProposal extends StatelessWidget {
   const BodyProposal({ 
   Key? key, 
     required this.id,
-    // required this.i, 
     required this.status, 
     required this.className, 
     required this.bodyList
@@ -62,7 +59,7 @@ class BodyProposal extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Text(
                     ((i) + 1).toString(),
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
               ),
@@ -72,7 +69,7 @@ class BodyProposal extends StatelessWidget {
                   className == 'proposal'
                   ? bodyList[i].productName.toString()
                   : bodyList[i].name.toString(),     
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.bodyMedium,
                   maxLines: 1),
               ),
               Padding(
@@ -81,7 +78,7 @@ class BodyProposal extends StatelessWidget {
                   (className=='invoice' || className=='shipment')
                   ? '${bodyList[i].shippedAmount} adet'
                   : '${bodyList[i].amount} adet',
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
               bodyList[i].price == null
@@ -93,7 +90,7 @@ class BodyProposal extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Text(
                   '${bodyList[i].price} ₺',
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.bodyMedium,
                   maxLines: 1,
                 ),
               ),

@@ -23,7 +23,7 @@ class InvoiceTable extends StatelessWidget {
       dataRowHeight: 30,
       headingRowHeight: 35,
       headingTextStyle: Theme.of(context).textTheme.labelMedium,
-      dataTextStyle: Theme.of(context).textTheme.bodySmall,
+      dataTextStyle: Theme.of(context).textTheme.bodyMedium,
       dataRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.onPrimary),
       headingRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.surfaceVariant),
       columns: [

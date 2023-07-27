@@ -106,7 +106,7 @@ class createProposalViewTable extends ConsumerWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0, bottom: 10.0),
+                    padding: const EdgeInsets.only(left: 10.0, bottom: 18.0, top: 10.0),
                     child: InkWell(
                       hoverColor: Colors.transparent,
                       onTap: () => ref
@@ -233,7 +233,7 @@ class createProposalViewTable extends ConsumerWidget {
                 filled: true,
                 fillColor: Theme.of(context).colorScheme.onPrimary,
                 border: const OutlineInputBorder(),
-                contentPadding: const EdgeInsets.only(left: 10.0, top: 0.0, bottom: 0.0, right: 0.0),
+                contentPadding: const EdgeInsets.only(left: 10.0, top: 0.0, bottom: 0.0, right: 5.0),
                 labelText: 'Miktar',
                 labelStyle: Theme.of(context).textTheme.bodySmall,
                 focusedBorder: OutlineInputBorder(
@@ -241,6 +241,9 @@ class createProposalViewTable extends ConsumerWidget {
                       color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 suffixText: 'adet',
+                // suffixStyle: TextStyle(
+                //   textBaseline: TextBaseline.ideographic
+                // ),
               ),
               onChanged: (value) {
                 formItem.amount = value;
