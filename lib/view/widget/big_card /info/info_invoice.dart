@@ -57,12 +57,12 @@ class InfoInvoice extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     FlutterI18n.translate(context, "tr.order.order_date"),
-                    style: Theme.of(context).textTheme.labelSmall,
+                    style: Theme.of(context).textTheme.labelMedium,
                     maxLines: 1,                        
                   ),
                   Text(
                     paymentDate ?? '-',
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     maxLines: 1,                        
                   ), 
                   
@@ -74,7 +74,7 @@ class InfoInvoice extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
                       FlutterI18n.translate(context, "tr.order.payment_type"),
-                      style: Theme.of(context).textTheme.labelSmall,       
+                      style: Theme.of(context).textTheme.labelMedium,       
                       maxLines: 1,                              
                     ),
                   ),                                
@@ -82,7 +82,7 @@ class InfoInvoice extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
                       paymentType == null ? '-' : paymentType!,
-                      style: Theme.of(context).textTheme.bodySmall,
+                      style: Theme.of(context).textTheme.bodyMedium,
                       maxLines: 1,                                     
                     ),
                   ),  
@@ -92,12 +92,12 @@ class InfoInvoice extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     FlutterI18n.translate(context, "tr.order.order_no"),
-                    style: Theme.of(context).textTheme.labelSmall,
+                    style: Theme.of(context).textTheme.labelMedium,
                     maxLines: 1,                        
                   ),                            
                   Text(
                     orderId,
-                    style: Theme.of(context).textTheme.bodySmall, 
+                    style: Theme.of(context).textTheme.bodyMedium, 
                     maxLines: 1,                       
                   ), 
           
@@ -109,79 +109,5 @@ class InfoInvoice extends StatelessWidget {
       ),
 
     );
-
-
-
-    // return Padding(
-    //   padding: const EdgeInsets.only(left: 16.0, top: 16.0),
-    //   child: Column(
-    //     mainAxisAlignment: MainAxisAlignment.start,
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     children: [
-    //       Row(     //row 1
-    //       children:  [
-    //         Text( FlutterI18n.translate(context, "tr.invoice.invoice_date"),
-    //           style: Theme.of(context).textTheme.titleSmall,
-    //           maxLines: 1,                        
-    //           ),
-    //         const SizedBox(width: 8.0),
-    //         Text(
-    //           orderDate,
-    //             style: Theme.of(context).textTheme.titleSmall,
-    //             maxLines: 3,                        
-    //           ),                  
-    //         ],
-    //       ),
-    //       const SizedBox(height: 15.0),
-    //       Row(     //row 1
-    //         children:  [
-    //           Text(
-    //             FlutterI18n.translate(context, "tr.order.order_date"),
-    //             style: Theme.of(context).textTheme.labelSmall,
-    //             maxLines: 1,                        
-    //           ),
-    //           const SizedBox(width: 10.0),
-    //           Text(
-    //             orderDate,
-    //             style: Theme.of(context).textTheme.bodySmall,
-    //             maxLines: 1,                        
-    //           ),     
-    //         ],
-    //       ),
-    //       const SizedBox(height: 8.0),
-    //       Row(     //row 1
-    //         children:  [
-    //           Text(
-    //             FlutterI18n.translate(context, "tr.order.payment_type"),
-    //             style: Theme.of(context).textTheme.labelSmall,       
-    //             maxLines: 1,                              
-    //           ),                
-    //           const SizedBox(width: 10.0),                
-    //           Text(
-    //             paymentType == null ? '-' : paymentType,
-    //             style: Theme.of(context).textTheme.bodySmall,
-    //             maxLines: 1,                                     
-    //           ),
-    //         ],
-    //       ),
-    //       const SizedBox(height: 8.0),
-    //       Row(     //row 1
-    //         children:  [
-    //           Text(
-    //             FlutterI18n.translate(context, "tr.order.demand_no"),
-    //             style: Theme.of(context).textTheme.labelSmall,
-    //             maxLines: 1,                        
-    //           ),
-    //           const SizedBox(width: 10.0),                            
-    //           Text(
-    //             demandNo,
-    //             style: Theme.of(context).textTheme.bodySmall, 
-    //             maxLines: 1,                       
-    //           ), 
-    //         ],
-    //       ),
-    //     ]
-    //   ),
-    // );
   }
 }

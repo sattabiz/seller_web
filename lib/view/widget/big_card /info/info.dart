@@ -61,22 +61,22 @@ class Info extends ConsumerWidget {
                 children: <Widget>[
                   Text(
                     FlutterI18n.translate(context, "tr.order.order_date"),
-                    style: Theme.of(context).textTheme.labelSmall,
+                    style: Theme.of(context).textTheme.labelMedium,
                     maxLines: 1,                        
                   ),
                   Text(
                     orderDate,
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     maxLines: 1,                        
                   ), 
                   Text(
                     FlutterI18n.translate(context, "tr.order.delivery_date"),
-                    style: Theme.of(context).textTheme.labelSmall,
+                    style: Theme.of(context).textTheme.labelMedium,
                     maxLines: 1,                        
                   ), 
                   Text(
                     deliveryDate ?? '-',
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     maxLines: 1,                    
                   ), 
                   
@@ -88,7 +88,7 @@ class Info extends ConsumerWidget {
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
                       FlutterI18n.translate(context, "tr.order.payment_type"),
-                      style: Theme.of(context).textTheme.labelSmall,       
+                      style: Theme.of(context).textTheme.labelMedium,       
                       maxLines: 1,                              
                     ),
                   ),                                
@@ -96,7 +96,7 @@ class Info extends ConsumerWidget {
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
                       paymentType == null ? '-' : paymentType!,
-                      style: Theme.of(context).textTheme.bodySmall,
+                      style: Theme.of(context).textTheme.bodyMedium,
                       maxLines: 1,                                     
                     ),
                   ),
@@ -104,7 +104,7 @@ class Info extends ConsumerWidget {
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
                       FlutterI18n.translate(context, "tr.order.expiry"),
-                      style: Theme.of(context).textTheme.labelSmall,
+                      style: Theme.of(context).textTheme.labelMedium,
                       maxLines: 1,                                     
                       ),
                   ), 
@@ -112,7 +112,7 @@ class Info extends ConsumerWidget {
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
                       paymentDueDate ?? '-',
-                      style: Theme.of(context).textTheme.bodySmall,
+                      style: Theme.of(context).textTheme.bodyMedium,
                       maxLines: 1,                                     
                       ),
                   ),            
@@ -122,22 +122,22 @@ class Info extends ConsumerWidget {
                 children: <Widget>[
                   Text(
                     FlutterI18n.translate(context, "tr.order.demand_no"),
-                    style: Theme.of(context).textTheme.labelSmall,
+                    style: Theme.of(context).textTheme.labelMedium,
                     maxLines: 1,                        
                   ),                            
                   Text(
                     demandNo,
-                    style: Theme.of(context).textTheme.bodySmall, 
+                    style: Theme.of(context).textTheme.bodyMedium, 
                     maxLines: 1,                       
                   ), 
                   Text(
                     FlutterI18n.translate(context, "tr.order.shipment_payment"),
-                    style: Theme.of(context).textTheme.labelSmall,
+                    style: Theme.of(context).textTheme.labelMedium,
                     maxLines: 1,                        
                   ),              
                   Text(
                     "Satici",
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     maxLines: 1,                        
                   ), 
           
