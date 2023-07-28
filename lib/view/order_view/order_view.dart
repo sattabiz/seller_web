@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:seller_point/utils/widget_helper.dart';
+import 'package:seller_point/view/widget/big_card%20/info/info.dart';
 import 'package:seller_point/view/widget/loading_widget.dart';
 import '../../model/get_order_list_model.dart';
 import '../../view_model/order_list_view_model.dart';
@@ -95,11 +97,17 @@ class OrderView extends ConsumerWidget {
                       status: orderList[index].state.toString(),
                       headerDate: orderList[index].orderDate.toString(),
                       bodyHeader: orderList[index].demandName.toString(),
-                      paymentType: orderList[index].paymentType.toString(),
-                      demandNo: orderList[index].demandNo.toString(),
-                      deliveryDate: orderList[index].deliveryDate.toString(),
-                      paymentDueDate: orderList[index].paymentDueDate.toString(), 
                       bodyList: orderList[index].products,
+                      infoWidget: Info(
+                        className: className, 
+                        demandName: orderList[index].demandName.toString(),
+                        infoRow1: formattedDate(orderList[index].orderDate.toString()),
+                        infoRow2: orderList[index].deliveryDate.toString(),
+                        infoRow3: orderList[index].paymentType.toString(),
+                        infoRow4: orderList[index].paymentDueDate.toString(),
+                        infoRow5: orderList[index].demandNo.toString(),
+                        infoRow6: 'Satici', // tracking payment is missing in order model.
+                      ),
                       bigCardButtons: ButtonWidget(
                         className: className,
                         status: orderList[index].state.toString(),

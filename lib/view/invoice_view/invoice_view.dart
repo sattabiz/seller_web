@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:seller_point/view/widget/big_card%20/info/info_invoice.dart';
 
 import '../../model/get_buyer_invoices_list_model.dart';
 import '../../view_model/buyer_invoices_view_model.dart';
@@ -27,17 +28,17 @@ class invoiceView extends ConsumerWidget {
           builder: (BuildContext context, BoxConstraints constraints) {
             if (constraints.maxWidth <= 1100) {
               return Scaffold(
-                appBar: AppbarTop(), //appbar
+                appBar: const AppbarTop(), //appbar
                 body: Row(
                   children: [
-                    NavigationRailWidget(),
+                    const NavigationRailWidget(),
                     Expanded(child: buildBody(invoiceList, context, FlutterI18n.translate(context, "tr.invoice.invoices"), "invoice")),
                   ],
                 ),
               );
             } else {
               return Scaffold(
-                appBar: AppbarTop(), // appbar
+                appBar: const AppbarTop(), // appbar
                 body: SafeArea(
                   child: Row(
                     children: [
@@ -87,7 +88,7 @@ class invoiceView extends ConsumerWidget {
                   mainAxisSpacing: 3,
                   crossAxisSpacing: 3,
                   itemCount: invoiceList.length,
-                  staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                  staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
                   itemBuilder: (context, index) {
                     return SmallCard(
                       index: index,
@@ -96,10 +97,13 @@ class invoiceView extends ConsumerWidget {
                       status: invoiceList[index].state.toString(),
                       headerDate: invoiceList[index].invoiceDate.toString(),
                       bodyHeader: 'Fatura No: ${invoiceList[index].invoiceNo.toString()}',
-                      paymentType: invoiceList[index].paymentType.toString(),
-                      demandNo: invoiceList[index].orderId.toString(),
-                      paymentDate: invoiceList[index].paymentDate.toString(),
                       bodyList: invoiceList[index].products!,
+                      infoWidget: InfoInvoice(
+                        invoiceNo: invoiceList[index].invoiceNo.toString(), 
+                        invoiceDate: invoiceList[index].invoiceDate.toString(),
+                        paymentType: invoiceList[index].paymentType.toString(), 
+                        orderId: invoiceList[index].orderId.toString(), 
+                        className: className),
                       bigCardButtons: 
                       invoiceList[index].state.toString() == 'invoice_pending'
                       ? ButtonWidget(

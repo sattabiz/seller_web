@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 class InfoBox extends StatelessWidget {
-  final String header;
   final String className;
   final String ?row1;
   final String ?row2;
@@ -11,7 +10,6 @@ class InfoBox extends StatelessWidget {
 
 const InfoBox({ 
   Key? key, 
-  required this.header, 
   required this.className, 
   this.row1, 
   this.row2, 
@@ -35,7 +33,7 @@ const InfoBox({
           ],
         ),
         height: 100,
-        width: 200,
+        width: 150,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -50,7 +48,7 @@ const InfoBox({
                   ),
                 ),
                 child: Text(
-                  header,
+                  FlutterI18n.translate(context, "tr.$className.info_box_header"),
                   style: Theme.of(context).textTheme.titleSmall,
                   maxLines: 1,
                 ),

@@ -38,7 +38,7 @@ const HeaderShipment({ Key? key, required this.id, required this.status, require
                 ),
                 Expanded(
                     flex: 8,
-                    child: AutoSizeText(    // headerStatus
+                    child: Text(    // headerStatus
                       FlutterI18n.translate(context, "tr.shipment.$status"),
                       style:
                           Theme.of(context).textTheme.titleLarge!,
@@ -52,30 +52,29 @@ const HeaderShipment({ Key? key, required this.id, required this.status, require
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Flexible(
-                  child: status == 'order_on_the_way'
-                  ? Text(
-                    FlutterI18n.translate(context, "tr.shipment.shipped_date" ) + headerDate,
-                    style:Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.w500
-                    )
-                  )
-                  : Text(
-                    FlutterI18n.translate(context, "tr.order.order_no") + id,
-                    style:Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.w500
-                    )
-                  ),
-                ),
-                 // header date
-                status == 'order_on_the_way'
-                ? const SizedBox(width: 1)
-                :  Text(
-                  FlutterI18n.translate(context, "tr.shipment.date") + headerDate,
+                Text(
+                  FlutterI18n.translate(context, "tr.shipment.header_shipment.$status" ),
                   style:Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontWeight: FontWeight.w500
                   )
                 ),
+                Text(
+                  status == 'order_on_the_way' ? headerDate : id,
+                  style:Theme.of(context).textTheme.labelLarge
+                ),
+                status == 'order_on_the_way'
+                ? const SizedBox(width: 1)
+                :  Text(
+                    FlutterI18n.translate(context, "tr.shipment.date"),
+                    style:Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.w500
+                   ),
+                  ),
+                  AutoSizeText(
+                    headerDate,
+                    style:Theme.of(context).textTheme.labelLarge,
+                    maxLines: 1,
+                  ),
               ],
             ),
           ],

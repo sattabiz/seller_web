@@ -33,7 +33,7 @@ class ProductListTable extends StatelessWidget {
           // fixedWidth: 33,
           label: Text('#', maxLines: 1, textDirection: TextDirection.rtl),
           numeric: true,
-          fixedWidth: 18,
+          fixedWidth: 20,
         ),
         DataColumn2(
           label: Text(FlutterI18n.translate(context, "tr.order.product")),

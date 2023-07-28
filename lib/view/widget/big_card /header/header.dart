@@ -29,46 +29,49 @@ class Header extends ConsumerWidget {
         ),
         color: Theme.of(context).colorScheme.secondaryContainer,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 9,
-            child: ListTile(
-              title: Text(statusMap,
-              style: Theme.of(context).textTheme.titleLarge),
-              subtitle: AutoSizeText("${FlutterI18n.translate(context, "tr.order.order_no")}:  $id", style: Theme.of(context).textTheme.titleMedium),
-              leading: SvgPicture.asset(
-                svgPath,
-                semanticsLabel: 'Order Status Icon',
-                width: 30.0,
-                height: 30.0,
-              ),
-            ),
-          ),
-          Flexible(
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                onPressed: () {
-                  Navigator.pop(context); // close the big card
-                },
-                alignment: Alignment.topRight,
-                padding: const EdgeInsets.only(top: 0.0, right: 16.0, bottom: 0.0, left: 0.0),
-                iconSize: 36.0,
-                hoverColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                icon: Icon(
-                  Icons.close,
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  // opticalSize: 36,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 9,
+              child: ListTile(
+                title: Text(statusMap,
+                style: Theme.of(context).textTheme.titleLarge),
+                subtitle: Text("${FlutterI18n.translate(context, "tr.order.order_no")}  $id", style: Theme.of(context).textTheme.titleMedium),
+                leading: SvgPicture.asset(
+                  svgPath,
+                  semanticsLabel: 'Order Status Icon',
+                  width: 30.0,
+                  height: 30.0,
                 ),
               ),
             ),
-          ),
-        ],
+            Flexible(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context); // close the big card
+                  },
+                  alignment: Alignment.topRight,
+                  padding: const EdgeInsets.only(top: 0.0, right: 30.0, bottom: 0.0, left: 0.0),
+                  iconSize: 36.0,
+                  hoverColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  icon: Icon(
+                    Icons.close,
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    // opticalSize: 36,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
