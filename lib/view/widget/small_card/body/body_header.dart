@@ -21,12 +21,12 @@ class BodyHeader extends StatelessWidget {
     child: 
     className == 'invoice' && status == 'order_on_the_way'
     ? Text(
-      FlutterI18n.translate(context, "tr.shipment.invoice_no") + bodyHeader!,
-      style: Theme.of(context).textTheme.titleSmall,
+        FlutterI18n.translate(context, "tr.shipment.invoice_no") + bodyHeader!,
+        style: Theme.of(context).textTheme.titleSmall,
     )
     : Text(
-      bodyHeader ?? '-',
-      style: Theme.of(context).textTheme.titleSmall,
+        bodyHeader ?? '-',
+        style: Theme.of(context).textTheme.titleSmall,
     )
     );
   }

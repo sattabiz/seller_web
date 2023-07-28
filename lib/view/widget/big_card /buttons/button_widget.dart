@@ -19,7 +19,7 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return Container(
-      padding: const EdgeInsets.only(top: 16, left: 10, right: 10, bottom: 16),
+      padding: const EdgeInsets.only(top: 16, left: 30, right: 10, bottom: 16),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,

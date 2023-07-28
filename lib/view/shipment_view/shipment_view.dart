@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:seller_point/view/widget/big_card%20/info/info.dart';
+import 'package:seller_point/view/widget/big_card%20/info/info_box.dart';
 
 import '../../model/shipment_model.dart';
 import '../../view_model/shipment_view_model.dart';
@@ -91,11 +93,23 @@ class ShipmentView extends ConsumerWidget {
                       className: className,
                       status: shipmentList[index].state.toString(),
                       headerDate: shipmentList[index].shipmentDate.toString(),
-                      bodyHeader: shipmentList[index].waybillNo.toString(), //fatura_no
-                      // paymentType: shipmentList[index].paymentType.toString(), //shipment'da yok
-                      // demandNo: shipmentList[index].demandNo.toString(),
-                      // deliveryDate: shipmentList[index].deliveryDate.toString(),
-                      // paymentDueDate: shipmentList[index].paymentDueDate.toString(), 
+                      bodyHeader: shipmentList[index].waybillNo.toString(),
+                      infoWidget: Info(
+                        className: className, 
+                        demandName: "Acil Siparis", //demand_name is missing in shipment model
+                        infoRow1: shipmentList[index].shipmentId.toString(), //order date is missing
+                        infoRow2: shipmentList[index].shipmentDate.toString(), // teslim tarihi is missing in shipment model
+                        infoRow3: 'Cari Hesap', //paymenttype is missing
+                        infoRow4: '30', //payment due date is missing
+                        infoRow5: '10233', //proposal id is missing
+                        infoRow6: 'Satici', //nakliye odeme is missing
+                      ),
+                      infoBoxWidget: InfoBox(
+                        className: className,
+                        row1: shipmentList[index].carrier.toString(),
+                        row2: shipmentList[index].trackingNo.toString(),
+                        row3: 'Merkez', //address is missing
+                      ),
                       bodyList: shipmentList[index].products,
                     );
                   },

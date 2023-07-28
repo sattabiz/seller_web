@@ -21,17 +21,10 @@ class BigCard extends ConsumerWidget {
   final String status;
   final String svgPath;
   final String topic; //body_header
-  final String date; //header_date info_1
-  final String ?paymentType; //info_2 (column1)
-  final String ?demandNo; //info_3 (column1)
-  final String ?deliveryDate; //info_1 (column2)
-  final String ?paymentDueDate; //info_2 (column2)
-  final String ?paymentDate;
   final String ?statusMap;
-  final String ?infoBoxRow1;
-  final String ?infoBoxRow2;
-  final String ?infoBoxRow3;
   final Widget buttons;
+  final Widget infoWidget;
+  final Widget ?infoBoxWidget;
   final List tableList; //body_table
 
   const BigCard( {
@@ -41,17 +34,10 @@ class BigCard extends ConsumerWidget {
     required this.status,
     required this.svgPath,
     required this.topic,
-    required this.date,
-    this.paymentType,
-    this.demandNo,
-    this.deliveryDate,
-    this.paymentDueDate,
     this.statusMap,
-    this.infoBoxRow1,
-    this.infoBoxRow2,
-    this.infoBoxRow3,
-    this.paymentDate,
     required this.buttons,
+    required this.infoWidget,
+    this.infoBoxWidget,
     required this.tableList,
   }) : super(key: key);
 
@@ -67,14 +53,6 @@ class BigCard extends ConsumerWidget {
       'invoice': InvoiceTable(invoiceProductList: tableList, className: className),
     };
 
-    bool orderButtonBool () {
-      return status == 'replied' || status == 'last_offer' || status == 'proposal_stvs'|| status == 'invoice_pending';
-    }
-
-     //formating dateTime object
-    final DateTime parsedDate = DateTime.parse(date);
-    String formattedDate =  "${parsedDate.year}-${parsedDate.month.toString().padLeft(2, '0')}-${parsedDate.day.toString().padLeft(2, '0')}";
-    
     return Container(
       width: width * 0.7,
       height: height * 0.8,
@@ -100,48 +78,16 @@ class BigCard extends ConsumerWidget {
                         children: [
                           Expanded(
                             flex: 8,
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 60.0),
-                              child: 
-                              className == 'invoice'
-                              ? InfoInvoice(
-                                invoiceNo: id,
-                                invoiceDate: formattedDate,
-                                paymentType: paymentType,
-                                orderId: demandNo ?? '-',
-                                paymentDate: paymentDate ?? '-',
-                                className: className,
-                              )
-                              : Info(
-                                demandName: topic,
-                                orderDate: formattedDate,
-                                paymentType: paymentType ?? '-',
-                                demandNo: demandNo ?? '-',
-                                deliveryDate: deliveryDate,
-                                paymentDueDate: paymentDueDate,                       
-                              ),
-                            ),
+                            child: infoWidget
                           ),
-                        Flexible(
-                          flex: 4,
-                          child: (className == 'proposal' || className == 'shipment')
-                          ? InfoBox(
-                            header: FlutterI18n.translate(context, "tr.$className.info_box_header"),
-                            className: className,
-                            row1: infoBoxRow1 ?? '-',
-                            row2: infoBoxRow2 ?? '-',
-                            row3: infoBoxRow2 ?? '-',
-                          )
-: const SizedBox(width: 2),
-                        ), 
-
+                          infoBoxWidget ?? const SizedBox(width: 0),
                         ],
                       ),  //info        
                       Expanded(
                         flex: 3,
                         // fit: FlexFit.loose,
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+                          padding: const EdgeInsets.only(top: 16.0, left: 30.0, right: 16.0),
                           child: Container(
                             // height: height * 0.7 * 0.7,  //table-height ama responsive yapilacak
                             decoration: BoxDecoration(
@@ -153,14 +99,6 @@ class BigCard extends ConsumerWidget {
                         ),
                       ),
                       buttons,
-                      // orderButtonBool()
-                      // ? const SizedBox(height: 10) 
-                      // : const SizedBox(height: 0),
-       
-                      // Padding(
-                      //   padding: const EdgeInsets.only(left: 16, bottom: 16),
-                      //   child: RejectButton(),
-                      // ),
                     ],
                   ),
                 ),
@@ -171,7 +109,7 @@ class BigCard extends ConsumerWidget {
                       Expanded(
                         flex: 8,
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 10,top: 10),
+                          padding: const EdgeInsets.only(right: 30,top: 10),
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -195,7 +133,7 @@ class BigCard extends ConsumerWidget {
                       const Padding(padding: EdgeInsets.only(top: 10)),
                       Flexible(
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 10),
+                          padding: const EdgeInsets.only(right: 30),
                           child: Container(                            
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),

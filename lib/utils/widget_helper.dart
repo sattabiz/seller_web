@@ -1,7 +1,4 @@
 
-  import 'package:flutter/material.dart';
-  import 'package:flutter/widgets.dart';
-
 Map<String, String> statusIconMap = {
     'pending': 'assets/proposal_pending.svg',
     'replied': 'assets/exportNotes.svg',
@@ -20,31 +17,42 @@ Map<String, String> statusIconMap = {
     'delivered': 'assets/package.svg',
   };
 
-class ScreenSize {
-   MediaQueryData ?mediaQueryData;
-   double ?screenWidth;
-   double ?screenHeight;
-   double ?widthLarge;
-   double ?heightLarge;
-
-
-  //  ScreenSize( {
-  //   Key? key,
-  //   this.mediaQueryData,
-  //   this.screenWidth,
-  //   this.screenHeight,
-  //   this.widthLarge,
-  //   this.heightLarge,
-  // });
-
-
-  void init(BuildContext context) {
-    mediaQueryData = MediaQuery.of(context);
-    screenWidth = mediaQueryData!.size.width;
-    screenHeight = mediaQueryData!.size.height;
-    widthLarge = screenWidth! / 1280 ;
-    heightLarge = screenHeight! / 720 ;
-
+  // formating dateTime
+  String formattedDate(String date) {
+    final DateTime parsedDate = DateTime.parse(date);
+    return "${parsedDate.year}-${parsedDate.month.toString().padLeft(2, '0')}-${parsedDate.day.toString().padLeft(2, '0')}";
+  }
+  
+  // calculate amount for big card table
+  String calcuteAmount(String amount, String price) {
+    return (int.parse(amount) * int.parse(price)).toString();
   }
 
-}
+// class ScreenSize {
+//    MediaQueryData ?mediaQueryData;
+//    double ?screenWidth;
+//    double ?screenHeight;
+//    double ?widthLarge;
+//    double ?heightLarge;
+
+
+//   //  ScreenSize( {
+//   //   Key? key,
+//   //   this.mediaQueryData,
+//   //   this.screenWidth,
+//   //   this.screenHeight,
+//   //   this.widthLarge,
+//   //   this.heightLarge,
+//   // });
+
+
+//   void init(BuildContext context) {
+//     mediaQueryData = MediaQuery.of(context);
+//     screenWidth = mediaQueryData!.size.width;
+//     screenHeight = mediaQueryData!.size.height;
+//     widthLarge = screenWidth! / 1280 ;
+//     heightLarge = screenHeight! / 720 ;
+
+//   }
+
+// }

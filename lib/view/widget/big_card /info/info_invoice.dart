@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
+import '../../../../utils/widget_helper.dart';
+
 class InfoInvoice extends StatelessWidget {
   final String invoiceNo; //demand_name
   final String invoiceDate;
@@ -24,7 +26,7 @@ class InfoInvoice extends StatelessWidget {
   @override
   Widget  build(BuildContext context){
     return Container(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(left: 30.0, top: 10.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +39,7 @@ class InfoInvoice extends StatelessWidget {
               const SizedBox(width: 10.0),
               Expanded(
                 child: Text(
-                  invoiceDate,
+                  formattedDate(invoiceDate),
                   style: Theme.of(context).textTheme.titleSmall,
                   maxLines: 3,
                 ),

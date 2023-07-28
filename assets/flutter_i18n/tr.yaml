@@ -18,8 +18,8 @@ tr:
 
   proposal:
     proposals: "Teklifler"
-    pending: "Teklif Istendi"
-    replied: "Teklif verildi"
+    pending: "Teklif İstendi"
+    replied: "Teklif Verildi"
     proposal_stvs: "Teklif Verildi"
     last_offer: "Son Teklif"
     product: "Ürün"
@@ -36,6 +36,9 @@ tr:
     new_proposal_request: "Yeni Teklif İsteği"
     no_offer: "Teklif verilmedi"
     create_order_btn: "Sipariş Et"
+    infoRow1: "Teklif Tarihi"
+    infoRow2: "Termin"
+    infoRow5: "Teslim Süresi"
   order:
     orders: "Siparişler"
     order_pending: "Teklif İstendi"  
@@ -56,13 +59,16 @@ tr:
     payment_type: "Ödeme Şekli: "
     payment_due_date: "Ödeme Tarihi: "
     demand_no: "Teklif No: "
-    shipment_payment: "Nakliye Ödeme: "
+    shipment_payment: "Nakliye Ödeme "
     description: "Açıklama"
     amount: "Miktar"
     total: "Tutar"
-    expiry: "Vade: "
+    expiry: "Vade "
     create_order_btn: "Sipariş Et"
     reject_btn_big_card: "İptal Et"
+    infoRow1: "Sipariş Tarihi"
+    infoRow2: "Teslim Tarihi"
+    infoRow5: "Teklif No"
   shipment: 
     shipments: "Sevkiyatlar"
     order_on_the_way: "Yoldaki Sevkiyat"
@@ -77,6 +83,13 @@ tr:
     row_2: "Takip No"
     row_3: "Adres"
     create_order_btn: "Sipariş Et"
+    infoRow1: "Sipariş Tarihi"
+    infoRow2: "Teslim Tarihi"
+    infoRow5: "Teklif No"
+    header_shipment:
+      order_on_the_way: "Sevk Tarihi: "
+      delivered: "Sipariş No: "
+    
   invoice:
     invoices: "Faturalar"
     invoice_paid: "Ödendi"

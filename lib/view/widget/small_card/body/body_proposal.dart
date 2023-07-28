@@ -23,7 +23,7 @@ class BodyProposal extends StatelessWidget {
       columnWidths: const <int, TableColumnWidth> {
         0: FlexColumnWidth(0.2),
         1: FlexColumnWidth(0.6),
-        2: FlexColumnWidth(0.3),
+        2: FlexColumnWidth(0.4),
         3: FlexColumnWidth(0.3),
       },
       children: [
