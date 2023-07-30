@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:data_table_2/data_table_2.dart';
 
+import '../../../../utils/widget_helper.dart';
+
 class InvoiceTable extends StatelessWidget {
   final List invoiceProductList;
   final String className;
@@ -20,8 +22,11 @@ class InvoiceTable extends StatelessWidget {
     return DataTable2(
       columnSpacing: 5,
       fixedTopRows: 1,
+      fixedLeftColumns: 1,
       dataRowHeight: 30,
-      headingRowHeight: 35,
+      headingRowHeight: 30,
+      smRatio: 0.3,
+      lmRatio: 1.2,
       headingTextStyle: Theme.of(context).textTheme.labelMedium,
       dataTextStyle: Theme.of(context).textTheme.bodyMedium,
       dataRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.onPrimary),
@@ -63,9 +68,24 @@ class InvoiceTable extends StatelessWidget {
                 DataCell(Text((invoiceProductList.indexOf(item) + 1).toString(), textDirection: TextDirection.ltr,)),
                 DataCell(Text(item.name.toString())), //product_name
                 DataCell(Text(item.proposalNote.toString())), //propsal_note
-                DataCell(Text(item.unit.toString())), //product_unit
-                DataCell(Text(item.price.toString())),
-                DataCell(Text(item.shippedAmount.toString(), textAlign: TextAlign.left)),
+                DataCell(
+                  Text(
+                    '${item.shippedAmount} ' ' ${item.unit}',
+                    // textDirection: TextDirection.rtl,
+                  )
+                ), //product_unit
+                DataCell(
+                  Text(
+                    item.price.toString(),
+                    textDirection: TextDirection.rtl,
+                  )
+                ),
+                DataCell(
+                  Text(
+                    calcuteAmount(item.shippedAmount.toString(), item.price.toString()),
+                    textDirection: TextDirection.rtl,
+                  )
+                ),
             ]),
           )
           .toList(),
