@@ -18,8 +18,11 @@ class ProposalTable extends StatelessWidget {
     return DataTable2(
       columnSpacing: 5,
       fixedTopRows: 1,
+      fixedLeftColumns: 1,
       dataRowHeight: 30,
       headingRowHeight: 30,
+      smRatio: 0.3,
+      lmRatio: 1.2,
       headingTextStyle: Theme.of(context).textTheme.labelMedium,
       dataTextStyle: Theme.of(context).textTheme.bodyMedium,
       dataRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.onPrimary),
@@ -28,7 +31,7 @@ class ProposalTable extends StatelessWidget {
         const DataColumn2(
           label: Text(
             '#', 
-            textAlign: TextAlign.left,
+            textDirection: TextDirection.ltr,
           ),
           numeric: true,
           fixedWidth: 20,
@@ -48,20 +51,23 @@ class ProposalTable extends StatelessWidget {
         DataColumn2(
           label: Text(
             FlutterI18n.translate(context, "tr.order.amount"),
+            textDirection: TextDirection.rtl,
           ),
-          size: ColumnSize.S,
+          size: ColumnSize.M,
           // fixedWidth: 60
         ),
         DataColumn2(
           label: Text(
             FlutterI18n.translate(context, "tr.order.price"),
+            textDirection: TextDirection.rtl,
           ),
-          numeric: true,
+          // numeric: true,
           size: ColumnSize.S,
         ),
         DataColumn2(
           label: Text(
             FlutterI18n.translate(context, "tr.order.total"),
+            textDirection: TextDirection.rtl,
           ),
           numeric: true,
           size: ColumnSize.S,
@@ -70,39 +76,45 @@ class ProposalTable extends StatelessWidget {
       rows: productsProposalList
           .map(
             (item) => DataRow2(
-              // color: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
               cells: [
               DataCell(
                 Text(
                   (productsProposalList.indexOf(item) + 1).toString(),
-                  textDirection: TextDirection.ltr,
-                  textAlign: TextAlign.left,
+                  // textDirection: TextDirection.ltr,
+                  textAlign: TextAlign.center,
+                  // textAlign: TextAlign.left,
                 ),
               ),
               DataCell(
                 Text(
                   item.productName.toString(),
+                  textDirection: TextDirection.ltr,
                 ),
               ), //product_name
               DataCell(
                 Text(
                   item.proposalNote.toString() == 'null' ? '-' : item.proposalNote.toString(),
+                  maxLines: 1,
+                  textDirection: TextDirection.ltr,
                 )
               ), //propsal_note
               DataCell(
                 Text(
-                  item.amount.toString(),
+                  '${item.amount} ' ' ${item.productUnit}',
+                  maxLines: 1,
                 )
               ), //product_unit
               DataCell(
                 Text(
                   item.price.toString() == 'null' ? '-' : item.price.toString(),
+                  textDirection: TextDirection.rtl,
                 )
               ),
               DataCell(
                 Text(
                   item.price.toString() == 'null' ? '-' 
                   : calcuteAmount(item.amount.toString(), item.price.toString()),
+                  textDirection: TextDirection.rtl,
                 ),
               ),
               // DataCell(Text('')),

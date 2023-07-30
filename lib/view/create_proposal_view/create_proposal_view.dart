@@ -15,9 +15,6 @@ class createProposalView extends ConsumerWidget {
     double screenWidth = MediaQuery.of(context).size.width / 1250;
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.center,
-      // actionsOverflowButtonSpacing: 400,
-      // actio: ,
-      // actionsOverflowAlignment: OverflowBarAlignment.start,
       titlePadding: const EdgeInsets.all(0),
       title: Container(
         alignment: Alignment.center,
