@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../storage/jwt_storage.dart';
 
 
-class postService {
+class PostService {
 
   Future<Response> post({required String url, required Map<String, dynamic> data} ) async {
     final dio = Dio();

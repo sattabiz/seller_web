@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../view_model/landing_view_model.dart';
 
-
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../view_model/landing_view_model.dart';
-
-
 class FormItem {
   String? category;
   String? product;
@@ -188,7 +182,7 @@ class createProposalViewTable extends ConsumerWidget {
             formItem.category = value;
           },
         ),
-        Spacer(
+        const Spacer(
           flex: 1,
         ),
         Expanded(
@@ -259,111 +253,6 @@ class createProposalViewTable extends ConsumerWidget {
             onPressed: () {},
           ),
         ),
-        // Padding(
-        //   padding: const EdgeInsets.all(11.0),
-        //   child: InkWell(
-        //     hoverColor: Colors.transparent,
-        //     child: const Icon(Icons.close),
-        //     onTap: () {
-        //       ref.read(formItemProvider.notifier).removeItem(index);
-        //     },
-        //   ),
-        // ),
-        // Flexible(
-        //   // width: 330,
-        //   // constraints: BoxConstraints(maxWidth: screenWidth * 220, minWidth: screenWidth * 50),
-        //   child: DropdownMenu<String>(
-        //     menuHeight: 100,
-        //     width: 220,
-        //     inputDecorationTheme: InputDecorationTheme(
-        //       filled: true,
-        //       fillColor: Theme.of(context).colorScheme.onPrimary,
-        //       constraints:  BoxConstraints(maxHeight: 40, minWidth: screenWidth * 50),
-        //       contentPadding: const EdgeInsets.only(left: 10.0),
-        //       floatingLabelAlignment: FloatingLabelAlignment.start,
-        //       border: const OutlineInputBorder(),
-        //       focusedBorder: OutlineInputBorder(
-        //         borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
-        //       ),
-        //     ),        
-        //     label:  Text(
-        //       'Kategori',
-        //       style: Theme.of(context).textTheme.bodySmall,
-        //       textAlign: TextAlign.start,
-        //       ),
-        //     menuStyle: MenuStyle(
-        //       alignment: AlignmentGeometry.lerp(
-        //           Alignment.bottomLeft, Alignment.bottomLeft, 0.5,
-        //       ),
-        //     ),
-        //     dropdownMenuEntries: dropDownMenuCategory,
-        //     onSelected: (value) {
-        //       formItem.category = value;
-        //     },
-        //   ),
-        // ),
-        //  ConstrainedBox(
-        //   constraints:  BoxConstraints(maxWidth: screenWidth * 30, minWidth: screenWidth * 10),
-        // ),
-        // Container(
-        //   width: 460,
-        //   constraints:  BoxConstraints(maxWidth: screenWidth * 430, minWidth: screenWidth * 50),
-        //   child: TextFormField(
-        //     cursorColor: Theme.of(context).colorScheme.onBackground,
-        //     enableInteractiveSelection: false,
-        //     decoration: InputDecoration(
-        //       filled: true,
-        //       fillColor: Theme.of(context).colorScheme.onPrimary,
-        //       border: const OutlineInputBorder(),
-        //       contentPadding: const EdgeInsets.only(left: 10.0, top: 0.0, bottom: 0.0, right: 0.0),
-        //       constraints: const BoxConstraints(maxHeight: 40),
-        //       labelText: 'Ürün',
-        //       focusedBorder: OutlineInputBorder(
-        //         borderSide: BorderSide(
-        //             color: Theme.of(context).colorScheme.onSurfaceVariant),
-        //       ),
-        //       labelStyle: Theme.of(context).textTheme.bodySmall,
-        //     ),
-        //     onChanged: (value) {
-        //       formItem.product = value;
-        //     },
-        //   ),
-        // ),
-        // ConstrainedBox(
-        //   constraints:  BoxConstraints(maxWidth: screenWidth * 30, minWidth: screenWidth * 10),
-        // ),
-        // Container(
-        //   width: 120,
-        //   constraints: BoxConstraints(maxWidth: screenWidth * 120, minWidth: screenWidth * 40),
-        //   child: TextFormField(
-        //     cursorColor: Theme.of(context).colorScheme.onBackground,
-        //     decoration: InputDecoration(
-        //       constraints: const BoxConstraints(maxHeight: 40),
-        //       filled: true,
-        //       fillColor: Theme.of(context).colorScheme.onPrimary,
-        //       border: const OutlineInputBorder(),
-        //       contentPadding: const EdgeInsets.only(left: 10.0, top: 0.0, bottom: 0.0, right: 0.0),
-        //       labelText: 'Miktar',
-        //       labelStyle: Theme.of(context).textTheme.bodySmall,
-        //       focusedBorder: OutlineInputBorder(
-        //         borderSide: BorderSide(
-        //             color: Theme.of(context).colorScheme.onSurfaceVariant),
-        //       ),
-        //       suffixText: 'adet',
-        //     ),
-        //     onChanged: (value) {
-        //       formItem.amount = value;
-        //     },
-        //   ),
-        // ),
-        // ConstrainedBox(
-        //   constraints:  BoxConstraints(maxWidth: screenWidth * 30, minWidth: screenWidth * 10),
-        // ),
-        // IconButton(
-        //   icon: const Icon(Icons.attach_file),
-        //   iconSize: 25,
-        //   onPressed: () {},
-        // ),
       ],
     );
   }

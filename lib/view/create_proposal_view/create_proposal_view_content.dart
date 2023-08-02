@@ -23,50 +23,28 @@ final offerModelProvider = Provider<OfferModel>((ref) => OfferModel());
 class createProposalViewContent extends ConsumerWidget {
   final String topic;
   createProposalViewContent({this.topic = ' ', Key? key}) : super(key: key);
-  final _dropdownMaxValue = 150;
   final TextEditingController _paymentDueDate = TextEditingController(text: '30');
   final TextEditingController _includeShipmentCost = TextEditingController(text: 'Alıcı');
 
   final TextEditingController _deliveryDate = TextEditingController(
     text:
-        DateFormat('yyyy-MM-dd').format(DateTime.now().add(Duration(days: 3))),
+        DateFormat('yyyy-MM-dd').format(DateTime.now().add(const Duration(days: 3))),
   );
   final TextEditingController _validDays = TextEditingController(
     text: DateFormat('yyyy-MM-dd 17:00:00')
-        .format(DateTime.now().add(Duration(days: 3))),
+        .format(DateTime.now().add(const Duration(days: 3))),
   );
-
-  // int? _selectedDay;
-  // int? _selectedDay2;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<DropdownMenuEntry<int>> dropDownMenuDate = [7,15,21,30,45,60,75,90,120,150,180].map((int value) {
-  return DropdownMenuEntry<int>(
-    value: value,
-    label: value.toString(),
-  );
-}).toList();
+    return DropdownMenuEntry<int>(
+      value: value,
+      label: value.toString(),
+    );
+  }).toList();
 
-    // final List<DropdownMenuEntry<bool>> dropDownMenuTrackings = <DropdownMenuEntry<bool>>[];
-    // if (true) {
-    //   dropDownMenuTrackings.add(
-    //     const DropdownMenuEntry<bool>(
-    //       value: true,
-    //       label: 'Alıcı',
-    //     ),
-    //   );
-    // } else if (false){
-    //   dropDownMenuTrackings.add(
-    //    const DropdownMenuEntry<bool>(
-    //       value: false,
-    //       label: 'Satıcı',
-    //     ),
-    //   );
-      
-    // }
-
-    final offerModel = ref.read(offerModelProvider);
+  final offerModel = ref.read(offerModelProvider);
 
     return Column(
       children: [

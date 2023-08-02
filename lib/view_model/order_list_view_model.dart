@@ -1,10 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../config/apiUrls.dart';
+import '../config/api_url.dart';
 import '../model/get_order_list_model.dart';
-import '../service/get_order_list_service.dart';
 import '../service/get_services.dart';
 
 final getOrderListProvider =

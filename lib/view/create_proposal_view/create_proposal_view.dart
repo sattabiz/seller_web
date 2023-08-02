@@ -12,7 +12,7 @@ class createProposalView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    double screenWidth = MediaQuery.of(context).size.width / 1250;
+    double screenWidth = MediaQuery.of(context).size.width / 1250; //change function
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.center,
       titlePadding: const EdgeInsets.all(0),
@@ -79,7 +79,7 @@ class createProposalView extends ConsumerWidget {
         ),
       ),
       actions: [
-        const createProposalButton(),
+        const CreateProposalButton(),
         Container(
           width: 600,
           constraints:  BoxConstraints(maxWidth: screenWidth *  550, minWidth: screenWidth * 330),

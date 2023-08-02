@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seller_point/config/apiUrls.dart';
+import 'package:seller_point/config/api_url.dart';
 import 'package:seller_point/service/get_services.dart';
 import 'package:seller_point/view_model/order_list_view_model.dart';
 import '../model/shipment_model.dart';
-import '../service/get_shipment_list_service.dart';
 
 final shipmentProvider = FutureProvider.autoDispose<List<Shipment>>((ref) async {
   final apiService = ApiService();

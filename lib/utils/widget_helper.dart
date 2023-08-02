@@ -28,6 +28,15 @@ Map<String, String> statusIconMap = {
     return (int.parse(amount) * int.parse(price)).toString();
   }
 
+String truncateToTwoWords(String text) {
+  var words = text.split(' ');
+  if (words.length > 3) {
+    words = words.take(3).toList();
+    return '${words.join(' ')}...';
+  }
+  return text;
+}
+
 // class ScreenSize {
 //    MediaQueryData ?mediaQueryData;
 //    double ?screenWidth;

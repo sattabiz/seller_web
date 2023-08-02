@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import '../model/get_proposals_by_state.dart';
 import '../storage/jwt_storage.dart';
 
 class ApiService {

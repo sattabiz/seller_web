@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seller_point/view_model/create_proposal_view_model.dart';
-import '../../model/create_proposal_model.dart';
-import '../../service/create_proposal_service.dart';
-import '../../view_model/landing_view_model.dart';
-import '../../view_model/proposal_view_model.dart';
 import 'create_proposal_view_content.dart';
 import 'create_proposal_view_table.dart';
 
-class createProposalButton extends ConsumerWidget {
-  const createProposalButton({Key? key}) : super(key: key);
+class CreateProposalButton extends ConsumerWidget {
+  const CreateProposalButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

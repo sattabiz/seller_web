@@ -3,14 +3,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seller_point/view_model/proposal_view_model.dart';
 
-import '../config/apiUrls.dart';
+import '../config/api_url.dart';
 import '../service/post_service.dart';
 import '../view/widget/big_card /big_card.dart';
 import '../view/widget/small_card/small_card.dart';
 import 'order_list_view_model.dart';
 
 final createOrderProvider = FutureProvider.autoDispose((ref) async {
-  final apiService = postService();
+  final apiService = PostService();
   Response response;
   final ProposalProviderAsyncValue =
       await ref.watch(getProposalListProvider).value;
