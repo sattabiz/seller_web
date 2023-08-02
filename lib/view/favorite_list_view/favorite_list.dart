@@ -70,7 +70,7 @@ class FavoriteListWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               createProposalViewContent(topic: data.name!),
-              favoriteListTable(items: data.products ?? []),
+              // favoriteListTable(items: data.products ?? []),
             ],
           ),
         ),
