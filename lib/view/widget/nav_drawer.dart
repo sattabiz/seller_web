@@ -34,7 +34,7 @@ class NavigationRailDrawer extends ConsumerWidget {
                   SizedBox(
                     height: screenHeight * 0.01,
                   ),
-                  Flexible(child: DrawerHeaderButton()),
+                  const Flexible(child: DrawerHeaderButton()),
                 ],
               ),
             ),

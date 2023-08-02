@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../config/apiUrls.dart';
+import '../config/api_url.dart';
 import '../model/get_current_user_info_model.dart';
-import '../service/get_current_user_info_service.dart';
 import '../service/get_services.dart';
 import 'order_list_view_model.dart';
 

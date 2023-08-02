@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../config/apiUrls.dart';
+import '../config/api_url.dart';
 import '../model/login_model.dart';
 import '../storage/jwt_storage.dart';
 

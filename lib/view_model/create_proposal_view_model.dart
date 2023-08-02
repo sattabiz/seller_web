@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seller_point/view_model/proposal_view_model.dart';
-
-import '../config/apiUrls.dart';
+import '../config/api_url.dart';
 import '../model/create_proposal_model.dart';
 import '../service/post_service.dart';
 import '../view/create_proposal_view/create_proposal_view_content.dart';
@@ -13,19 +11,13 @@ import 'order_list_view_model.dart';
 
 final createProposalProvider =
     FutureProvider.autoDispose<CreateProposalModel>((ref) async {
-  final apiService = postService();
+  final apiService = PostService();
   Response response;
   List<FormItem> _formItems = ref.watch(formItemProvider);
   OfferModel _contentItems = ref.watch(offerModelProvider);
   final landingProviderAsyncValue = ref.watch(getLandingViewContentProvider);
   final _company_id = landingProviderAsyncValue.value;
-  /* print(_contentItems.patmentDueDate.toString());
-  print(_contentItems.includeShipmentCost.toString());
-  print(_formItems.toString());
-  print(_company_id!.companyId.toString());
-  print(_contentItems.validDays.toString());
-  print(_contentItems.name.toString());
-  print(_contentItems.deliveryDate.toString()); */
+
   Map<String, dynamic> _productsAttributes = {};
   for (int i = 0; i < _formItems.length; i++) {
     _productsAttributes['$i'] = {

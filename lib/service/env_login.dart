@@ -1,13 +1,11 @@
-
-
 import 'package:dio/dio.dart';
-
-import '../config/apiUrls.dart';
-import '../model/get_current_user_info_model.dart';
+import '../config/api_url.dart';
 import '../model/login_model.dart';
 import '../model/web_content_model.dart';
 import '../storage/current_user_storage.dart';
 import '../storage/jwt_storage_landing.dart';
+
+
 class LandingPageService {
   final Dio _dio = Dio(); // Singleton instance
   final jwtStorageLandingService _jwtStorage;

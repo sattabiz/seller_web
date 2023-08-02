@@ -1,6 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-
 import '../create_proposal_view/create_proposal_view.dart';
 import '../favorite_list_view/navigation_rail_favorite.dart';
 import '../favorite_list_view/navigation_rail_favorite_content.dart';
@@ -8,11 +6,13 @@ import '../favorite_list_view/navigation_rail_favorite_content.dart';
 enum SampleItem { itemOne, itemTwo }
 
 class DrawerHeaderButton extends StatefulWidget {
+  const DrawerHeaderButton({super.key});
+
   @override
-  _DrawerHeaderButtonState createState() => _DrawerHeaderButtonState();
+  DrawerHeaderButtonState createState() => DrawerHeaderButtonState();
 }
 
-class _DrawerHeaderButtonState extends State<DrawerHeaderButton> {
+class DrawerHeaderButtonState extends State<DrawerHeaderButton> {
   SampleItem? selectedMenu;
   TextEditingController dateInput1 = TextEditingController();
   TextEditingController dateInput2 = TextEditingController();

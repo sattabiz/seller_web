@@ -4,7 +4,6 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_i18n/loaders/decoders/yaml_decode_strategy.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:seller_point/service/env_login.dart';
-
 import 'package:seller_point/utils/routes.dart';
 import '/theme/theme.dart';
 import '/view/landing_view/landing_view.dart';
