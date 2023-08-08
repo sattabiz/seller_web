@@ -83,6 +83,7 @@ class BigCard extends ConsumerWidget {
                           padding: const EdgeInsets.only(top: 16.0, left: 30.0, right: 16.0),
                           child: Container(
                             decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
                               color: Theme.of(context).colorScheme.onPrimary,
                               boxShadow: const [
                                 BoxShadow(
