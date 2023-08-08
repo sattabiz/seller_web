@@ -22,11 +22,13 @@ final shipmentProvider = FutureProvider.autoDispose<List<Shipment>>((ref) async 
     }
     rethrow;
   }
+  debugPrint(response.data.toString());
   List<Shipment> _shipmentList = [];
   if (response.data['shipments'] != null) {
     _shipmentList = (response.data['shipments'] as List)
         .map((e) => Shipment.fromMap(e))
         .toList();
   }
+  
   return _shipmentList;
 });
