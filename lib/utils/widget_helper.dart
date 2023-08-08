@@ -19,8 +19,13 @@ Map<String, String> statusIconMap = {
 
   // formating dateTime
   String formattedDate(String date) {
+    if (date == 'null') {
+      return '-';
+    }
+    else {
     final DateTime parsedDate = DateTime.parse(date);
     return "${parsedDate.year}-${parsedDate.month.toString().padLeft(2, '0')}-${parsedDate.day.toString().padLeft(2, '0')}";
+    }
   }
   
   // calculate amount for big card table

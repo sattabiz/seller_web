@@ -72,7 +72,7 @@ tr:
   shipment: 
     shipments: "Sevkiyatlar"
     order_on_the_way: "Yoldaki Sevkiyat"
-    delivered: "Hazır"
+    order_prepared: "Hazırlanıyor"
     shipment_date: "Sevkiyat Tarihi: "
     shipped_date: "Sevk Tarihi: "
     date: "Tarih: "
@@ -88,7 +88,7 @@ tr:
     infoRow5: "Teklif No"
     header_shipment:
       order_on_the_way: "Sevk Tarihi: "
-      delivered: "Sipariş No: "
+      order_prepared: "Sipariş No: "
     
   invoice:
     invoices: "Faturalar"
