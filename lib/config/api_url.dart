@@ -4,9 +4,15 @@ class ApiUrls{
   static const String logout = "$baseUrl/logout.json";
   static String proposal(String supplierId) {
     return "$baseUrl/proposals_by_state_sp.json?proposal_state='pending','replied','proposal_stvs','last_offer'&supplier_id=$supplierId";}
-  static const String order = "$baseUrl/order_list.json?state='order_approved','order_confirmed','order_prepared','order_on_the_way','order_delivered'";
-  static const String shipment = "$baseUrl/shipment_list.json?state='order_on_the_way','delivered'";
-  static const String invoices = '$baseUrl/buyer_invoice_list.json?state="invoice_discounted","invoice_paid","invoice_pending","invoice_approved_dbs"&saved_to_erp=false';
+  static String order (String supplierId){
+    return "$baseUrl/order_list_sp.json?state='order_approved','order_confirmed','order_prepared','order_on_the_way','order_delivered'&supplier_id=$supplierId";
+  }
+  static String shipment (String supplierId){
+    return "$baseUrl/shipment_list_sp.json?state='order_prepared','order_on_the_way'&supplier_id=$supplierId";
+  }
+  static String invoices(String supplierId){
+    return "$baseUrl/buyer_invoice_list_sp.json?state='invoice_discounted','invoice_goods_delivered','invoice_collecting','invoice_approved_dbs', 'invoice_approved'&supplier_id=$supplierId";
+  }
   static const String favoriteList = "$baseUrl/list_favorite_list.json";
   static const String userInfo = "$baseUrl/current_user_info.json";
   static const String createProposal = "$baseUrl/demand_proposal_sp.json";

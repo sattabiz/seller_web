@@ -6,12 +6,12 @@ import 'dart:convert';
 
 class Shipment {
     int shipmentId;
-    String waybillNo;
+    String ?waybillNo;
     DateTime ?shipmentDate;
     String ?carrier;
     String ?trackingNo;
-    String state;
-    String senderName;
+    String ?state;
+    String ?senderName;
     String ?senderErpId;
     List<Product> products;
 
