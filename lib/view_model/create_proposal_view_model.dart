@@ -23,8 +23,8 @@ final createProposalProvider =
     _productsAttributes['$i'] = {
       "category_name": _formItems[i].category.toString(),
       "name": _formItems[i].product.toString(),
-      "description": "High Quality",
       "requester_amount": _formItems[i].amount,
+      "unit": "Adet",
     };
   }
   Map<String, dynamic> data = {
