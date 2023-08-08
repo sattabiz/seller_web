@@ -6,10 +6,12 @@ import 'create_order_button.dart';
 class ButtonWidget extends StatelessWidget {
   final String className;
   final String status;
+  final String? id;
   const ButtonWidget({ 
     Key? key,
     required this.className,
     required this.status,
+    this.id,
   }) : super(key: key);
 
   bool orderButtonBool () {
@@ -26,7 +28,7 @@ class ButtonWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           orderButtonBool()
-          ? CreateOrderButton(className: className)
+          ? CreateOrderButton(className: className, id: id)
           : const SizedBox(),
 
           const SizedBox(width: 10.0),
