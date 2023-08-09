@@ -17,6 +17,7 @@ import '../widget/small_card/small_card.dart';
 
 class invoiceView extends ConsumerWidget {
   const invoiceView({Key? key}) : super(key: key);
+  final String className = 'invoice';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,38 +25,56 @@ class invoiceView extends ConsumerWidget {
 
     return invoiceListAsyncValue.when(
       data: (invoiceList) {
-        return LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            if (constraints.maxWidth <= 1100) {
-              return Scaffold(
-                appBar: const AppbarTop(), //appbar
-                body: Row(
-                  children: [
-                    const NavigationRailWidget(),
-                    Expanded(child: buildBody(invoiceList, context, FlutterI18n.translate(context, "tr.invoice.invoices"), "invoice")),
-                  ],
-                ),
-              );
-            } else {
-              return Scaffold(
-                appBar: const AppbarTop(), // appbar
-                body: SafeArea(
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        flex: 3,
-                        child: NavigationRailDrawer(), //drawer
-                      ),
-                      Expanded(
-                        flex: 10,
-                        child: buildBody(invoiceList, context, FlutterI18n.translate(context, "tr.invoice.invoices"), "invoice"), //order screen body
-                      ),
-                    ],
+        return Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Visibility(
+                    visible: constraints.maxHeight > 300,
+                    child: allMainPageContent(
+                      topic: FlutterI18n.translate(context, 'tr.invoice.invoices')
+                    ),
                   ),
-                ),
+                  Flexible(
+                    child: StaggeredGridView.countBuilder(
+                      crossAxisCount: getCrossAxisCount(constraints),
+                      mainAxisSpacing: 3,
+                      crossAxisSpacing: 3,
+                      itemCount: invoiceList.length,
+                      staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
+                      itemBuilder: (context, index) {
+                        return SmallCard(
+                          index: index,
+                          id: invoiceList[index].invoiceId.toString(),
+                          className: className,
+                          status: invoiceList[index].state.toString(),
+                          headerDate: invoiceList[index].invoiceDate.toString(),
+                          bodyHeader: 'Fatura No: ${invoiceList[index].invoiceNo.toString()}',
+                          bodyList: invoiceList[index].products!,
+                          infoWidget: InfoInvoice(
+                            invoiceNo: invoiceList[index].invoiceNo.toString(), 
+                            invoiceDate: invoiceList[index].invoiceDate.toString(),
+                            paymentType: invoiceList[index].paymentType.toString(), 
+                            orderId: invoiceList[index].orderId.toString(), 
+                            className: className),
+                          bigCardButtons: 
+                          invoiceList[index].state.toString() == 'invoice_pending'
+                          ? ButtonWidget(
+                              className: className,
+                              status: invoiceList[index].state.toString(),
+                            )
+                          : const SizedBox(height: 20),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               );
-            }
-          },
+            },
+          ),
         );
       },
       loading: () => const LoadingWidget(),

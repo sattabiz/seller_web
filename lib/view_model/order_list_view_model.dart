@@ -27,7 +27,6 @@ final getOrderListProvider =
         .map((e) => GetOrderlistModel.fromMap(e))
         .toList();
   }
-  
   return _orderList;
 });
 

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seller_point/view/proposal_view/proposal_view.dart';
-
+import 'package:seller_point/view/index.dart';
 import '../../../view_model/buyer_invoices_view_model.dart';
 import '../../../view_model/current_user_view_model.dart';
 import '../../../view_model/login_view_model.dart';
@@ -13,17 +12,12 @@ import '../../landing_view/landing_view.dart';
 
 class loginCard extends ConsumerWidget {
   loginCard({Key? key}) : super(key: key);
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // double screenWidth =
-    //     MediaQuery.of(context).size.width; //for loginCard width
-    // double screenHeight =
-    //     MediaQuery.of(context).size.height; //for loginCard height
-
     return SingleChildScrollView(
       child: Card(
         color: Theme.of(context).colorScheme.surface,
@@ -190,9 +184,8 @@ class loginCard extends ConsumerWidget {
                               Navigator.pushReplacement(
                                 context,
                                 PageRouteBuilder(
-                                  pageBuilder: (context, animation1, animation2) => proposalView(),
+                                  pageBuilder: (context, animation1, animation2) => Index(),
                                   transitionDuration: const Duration(seconds: 0),
-                                  settings: RouteSettings(name: '/proposal'),
                                 ) 
                               );
                             } else if (loginState == LoginState.failure) {
@@ -254,12 +247,10 @@ class loginCard extends ConsumerWidget {
                             ref.refresh(getOrderListProvider);
                             ref.refresh(shipmentProvider);
                             await ref.read(getCurrentUserInfoProvider);
-                            await Navigator.pushReplacement(
-                              context,
+                            await Navigator.pushReplacement(context,
                               PageRouteBuilder(
-                                pageBuilder: (context, animation1, animation2) => proposalView(),
+                                pageBuilder: (context, animation1, animation2) => Index(),
                                 transitionDuration: const Duration(seconds: 0),
-                                settings: RouteSettings(name: '/proposal'),
                               ) 
                             );
                           } else if (loginState == LoginState.failure) {

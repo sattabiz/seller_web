@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config/api_url.dart';
 import '../model/get_proposals_by_state.dart';
@@ -9,7 +10,7 @@ import 'order_list_view_model.dart';
 final getProposalListProvider =
     FutureProvider.autoDispose<List<GetProposalModel>>((ref) async {
   final apiService = ApiService();
-  //debugPrint('provider calisti');
+
   Response response;
   final _companyIdAsyncValue = await CompanyIdStorageLandingService().getCompanyIdData();
 
@@ -30,6 +31,5 @@ final getProposalListProvider =
         .map((e) => GetProposalModel.fromMap(e))
         .toList();
   }
-  //debugPrint(_proposalList.toString());
   return _proposalList;
 });
