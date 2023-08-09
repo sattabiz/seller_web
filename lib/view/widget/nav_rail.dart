@@ -1,76 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../view_model/buyer_invoices_view_model.dart';
-import '../../view_model/order_list_view_model.dart';
-import '../../view_model/proposal_view_model.dart';
-import '../../view_model/provider_controller.dart';
-import '../../view_model/shipment_view_model.dart';
 import '../create_proposal_view/create_proposal_view.dart';
 import '../favorite_list_view/navigation_rail_favorite.dart';
 import '../favorite_list_view/navigation_rail_favorite_content.dart';
 import 'nav_drawer_header_button.dart';
 
 class NavigationRailWidget extends ConsumerStatefulWidget {
-  const NavigationRailWidget({Key? key}) : super(key: key);
+  final void Function(int index) onItemTap;
+  final int screenIndex;
+  const NavigationRailWidget(
+    {Key? key,
+    required this.onItemTap,
+    required this.screenIndex,
+    }) : super(key: key);
 
   @override
-  _NavigationRailWidgetState createState() => _NavigationRailWidgetState();
+ ConsumerState<ConsumerStatefulWidget> createState() => _NavigationRailWidgetState();
 }
 
 class _NavigationRailWidgetState extends ConsumerState<NavigationRailWidget> {
-  int currentIndex = 0;
-  final _routes = [
-    '/proposalScreen',
-    '/orderScreen',
-    '/shipmentScreen',
-    '/invoiceScreen'
-  ];
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final routeName = ModalRoute.of(context)!.settings.name;
-    if (routeName == '/proposalScreen') {
-      currentIndex = 0;
-    } else if (routeName == '/orderScreen') {
-      currentIndex = 1;
-    } else if (routeName == '/shipmentScreen') {
-      currentIndex = 2;
-    } else if (routeName == '/invoiceScreen') {
-      currentIndex = 3;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+    // final newValue = ref.refresh(provider);
+
     return NavigationRail(
       backgroundColor: Colors.transparent,
-      selectedIndex: currentIndex,
+      selectedIndex: widget.screenIndex,
       groupAlignment: 0,
       labelType: NavigationRailLabelType.all,
-      onDestinationSelected: (int index) {
-        setState(() {
-          currentIndex = index;
-          if(index == 0){
-            ref.refresh(getProposalListProvider);
-            ref.read(getProposalListProvider.future);
-          }else if(index == 1){
-            ref.refresh(getOrderListProvider);
-            ref.read(getOrderListProvider.future);
-          }else if(index == 2){
-            ref.refresh(shipmentProvider);
-            ref.read(shipmentProvider.future);
-          }else if(index == 3){
-            ref.refresh(getInvoicesProvider);
-            ref.read(getInvoicesProvider.future);
-          }
-          currentIndex = index;
-        });
-        Navigator.pushNamed(context, _routes[index]);
-      },
+      onDestinationSelected: widget.onItemTap,
       leading: FloatingActionButton(
         elevation: 0,
         onPressed: () {

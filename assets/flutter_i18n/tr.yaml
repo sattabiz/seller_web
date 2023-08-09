@@ -39,6 +39,9 @@ tr:
     infoRow1: "Teklif Tarihi"
     infoRow2: "Termin"
     infoRow5: "Teslim Süresi"
+    create_proposal_header: "Kayıtlı Ürün Listesi"
+    update_btn: "Güncelle"
+    big_card_header: "Teklif No:"
   order:
     orders: "Siparişler"
     order_pending: "Teklif İstendi"  
@@ -69,6 +72,7 @@ tr:
     infoRow1: "Sipariş Tarihi"
     infoRow2: "Teslim Tarihi"
     infoRow5: "Teklif No"
+    big_card_header: "Sipariş No:"
   shipment: 
     shipments: "Sevkiyatlar"
     order_on_the_way: "Yoldaki Sevkiyat"
@@ -86,6 +90,7 @@ tr:
     infoRow1: "Sipariş Tarihi"
     infoRow2: "Teslim Tarihi"
     infoRow5: "Teklif No"
+    big_card_header: "Sipariş No:"
     header_shipment:
       order_on_the_way: "Sevk Tarihi: "
       order_prepared: "Sipariş No: "
@@ -99,4 +104,5 @@ tr:
     price: "Fiyat"
     invoice_date: 'Fatura Tarihi: '
     create_order_btn: "Onay"
+    big_card_header: "Fatura Tarihi:"
 

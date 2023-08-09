@@ -17,7 +17,7 @@ class InvoiceTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const surfaceDim = Color(0xFFD8DBD8);
+    debugPrint('invoiceProductList: $invoiceProductList.shippedAmount');
     
     return DataTable2(
       columnSpacing: 5,
@@ -48,7 +48,7 @@ class InvoiceTable extends StatelessWidget {
         ),
         DataColumn2(
           label: Text(FlutterI18n.translate(context, "tr.order.amount")),
-          size: ColumnSize.S,
+          size: ColumnSize.M,
         ),
         DataColumn2(
           label: Text(FlutterI18n.translate(context, "tr.order.price")),
@@ -82,7 +82,8 @@ class InvoiceTable extends StatelessWidget {
                 ),
                 DataCell(
                   Text(
-                    calcuteAmount(item.shippedAmount.toString(), item.price.toString()),
+                  item.price.toString() == 'null' ? '-' 
+                  : calcuteAmount(item.shippedAmount.toString(), item.price.toString()),
                     textDirection: TextDirection.rtl,
                   )
                 ),

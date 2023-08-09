@@ -12,7 +12,7 @@ String shipmentToMap(Shipment data) => json.encode(data.toMap());
 class Shipment {
     final int? shipmentId;
     final String? waybillNo;
-    final DateTime? shipmentDate;
+    final String? shipmentDate;
     final String? carrier;
     final String? trackingNo;
     final String? state;
