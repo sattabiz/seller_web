@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info.dart';
 import '../../utils/widget_helper.dart';
+import '../../view_model/create_order_view_model.dart';
 import '../../view_model/proposal_view_model.dart';
+import '../../view_model/provider_controller.dart';
 import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/big_card /info/info_box.dart';
 import '../widget/loading_widget.dart';
@@ -54,6 +56,11 @@ class ProposalView extends ConsumerWidget {
                           bigCardButtons: ButtonWidget(
                             className: className,
                             status: proposalList[index].proposalState.toString(),
+                            onPressed: () async {
+                              ref.read(proposalIndexProvider.notifier).state=index;
+                              await ref.watch(createOrderProvider);
+                              Navigator.pop(context);
+                            },
                           ),
                           infoBoxWidget: InfoBox(
                             className: className,

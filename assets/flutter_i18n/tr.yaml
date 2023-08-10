@@ -86,7 +86,7 @@ tr:
     row_1: "Nakliye"
     row_2: "Takip No"
     row_3: "Adres"
-    create_order_btn: "Sipariş Et"
+    create_order_btn: "Teslim Al"
     infoRow1: "Sipariş Tarihi"
     infoRow2: "Teslim Tarihi"
     infoRow5: "Teklif No"

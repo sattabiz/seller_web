@@ -17,5 +17,6 @@ class ApiUrls{
   static const String userInfo = "$baseUrl/current_user_info.json";
   static const String createProposal = "$baseUrl/demand_proposal_sp.json";
   static const String createOrder = "$baseUrl/create_order_by_proposal_sp.json";
+  static const String shipmentDelivered = "$baseUrl/shipment_delivered.json";
   static const String webContent = "$baseUrl/seller_point_web_content.json";
 }
