@@ -3,6 +3,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../view_model/create_order_view_model.dart';
+import '../../../../view_model/proposal_view_model.dart';
 import '../../../../view_model/provider_controller.dart';
 import '../../../order_view/order_view.dart';
 
@@ -25,14 +26,7 @@ class CreateOrderButton extends ConsumerWidget {
       onPressed: () async{
         await ref.watch(createOrderProvider);
         ref.read(drawerCountProvider.notifier).state = 1;
-        Navigator.pushReplacement(
-          context, 
-          PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) => OrderView(),
-            transitionDuration: const Duration(seconds: 0),
-            settings: RouteSettings(name: '/order', arguments: OrderView())
-          ), 
-        );
+        Navigator.pop(context);
       }, 
       child: Text(
         FlutterI18n.translate(context, "tr.$className.create_order_btn"),
