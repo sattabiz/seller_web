@@ -17,7 +17,7 @@ class InvoiceTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('invoiceProductList: $invoiceProductList.shippedAmount');
+    //debugPrint('invoiceProductList: $invoiceProductList.shippedAmount');
     
     return DataTable2(
       columnSpacing: 5,

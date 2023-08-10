@@ -60,7 +60,7 @@ class AuthenticationService {
       } else {
         throw Exception("Logout failed with status: ${response.statusCode}");
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw Exception(
           "Request failed with status: ${e.response?.statusCode}, ${e.response?.statusMessage}");
     } catch (e) {

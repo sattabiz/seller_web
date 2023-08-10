@@ -16,13 +16,12 @@ final shipmentProvider = FutureProvider.autoDispose<List<Shipment>>((ref) async 
   } catch (error) {
     if (error is DioException) {
       if (error.response?.statusCode != 200) {
-        debugPrint(error.response!.statusCode.toString());
+        //debugPrint(error.response!.statusCode.toString());
         ref.read(navigatorKeyProvider).currentState!.pushNamed("/login");
       }
     }
     rethrow;
   }
-  debugPrint(response.data.toString());
   List<Shipment> _shipmentList = [];
   if (response.data['shipments'] != null) {
     _shipmentList = (response.data['shipments'] as List)

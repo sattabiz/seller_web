@@ -24,7 +24,7 @@ class LoginViewModel extends StateNotifier<LoginState> {
     try {
       _loginModel = await autService.loginCall(email: email, password: password);
       if (_loginModel!.status == 200) {
-        state = LoginState.success;;
+        state = LoginState.success;
       } else {
         state = LoginState.failure;
         _errorMessage = 'Hatalı durum kodu: ${_loginModel!.status}';
