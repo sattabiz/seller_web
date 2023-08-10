@@ -10,10 +10,12 @@ import '../../../order_view/order_view.dart';
 class CreateOrderButton extends ConsumerWidget {
   final String className;
   final String? id;
+  final void Function()? onPressed;
   const CreateOrderButton({ 
     Key? key,
     required this.className,
     this.id,
+    this.onPressed
     }) : super(key: key);
 
   @override
@@ -23,11 +25,12 @@ class CreateOrderButton extends ConsumerWidget {
         backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
         fixedSize: const MaterialStatePropertyAll(Size(140, 40))
       ),
-      onPressed: () async{
+      onPressed: /* () async{
         await ref.watch(createOrderProvider);
         ref.read(drawerCountProvider.notifier).state = 1;
         Navigator.pop(context);
-      }, 
+      },  */
+      onPressed,
       child: Text(
         FlutterI18n.translate(context, "tr.$className.create_order_btn"),
         style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),

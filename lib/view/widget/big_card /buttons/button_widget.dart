@@ -7,11 +7,13 @@ class ButtonWidget extends StatelessWidget {
   final String className;
   final String status;
   final String? id;
+  final void Function()? onPressed;
   const ButtonWidget({ 
     Key? key,
     required this.className,
     required this.status,
     this.id,
+    this.onPressed
   }) : super(key: key);
 
   bool orderButtonBool () {
@@ -28,7 +30,7 @@ class ButtonWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           orderButtonBool()
-          ? CreateOrderButton(className: className, id: id)
+          ? CreateOrderButton(className: className, id: id, onPressed: onPressed,)
           : const SizedBox(),
 
           const SizedBox(width: 10.0),

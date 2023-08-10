@@ -145,7 +145,7 @@ class Product {
         this.description,
         this.amount,
         this.unit,
-        required this.price,
+        this.price,
         this.currencyCode,
         this.erpId,
         this.productErpId,
@@ -159,7 +159,7 @@ class Product {
     String ?description;
     double ?amount;
     String ?unit;
-    double price;
+    double ?price;
     String ?currencyCode;
     String ?erpId;
     String ?productErpId;

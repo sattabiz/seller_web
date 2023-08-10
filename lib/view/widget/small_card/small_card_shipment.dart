@@ -3,6 +3,8 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../utils/widget_helper.dart';
+import '../../../view_model/shipment_delivered_view_model.dart';
+import '../../../view_model/provider_controller.dart';
 import '../big_card /big_card.dart';
 import '../big_card /buttons/button_widget.dart';
 import 'body/body_header.dart';
@@ -21,6 +23,7 @@ class BoolNotifier extends StateNotifier<bool> {
 
 final boolProvider =
     StateNotifierProvider<BoolNotifier, bool>((ref) => BoolNotifier());
+    final shipmentIndexProvider = StateProvider<String?>((ref) => '');
 
 const String newMessage = 'assets/newMessage.svg';
 final Widget newMessageSvg = SvgPicture.asset(
@@ -76,6 +79,7 @@ class SmallCardShipment extends ConsumerWidget {
           color: Theme.of(context).colorScheme.surface,
           child: InkWell(
             onTap: () {
+              ref.read(shipmentIndexProvider.notifier).state=id;
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -94,6 +98,11 @@ class SmallCardShipment extends ConsumerWidget {
                             buttons: ButtonWidget(
                               className: className,
                               status: status,
+                              onPressed: () async {
+                              await ref.watch(shipmentDeliveredProvider);
+                              ref.read(drawerCountProvider.notifier).state = 1;
+                              Navigator.pop(context);
+                            },
                             ),
                             tableList: bodyList),
                       );
