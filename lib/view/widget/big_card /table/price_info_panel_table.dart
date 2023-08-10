@@ -2,13 +2,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
-class ProposalSumPanel extends StatelessWidget {
+class PriceInfoPanel extends StatelessWidget {
   final String className;
   final String ?row1;
   final String ?row2;
   final String ?row3;
 
-const ProposalSumPanel({ 
+const PriceInfoPanel({ 
   Key? key, 
   required this.className, 
   this.row1, 
@@ -75,7 +75,7 @@ const ProposalSumPanel({
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8), //padding between elements in row
+                    const SizedBox(width: 15), //padding between elements in row
                     Expanded(
                       flex: 2,
                       child: Text(
@@ -84,7 +84,7 @@ const ProposalSumPanel({
                         style: Theme.of(context).textTheme.bodySmall,
                         textDirection: TextDirection.ltr,
                         maxLines: 1,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                       ),
                     ),
                   ],
@@ -107,7 +107,7 @@ const ProposalSumPanel({
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8), //padding between elements in row
+                    const SizedBox(width: 15), //padding between elements in row
                     Expanded(
                       flex: 2,
                       child: Text(
@@ -116,7 +116,7 @@ const ProposalSumPanel({
                         style: Theme.of(context).textTheme.bodySmall,
                         textDirection: TextDirection.ltr,
                         maxLines: 1,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                       ),
                     ),
                   ],
@@ -139,7 +139,7 @@ const ProposalSumPanel({
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8), //padding between elements in row
+                    const SizedBox(width: 15), //padding between elements in row
                     Expanded(
                       flex: 2,
                       child: Text(
@@ -148,7 +148,7 @@ const ProposalSumPanel({
                         style: Theme.of(context).textTheme.bodySmall,
                         textDirection: TextDirection.ltr,
                         maxLines: 1,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                       ),
                     ),
                   ],
