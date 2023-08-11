@@ -39,6 +39,12 @@ tr:
     infoRow1: "Teklif Tarihi"
     infoRow2: "Termin"
     infoRow5: "Teslim Süresi"
+
+  proposal_sum:
+    row_t: "Tutar: "
+    row_tx: "KDV(%20): "
+    row_s: "Toplam: "  
+
   order:
     orders: "Siparişler"
     order_pending: "Teklif İstendi"  

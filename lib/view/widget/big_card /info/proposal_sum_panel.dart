@@ -67,7 +67,7 @@ const ProposalSumPanel({
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10.0),
                         child: Text(
-                          FlutterI18n.translate(context, "Tutar: "),
+                          FlutterI18n.translate(context, "tr.proposal_sum.row_t"),
                           style: Theme.of(context).textTheme.bodySmall,
                           textDirection: TextDirection.ltr,
                           maxLines: 1,
@@ -75,12 +75,12 @@ const ProposalSumPanel({
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8), //padding between elements in row
+                    const SizedBox(width: 8), 
                     Expanded(
                       flex: 2,
                       child: Text(
-                        "paletfiyat*200",
-                        /* row1! */
+                        /* "paletfiyat*200" */
+                        row1!,
                         style: Theme.of(context).textTheme.bodySmall,
                         textDirection: TextDirection.ltr,
                         maxLines: 1,
@@ -99,7 +99,7 @@ const ProposalSumPanel({
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10.0),
                         child: Text(
-                          FlutterI18n.translate(context, "KDV(%20): "),
+                          FlutterI18n.translate(context, "tr.proposal_sum.row_tx"),
                           style: Theme.of(context).textTheme.bodySmall,
                           textDirection: TextDirection.ltr, 
                           maxLines: 1,
@@ -107,12 +107,12 @@ const ProposalSumPanel({
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8), //padding between elements in row
+                    const SizedBox(width: 8), 
                     Expanded(
                       flex: 2,
                       child: Text(
-                        "kdv*Tutar",
-                        /* row1! */
+                        /* "kdv*Tutar", */
+                        row2!,
                         style: Theme.of(context).textTheme.bodySmall,
                         textDirection: TextDirection.ltr,
                         maxLines: 1,
@@ -131,7 +131,7 @@ const ProposalSumPanel({
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10.0),
                         child: Text(
-                          FlutterI18n.translate(context, "Toplam: "),
+                          FlutterI18n.translate(context, "tr.proposal_sum.row_s"),
                           style: Theme.of(context).textTheme.bodySmall,
                           textDirection: TextDirection.ltr,
                           maxLines: 1,
@@ -139,12 +139,12 @@ const ProposalSumPanel({
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8), //padding between elements in row
+                    const SizedBox(width: 8), 
                     Expanded(
                       flex: 2,
                       child: Text(
-                        "Tutar+KDV",
-                        /* row1! */
+                        /* "Tutar+KDV", */
+                        row3!,
                         style: Theme.of(context).textTheme.bodySmall,
                         textDirection: TextDirection.ltr,
                         maxLines: 1,

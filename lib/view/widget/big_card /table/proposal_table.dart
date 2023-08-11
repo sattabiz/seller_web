@@ -14,6 +14,9 @@ class ProposalTable extends StatelessWidget {
     required this.productsProposalList,
     required this.className
     });
+    
+    
+  
 
   @override
   Widget build(BuildContext context) {    
@@ -150,9 +153,9 @@ class ProposalTable extends StatelessWidget {
               padding: const EdgeInsets.all(0),
               child: ProposalSumPanel(
                 className: className,
-                row1: "$FlutterI18n.translate(context, 'tr.order.proposal')",
-                row2: "$FlutterI18n.translate(context, 'tr.order.proposal')",
-                row3: "$FlutterI18n.translate(context, 'tr.order.proposal')"
+                row1: costCalc(productsProposalList,"raw_cost"),
+                row2: costCalc(productsProposalList,"tax_amount",taxRate: 20),
+                row3: costCalc(productsProposalList,"total_cost"),/* "$FlutterI18n.translate(context, 'tr.order.proposal')" */ 
       
               )
             ),
