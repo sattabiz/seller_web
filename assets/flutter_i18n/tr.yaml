@@ -85,7 +85,7 @@ tr:
   shipment: 
     shipments: "Sevkiyatlar"
     order_on_the_way: "Yoldaki Sevkiyat"
-    order_prepared: "Hazırlanıyor"
+    order_prepared: "Hazır"
     shipment_date: "Sevkiyat Tarihi: "
     shipped_date: "Sevk Tarihi: "
     date: "Tarih: "
@@ -106,10 +106,11 @@ tr:
     
   invoice:
     invoices: "Faturalar"
-    invoice_paid: "Ödendi"
-    invoice_discounted: 'Ödeniyor'
+    invoice_goods_delivered: "Onay Bekliyor"
+    invoice_discounted: 'Ödendi'
     invoice_approved_dbs: "DBS Fatura"
-    invoice_pending: "Onay Bekliyor"
+    invoice_collecting: "Ödeniyor"
+    invoice_approved: "Açık Fatura"
     price: "Fiyat"
     invoice_date: 'Fatura Tarihi: '
     create_order_btn: "Onay"
