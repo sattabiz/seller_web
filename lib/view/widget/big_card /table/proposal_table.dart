@@ -14,26 +14,31 @@ class ProposalTable extends StatelessWidget {
     required this.productsProposalList,
     required this.className
     });
-    
-    
-  
+
 
   @override
   Widget build(BuildContext context) {    
     return Stack(
       children: [
-        Container(
+        Container(  
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surfaceVariant,
             borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
+            /* boxShadow: const [
               BoxShadow(
                 color: Colors.black12,
                 offset: Offset(0, 2),
                 blurRadius: 4.0,
               ),
-            ],
+            ], */
           ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 30.0,),
+            child: Container(
+              color: Theme.of(context).colorScheme.onPrimary,
+              height: MediaQuery.of(context).size.height/5.4,
+            )
           ),
           Column(
         children: [
@@ -47,10 +52,14 @@ class ProposalTable extends StatelessWidget {
               headingRowHeight: 30,
               smRatio: 0.3,
               lmRatio: 1.2,
+              dividerThickness: 0,
               headingTextStyle: Theme.of(context).textTheme.labelMedium,
               dataTextStyle: Theme.of(context).textTheme.bodyMedium,
-              dataRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.onPrimary),
+              dataRowColor: MaterialStateProperty.all<Color>(Colors.transparent),
               headingRowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+              /* decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ), */
               columns: [
                 const DataColumn2(
                   label: Text(
@@ -154,7 +163,7 @@ class ProposalTable extends StatelessWidget {
               child: ProposalSumPanel(
                 className: className,
                 row1: costCalc(productsProposalList,"raw_cost"),
-                row2: costCalc(productsProposalList,"tax_amount",taxRate: 20),
+                row2: costCalc(productsProposalList,"tax_amount"),
                 row3: costCalc(productsProposalList,"total_cost"),/* "$FlutterI18n.translate(context, 'tr.order.proposal')" */ 
       
               )
@@ -167,4 +176,6 @@ class ProposalTable extends StatelessWidget {
     );
     
   }
+  
+  
 }

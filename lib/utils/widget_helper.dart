@@ -1,6 +1,4 @@
 
-import 'dart:html';
-
 Map<String, String> statusIconMap = {
     'pending': 'assets/proposal_pending.svg',
     'replied': 'assets/exportNotes.svg',
@@ -45,11 +43,12 @@ String truncateToTwoWords(String text) {
 }
 
 
-String costCalc(List<dynamic> productsProposalList,String className,{double taxRate = 18.3}) {
+String costCalc(List<dynamic> productsProposalList,String caseName) {
 
   late int itemAmount;
   late double itemPrice;
   late double itemRawCost;
+  late double taxRateParameter;
 
   double allItemsRawCost = 0;
   late double taxAmount;
@@ -61,18 +60,19 @@ for (var item in productsProposalList) {
 
   if (item.currencyCode != null && currencyCode == "empty") {
     currencyCode = item.currencyCode.toString();
+    taxRateParameter = item.taxRate ?? 20.00;
   } 
   
   itemAmount = item.amount ?? 0; 
-  itemPrice = item.price ?? 1; //price is null for now !
+  itemPrice = item.price ?? 1; 
 
   itemRawCost = itemAmount*itemPrice;
   allItemsRawCost += itemRawCost;
   }
-  taxAmount = allItemsRawCost * (taxRate/100);
+  taxAmount = allItemsRawCost * (taxRateParameter/100);
   allItemsTotalCost = allItemsRawCost + taxAmount;
 
-  switch (className) {
+  switch (caseName) {
     case "raw_cost":
       return '${allItemsRawCost.toStringAsFixed(2)} $currencyCode';  
     case "tax_amount":
@@ -83,10 +83,10 @@ for (var item in productsProposalList) {
       return '--';
 
 
-  /* return '$allItemsRawCost $currencyCode';  */ 
-
 
 }
+  /* return '$allItemsRawCost $currencyCode';  */ 
+
 
 
 
