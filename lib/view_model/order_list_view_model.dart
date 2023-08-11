@@ -4,13 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config/api_url.dart';
 import '../model/get_order_list_model.dart';
 import '../service/get_services.dart';
+import '../storage/current_user_storage.dart';
 
 final getOrderListProvider =
     FutureProvider.autoDispose<List<GetOrderlistModel>>((ref) async {
   final apiService = ApiService();
+  final _companyIdAsyncValue = await CompanyIdStorageLandingService().getCompanyIdData();
   Response response;
   try {
-    response = await apiService.get(url: ApiUrls.order);
+    response = await apiService.get(url: ApiUrls.order(_companyIdAsyncValue));
   } catch (e) {
     if (e is DioException) {
       if (e.response?.statusCode != 200) {
@@ -25,7 +27,6 @@ final getOrderListProvider =
         .map((e) => GetOrderlistModel.fromMap(e))
         .toList();
   }
-
   return _orderList;
 });
 

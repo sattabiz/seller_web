@@ -144,8 +144,8 @@ class Product {
         this.categoryErpId,
         this.description,
         this.amount,
-        required this.unit,
-        required this.price,
+        this.unit,
+        this.price,
         this.currencyCode,
         this.erpId,
         this.productErpId,
@@ -158,8 +158,8 @@ class Product {
     String ?categoryErpId;
     String ?description;
     double ?amount;
-    String unit;
-    double price;
+    String ?unit;
+    double ?price;
     String ?currencyCode;
     String ?erpId;
     String ?productErpId;

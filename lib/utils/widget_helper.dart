@@ -21,13 +21,18 @@ Map<String, String> statusIconMap = {
 
   // formating dateTime
   String formattedDate(String date) {
+    if (date == 'null') {
+      return '-';
+    }
+    else {
     final DateTime parsedDate = DateTime.parse(date);
     return "${parsedDate.year}-${parsedDate.month.toString().padLeft(2, '0')}-${parsedDate.day.toString().padLeft(2, '0')}";
+    }
   }
   
   // calculate amount for big card table
   String calcuteAmount(String amount, String price) {
-    return (int.parse(amount) * int.parse(price)).toString();
+    return (double.parse(amount) * double.parse(price)).toString();
   }
 
 String truncateToTwoWords(String text) {
@@ -38,6 +43,7 @@ String truncateToTwoWords(String text) {
   }
   return text;
 }
+
 
 String costCalc(List<dynamic> productsProposalList,String className,{double taxRate = 18.3}) {
 

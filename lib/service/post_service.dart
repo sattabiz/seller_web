@@ -22,7 +22,6 @@ class PostService {
     
     if (response.statusCode == 200) {
       // If the server returns a 200 OK response, then parse the JSON.
-      debugPrint('Response Data: ${response.data}');
       return response;
     } else {
       // If the server did not return a 200 OK response, then throw an exception.

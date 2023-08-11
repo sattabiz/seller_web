@@ -18,7 +18,7 @@ class OfferModel {
         patmentDueDate = 30;
 }
 
-final offerModelProvider = Provider<OfferModel>((ref) => OfferModel());
+final offerModelProvider = Provider.autoDispose<OfferModel>((ref) => OfferModel());
 
 class createProposalViewContent extends ConsumerWidget {
   final String topic;
@@ -214,7 +214,7 @@ class createProposalViewContent extends ConsumerWidget {
                 ),
                 onSelected: (value) {
                   offerModel.patmentDueDate = value ?? 30;
-                  debugPrint(offerModel.includeShipmentCost.toString());
+                  //debugPrint(offerModel.includeShipmentCost.toString());
                   value = ref.read(offerModelProvider).patmentDueDate;
                 },
                 dropdownMenuEntries: dropDownMenuDate,
@@ -251,7 +251,7 @@ class createProposalViewContent extends ConsumerWidget {
                 ),
                 onSelected: (bool? value) {
                   offerModel.includeShipmentCost = value ?? false;
-                  debugPrint(offerModel.includeShipmentCost.toString());
+                  //debugPrint(offerModel.includeShipmentCost.toString());
                   value = ref.read(offerModelProvider).includeShipmentCost;
                 },
                 dropdownMenuEntries: <bool>[true, false]

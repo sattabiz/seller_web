@@ -37,7 +37,6 @@ class BigCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     Map<String, Widget> tableListMap= {
@@ -57,7 +56,7 @@ class BigCard extends ConsumerWidget {
       ),
       child: Column(
         children: [
-          Header(id: id, statusMap: statusMap ?? '-', svgPath: svgPath),  // header sonu
+          Header(id: id, statusMap: statusMap ?? '-', svgPath: svgPath, className: className,),  // header sonu
           Expanded(
             flex: 11,                    //body
             child: Row(

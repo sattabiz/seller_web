@@ -40,10 +40,16 @@ tr:
     infoRow2: "Termin"
     infoRow5: "Teslim Süresi"
 
+
   proposal_sum:
     row_t: "Tutar: "
     row_tx: "KDV(%20): "
     row_s: "Toplam: "  
+
+
+    create_proposal_header: "Kayıtlı Ürün Listesi"
+    update_btn: "Güncelle"
+    big_card_header: "Teklif No:"
 
   order:
     orders: "Siparişler"
@@ -75,10 +81,11 @@ tr:
     infoRow1: "Sipariş Tarihi"
     infoRow2: "Teslim Tarihi"
     infoRow5: "Teklif No"
+    big_card_header: "Sipariş No:"
   shipment: 
     shipments: "Sevkiyatlar"
     order_on_the_way: "Yoldaki Sevkiyat"
-    delivered: "Hazır"
+    order_prepared: "Hazırlanıyor"
     shipment_date: "Sevkiyat Tarihi: "
     shipped_date: "Sevk Tarihi: "
     date: "Tarih: "
@@ -88,13 +95,14 @@ tr:
     row_1: "Nakliye"
     row_2: "Takip No"
     row_3: "Adres"
-    create_order_btn: "Sipariş Et"
+    create_order_btn: "Teslim Al"
     infoRow1: "Sipariş Tarihi"
     infoRow2: "Teslim Tarihi"
     infoRow5: "Teklif No"
+    big_card_header: "Sipariş No:"
     header_shipment:
       order_on_the_way: "Sevk Tarihi: "
-      delivered: "Sipariş No: "
+      order_prepared: "Sipariş No: "
     
   invoice:
     invoices: "Faturalar"
@@ -105,4 +113,5 @@ tr:
     price: "Fiyat"
     invoice_date: 'Fatura Tarihi: '
     create_order_btn: "Onay"
+    big_card_header: "Fatura Tarihi:"
 
