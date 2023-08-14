@@ -1,28 +1,28 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seller_point/view_model/shipment_view_model.dart';
 
 import '../config/api_url.dart';
 import '../service/post_service.dart';
-import '../view/widget/small_card/small_card_shipment.dart';
+import '../view/widget/small_card/small_card.dart';
+import 'buyer_invoices_view_model.dart';
 import 'order_list_view_model.dart';
 
 final shipmentDeliveredProvider = FutureProvider.autoDispose((ref) async {
   final apiService = PostService();
   Response response;
-  final shipmentIdValue = ref.watch(shipmentIndexProvider);
+  final invoiceIdValue = ref.watch(idProvider);
 
-  Map<String, dynamic> _shipmentAttributes = {};
-  if(shipmentIdValue != null) {
-      _shipmentAttributes = {
-        "shipment_id":shipmentIdValue
+  Map<String, dynamic> _invoiceAttributes = {};
+  if(invoiceIdValue != null) {
+      _invoiceAttributes = {
+        "invoice_id":invoiceIdValue
       };
   }
   try {
-    response = await apiService.post(url: ApiUrls.shipmentDelivered, data: _shipmentAttributes);
-    await ref.refresh(shipmentProvider);
-            ref.read(shipmentProvider.future);
+    response = await apiService.post(url: ApiUrls.invoiceApproved, data: _invoiceAttributes);
+    await ref.refresh(getInvoicesProvider);
+            ref.read(getInvoicesProvider.future);
   } catch (e) {
     if (e is DioException) {
       if (e.response?.statusCode != 200) {
@@ -31,7 +31,6 @@ final shipmentDeliveredProvider = FutureProvider.autoDispose((ref) async {
     }
     rethrow;
   }
-
 
   return response.statusCode;
 });

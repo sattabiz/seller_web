@@ -6,6 +6,7 @@ import 'package:seller_point/view/widget/big_card%20/info/info_invoice.dart';
 
 import '../../model/get_buyer_invoices_list_model.dart';
 import '../../view_model/buyer_invoices_view_model.dart';
+import '../../view_model/invoice_approved_view_model.dart';
 import '../widget/appbar.dart';
 import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/loading_widget.dart';
@@ -61,10 +62,15 @@ class invoiceView extends ConsumerWidget {
                             orderId: invoiceList[index].orderId.toString(), 
                             className: className),
                           bigCardButtons: 
-                          invoiceList[index].state.toString() == 'invoice_pending'
+                          invoiceList[index].state.toString() == 'invoice_goods_delivered' //degistirdim 
                           ? ButtonWidget(
                               className: className,
                               status: invoiceList[index].state.toString(),
+                              onPressed: () async{
+                                ref.read(idProvider.notifier).state=invoiceList[index].invoiceId.toString();
+                                ref.watch(shipmentDeliveredProvider);
+                                Navigator.pop(context);
+                              },
                             )
                           : const SizedBox(height: 20),
                         );
