@@ -17,7 +17,7 @@ class ButtonWidget extends StatelessWidget {
   }) : super(key: key);
 
   bool orderButtonBool () {
-    return status == 'replied' || status == 'last_offer' || status == 'proposal_stvs'|| status == 'invoice_pending' || (className == 'shipment' && status == 'order_on_the_way');
+    return status == 'replied' || status == 'last_offer' || status == 'proposal_stvs'|| status == 'invoice_goods_delivered' || (className == 'shipment' && status == 'order_on_the_way'); //status invoice_goods_delivered olarak degisti
   }
 
   @override

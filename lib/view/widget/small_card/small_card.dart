@@ -22,6 +22,7 @@ final boolProvider =
     StateNotifierProvider<BoolNotifier, bool>((ref) => BoolNotifier());
 
 final proposalIndexProvider = StateProvider.autoDispose<int?>((ref) => 1);
+final idProvider = StateProvider<String?>((ref) => '');   //for all post service  
 
 const String newMessage = 'assets/newMessage.svg';
 final Widget newMessageSvg = SvgPicture.asset(
