@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seller_point/view_model/proposal_view_model.dart';
 import '../config/api_url.dart';
@@ -13,8 +14,8 @@ final createProposalProvider =
     FutureProvider.autoDispose<CreateProposalModel>((ref) async {
   final apiService = PostService();
   Response response;
-  List<FormItem> _formItems = ref.watch(formItemProvider);
-  OfferModel _contentItems = ref.watch(offerModelProvider);
+  List<FormItem> _formItems = await ref.watch(formItemProvider);
+  OfferModel _contentItems = await ref.watch(offerModelProvider);
   final landingProviderAsyncValue = ref.watch(getLandingViewContentProvider);
   final _company_id = landingProviderAsyncValue.value;
 
@@ -29,12 +30,12 @@ final createProposalProvider =
   }
   Map<String, dynamic> data = {
     "supplier_id": _company_id!.companyId,
-    "valid_days": _contentItems.validDays,
+    "valid_days": ref.watch(offerModelProvider).validDays,
     "demand_list": {
-      "delivery_date": _contentItems.deliveryDate.toString(),
-      "name": _contentItems.name.toString(),
-      "include_shipment_cost": _contentItems.includeShipmentCost,
-      "payment_due_date": _contentItems.patmentDueDate,
+      "delivery_date": ref.watch(offerModelProvider).deliveryDate.toString(),
+      "name": ref.watch(offerModelProvider).name.toString(),
+      "include_shipment_cost": ref.watch(offerModelProvider).includeShipmentCost,
+      "payment_due_date": ref.watch(offerModelProvider).patmentDueDate,
       "products_attributes": _productsAttributes,
     }
   };

@@ -8,7 +8,7 @@ import 'dart:convert';
 Shipment shipmentFromMap(String str) => Shipment.fromMap(json.decode(str));
 
 String shipmentToMap(Shipment data) => json.encode(data.toMap());
-
+//order date ve delivery date eklenebilir  order_id 
 class Shipment {
     final int? shipmentId;
     final String? waybillNo;
@@ -20,6 +20,8 @@ class Shipment {
     final String? senderErpId;
     final int? proposalId;
     final String? address;
+    final String? orderDate;
+    final String? deliveryDate;
     final String? paymentType;
     final int? paymentDueDate;
     final bool? includeShipmentCost;
@@ -37,6 +39,8 @@ class Shipment {
         this.senderErpId,
         this.proposalId,
         this.address,
+        this.orderDate,
+        this.deliveryDate,
         this.paymentType,
         this.paymentDueDate,
         this.includeShipmentCost,
@@ -55,6 +59,8 @@ class Shipment {
         senderErpId: json["sender_erp_id"],
         proposalId: json["proposal_id"],
         address: json["address"],
+        orderDate:json["order_date"],
+        deliveryDate:json["delivery_date"],
         paymentType: json["payment_type"],
         paymentDueDate: json["payment_due_date"],
         includeShipmentCost: json["include_shipment_cost"],
@@ -73,6 +79,8 @@ class Shipment {
         "sender_erp_id": senderErpId,
         "proposal_id": proposalId,
         "address": address,
+        "order_date": orderDate,
+        "delivery_date": deliveryDate,
         "payment_type": paymentType,
         "payment_due_date": paymentDueDate,
         "include_shipment_cost": includeShipmentCost,

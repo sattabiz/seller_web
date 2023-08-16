@@ -26,8 +26,7 @@ class CreateProposalButton extends ConsumerWidget {
             } catch (e) {
               debugPrint('API çağrısında bir hata oluştu: $e');
             }
-            ref.refresh(formItemProvider);
-            ref.refresh(offerModelProvider);
+            ref.invalidate(formItemProvider);
             Navigator.pop(context);
           } else {
             debugPrint('LandingProvider verisi mevcut değil');

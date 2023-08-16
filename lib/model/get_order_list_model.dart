@@ -9,6 +9,7 @@ class GetOrderlistModel {
         required this.supplierErpId, 
         this.supplierTaxId,                         //dokumanda eksik
         required this.state,
+        this.includeShipmentCost,
         required this.deliveryDate,
         required this.paymentDueDate,
         required this.paymentType,
@@ -38,6 +39,7 @@ class GetOrderlistModel {
     DateTime ?orderDate;
     String ?demandName;
     int ?demandNo;
+    bool? includeShipmentCost;
     String ?demandCreatorName;
     String ?demandCreatorEmail;
     String ?procurementName;
@@ -65,6 +67,7 @@ class GetOrderlistModel {
         orderDate: DateTime.parse(json["order_date"]),
         demandName: json["demand_name"],
         demandNo: json["demand_no"],
+        includeShipmentCost: json["include_shipment_cost"],
         demandCreatorName: json["demand_creator_name"],
         demandCreatorEmail: json["demand_creator_email"],
         procurementName: json["procurement_name"],
@@ -93,6 +96,7 @@ class GetOrderlistModel {
         "demand_no": demandNo,
         "demand_creator_name": demandCreatorName,
         "demand_creator_email": demandCreatorEmail,
+        "include_shipment_cost": includeShipmentCost,
         "procurement_name": procurementName,
         "procurement_email": procurementEmail,
         "cost_center_name": costCenterName,
@@ -104,7 +108,7 @@ class GetOrderlistModel {
 
   @override
   String toString() {
-    return 'GetOrderListModel{id: $id, proposalId: $proposalId, companyId: $companyId, supplier: $supplier, supplierErpId: $supplierErpId, supplierTaxId: $supplierTaxId, state: $state, deliveryDate: $deliveryDate, paymentDueDate: $paymentDueDate, paymentType: $paymentType, orderDate: $orderDate, demandName: $demandName, demandNo: $demandNo, demandCreatorName: $demandCreatorName, demandCreatorEmail: $demandCreatorEmail, procurementName: $procurementName, procurementEmail: $procurementEmail, costCenterName: $costCenterName, costCenterErpId: $costCenterErpId, approvers: $approvers, products: $products}';
+    return 'GetOrderListModel{id: $id, proposalId: $proposalId, companyId: $companyId, supplier: $supplier, supplierErpId: $supplierErpId, supplierTaxId: $supplierTaxId, state: $state, deliveryDate: $deliveryDate, paymentDueDate: $paymentDueDate, paymentType: $paymentType, orderDate: $orderDate, demandName: $demandName, demandNo: $demandNo, demandCreatorName: $demandCreatorName, demandCreatorEmail: $demandCreatorEmail, procurementName: $procurementName, procurementEmail: $procurementEmail, costCenterName: $costCenterName, costCenterErpId: $costCenterErpId, includeShipmentCost:$includeShipmentCost approvers: $approvers, products: $products}';
   }  
 }
 
