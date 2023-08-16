@@ -73,7 +73,7 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
             children: [
               const SizedBox(width: 10),
               SizedBox(
-                width: 170,
+                width: screenWidth * 0.14,
                 child: Text(
                   FlutterI18n.translate(context, 'tr.proposal.proposals'),
                   textAlign: TextAlign.left,
@@ -105,7 +105,7 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
             children: [
               const SizedBox(width: 10),
               SizedBox(
-                width: 170,
+                width: screenWidth * 0.14,
                 child: Text(
                   FlutterI18n.translate(context, 'tr.order.orders'),
                   textAlign: TextAlign.left,
@@ -137,7 +137,7 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
             children: [
               const SizedBox(width: 10),
               SizedBox(
-                width: 170,
+                width: screenWidth * 0.14,
                 child: Text(
                   FlutterI18n.translate(context, 'tr.shipment.shipments'),
                   textAlign: TextAlign.left,
@@ -169,7 +169,7 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
             children: [
               const SizedBox(width: 10),
               SizedBox(
-                width: 170,
+                width: screenWidth * 0.14,
                 child: Text(
                   FlutterI18n.translate(context, 'tr.invoice.invoices'),
                   textAlign: TextAlign.left,

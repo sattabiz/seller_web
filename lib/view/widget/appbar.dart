@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:seller_point/view/landing_view/landing_view.dart';
-
+import 'package:go_router/go_router.dart';
 import '../../storage/jwt_storage.dart';
 import '../../view_model/current_user_view_model.dart';
 import '../../view_model/logout_view_model.dart';
@@ -121,14 +120,7 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
                     if (logoutViewModel.state == LogoutState.success) {
                       final _jwt = await jwtStorageService().getJwtData();
                       ref.read(drawerCountProvider.notifier).state = 0;                      
-                      Navigator.pushReplacement(
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder: (context, animation1, animation2) => LandingView(),
-                          transitionDuration: const Duration(seconds: 0),
-                          settings: RouteSettings(name: '/landing')
-                        ) 
-                      );
+                      context.go('/');
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
