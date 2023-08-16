@@ -39,18 +39,13 @@ tr:
     infoRow1: "Teklif Tarihi"
     infoRow2: "Termin"
     infoRow5: "Teslim Süresi"
-
-
+    create_proposal_header: "Kayıtlı Ürün Listesi"
+    update_btn: "Güncelle"
+    big_card_header: "Teklif No:"
   proposal_sum:
     row_t: "Tutar: "
     row_tx: "KDV(%20): "
     row_s: "Toplam: "  
-
-
-    create_proposal_header: "Kayıtlı Ürün Listesi"
-    update_btn: "Güncelle"
-    big_card_header: "Teklif No:"
-
   order:
     orders: "Siparişler"
     order_pending: "Teklif İstendi"  
