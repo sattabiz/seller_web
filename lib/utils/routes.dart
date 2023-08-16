@@ -14,15 +14,17 @@ final router = GoRouter(
       routes: <RouteBase>[
         GoRoute(
           path: 'login',
-          builder: (BuildContext context, GoRouterState state) {
-            return const LoginView();
-          },
+          pageBuilder: (context, state) => NoTransitionPage<void>(
+            key: state.pageKey,
+            child: const LoginView(),
+          ),
         ),
         GoRoute(
           path: 'index',
-          builder: (BuildContext context, GoRouterState state) {
-            return const Index();
-          },
+          pageBuilder: (context, state) => NoTransitionPage<void>(
+            key: state.pageKey,
+            child: const Index(),
+          ),
         ),
       ]
     ),
