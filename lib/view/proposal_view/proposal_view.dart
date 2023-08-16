@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:seller_point/view/widget/big_card%20/header/header.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info.dart';
 import '../../utils/widget_helper.dart';
 import '../../view_model/create_order_view_model.dart';
 import '../../view_model/proposal_view_model.dart';
-import '../../view_model/provider_controller.dart';
 import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/big_card /info/info_box.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
+import '../widget/small_card/header/header_proposal.dart';
 import '../widget/small_card/small_card.dart';
 
 class ProposalView extends ConsumerWidget {
@@ -50,9 +51,10 @@ class ProposalView extends ConsumerWidget {
                           className: className,
                           id: proposalList[index].proposalId.toString(),
                           status: proposalList[index].proposalState.toString(),
-                          bodyHeader: proposalList[index].demandListName.toString(),
+                          bodyHeader: proposalList[index].demandListName.toString(), //kaldirilacak
                           headerDate: proposalList[index].proposalValidDate.toString(),
                           bodyList: proposalList[index].productProposals!,
+                          headerSmallCard: HeaderProposal(id: proposalList[index].proposalId.toString(),status: proposalList[index].proposalState.toString(),headerDate: formattedDate(proposalList[index].proposalValidDate.toString()),newMessageSvg: newMessageSvg, className: className,),
                           bigCardButtons: ButtonWidget(
                             className: className,
                             status: proposalList[index].proposalState.toString(),
@@ -62,10 +64,15 @@ class ProposalView extends ConsumerWidget {
                               Navigator.pop(context);
                             },
                           ),
+                          bigCardHeader: Header(
+                            className: className,
+                            id: proposalList[index].proposalId.toString(),
+                            status: proposalList[index].proposalState.toString(),
+                          ),
                           infoBoxWidget: InfoBox(
                             className: className,
                             row1: proposalList[index].updateCounter.toString(),
-                            row2: proposalList[index].proposalValidDate.toString(),
+                            row2: proposalList[index].proposalValidDate.toString(), //sayac eklenecek
                             row3: proposalList[index].proposalValidPeriod.toString(),
                           ),
                           infoWidget: Info(
@@ -73,10 +80,10 @@ class ProposalView extends ConsumerWidget {
                             demandName: proposalList[index].demandListName.toString(),
                             infoRow1: proposalList[index].proposalCreatedAt.toString(),
                             infoRow2: formattedDate(proposalList[index].deliveryDate.toString()),
-                            infoRow3: proposalList[index].paymentType.toString(),
+                            infoRow3: checkPaymentType(proposalList[index].paymentType.toString()),
                             infoRow4: proposalList[index].paymentDueDate.toString(),
                             infoRow5: proposalList[index].proposalDeliveryTime.toString(),
-                            infoRow6: proposalList[index].includeShipmentCost.toString(),
+                            infoRow6: checkTraking(proposalList[index].includeShipmentCost!),
                           ),
                         );
                       },

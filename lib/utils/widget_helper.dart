@@ -4,7 +4,6 @@ Map<String, String> statusIconMap = {
     'replied': 'assets/exportNotes.svg',
     'proposal_stvs': 'assets/exportNotes.svg',
     'last_offer': 'assets/exportNotes.svg',
-    // 'order_pending': 'assets/exportNotes.svg',
     'order_approved': 'assets/exportNotes.svg',
     'order_confirmed': 'assets/conveyor.svg',
     'order_prepared': 'assets/trolley.svg',
@@ -26,7 +25,7 @@ Map<String, String> statusIconMap = {
     }
     else {
     final DateTime parsedDate = DateTime.parse(date);
-    return "${parsedDate.year}-${parsedDate.month.toString().padLeft(2, '0')}-${parsedDate.day.toString().padLeft(2, '0')}";
+    return "${parsedDate.day}-${parsedDate.month.toString().padLeft(2, '0')}-${parsedDate.year.toString().padLeft(2, '0')}";
     }
   }
   
@@ -42,6 +41,52 @@ String truncateToTwoWords(String text) {
     return '${words.join(' ')}...';
   }
   return text;
+}
+
+String checkPaymentType(String paymentType) {
+  if (paymentType == 'null') {
+    return '-';
+  }
+  else {
+    return paymentType;
+  }
+}
+
+String checkTraking(bool tracking) {
+  if (tracking == true) {
+    return 'Satıcı';
+  }
+  else {
+    return 'Alıcı';
+  }
+}
+
+String invoiceBigCardHeader(String status, String paymentDate, String invoiceDate) {
+  if (status == 'invoice_approved') {
+    return formattedDate(paymentDate);
+  }
+  else {
+    return formattedDate(invoiceDate);
+  }
+}
+
+String bigCardHeader(String status, String className) {
+
+  if(status == 'invoice_approved' ) {
+    return 'Ödeme Tarihi: ';
+  }
+  else if(className == 'invoice' && status != 'invoice_approved'){
+    return 'Fatura Tarihi: ';
+  }
+  else if ( className == 'shipment' && status == 'order_on_the_way'){
+    return 'Sevk Tarihi: ';
+  }
+  else if (className == 'proposal') {
+    return 'Teklif No: ';
+  }
+  else {
+    return 'Sipariş No: ';
+  }
 }
 
 
@@ -83,49 +128,6 @@ for (var item in productsProposalList) {
       return '${allItemsTotalCost.toStringAsFixed(2)} $currencyCode';   
     default:
       return '--';
-
-
-
-}
-  /* return '$allItemsRawCost $currencyCode';  */ 
-
-
-
-
+  }
 }
 
-
-
-/* productsProposalList.map((item) => item.amount.toString()).reduce((value, element) => value + element); */
-
-
-
-
-// class ScreenSize {
-//    MediaQueryData ?mediaQueryData;
-//    double ?screenWidth;
-//    double ?screenHeight;
-//    double ?widthLarge;
-//    double ?heightLarge;
-
-
-//   //  ScreenSize( {
-//   //   Key? key,
-//   //   this.mediaQueryData,
-//   //   this.screenWidth,
-//   //   this.screenHeight,
-//   //   this.widthLarge,
-//   //   this.heightLarge,
-//   // });
-
-
-//   void init(BuildContext context) {
-//     mediaQueryData = MediaQuery.of(context);
-//     screenWidth = mediaQueryData!.size.width;
-//     screenHeight = mediaQueryData!.size.height;
-//     widthLarge = screenWidth! / 1280 ;
-//     heightLarge = screenHeight! / 720 ;
-
-//   }
-
-// }

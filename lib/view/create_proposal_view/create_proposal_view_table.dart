@@ -268,3 +268,24 @@ class createProposalViewTable extends ConsumerWidget {
     );
   }
 }
+
+
+// Future<void> _firstAlert(BuildContext context) async => showDialog<void>(
+//   context: context,
+//   barrierDismissible: false,
+//   builder: (BuildContext context) => AlertDialog(
+//     title: Text('first alert dialog'),
+//     content: SingleChildScrollView(
+//       child: ListBody(
+//         children: <Widget>[
+//           FlutterLogo(size: 80)
+//         ],
+//       ),
+//     ),
+//     actions: <Widget>[
+//       InkWell(
+//         onTap: () => Navigator.of(context).pop(),
+//         child: Text('second alert')),
+//     ],
+//   ),
+// );

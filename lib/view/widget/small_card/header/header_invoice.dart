@@ -22,8 +22,7 @@ const HeaderInvoice({ Key? key, required this.id, required this.status, required
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10))),
       child: Padding(
-        padding: const EdgeInsets.only(
-            top: 10, right: 15, left: 20, bottom: 5),
+        padding: const EdgeInsets.only(top: 10, right: 15, left: 20, bottom: 5),
         child: Column(
           children: [
             Row(
@@ -55,9 +54,7 @@ const HeaderInvoice({ Key? key, required this.id, required this.status, required
               children: [
                 // headerId
                 Text(
-                  status == 'invoice_pending'
-                  ? FlutterI18n.translate(context, "tr.invoice.invoice_date" )
-                  : FlutterI18n.translate(context, "tr.order.payment_due_date"),
+                  FlutterI18n.translate(context, "tr.invoice.small_card_date.$status" ),
                   style:Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontWeight: FontWeight.w500
                   ),

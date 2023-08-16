@@ -6,9 +6,6 @@ import '../../../utils/widget_helper.dart';
 import '../big_card /big_card.dart';
 import 'body/body_header.dart';
 import 'body/body_proposal.dart';
-import 'header/header_invoice.dart';
-import 'header/header_order.dart';
-import 'header/header_proposal.dart';
 
 class BoolNotifier extends StateNotifier<bool> {
   BoolNotifier() : super(false);
@@ -40,6 +37,8 @@ class SmallCard extends ConsumerWidget {
   final String bodyHeader;
   final String headerDate;
   final List bodyList;
+  final Widget headerSmallCard;
+  final Widget bigCardHeader;
   final Widget ?bigCardButtons;
   final Widget ?infoWidget;
   final Widget ?infoBoxWidget;
@@ -53,6 +52,8 @@ class SmallCard extends ConsumerWidget {
     required this.bodyHeader,
     required this.headerDate,
     required this.bodyList,
+    required this.bigCardHeader,
+    required this.headerSmallCard,
     this.bigCardButtons,
     this.infoWidget,
     this.infoBoxWidget,
@@ -60,12 +61,6 @@ class SmallCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
-    Map<String, Widget> headerWidget = {
-      'proposal': HeaderProposal(id: id,status: status,headerDate: formattedDate(headerDate),newMessageSvg: newMessageSvg, className: className,),
-      'order': HeaderOrder(id: id,status: status,headerDate: formattedDate(headerDate),newMessageSvg: newMessageSvg, className: className,),
-      'invoice': HeaderInvoice(id: id,status: status,headerDate: formattedDate(headerDate),newMessageSvg: newMessageSvg, className: className,),
-    };
     return Padding(
       padding: const EdgeInsets.only(right: 15, bottom: 15),
       child: Card(
@@ -86,7 +81,8 @@ class SmallCard extends ConsumerWidget {
                             status: status,
                             svgPath: statusIconMap[status] ?? '',
                             topic: bodyHeader,
-                            statusMap: FlutterI18n.translate(context, "tr.$className.$status"),
+                            statusMap: FlutterI18n.translate(context, "tr.$className.$status"), //kaldirilacak
+                            bigCardHeader: bigCardHeader,
                             infoBoxWidget: infoBoxWidget ?? const SizedBox(),
                             buttons: bigCardButtons ?? const SizedBox(),
                             infoWidget: infoWidget ?? const SizedBox(),
@@ -100,7 +96,7 @@ class SmallCard extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                headerWidget[className]!,
+                headerSmallCard,
                 BodyHeader( bodyHeader: bodyHeader,status: status,className: className),
                 const SizedBox(height: 4),
                 BodyProposal(

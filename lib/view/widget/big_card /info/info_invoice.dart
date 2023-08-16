@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-
 import '../../../../utils/widget_helper.dart';
 
 class InfoInvoice extends StatelessWidget {
@@ -10,6 +9,7 @@ class InfoInvoice extends StatelessWidget {
   final String orderId;
   final String ?paymentDate;
   final String className;
+  final String status;
 
   const InfoInvoice({
   Key? key,
@@ -18,10 +18,9 @@ class InfoInvoice extends StatelessWidget {
   required this.paymentType,
   required this.orderId,
   required this.className,
+  required this.status,
   this.paymentDate,
 }) : super(key: key);
-
-
 
   @override
   Widget  build(BuildContext context){
@@ -33,13 +32,13 @@ class InfoInvoice extends StatelessWidget {
         children: [
           Row(     //row 1
             children:  [
-              Text( FlutterI18n.translate(context, "tr.invoice.invoice_date"),
+              Text( FlutterI18n.translate(context, "tr.invoice.invoice_no"),
                 style: Theme.of(context).textTheme.titleSmall,                     
                 ),
               const SizedBox(width: 10.0),
               Expanded(
                 child: Text(
-                  formattedDate(invoiceDate),
+                  invoiceNo,
                   style: Theme.of(context).textTheme.titleSmall,
                   maxLines: 3,
                 ),
@@ -58,12 +57,12 @@ class InfoInvoice extends StatelessWidget {
               TableRow(
                 children: <Widget>[
                   Text(
-                    FlutterI18n.translate(context, "tr.order.order_date"),
+                    FlutterI18n.translate(context, "tr.invoice.info_row_1.$status"),
                     style: Theme.of(context).textTheme.labelMedium,
                     maxLines: 1,                        
                   ),
                   Text(
-                    paymentDate ?? '-',
+                    formattedDate(invoiceDate),
                     style: Theme.of(context).textTheme.bodyMedium,
                     maxLines: 1,                        
                   ), 
@@ -83,7 +82,7 @@ class InfoInvoice extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
-                      paymentType == null ? '-' : paymentType!,
+                      paymentType,
                       style: Theme.of(context).textTheme.bodyMedium,
                       maxLines: 1,                                     
                     ),
@@ -102,14 +101,12 @@ class InfoInvoice extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium, 
                     maxLines: 1,                       
                   ), 
-          
                 ],
               ),
             ],
           ),
         ],                                                                                                                                 
       ),
-
     );
   }
 }
