@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../view_model/landing_view_model.dart';
@@ -43,9 +44,8 @@ class createProposalViewTable extends ConsumerWidget {
     final formItems = ref.watch(formItemProvider);
     return ref.watch(getLandingViewContentProvider).when(
           data: (webContent) {
-            final productDetails = webContent.products!
-                .map((product) => product.title)
-                .toList();
+            final productDetails =
+                webContent.products!.map((product) => product.title).toList();
             return Card(
               color: Theme.of(context).colorScheme.onPrimary,
               surfaceTintColor: Theme.of(context).colorScheme.onPrimary,
@@ -88,8 +88,8 @@ class createProposalViewTable extends ConsumerWidget {
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics(
-                              parent: ClampingScrollPhysics(),
-                          )),
+                        parent: ClampingScrollPhysics(),
+                      )),
                       child: Column(
                         children: [
                           for (var i = 0; i < formItems.length; i++)
@@ -100,7 +100,8 @@ class createProposalViewTable extends ConsumerWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0, bottom: 18.0, top: 10.0),
+                    padding: const EdgeInsets.only(
+                        left: 10.0, bottom: 18.0, top: 10.0),
                     child: InkWell(
                       hoverColor: Colors.transparent,
                       onTap: () => ref
@@ -121,17 +122,18 @@ class createProposalViewTable extends ConsumerWidget {
         );
   }
 
-  Widget _buildItem(BuildContext context, FormItem formItem, int index, WidgetRef ref, List<String?> productDetails) {
+  Widget _buildItem(BuildContext context, FormItem formItem, int index,
+      WidgetRef ref, List<String?> productDetails) {
     double screenWidth = MediaQuery.of(context).size.width / 1250;
     double screenHeight = MediaQuery.of(context).size.height / 720;
 
-    final List<DropdownMenuEntry<String>> dropDownMenuCategory = <DropdownMenuEntry<String>>[];
+    final List<DropdownMenuEntry<String>> dropDownMenuCategory =
+        <DropdownMenuEntry<String>>[];
     productDetails.map((detail) {
       dropDownMenuCategory.add(
         DropdownMenuEntry<String>(
           value: detail.toString(),
           label: truncateToTwoWords(detail!),
-   
         ),
       );
     }).toList();
@@ -158,23 +160,26 @@ class createProposalViewTable extends ConsumerWidget {
           inputDecorationTheme: InputDecorationTheme(
             filled: true,
             fillColor: Theme.of(context).colorScheme.onPrimary,
-            constraints:  const BoxConstraints(maxHeight: 40),
+            constraints: const BoxConstraints(maxHeight: 40),
             contentPadding: const EdgeInsets.only(left: 10.0),
             floatingLabelAlignment: FloatingLabelAlignment.start,
             border: const OutlineInputBorder(),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
-          ),        
-          label:  Text(
+          ),
+          label: Text(
             'Kategori',
             style: Theme.of(context).textTheme.bodySmall,
             textAlign: TextAlign.start,
-            ),
+          ),
           menuStyle: MenuStyle(
             fixedSize: MaterialStateProperty.all(Size(screenWidth * 160, 100)),
             alignment: AlignmentGeometry.lerp(
-                Alignment.bottomLeft, Alignment.bottomLeft, 0.5,
+              Alignment.bottomLeft,
+              Alignment.bottomLeft,
+              0.5,
             ),
           ),
           dropdownMenuEntries: dropDownMenuCategory,
@@ -186,7 +191,7 @@ class createProposalViewTable extends ConsumerWidget {
           flex: 1,
         ),
         Expanded(
-          flex: 10, 
+          flex: 10,
           child: Container(
             // width: 460,
             // constraints:  BoxConstraints(maxWidth: screenWidth * 430, minWidth: screenWidth * 50),
@@ -197,7 +202,8 @@ class createProposalViewTable extends ConsumerWidget {
                 filled: true,
                 fillColor: Theme.of(context).colorScheme.onPrimary,
                 border: const OutlineInputBorder(),
-                contentPadding: const EdgeInsets.only(left: 10.0, top: 0.0, bottom: 0.0, right: 0.0),
+                contentPadding: const EdgeInsets.only(
+                    left: 10.0, top: 0.0, bottom: 0.0, right: 0.0),
                 constraints: const BoxConstraints(maxHeight: 40),
                 labelText: 'Ürün',
                 focusedBorder: OutlineInputBorder(
@@ -216,7 +222,7 @@ class createProposalViewTable extends ConsumerWidget {
           flex: 1,
         ),
         Expanded(
-          flex: 4, 
+          flex: 4,
           child: Container(
             width: 120,
             // constraints: BoxConstraints(maxWidth: screenWidth * 120, minWidth: screenWidth * 40),
@@ -227,7 +233,8 @@ class createProposalViewTable extends ConsumerWidget {
                 filled: true,
                 fillColor: Theme.of(context).colorScheme.onPrimary,
                 border: const OutlineInputBorder(),
-                contentPadding: const EdgeInsets.only(left: 10.0, top: 0.0, bottom: 0.0, right: 5.0),
+                contentPadding: const EdgeInsets.only(
+                    left: 10.0, top: 0.0, bottom: 0.0, right: 5.0),
                 labelText: 'Miktar',
                 labelStyle: Theme.of(context).textTheme.bodySmall,
                 focusedBorder: OutlineInputBorder(
@@ -250,7 +257,11 @@ class createProposalViewTable extends ConsumerWidget {
           child: IconButton(
             icon: const Icon(Icons.attach_file),
             iconSize: 25,
-            onPressed: () {},
+            onPressed: () async {
+              FilePickerResult? result = await FilePicker.platform.pickFiles(
+                type: FileType.image,
+              );
+            },
           ),
         ),
       ],

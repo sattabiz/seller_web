@@ -74,7 +74,7 @@ class createProposalViewContent extends ConsumerWidget {
           },
           onChanged: (value) {
             offerModel.name = value;
-            value=ref.read(offerModelProvider).name;
+            ref.read(offerModelProvider).name=value;
           },
         ),
         const SizedBox(
