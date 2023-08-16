@@ -11,9 +11,11 @@ Map<String, String> statusIconMap = {
     'order_on_the_way': 'assets/shipment.svg',
     'order_delivered': 'assets/warehouse.svg',
     'invoice_paid': 'assets/paid.svg',
-    'invoice_discounted': 'assets/paymentProcess.svg',
+    'invoice_discounted': 'assets/paid.svg',
+    'invoice_goods_delivered': 'assets/exportNotes.svg',
     'invoice_approved_dbs': 'assets/DBS.svg',
-    'invoice_pending': 'assets/pending.svg',
+    'invoice_collecting': 'assets/paymentProcess.svg',
+    'invoice_approved': 'assets/notsecure.svg',
     'delivered': 'assets/package.svg',
   };
 

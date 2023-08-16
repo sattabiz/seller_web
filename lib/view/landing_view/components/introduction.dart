@@ -1,10 +1,8 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:go_router/go_router.dart';
 import 'package:seller_point/view/landing_view/components/page_indicator.dart';
-import 'package:seller_point/view/login_view/login_view.dart';
 
 class Introduction extends StatelessWidget {
   final int sectionIndex;
@@ -22,7 +20,6 @@ class Introduction extends StatelessWidget {
         
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
     return Container(  
       width: double.infinity,
       height: 600,
@@ -78,40 +75,13 @@ class Title extends StatelessWidget {
   }
 }
 
-// class About extends StatelessWidget {
-//   final String introduction;
-//   const About(this.introduction, {super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SingleChildScrollView(
-//       scrollDirection: Axis.vertical,
-//       child: Text(
-//         introduction,
-//         style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-//           color: Theme.of(context).colorScheme.onPrimary,
-//         ),
-//         textAlign: TextAlign.center,
-//       ),
-//     );
-//   }
-// }
-
 class LogInButton extends StatelessWidget {
   const LogInButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        Navigator.pushReplacement(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) => LoginView(),
-            transitionDuration: const Duration(seconds: 0),
-            settings: RouteSettings(name: '/login')
-          ) 
-        );
+      onPressed: () { context.go('/login');
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),

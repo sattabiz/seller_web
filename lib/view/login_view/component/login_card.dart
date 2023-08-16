@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:seller_point/view/index.dart';
 import '../../../view_model/buyer_invoices_view_model.dart';
 import '../../../view_model/current_user_view_model.dart';
@@ -72,14 +73,7 @@ class loginCard extends ConsumerWidget {
                             color: Theme.of(context).colorScheme.shadow,
                           ),
                           onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              PageRouteBuilder(
-                                pageBuilder: (context, animation1, animation2) => LandingView(),
-                                transitionDuration: const Duration(seconds: 0),
-                                settings: RouteSettings(name: '/landing'),
-                              ) 
-                            );
+                            context.go('/');
                           },
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
@@ -181,13 +175,7 @@ class loginCard extends ConsumerWidget {
                                       context, "tr.login.login_success")),
                                 ),
                               );
-                              Navigator.pushReplacement(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (context, animation1, animation2) => Index(),
-                                  transitionDuration: const Duration(seconds: 0),
-                                ) 
-                              );
+                              context.go('/index');
                             } else if (loginState == LoginState.failure) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -247,12 +235,7 @@ class loginCard extends ConsumerWidget {
                             ref.refresh(getOrderListProvider);
                             ref.refresh(shipmentProvider);
                             await ref.read(getCurrentUserInfoProvider);
-                            await Navigator.pushReplacement(context,
-                              PageRouteBuilder(
-                                pageBuilder: (context, animation1, animation2) => Index(),
-                                transitionDuration: const Duration(seconds: 0),
-                              ) 
-                            );
+                            context.go('/index');
                           } else if (loginState == LoginState.failure) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(

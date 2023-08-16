@@ -26,13 +26,6 @@ class _IndexState extends ConsumerState<Index> {
   int screenIndex = 0;
   bool showNavigationDrawer = true;
 
-  // final _routes = [
-  //   '/proposalScreen',
-  //   '/orderScreen',
-  //   '/shipmentScreen',
-  //   '/invoiceScreen'
-  // ];
-
   void onItemTap(int selectedScreen) {
     setState(() {
       screenIndex = selectedScreen;
