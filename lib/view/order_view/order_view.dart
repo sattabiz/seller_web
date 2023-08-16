@@ -5,11 +5,11 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:seller_point/utils/widget_helper.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info.dart';
 import 'package:seller_point/view/widget/loading_widget.dart';
-import '../../view_model/create_order_view_model.dart';
 import '../../view_model/order_list_view_model.dart';
-import '../../view_model/provider_controller.dart';
 import '../widget/big_card /buttons/button_widget.dart';
+import '../widget/big_card /header/header.dart';
 import '../widget/main_page_content.dart';
+import '../widget/small_card/header/header_order.dart';
 import '../widget/small_card/small_card.dart';
 
 class OrderView extends ConsumerWidget {
@@ -40,8 +40,7 @@ class OrderView extends ConsumerWidget {
                       mainAxisSpacing: 3,
                       crossAxisSpacing: 3,
                       itemCount: orderList.length,
-                      staggeredTileBuilder: (index) =>
-                          const StaggeredTile.fit(1),
+                      staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
                       itemBuilder: (context, index) {
                         return SmallCard(
                           index: index,
@@ -51,18 +50,21 @@ class OrderView extends ConsumerWidget {
                           headerDate: orderList[index].orderDate.toString(),
                           bodyHeader: orderList[index].demandName.toString(),
                           bodyList: orderList[index].products,
+                          headerSmallCard: HeaderOrder(id: orderList[index].id.toString(),status: orderList[index].state.toString(),headerDate: formattedDate(orderList[index].orderDate.toString()),newMessageSvg: newMessageSvg, className: className),
+                          bigCardHeader: Header(
+                            id: orderList[index].id.toString(),
+                            className: className,
+                            status: orderList[index].state.toString(),
+                          ),
                           infoWidget: Info(
                             className: className,
                             demandName: orderList[index].demandName.toString(),
-                            infoRow1: formattedDate(
-                                orderList[index].orderDate.toString()),
+                            infoRow1: formattedDate( orderList[index].orderDate.toString()),
                             infoRow2: orderList[index].deliveryDate.toString(),
-                            infoRow3: orderList[index].paymentType.toString(),
-                            infoRow4:
-                                orderList[index].paymentDueDate.toString(),
+                            infoRow3: checkPaymentType(orderList[index].paymentType.toString()),
+                            infoRow4: orderList[index].paymentDueDate.toString(),
                             infoRow5: orderList[index].demandNo.toString(),
-                            infoRow6:
-                                'Satici', // tracking payment is missing in order model.
+                            infoRow6: 'Satici', // tracking payment is missing in order model.
                           ),
                           bigCardButtons: ButtonWidget(
                             className: className,

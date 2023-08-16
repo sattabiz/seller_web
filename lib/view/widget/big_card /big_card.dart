@@ -16,6 +16,7 @@ class BigCard extends ConsumerWidget {
   final String svgPath;
   final String topic; //body_header
   final String ?statusMap;
+  final Widget bigCardHeader;
   final Widget buttons;
   final Widget infoWidget;
   final Widget ?infoBoxWidget;
@@ -29,6 +30,7 @@ class BigCard extends ConsumerWidget {
     required this.svgPath,
     required this.topic,
     this.statusMap,
+    required this.bigCardHeader,
     required this.buttons,
     required this.infoWidget,
     this.infoBoxWidget,
@@ -56,7 +58,7 @@ class BigCard extends ConsumerWidget {
       ),
       child: Column(
         children: [
-          Header(id: id, statusMap: statusMap ?? '-', svgPath: svgPath, className: className,),  // header sonu
+          bigCardHeader,
           Expanded(
             flex: 11,                    //body
             child: Row(

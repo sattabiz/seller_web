@@ -85,7 +85,7 @@ class _IndexState extends ConsumerState<Index> {
                       ProposalView(),
                       OrderView(),
                       ShipmentView(),
-                      invoiceView(),
+                      InvoiceView(),
                     ]
                   ),
                 ),
@@ -114,7 +114,7 @@ class _IndexState extends ConsumerState<Index> {
                         ProposalView(),
                         OrderView(),
                         ShipmentView(),
-                        invoiceView(),
+                        InvoiceView(),
                       ]
                     ),
                   ),

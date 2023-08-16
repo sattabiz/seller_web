@@ -46,6 +46,7 @@ class SmallCardShipment extends ConsumerWidget {
   final String ?paymentDueDate; //info_2 (column2)
   final String ?carrier;
   final String ?trackingNo;
+  final Widget bigCardHeader;
   final Widget ?infoWidget;
   final List bodyList;
   final Widget infoBoxWidget;
@@ -64,7 +65,8 @@ class SmallCardShipment extends ConsumerWidget {
     this.paymentDueDate,
     this.carrier,
     this.trackingNo,
-    this.infoWidget, 
+    this.infoWidget,
+    required this.bigCardHeader,
     required this.bodyList,
     required this.infoBoxWidget,
   }) : super(key: key);
@@ -95,6 +97,7 @@ class SmallCardShipment extends ConsumerWidget {
                             statusMap: FlutterI18n.translate(context, "tr.$className.$status"),
                             infoBoxWidget: infoBoxWidget,
                             infoWidget: infoWidget ?? const SizedBox(height: 0),
+                            bigCardHeader: bigCardHeader,
                             buttons: ButtonWidget(
                               className: className,
                               status: status,
