@@ -44,8 +44,8 @@ class OrderView extends ConsumerWidget {
                       itemBuilder: (context, index) {
                         return SmallCard(
                           index: index,
-                          id: orderList[index].id.toString(),
                           className: className,
+                          id: orderList[index].id.toString(),
                           status: orderList[index].state.toString(),
                           headerDate: orderList[index].orderDate.toString(),
                           bodyHeader: orderList[index].demandName.toString(),

@@ -54,7 +54,12 @@ class ProposalView extends ConsumerWidget {
                           bodyHeader: proposalList[index].demandListName.toString(), //kaldirilacak
                           headerDate: proposalList[index].proposalValidDate.toString(),
                           bodyList: proposalList[index].productProposals!,
-                          headerSmallCard: HeaderProposal(id: proposalList[index].proposalId.toString(),status: proposalList[index].proposalState.toString(),headerDate: formattedDate(proposalList[index].proposalValidDate.toString()),newMessageSvg: newMessageSvg, className: className,),
+                          headerSmallCard: HeaderProposal(
+                            id: proposalList[index].proposalId.toString(),
+                            status: proposalList[index].proposalState.toString(),
+                            headerDate: proposalList[index].proposalValidDate.toString(),
+                            newMessageSvg: newMessageSvg, 
+                            className: className,),
                           bigCardButtons: ButtonWidget(
                             className: className,
                             status: proposalList[index].proposalState.toString(),
