@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
 class CountdownDate extends StatelessWidget {
-  String headerDate;
+  final String headerDate;
 
-  CountdownDate({
+  const CountdownDate({
     Key? key,
     required this.headerDate,
   }) : super(key: key);
