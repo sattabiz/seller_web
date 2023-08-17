@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'chat_box/chat_box.dart';
+
 
 final proposalIdProvider = StateProvider<String?>((ref) => '');
 
@@ -80,48 +82,9 @@ class BigCard extends ConsumerWidget {
                     ],
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 8,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 30,top: 10),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          constraints: const BoxConstraints.tightFor(width: 250),
-                          padding: const EdgeInsets.all(10),
-                          child: Align(
-                            alignment: (id == "1" ?Alignment.topLeft:Alignment.topRight),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: ( id == "1" ? Colors.grey.shade200 :Colors.blue[200]),
-                              ),
-                              padding: const  EdgeInsets.all(16),
-                              child: Text("Siparis yolda", style: const TextStyle(fontSize: 15),),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Padding(padding: EdgeInsets.only(top: 10)),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 30),
-                        child: Container(                            
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          constraints: const BoxConstraints.tightFor(width: 250, height: 30),
-                        ),
-                      ),
-                    ),
-                  ],
+                const Expanded(
+                  flex: 4,
+                  child:  ChatBox()
                 ),
               ],
             ),
