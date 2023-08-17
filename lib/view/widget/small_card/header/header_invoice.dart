@@ -6,12 +6,11 @@ import '../../../../utils/widget_helper.dart';
 
 
 class HeaderInvoice extends StatelessWidget {
-  final String id;
   final String status;
   final String headerDate;
   final String className;
   final Widget ?newMessageSvg;
-const HeaderInvoice({ Key? key, required this.id, required this.status, required this.headerDate, this.newMessageSvg, required this.className }) : super(key: key);
+const HeaderInvoice({ Key? key, required this.status, required this.headerDate, this.newMessageSvg, required this.className }) : super(key: key);
 
   @override
   Widget build(BuildContext context){

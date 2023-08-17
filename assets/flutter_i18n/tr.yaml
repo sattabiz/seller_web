@@ -53,14 +53,15 @@ tr:
     order_confirmed: "Hazırlanıyor"
     order_prepared: "Sevke Hazır"
     order_on_the_way: "Yolda"
-    order_delivered: "Teslim Edildi"
+    order_delivered: "Teslim Alındı"
     no: "No: "
     order_date:  "Sipariş Tarihi: "
     product: "Ürün"
     order_header: "Sipariş"
+    state: "Durum"
     ship: "Sevk"
     price: "Fiyat"
-    order_no: "Sipariş No: "
+    order_no: "Sipariş No"
     topic: "Konu:"
     delivery_date: "Teslim Tarihi: "
     payment_type: "Ödeme Şekli: "
@@ -77,6 +78,7 @@ tr:
     infoRow2: "Teslim Tarihi"
     infoRow5: "Teklif No"
     big_card_header: "Sipariş No:"
+    waybill: "İrsaliye"
   shipment: 
     shipments: "Sevkiyatlar"
     order_on_the_way: "Yoldaki Sevkiyat"
@@ -129,6 +131,7 @@ tr:
       invoice_approved_dbs: "Ödeme Tarihi "
       invoice_collecting: "Ödeme Tarihi "
       invoice_approved: "Ödeme Tarihi "
+      order_on_the_way: "Sevk Tarihi: "
 
 
 

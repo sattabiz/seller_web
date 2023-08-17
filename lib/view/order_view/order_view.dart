@@ -3,12 +3,17 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:seller_point/utils/widget_helper.dart';
+import 'package:seller_point/view/widget/big_card%20/big_card.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info.dart';
 import 'package:seller_point/view/widget/loading_widget.dart';
 import '../../view_model/order_list_view_model.dart';
 import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/big_card /header/header.dart';
+import '../widget/big_card /table/order_table.dart';
+import '../widget/big_card /table/order_table_status.dart';
 import '../widget/main_page_content.dart';
+import '../widget/small_card/body/body_header.dart';
+import '../widget/small_card/body/small_card_table.dart';
 import '../widget/small_card/header/header_order.dart';
 import '../widget/small_card/small_card.dart';
 
@@ -31,8 +36,7 @@ class OrderView extends ConsumerWidget {
                   Visibility(
                     visible: constraints.maxHeight > 300,
                     child: allMainPageContent(
-                        topic:
-                            FlutterI18n.translate(context, 'tr.order.orders')),
+                      topic: FlutterI18n.translate(context, 'tr.order.orders')),
                   ),
                   Flexible(
                     child: StaggeredGridView.countBuilder(
@@ -43,32 +47,57 @@ class OrderView extends ConsumerWidget {
                       staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
                       itemBuilder: (context, index) {
                         return SmallCard(
-                          index: index,
-                          className: className,
                           id: orderList[index].id.toString(),
+                          className: className,
                           status: orderList[index].state.toString(),
-                          headerDate: orderList[index].orderDate.toString(),
-                          bodyHeader: orderList[index].demandName.toString(),
-                          bodyList: orderList[index].products,
-                          headerSmallCard: HeaderOrder(id: orderList[index].id.toString(),status: orderList[index].state.toString(),headerDate: formattedDate(orderList[index].orderDate.toString()),newMessageSvg: newMessageSvg, className: className),
-                          bigCardHeader: Header(
+                          headerSmallCard: HeaderOrder(
                             id: orderList[index].id.toString(),
-                            className: className,
                             status: orderList[index].state.toString(),
+                            headerDate: formattedDate(orderList[index].orderDate.toString()),
+                            newMessageSvg: newMessageSvg, 
+                            className: className
                           ),
-                          infoWidget: Info(
-                            className: className,
-                            demandName: orderList[index].demandName.toString(),
-                            infoRow1: formattedDate( orderList[index].orderDate.toString()),
-                            infoRow2: orderList[index].deliveryDate.toString(),
-                            infoRow3: checkPaymentType(orderList[index].paymentType.toString()),
-                            infoRow4: orderList[index].paymentDueDate.toString(),
-                            infoRow5: orderList[index].demandNo.toString(),
-                            infoRow6: 'Satici', // tracking payment is missing in order model.
+                          bodyHeader: BodyHeader(
+                            bodyHeader: orderList[index].demandName.toString(),
                           ),
-                          bigCardButtons: ButtonWidget(
-                            className: className,
+                          smallCardTable: SmallCardTable(
+                            id: orderList[index].id.toString(),
                             status: orderList[index].state.toString(),
+                            className: className,
+                            bodyList: orderList[index].products,
+                          ),
+                          bigCard: BigCard(
+                            id: orderList[index].id.toString(),
+                            bigCardHeader: Header(
+                              id: orderList[index].id.toString(),
+                              className: className,
+                              status: orderList[index].state.toString(),
+                            ),
+                            bigCardTable: bigCardOrderTable(
+                              orderList[index].state.toString(),
+                              OrderTable(
+                                className: className,
+                                productList: orderList[index].products,
+                              ),
+                              OrderTableStatus(
+                                status: orderList[index].state.toString(),
+                                productList: orderList[index].products,
+                              )
+                            ), 
+                            buttons: ButtonWidget(
+                              className: className,
+                              status: orderList[index].state.toString(),
+                            ),
+                            infoWidget:  Info(
+                              className: className,
+                              demandName: orderList[index].demandName.toString(),
+                              infoRow1: formattedDate( orderList[index].orderDate.toString()),
+                              infoRow2: formattedDate(orderList[index].deliveryDate.toString()),
+                              infoRow3: checkPaymentType(orderList[index].paymentType.toString()),
+                              infoRow4: orderList[index].paymentDueDate.toString(),
+                              infoRow5: orderList[index].demandNo.toString(),
+                              infoRow6: checkTraking(orderList[index].includeShipmentCost!), // tracking payment is missing in order model.
+                            ),
                           ),
                         );
                       },
