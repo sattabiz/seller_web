@@ -49,8 +49,8 @@ class BigCard extends ConsumerWidget {
     };
 
     return Container(
-      width: 1000,
-      height: 550,
+      width: 1280,
+      height: 720,
       // constraints: BoxConstraints.tightFor(width: width * 0.7, height: height * 0.8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32),
@@ -64,7 +64,7 @@ class BigCard extends ConsumerWidget {
             child: Row(
               children: [
                 SizedBox(        // left-side
-                  width: 700,
+                  width: 840,
                   height: height * 0.7,
                   child: Column(  
                     crossAxisAlignment: CrossAxisAlignment.start,         

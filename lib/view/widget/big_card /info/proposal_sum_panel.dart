@@ -4,159 +4,73 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 
 class ProposalSumPanel extends StatelessWidget {
   final String className;
-  final String ?row1;
-  final String ?row2;
-  final String ?row3;
+  final String? row1;
+  final String? row2;
+  final String? row3;
 
-const ProposalSumPanel({ 
-  Key? key, 
-  required this.className, 
-  this.row1, 
-  this.row2, 
-  this.row3,
-   }) : super(key: key);
+  const ProposalSumPanel({
+    Key? key,
+    required this.className,
+    this.row1,
+    this.row2,
+    this.row3,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0, bottom: 5),
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.transparent,
-          // borderRadius: BorderRadius.circular(10),
-          //border: Border.all(width: 1, color: Theme.of(context).colorScheme.primary), // TODO : dont forget to remove
-          /* boxShadow: const [
-            BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0, 2),
-              blurRadius: 4.0,
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 22.0),
+          child: Container(
+            width: 200,
+            height: 85,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.transparent,
             ),
-          ], */
-        ),
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/5), // TODO : temporary solution
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              /* Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(left: 10.0, top: 5.0),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surfaceVariant,
-                    /* borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                    ), */
-                  ),
-                  child: Text(
-                    FlutterI18n.translate(context, "Example"),
-                    style: Theme.of(context).textTheme.titleSmall,
-                    maxLines: 1,
-                  ),
-                ),
-              ), */
-              Expanded(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          FlutterI18n.translate(context, "tr.proposal_sum.row_t"),
-                          style: Theme.of(context).textTheme.bodySmall,
-                          textDirection: TextDirection.ltr,
-                          maxLines: 1,
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8), 
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        /* "paletfiyat*200" */
-                        row1!,
-                        style: Theme.of(context).textTheme.bodySmall,
-                        textDirection: TextDirection.ltr,
-                        maxLines: 1,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          FlutterI18n.translate(context, "tr.proposal_sum.row_tx"),
-                          style: Theme.of(context).textTheme.bodySmall,
-                          textDirection: TextDirection.ltr, 
-                          maxLines: 1,
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8), 
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        /* "kdv*Tutar", */
-                        row2!,
-                        style: Theme.of(context).textTheme.bodySmall,
-                        textDirection: TextDirection.ltr,
-                        maxLines: 1,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          FlutterI18n.translate(context, "tr.proposal_sum.row_s"),
-                          style: Theme.of(context).textTheme.bodySmall,
-                          textDirection: TextDirection.ltr,
-                          maxLines: 1,
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8), 
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        /* "Tutar+KDV", */
-                        row3!,
-                        style: Theme.of(context).textTheme.bodySmall,
-                        textDirection: TextDirection.ltr,
-                        maxLines: 1,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const SizedBox(height: 4.0),
+                _buildRow(context, "tr.proposal_sum.row_t", row1!),
+                const SizedBox(height: 8.0),
+                _buildRow(context, "tr.proposal_sum.row_tx", row2!),
+                const SizedBox(height: 8.0),
+                _buildRow(context, "tr.proposal_sum.row_s", row3!),
+                const SizedBox(height: 4.0),
+              ],
+            ),
           ),
         ),
+      ],
+    );
+  }
+
+  Widget _buildRow(BuildContext context, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 3.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              FlutterI18n.translate(context, label),
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.end,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              value,
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.end,
+            ),
+          ),
+        ],
       ),
     );
   }

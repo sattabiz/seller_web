@@ -121,11 +121,11 @@ for (var item in productsProposalList) {
 
   switch (caseName) {
     case "raw_cost":
-      return '${allItemsRawCost.toStringAsFixed(2)} $currencyCode';  
+      return '${allItemsRawCost.toStringAsFixed(2)} ₺';  
     case "tax_amount":
-      return '${taxAmount.toStringAsFixed(2)} $currencyCode';  
+      return '${taxAmount.toStringAsFixed(2)} ₺';/* return '${taxAmount.toStringAsFixed(2)} $currencyCode'; */  
     case "total_cost":
-      return '${allItemsTotalCost.toStringAsFixed(2)} $currencyCode';   
+      return '${allItemsTotalCost.toStringAsFixed(2)} ₺';   
     default:
       return '--';
   }
