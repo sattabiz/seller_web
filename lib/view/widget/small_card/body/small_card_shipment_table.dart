@@ -1,15 +1,13 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_svg/svg.dart';
 
-class BodyShipment extends StatelessWidget {
+class SmallCardShipmentTable extends StatelessWidget {
   final String id;
   final String status;
   final String className;
   final List bodyList;
 
-  const BodyShipment({ 
+  const SmallCardShipmentTable({ 
   Key? key, 
     required this.id,
     required this.status, 

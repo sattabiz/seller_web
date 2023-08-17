@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 
-class BodyProposal extends StatelessWidget {
+class SmallCardTable extends StatelessWidget {
   final String id;
   final String status;
   final String className;
   final List bodyList;
 
-  const BodyProposal({ 
+  const SmallCardTable({ 
   Key? key, 
     required this.id,
     required this.status, 

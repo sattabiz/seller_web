@@ -2,15 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:seller_point/view/widget/big_card%20/big_card.dart';
 import 'package:seller_point/view/widget/big_card%20/header/header.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info_box.dart';
-import '../../model/shipment_model.dart';
+import 'package:seller_point/view/widget/big_card%20/table/shipment_table.dart';
+import 'package:seller_point/view/widget/small_card/body/small_card_shipment_table.dart';
+import 'package:seller_point/view/widget/small_card/body/small_card_table.dart';
+import 'package:seller_point/view/widget/small_card/header/header_invoice.dart';
 import '../../utils/widget_helper.dart';
+import '../../view_model/invoice_approved_view_model.dart';
+import '../../view_model/provider_controller.dart';
 import '../../view_model/shipment_view_model.dart';
+import '../widget/big_card /buttons/button_widget.dart';
+import '../widget/big_card /info/info_shipment.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
-import '../widget/small_card/small_card_shipment.dart';
+import '../widget/small_card/body/body_header.dart';
+import '../widget/small_card/header/header_shipment.dart';
+import '../widget/small_card/small_card.dart';
+
+
 class ShipmentView extends ConsumerWidget {
  const ShipmentView({Key? key}) : super(key: key);
   final String className = 'shipment';
@@ -39,39 +51,94 @@ class ShipmentView extends ConsumerWidget {
                       mainAxisSpacing: 3,
                       crossAxisSpacing: 3,
                       itemCount: shipmentList.length,
-                      staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                      staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
                       itemBuilder: (context, index) {
-                        return SmallCardShipment(
-                          index: index,
+                        return SmallCard(
                           id: shipmentList[index].shipmentId.toString(),
                           className: className,
                           status: shipmentList[index].state.toString(),
-                          headerDate: shipmentList[index].shipmentDate.toString(),
-                          bodyHeader: shipmentList[index].waybillNo.toString(),
-                          bigCardHeader: Header(
-                            className: className,
+                          headerSmallCard: 
+                          checkShipmentState(shipmentList[index].state.toString())
+                          ? HeaderInvoice(
                             status: shipmentList[index].state.toString(),
-                            id: shipmentList[index].state.toString() == 'order_on_the_way'
-                            ? shipmentList[index].shipmentDate.toString()
-                            : shipmentList[index].shipmentId.toString(), //order_id eklenecek
+                            headerDate: formattedDate(shipmentList[index].deliveryDate.toString()), 
+                            className: className)
+                          : HeaderShipment(
+                            id: shipmentList[index].shipmentId.toString(), 
+                            status: shipmentList[index].state.toString(),
+                            headerDate: formattedDate(shipmentList[index].shipmentDate.toString()), 
+                            newMessageSvg: newMessageSvg,
                           ),
-                          infoWidget: Info(
-                            className: className, 
-                            demandName: shipmentList[index].demandListName.toString(),
-                            infoRow1: shipmentList[index].shipmentId.toString(), //order date is missing
-                            infoRow2: shipmentList[index].shipmentDate.toString(), // teslim tarihi is missing in shipment model
-                            infoRow3: checkPaymentType(shipmentList[index].paymentType.toString()),
-                            infoRow4: shipmentList[index].paymentDueDate.toString(), 
-                            infoRow5: shipmentList[index].proposalId.toString(), 
-                            infoRow6: checkTraking(shipmentList[index].includeShipmentCost!),
+                          bodyHeader:
+                           BodyHeader( 
+                            bodyHeader: shipmentList[index].waybillNo.toString(),
                           ),
-                          infoBoxWidget: InfoBox(
-                            className: className,
-                            row1: shipmentList[index].carrier.toString(),
-                            row2: shipmentList[index].trackingNo.toString(),
-                            row3: shipmentList[index].address.toString(),
+                          smallCardTable: smallCardShipmentTable(
+                            shipmentList[index].state.toString(),
+                            SmallCardShipmentTable(
+                              id: shipmentList[index].shipmentId.toString(), 
+                              status: shipmentList[index].state.toString(), 
+                              className: className, 
+                              bodyList: shipmentList[index].products,
+                            ),
+                            SmallCardTable(
+                              id: shipmentList[index].shipmentId.toString(), 
+                              status: shipmentList[index].state.toString(), 
+                              className: className, 
+                              bodyList: shipmentList[index].products,
+                            )
                           ),
-                          bodyList: shipmentList[index].products,
+                          bigCard: BigCard(
+                            id: shipmentList[index].shipmentId.toString(),
+                            bigCardHeader: Header(
+                              className: className,
+                              status: shipmentList[index].state.toString(),
+                              id: checkShipmentState(shipmentList[index].state.toString())
+                              ? formattedDate(shipmentList[index].deliveryDate.toString())
+                              : getOrderIdFromShipmentProductList(shipmentList[index].products),
+                            ), 
+                            bigCardTable: ShipmentTable(
+                              shipmentProductList: shipmentList[index].products, 
+                              className: className
+                            ), 
+                            buttons: ButtonWidget(
+                              className: className,
+                              status: shipmentList[index].state.toString(),
+                              onPressed: () async {
+                                await ref.watch(shipmentDeliveredProvider);
+                                ref.read(drawerCountProvider.notifier).state = 1;
+                                Navigator.pop(context);
+                              },
+                            ),
+                            infoWidget: 
+                            checkShipmentState(shipmentList[index].state.toString())
+                            ? InfoShipment(
+                              className: className, 
+                              invoiceNo: checkPaymentType(shipmentList[index].waybillNo.toString()), //invoiceNo eklenecek
+                              infoRow1: formattedDate(shipmentList[index].shipmentDate.toString()), //invoice date eklenecek
+                              infoRow2: shipmentList[index].waybillNo.toString(),
+                              infoRow3: checkPaymentType(shipmentList[index].paymentType.toString()),
+                              infoRow4: shipmentList[index].paymentDueDate.toString(), 
+                              infoRow5: getOrderIdFromShipmentProductList(shipmentList[index].products), 
+                              infoRow6: checkTraking(shipmentList[index].includeShipmentCost!),
+                            )
+                            : Info(
+                              className: className, 
+                              demandName: shipmentList[index].demandListName.toString(),
+                              infoRow1: formattedDate(shipmentList[index].orderDate.toString()),
+                              infoRow2: formattedDate(shipmentList[index].deliveryDate.toString()),
+                              infoRow3: checkPaymentType(shipmentList[index].paymentType.toString()),
+                              infoRow4: shipmentList[index].paymentDueDate.toString(), 
+                              infoRow5: shipmentList[index].proposalId.toString(), 
+                              infoRow6: checkTraking(shipmentList[index].includeShipmentCost!),
+                            ),
+                            infoBoxWidget: InfoBox(
+                              className: className,
+                              row1: shipmentList[index].carrier.toString(),
+                              row2: shipmentList[index].trackingNo.toString(),
+                              row3: shipmentList[index].address.toString(),
+                            ),
+                          ),
                         );
                       },
                     ),

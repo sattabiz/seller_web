@@ -1,52 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seller_point/view/widget/big_card%20/table/invoice_table.dart';
-import 'package:seller_point/view/widget/big_card%20/table/product_table.dart';
-import 'package:seller_point/view/widget/big_card%20/table/proposal_table.dart';
-import 'package:seller_point/view/widget/big_card%20/table/shipment_table.dart';
-import 'header/header.dart';
+
 
 final proposalIdProvider = StateProvider<String?>((ref) => '');
 
-
 class BigCard extends ConsumerWidget {
-  final String id; //header_no
-  final String className;
-  final String status;
-  final String svgPath;
-  final String topic; //body_header
-  final String ?statusMap;
+  final String id;
   final Widget bigCardHeader;
+  final Widget bigCardTable;
   final Widget buttons;
   final Widget infoWidget;
   final Widget ?infoBoxWidget;
-  final List tableList; //body_table
 
   const BigCard( {
     Key? key,
     required this.id,
-    required this.className,
-    required this.status,
-    required this.svgPath,
-    required this.topic,
-    this.statusMap,
     required this.bigCardHeader,
+    required this.bigCardTable,
     required this.buttons,
     required this.infoWidget,
     this.infoBoxWidget,
-    required this.tableList,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     double height = MediaQuery.of(context).size.height;
-
-    Map<String, Widget> tableListMap= {
-      'proposal': ProposalTable(productsProposalList: tableList, className: className),
-      'order': ProductListTable(productList: tableList, className: className),
-      'shipment': ShipmentTable(shipmentProductList: tableList, className: className),
-      'invoice': InvoiceTable(invoiceProductList: tableList, className: className),
-    };
 
     return Container(
       width: 1280,
@@ -94,7 +72,7 @@ class BigCard extends ConsumerWidget {
                                 ),
                               ],
                             ),
-                            child: tableListMap[className],
+                            child: bigCardTable,
                           ),
                         ),
                       ),
@@ -114,7 +92,7 @@ class BigCard extends ConsumerWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          constraints: BoxConstraints.tightFor(width: 250),
+                          constraints: const BoxConstraints.tightFor(width: 250),
                           padding: const EdgeInsets.all(10),
                           child: Align(
                             alignment: (id == "1" ?Alignment.topLeft:Alignment.topRight),
@@ -139,7 +117,7 @@ class BigCard extends ConsumerWidget {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
                           ),
-                          constraints: BoxConstraints.tightFor(width: 250, height: 30),
+                          constraints: const BoxConstraints.tightFor(width: 250, height: 30),
                         ),
                       ),
                     ),

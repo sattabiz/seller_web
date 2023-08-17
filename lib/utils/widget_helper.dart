@@ -1,4 +1,6 @@
 
+import 'package:flutter/material.dart';
+
 Map<String, String> statusIconMap = {
     'pending': 'assets/proposal_pending.svg',
     'replied': 'assets/exportNotes.svg',
@@ -61,12 +63,25 @@ String checkTraking(bool tracking) {
   }
 }
 
+bool checkShipmentState(String status) {
+  return status == 'order_on_the_way';
+}
+
 String invoiceBigCardHeader(String status, String paymentDate, String invoiceDate) {
   if (status == 'invoice_approved') {
     return formattedDate(paymentDate);
   }
   else {
     return formattedDate(invoiceDate);
+  }
+}
+
+String invoiceSmallCardHeaderDate(String status, String paymentDate, String invoiceDate) {
+  if (status == 'invoice_goods_delivered') {
+    return formattedDate(invoiceDate);
+  }
+  else {
+    return formattedDate(paymentDate);
   }
 }
 
@@ -89,6 +104,30 @@ String bigCardHeader(String status, String className) {
   }
 }
 
+Widget smallCardShipmentTable(String status, Widget shipmentTable, Widget smallCardTable){
+  if (status == 'order_on_the_way') {
+    return smallCardTable;
+  }
+  else {
+    return shipmentTable;
+  }
+}
+
+String getOrderIdFromShipmentProductList(List<dynamic> list) {
+  for (var element in list) {
+    return element.orderId.toString();
+  }
+  throw Exception('No orderId found in shipmentProductList');
+}
+
+Widget bigCardOrderTable (String status, Widget orderTable, Widget orderTableState) {
+  if (status == 'order_approved,' || status == 'order_pending') {
+    return orderTable;
+  }
+  else {
+    return orderTableState;
+  }
+}
 
 String costCalc(List<dynamic> productsProposalList,String caseName) {
 

@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_svg/svg.dart';
@@ -53,28 +52,26 @@ const HeaderShipment({ Key? key, required this.id, required this.status, require
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  FlutterI18n.translate(context, "tr.shipment.header_shipment.$status" ),
+                  FlutterI18n.translate(context, "tr.order.big_card_header" ),
                   style:Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontWeight: FontWeight.w500
                   )
                 ),
                 Text(
-                  status == 'order_on_the_way' ? headerDate : id,
+                  id,
                   style:Theme.of(context).textTheme.labelLarge
                 ),
-                status == 'order_on_the_way'
-                ? const SizedBox(width: 1)
-                :  Text(
-                    FlutterI18n.translate(context, "tr.shipment.date"),
-                    style:Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.w500
-                   ),
+                Text(
+                  FlutterI18n.translate(context, "tr.shipment.date"),
+                  style:Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.w500
                   ),
-                  AutoSizeText(
-                    headerDate,
-                    style:Theme.of(context).textTheme.labelLarge,
-                    maxLines: 1,
-                  ),
+                ),
+                Text(
+                  headerDate,
+                  style:Theme.of(context).textTheme.labelLarge,
+                  maxLines: 1,
+                ),
               ],
             ),
           ],

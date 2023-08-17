@@ -4,11 +4,11 @@ import 'package:data_table_2/data_table_2.dart';
 
 import '../../../../utils/widget_helper.dart';
 
-class ProductListTable extends StatelessWidget {
+class OrderTable extends StatelessWidget {
   final List productList;
   final String className;
 
-  const ProductListTable({
+  const OrderTable({
     super.key, 
     required this.productList,
     required this.className
@@ -16,11 +16,6 @@ class ProductListTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> description= {
-      'order': FlutterI18n.translate(context, "tr.order.description"),
-      'proposal': FlutterI18n.translate(context, "tr.proposal.proposal_note"),
-    };
-
     return DataTable2(
       columnSpacing: 5,
       fixedTopRows: 1,
@@ -45,7 +40,9 @@ class ProductListTable extends StatelessWidget {
           size: ColumnSize.L,
         ),
         DataColumn2(
-          label: Text(description[className] ?? ' '),  //tedarikci nocu
+          label: Text(
+            FlutterI18n.translate(context, "tr.order.description"),
+          ),
           size: ColumnSize.M,
         ),
         DataColumn2(
@@ -64,33 +61,34 @@ class ProductListTable extends StatelessWidget {
         ),
       ],
       rows: productList
-          .map(
-            (item) => DataRow2(
-              cells: [
-                DataCell(Text((productList.indexOf(item) + 1).toString(), textDirection: TextDirection.ltr,)),
-                DataCell(Text(item.name.toString())), //product_name
-                DataCell(Text(item.description.toString())), //propsal_note
-                DataCell(
-                  Text(
-                    '${item.amount} ' ' ${item.unit}',
-                    // textDirection: TextDirection.rtl,
-                  )
-                ), //product_unit
-                DataCell(
-                  Text(
-                    item.price.toString(),
-                    textDirection: TextDirection.rtl,
-                  )
-                ),
-                DataCell(
-                  Text(
-                    calcuteAmount(item.amount.toString(), item.price.toString()),
-                    textDirection: TextDirection.rtl,
-                  )
-                ),
-            ]),
-          )
-          .toList(),
+        .map(
+          (item) => DataRow2(
+            cells: [
+              DataCell(Text((productList.indexOf(item) + 1).toString(), textDirection: TextDirection.ltr,)),
+              DataCell(Text(item.name.toString())), //product_name
+              DataCell(Text(item.description.toString())), //propsal_note
+              DataCell(
+                Text(
+                  '${item.amount} ' ' ${item.unit}',
+                  // textDirection: TextDirection.rtl,
+                )
+              ), //product_unit
+              DataCell(
+                Text(
+                  item.price.toString(),
+                  textDirection: TextDirection.rtl,
+                )
+              ),
+              DataCell(
+                Text(
+                  calcuteAmount(item.amount.toString(), item.price.toString()),
+                  textDirection: TextDirection.rtl,
+                )
+              ),
+            ]
+          ),
+        )
+        .toList(),
     );
   }
 }

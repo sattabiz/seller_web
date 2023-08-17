@@ -1,34 +1,32 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
-class Info extends ConsumerWidget {
+class InfoShipment extends StatelessWidget {
   final String className;
-  final String demandName;
+  final String invoiceNo;
   final String ?infoRow1;
   final String ?infoRow2;
   final String ?infoRow3;
   final String ?infoRow4;
   final String ?infoRow5;
   final String ?infoRow6;
-
-
-  const Info({
+  const InfoShipment({ 
     Key? key,
     required this.className,
-    required this.demandName,
+    required this.invoiceNo,
     this.infoRow1,
     this.infoRow2,
     this.infoRow3,
     this.infoRow4,
     this.infoRow5,
     this.infoRow6,
-  }) : super(key: key);
+   }) : super(key: key);
+
+
+
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 30.0, top: 10.0),
       child: Column(
@@ -37,14 +35,14 @@ class Info extends ConsumerWidget {
         children: [
           Row(     //row 1
             children:  [
-              Text( FlutterI18n.translate(context, "tr.order.topic"),
+              Text( FlutterI18n.translate(context, "tr.invoice.invoice_no"),
                 style: Theme.of(context).textTheme.labelLarge,                     
                 ),
               const SizedBox(width: 10.0),
               Expanded(
                 flex: 4,
                 child: Text(
-                  demandName == "null" ? '-' : demandName,
+                  invoiceNo == "null" ? '-' : invoiceNo,
                   style: Theme.of(context).textTheme.titleMedium,
                   maxLines: 1,
                 ),
@@ -65,7 +63,7 @@ class Info extends ConsumerWidget {
               TableRow(
                 children: <Widget>[
                   Text(
-                    FlutterI18n.translate(context, "tr.$className.infoRow1"),
+                    FlutterI18n.translate(context, "tr.invoice.invoice_date"),
                     style: Theme.of(context).textTheme.labelLarge,
                     maxLines: 1,                        
                   ),
@@ -75,7 +73,7 @@ class Info extends ConsumerWidget {
                     maxLines: 1,                        
                   ), 
                   Text(
-                    FlutterI18n.translate(context, "tr.$className.infoRow2"),
+                    FlutterI18n.translate(context, "tr.order.waybill"),
                     style: Theme.of(context).textTheme.labelLarge,
                     maxLines: 1,                        
                   ), 
@@ -126,7 +124,7 @@ class Info extends ConsumerWidget {
               TableRow(
                 children: <Widget>[
                   Text(
-                    FlutterI18n.translate(context, "tr.$className.infoRow5"),
+                    FlutterI18n.translate(context, "tr.order.order_no"),
                     style: Theme.of(context).textTheme.labelLarge,
                     maxLines: 1,                        
                   ),                            
@@ -155,5 +153,3 @@ class Info extends ConsumerWidget {
     );
   }
 }
-
-

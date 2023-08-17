@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:seller_point/view/widget/big_card%20/big_card.dart';
 import 'package:seller_point/view/widget/big_card%20/header/header.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info.dart';
+import 'package:seller_point/view/widget/small_card/body/small_card_table.dart';
 import '../../utils/widget_helper.dart';
 import '../../view_model/create_order_view_model.dart';
 import '../../view_model/proposal_view_model.dart';
 import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/big_card /info/info_box.dart';
+import '../widget/big_card /table/proposal_table.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
+import '../widget/small_card/body/body_header.dart';
 import '../widget/small_card/header/header_proposal.dart';
 import '../widget/small_card/small_card.dart';
 
@@ -47,48 +51,61 @@ class ProposalView extends ConsumerWidget {
                       staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
                       itemBuilder: (context, index) {
                         return SmallCard(
-                          index: index,
-                          className: className,
                           id: proposalList[index].proposalId.toString(),
+                          className: className,
                           status: proposalList[index].proposalState.toString(),
-                          bodyHeader: proposalList[index].demandListName.toString(), //kaldirilacak
-                          headerDate: proposalList[index].proposalValidDate.toString(),
-                          bodyList: proposalList[index].productProposals!,
                           headerSmallCard: HeaderProposal(
                             id: proposalList[index].proposalId.toString(),
                             status: proposalList[index].proposalState.toString(),
                             headerDate: proposalList[index].proposalValidDate.toString(),
                             newMessageSvg: newMessageSvg, 
-                            className: className,),
-                          bigCardButtons: ButtonWidget(
-                            className: className,
-                            status: proposalList[index].proposalState.toString(),
-                            onPressed: () async {
-                              ref.read(proposalIndexProvider.notifier).state=index;
-                              await ref.watch(createOrderProvider);
-                              Navigator.pop(context);
-                            },
+                            className: className
                           ),
-                          bigCardHeader: Header(
-                            className: className,
+                          bodyHeader: BodyHeader( 
+                            bodyHeader: proposalList[index].demandListName.toString(),
+                          ),
+                          smallCardTable: SmallCardTable(
+                            id: proposalList[index].proposalId.toString(), 
+                            status: proposalList[index].proposalState.toString(),
+                            className: className, 
+                            bodyList: proposalList[index].productProposals!,
+                          ),
+                          bigCard: BigCard(
                             id: proposalList[index].proposalId.toString(),
-                            status: proposalList[index].proposalState.toString(),
-                          ),
-                          infoBoxWidget: InfoBox(
-                            className: className,
-                            row1: proposalList[index].updateCounter.toString(),
-                            row2: proposalList[index].proposalValidDate.toString(), //sayac eklenecek
-                            row3: proposalList[index].proposalValidPeriod.toString(),
-                          ),
-                          infoWidget: Info(
-                            className: className,
-                            demandName: proposalList[index].demandListName.toString(),
-                            infoRow1: proposalList[index].proposalCreatedAt.toString(),
-                            infoRow2: formattedDate(proposalList[index].deliveryDate.toString()),
-                            infoRow3: checkPaymentType(proposalList[index].paymentType.toString()),
-                            infoRow4: proposalList[index].paymentDueDate.toString(),
-                            infoRow5: proposalList[index].proposalDeliveryTime.toString(),
-                            infoRow6: checkTraking(proposalList[index].includeShipmentCost!),
+                            bigCardHeader: Header(
+                              className: className,
+                              id: proposalList[index].proposalId.toString(),
+                              status: proposalList[index].proposalState.toString(),
+                            ),
+                            bigCardTable: ProposalTable(
+                              productsProposalList: proposalList[index].productProposals!, 
+                              className: className
+                            ),
+                            buttons: ButtonWidget(
+                              className: className,
+                              status: proposalList[index].proposalState.toString(),
+                              onPressed: () async {
+                                ref.read(proposalIndexProvider.notifier).state=index;
+                                await ref.watch(createOrderProvider);
+                                Navigator.pop(context);
+                              },
+                            ),
+                            infoWidget: Info(
+                              className: className,
+                              demandName: proposalList[index].demandListName.toString(),
+                              infoRow1: formattedDate(proposalList[index].proposalCreatedAt.toString()),
+                              infoRow2: formattedDate(proposalList[index].deliveryDate.toString()),
+                              infoRow3: checkPaymentType(proposalList[index].paymentType.toString()),
+                              infoRow4: proposalList[index].paymentDueDate.toString(),
+                              infoRow5: proposalList[index].proposalDeliveryTime.toString(),
+                              infoRow6: checkTraking(proposalList[index].includeShipmentCost!),
+                            ),
+                            infoBoxWidget: InfoBox(
+                              className: className,
+                              row1: proposalList[index].updateCounter.toString(),
+                              row2: proposalList[index].proposalValidDate.toString(), //sayac eklenecek
+                              row3: proposalList[index].proposalValidPeriod.toString(),
+                            ),
                           ),
                         );
                       },
