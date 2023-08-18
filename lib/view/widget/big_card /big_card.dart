@@ -12,7 +12,7 @@ class BigCard extends ConsumerWidget {
   final Widget infoWidget;
   final Widget ?infoBoxWidget;
 
-  const BigCard( {
+  const BigCard({
     Key? key,
     required this.id,
     required this.bigCardHeader,
@@ -24,11 +24,12 @@ class BigCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    double height = MediaQuery.of(context).size.height;
+    double widthContx = MediaQuery.of(context).size.width;
+    double heightContx = MediaQuery.of(context).size.height;
 
     return Container(
-      width: 1280,
-      height: 720,
+      width: widthContx * 0.667,
+      height: heightContx * 0.8,
       // constraints: BoxConstraints.tightFor(width: width * 0.7, height: height * 0.8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32),
@@ -38,24 +39,22 @@ class BigCard extends ConsumerWidget {
         children: [
           bigCardHeader,
           Expanded(
-            flex: 11,                    //body
-            child: Row(
+            flex: 11, //body
+            child: Row( 
               children: [
-                SizedBox(        // left-side
-                  width: 840,
-                  height: height * 0.7,
-                  child: Column(  
-                    crossAxisAlignment: CrossAxisAlignment.start,         
+                SizedBox(
+                  // left-side
+                  width: (widthContx * 0.667) * 9 / 12, // that means left-side is 3/4 of the
+                  height: heightContx * 0.7,            // big card when you slice it vertically
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Expanded(
-                            flex: 8,
-                            child: infoWidget
-                          ),
+                          Expanded(flex: 8, child: infoWidget),
                           infoBoxWidget ?? const SizedBox(width: 0),
                         ],
-                      ),  //info        
+                      ), //info
                       Expanded(
                         flex: 3,
                         child: Padding(
@@ -80,48 +79,80 @@ class BigCard extends ConsumerWidget {
                     ],
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 8,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 30,top: 10),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          constraints: const BoxConstraints.tightFor(width: 250),
-                          padding: const EdgeInsets.all(10),
-                          child: Align(
-                            alignment: (id == "1" ?Alignment.topLeft:Alignment.topRight),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: ( id == "1" ? Colors.grey.shade200 :Colors.blue[200]),
+                SizedBox(
+                  // right-side
+                  width: (widthContx * 0.667) * 3 / 12,
+                  height: heightContx * 0.7,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 9,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 30, top: 20),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            constraints:
+                                BoxConstraints.tightFor(width: widthContx*0.205 , height: heightContx*0.71),
+                            padding: const EdgeInsets.all(10),
+                            child: Align(
+                              alignment: (id == "1" ? Alignment.topLeft : Alignment.topRight),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: (id == "1" ? Colors.grey.shade200 : Colors.blue[200]),
+                                ),
+                                padding: const EdgeInsets.all(16),
+                                child: const Text(
+                                  "Siparis yolda",
+                                  style: TextStyle(fontSize: 15),
+                                ),
                               ),
-                              padding: const  EdgeInsets.all(16),
-                              child: Text("Siparis yolda", style: const TextStyle(fontSize: 15),),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    const Padding(padding: EdgeInsets.only(top: 10)),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 30),
-                        child: Container(                            
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          constraints: const BoxConstraints.tightFor(width: 250, height: 30),
+                      const Padding(padding: EdgeInsets.only(top: 10)),
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 30.0),
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    flex: 7,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white,
+                                      ),
+                                      constraints: const BoxConstraints.tightFor(height: 30),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Flexible(
+                                    flex: 2,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white,
+                                      ),
+                                      constraints: const BoxConstraints.tightFor(height: 30),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
