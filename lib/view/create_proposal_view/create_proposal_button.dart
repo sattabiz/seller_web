@@ -22,11 +22,10 @@ class CreateProposalButton extends ConsumerWidget {
           
           if (_productsAttributes != null) {
             try {
-              ref.watch(createProposalProvider);
+              await ref.watch(createProposalProvider);
             } catch (e) {
               debugPrint('API çağrısında bir hata oluştu: $e');
             }
-            ref.invalidate(formItemProvider);
             Navigator.pop(context);
           } else {
             debugPrint('LandingProvider verisi mevcut değil');
