@@ -96,7 +96,7 @@ class OrderView extends ConsumerWidget {
                               infoRow3: checkPaymentType(orderList[index].paymentType.toString()),
                               infoRow4: orderList[index].paymentDueDate.toString(),
                               infoRow5: orderList[index].demandNo.toString(),
-                              infoRow6: checkTraking(orderList[index].includeShipmentCost!), // tracking payment is missing in order model.
+                              infoRow6: checkTraking(orderList[index].includeShipmentCost!),
                             ),
                           ),
                         );

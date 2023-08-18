@@ -1,4 +1,6 @@
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 Map<String, String> statusIconMap = {
@@ -30,7 +32,15 @@ Map<String, String> statusIconMap = {
     return "${parsedDate.day}-${parsedDate.month.toString().padLeft(2, '0')}-${parsedDate.year.toString().padLeft(2, '0')}";
     }
   }
-  
+    String formattedTime(String date) {
+    if (date == 'null') {
+      return '-';
+    }
+    else {
+    final DateTime parsedDate = DateTime.parse(date);
+    return "${parsedDate.hour}:${parsedDate.minute.toString().padLeft(2, '0')}";
+    }
+  }
   // calculate amount for big card table
   String calcuteAmount(String amount, String price) {
     return (double.parse(amount) * double.parse(price)).toString();
@@ -47,7 +57,7 @@ String truncateToTwoWords(String text) {
 
 String checkPaymentType(String paymentType) {
   if (paymentType == 'null') {
-    return '-';
+    return 'Cari Hesap';
   }
   else {
     return paymentType;
