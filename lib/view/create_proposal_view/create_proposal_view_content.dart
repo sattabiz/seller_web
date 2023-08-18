@@ -18,7 +18,7 @@ class OfferModel {
         patmentDueDate = 30;
 }
 
-final offerModelProvider = Provider.autoDispose<OfferModel>((ref) => OfferModel());
+final offerModelProvider = Provider<OfferModel>((ref) => OfferModel());
 
 class createProposalViewContent extends ConsumerWidget {
   final String topic;

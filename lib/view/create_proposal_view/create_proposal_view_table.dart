@@ -1,14 +1,21 @@
+import 'dart:convert';
+import 'dart:html';
+import 'dart:typed_data';
+
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../view_model/landing_view_model.dart';
+import 'create_proposal_show_dialog.dart';
 
 class FormItem {
   String? category;
   String? product;
   String? amount;
+  List<String>? image;
 
-  FormItem({this.category, this.product, this.amount});
+  FormItem({this.category, this.product, this.amount, this.image});
 }
 
 // State Notifier Provider for form items
@@ -257,9 +264,12 @@ class createProposalViewTable extends ConsumerWidget {
           child: IconButton(
             icon: const Icon(Icons.attach_file),
             iconSize: 25,
-            onPressed: () async {
-              FilePickerResult? result = await FilePicker.platform.pickFiles(
-                type: FileType.image,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const CreateProposalShowDialog();
+                },
               );
             },
           ),
@@ -267,6 +277,85 @@ class createProposalViewTable extends ConsumerWidget {
       ],
     );
   }
+
+  /* @pragma('vm:entry-point')
+  static Route<Object?> _dialogBuilder(
+      BuildContext context, Object? arguments) {
+    return DialogRoute<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const Text('Dosya Yükleme'),
+              const SizedBox(
+                width: 100,
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.close),
+              ),
+            ],
+          ),
+          content: Row(
+            children: [
+              InkWell(
+                onTap: () async {
+                  FilePickerResult? result = await FilePicker.platform
+                      .pickFiles(type: FileType.image, allowMultiple: true);
+                  if (result != null && result.files.isNotEmpty) {
+                    List<MultipartFile> files = result.files
+                        .map((file) => MultipartFile.fromBytes(
+                              file.bytes as List<int>,
+                              filename: base64Encode(file.bytes as List<int>),
+                            ))
+                        .toList();
+
+                    Uint8List? fileBytes = result.files.first.bytes;
+                    String mimeType = result.files.first.name;
+                    if (fileBytes != null) {
+                      String dataUrl =
+                          'data:image/png;base64,' + base64Encode(fileBytes);
+                      String imageName = 'selected_image.$mimeType';
+                      debugPrint(files[0].filename.toString());
+                      debugPrint(
+                          '------------------------------------------------------------------------------------------------------------');
+                      debugPrint(files[1].filename.toString());
+                    }
+                  }
+                },
+                child: Container(
+                  width: 85,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white,
+                      border: Border.all()),
+                  child: const Center(
+                    child: Text('Dosya Ekle'),
+                  ),
+                ),
+              )
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Kaydet'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  } */
 }
 
 
