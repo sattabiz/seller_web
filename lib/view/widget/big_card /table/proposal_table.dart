@@ -171,23 +171,25 @@ class ProposalTable extends StatelessWidget {
             ),
           ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Expanded(flex: 16, child: Container()),
-            Expanded(
-              flex: 4,
-              child: Padding(
-                  padding: const EdgeInsets.all(0),
-                  child: ProposalSumPanel(
-                    className: className,
-                    row1: costCalc(productsProposalList, "raw_cost"),
-                    row2: costCalc(productsProposalList, "tax_amount"),
-                    row3: costCalc(productsProposalList, "total_cost"),
-                    /* "$FlutterI18n.translate(context, 'tr.order.proposal')" */
-                  )),
-            ),
-          ],
+        SizedBox.expand(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Expanded(
+                flex: 4,
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: ProposalSumPanel(
+                      className: className,
+                      row1: costCalc(productsProposalList, "raw_cost"),
+                      row2: costCalc(productsProposalList, "tax_amount"),
+                      row3: costCalc(productsProposalList, "total_cost"),
+                      /* "$FlutterI18n.translate(context, 'tr.order.proposal')" */
+                    )),
+              ),
+            ],
+          ),
         ),
       ],
     );
