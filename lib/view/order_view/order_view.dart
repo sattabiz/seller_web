@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:seller_point/utils/widget_helper.dart';
 import 'package:seller_point/view/widget/big_card%20/big_card.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info.dart';
+import 'package:seller_point/view/widget/big_card%20/info/proposal_sum_panel.dart';
 import 'package:seller_point/view/widget/loading_widget.dart';
 import '../../view_model/order_list_view_model.dart';
 import '../widget/big_card /buttons/button_widget.dart';
@@ -84,6 +85,12 @@ class OrderView extends ConsumerWidget {
                                 productList: orderList[index].products,
                               )
                             ), 
+                            tableInfoPanel: TableInfoPanel(
+                              row1: costCalc(orderList[index].products, "raw_cost"),
+                              row2: costCalc(orderList[index].products, "tax_amount"),
+                              row3: costCalc(orderList[index].products, "total_cost"),
+                            ),
+                            
                             buttons: ButtonWidget(
                               className: className,
                               status: orderList[index].state.toString(),
@@ -96,7 +103,7 @@ class OrderView extends ConsumerWidget {
                               infoRow3: checkPaymentType(orderList[index].paymentType.toString()),
                               infoRow4: orderList[index].paymentDueDate.toString(),
                               infoRow5: orderList[index].demandNo.toString(),
-                              infoRow6: checkTraking(orderList[index].includeShipmentCost!), // tracking payment is missing in order model.
+                              infoRow6: checkTraking(orderList[index].includeShipmentCost!),
                             ),
                           ),
                         );

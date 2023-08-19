@@ -11,6 +11,7 @@ import '../../view_model/create_order_view_model.dart';
 import '../../view_model/proposal_view_model.dart';
 import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/big_card /info/info_box.dart';
+import '../widget/big_card /info/proposal_sum_panel.dart';
 import '../widget/big_card /table/proposal_table.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
@@ -80,6 +81,14 @@ class ProposalView extends ConsumerWidget {
                             bigCardTable: ProposalTable(
                               productsProposalList: proposalList[index].productProposals!, 
                               className: className
+                            ),
+                            tableInfoPanel: TableInfoPanel(
+                              // row1: "aaaaa",
+                              // row2: "bbbbbb",
+                              // row3: "cccccc",
+                              row1: costCalc(proposalList[index].productProposals!, "raw_cost"),
+                              row2: costCalc(proposalList[index].productProposals!, "tax_amount"),
+                              row3: costCalc(proposalList[index].productProposals!, "total_cost"),
                             ),
                             buttons: ButtonWidget(
                               className: className,

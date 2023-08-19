@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:seller_point/utils/widget_helper.dart';
 import 'package:seller_point/view/widget/big_card%20/big_card.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info_invoice.dart';
+import 'package:seller_point/view/widget/big_card%20/info/proposal_sum_panel.dart';
 import 'package:seller_point/view/widget/small_card/body/small_card_table.dart';
 import '../../view_model/buyer_invoices_view_model.dart';
 import '../../view_model/invoice_approved_view_model.dart';
@@ -83,6 +84,12 @@ class InvoiceView extends ConsumerWidget {
                             bigCardTable: InvoiceTable(
                               invoiceProductList: invoiceList[index].products!, 
                               className: className
+                            ),
+
+                            tableInfoPanel: TableInfoPanel(
+                              row1: costCalcForShipment(invoiceList[index].products!, "raw_cost"),
+                              row2: costCalcForShipment(invoiceList[index].products!, "tax_amount"),
+                              row3: costCalcForShipment(invoiceList[index].products!, "total_cost"),
                             ),
 
                             buttons: 

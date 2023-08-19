@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seller_point/view/widget/big_card%20/chat_box/chat_box.dart';
 
 
 final proposalIdProvider = StateProvider<String?>((ref) => '');
@@ -8,6 +9,7 @@ class BigCard extends ConsumerWidget {
   final String id;
   final Widget bigCardHeader;
   final Widget bigCardTable;
+  final Widget ?tableInfoPanel;
   final Widget buttons;
   final Widget infoWidget;
   final Widget ?infoBoxWidget;
@@ -17,6 +19,7 @@ class BigCard extends ConsumerWidget {
     required this.id,
     required this.bigCardHeader,
     required this.bigCardTable,
+    this.tableInfoPanel,
     required this.buttons,
     required this.infoWidget,
     this.infoBoxWidget,
@@ -24,13 +27,13 @@ class BigCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    double widthContx = MediaQuery.of(context).size.width;
-    double heightContx = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double height= MediaQuery.of(context).size.height;
 
     return Container(
-      width: widthContx * 0.667,
-      height: heightContx * 0.8,
-      // constraints: BoxConstraints.tightFor(width: width * 0.7, height: height * 0.8),
+      // width: widthContx * 0.667,
+      // height: heightContx * 0.8,
+      constraints: BoxConstraints.tightFor(width: width * 0.85, height: height * 0.9),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32),
         color: Theme.of(context).colorScheme.surface,
@@ -44,8 +47,8 @@ class BigCard extends ConsumerWidget {
               children: [
                 SizedBox(
                   // left-side
-                  width: (widthContx * 0.667) * 9 / 12, // that means left-side is 3/4 of the
-                  height: heightContx * 0.7,            // big card when you slice it vertically
+                  width: width * 0.6,
+                  height: height * 0.8,  // big card when you slice it vertically
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -75,84 +78,36 @@ class BigCard extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      buttons,
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  // right-side
-                  width: (widthContx * 0.667) * 3 / 12,
-                  height: heightContx * 0.7,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
                       Expanded(
-                        flex: 9,
+                        flex: 1,
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 30, top: 20),
+                          padding: const EdgeInsets.only(left: 30.0, right: 16.0),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            constraints:
-                                BoxConstraints.tightFor(width: widthContx*0.205 , height: heightContx*0.71),
-                            padding: const EdgeInsets.all(10),
-                            child: Align(
-                              alignment: (id == "1" ? Alignment.topLeft : Alignment.topRight),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: (id == "1" ? Colors.grey.shade200 : Colors.blue[200]),
-                                ),
-                                padding: const EdgeInsets.all(16),
-                                child: const Text(
-                                  "Siparis yolda",
-                                  style: TextStyle(fontSize: 15),
-                                ),
+                              borderRadius:const  BorderRadius.only(
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10),
                               ),
+                              color: Theme.of(context).colorScheme.surfaceVariant,
+                            ),
+                            // alignment: Alignment.centerRight,
+                            child: Row(
+                              children: [
+                                const Spacer(),
+                                tableInfoPanel ?? const SizedBox(width: 0),
+                              ],
                             ),
                           ),
                         ),
                       ),
-                      const Padding(padding: EdgeInsets.only(top: 10)),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 30.0),
-                              child: Row(
-                                children: [
-                                  Flexible(
-                                    flex: 7,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white,
-                                      ),
-                                      constraints: const BoxConstraints.tightFor(height: 30),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Flexible(
-                                    flex: 2,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.white,
-                                      ),
-                                      constraints: const BoxConstraints.tightFor(height: 30),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      
+                      buttons,
                     ],
                   ),
+                ),
+                const Expanded(
+                  child: ChatBox(),
+
                 ),
               ],
             ),
