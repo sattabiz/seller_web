@@ -16,6 +16,7 @@ import '../../view_model/provider_controller.dart';
 import '../../view_model/shipment_view_model.dart';
 import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/big_card /info/info_shipment.dart';
+import '../widget/big_card /info/proposal_sum_panel.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
 import '../widget/small_card/body/body_header.dart';
@@ -100,7 +101,12 @@ class ShipmentView extends ConsumerWidget {
                             bigCardTable: ShipmentTable(
                               shipmentProductList: shipmentList[index].products, 
                               className: className
-                            ), 
+                            ),
+                            tableInfoPanel: TableInfoPanel(
+                              row1: costCalcForShipment(shipmentList[index].products, "raw_cost"),
+                              row2: costCalcForShipment(shipmentList[index].products, "tax_amount"),
+                              row3: costCalcForShipment(shipmentList[index].products, "total_cost"),
+                            ),
                             buttons: ButtonWidget(
                               className: className,
                               status: shipmentList[index].state.toString(),
@@ -114,7 +120,7 @@ class ShipmentView extends ConsumerWidget {
                             checkShipmentState(shipmentList[index].state.toString())
                             ? InfoShipment(
                               className: className, 
-                              invoiceNo: checkPaymentType(shipmentList[index].waybillNo.toString()), //invoiceNo eklenecek
+                              invoiceNo: shipmentList[index].waybillNo.toString(), //invoiceNo eklenecek
                               infoRow1: formattedDate(shipmentList[index].shipmentDate.toString()), //invoice date eklenecek
                               infoRow2: shipmentList[index].waybillNo.toString(),
                               infoRow3: checkPaymentType(shipmentList[index].paymentType.toString()),

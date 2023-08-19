@@ -64,7 +64,7 @@ tr:
     order_no: "Sipariş No"
     topic: "Konu:"
     delivery_date: "Teslim Tarihi: "
-    payment_type: "Ödeme Şekli: "
+    payment_type: "Ödeme Şekli "
     payment_due_date: "Ödeme Tarihi: "
     demand_no: "Teklif No: "
     shipment_payment: "Nakliye "
