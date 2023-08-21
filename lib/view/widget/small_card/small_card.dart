@@ -53,6 +53,7 @@ class SmallCard extends ConsumerWidget {
           color: Theme.of(context).colorScheme.surface,
           child: InkWell(
             onTap: () {
+              ref.read(idProvider.notifier).state = id;
               showDialog(
                 context: context,
                 builder: (BuildContext context) {

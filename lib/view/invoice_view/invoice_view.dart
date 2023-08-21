@@ -99,7 +99,7 @@ class InvoiceView extends ConsumerWidget {
                                   status: invoiceList[index].state.toString(),
                                   onPressed: () async{
                                     ref.read(idProvider.notifier).state=invoiceList[index].invoiceId.toString();
-                                    ref.watch(shipmentDeliveredProvider);
+                                    ref.watch(invoiceApprovedProvider);
                                     Navigator.pop(context);
                                   },
                                 )
