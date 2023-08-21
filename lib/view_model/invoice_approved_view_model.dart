@@ -8,7 +8,7 @@ import '../view/widget/small_card/small_card.dart';
 import 'buyer_invoices_view_model.dart';
 import 'order_list_view_model.dart';
 
-final shipmentDeliveredProvider = FutureProvider.autoDispose((ref) async {
+final invoiceApprovedProvider = FutureProvider.autoDispose((ref) async {
   final apiService = PostService();
   Response response;
   final invoiceIdValue = ref.watch(idProvider);

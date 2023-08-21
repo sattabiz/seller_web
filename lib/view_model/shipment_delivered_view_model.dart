@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seller_point/view_model/shipment_view_model.dart';
 import '../config/api_url.dart';
@@ -9,7 +10,7 @@ import 'order_list_view_model.dart';
 final shipmentDeliveredProvider = FutureProvider.autoDispose((ref) async {
   final apiService = PostService();
   Response response;
-  final shipmentIdValue = ref.watch(proposalIndexProvider);
+  final shipmentIdValue = ref.watch(idProvider);
 
   Map<String, dynamic> _shipmentAttributes = {};
   if(shipmentIdValue != null) {
