@@ -131,7 +131,7 @@ String getOrderIdFromShipmentProductList(List<dynamic> list) {
 }
 
 Widget bigCardOrderTable (String status, Widget orderTable, Widget orderTableState) {
-  if (status == 'order_approved,' || status == 'order_pending') {
+  if (status == 'order_approved' || status == 'order_pending') {
     return orderTable;
   }
   else {
