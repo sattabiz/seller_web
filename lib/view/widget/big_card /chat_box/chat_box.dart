@@ -73,7 +73,7 @@ class _ChatBoxState extends State<ChatBox> {
                  Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    "10.02 Siparis Haluk Cetin tarafindan onaylandi",
+                    "10.02 Sipariş Haluk Çetin tarafından onaylandı",
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
