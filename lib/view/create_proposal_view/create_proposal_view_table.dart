@@ -199,30 +199,26 @@ class createProposalViewTable extends ConsumerWidget {
         ),
         Expanded(
           flex: 10,
-          child: Container(
-            // width: 460,
-            // constraints:  BoxConstraints(maxWidth: screenWidth * 430, minWidth: screenWidth * 50),
-            child: TextFormField(
-              cursorColor: Theme.of(context).colorScheme.onBackground,
-              enableInteractiveSelection: false,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Theme.of(context).colorScheme.onPrimary,
-                border: const OutlineInputBorder(),
-                contentPadding: const EdgeInsets.only(
-                    left: 10.0, top: 0.0, bottom: 0.0, right: 0.0),
-                constraints: const BoxConstraints(maxHeight: 40),
-                labelText: 'Ürün',
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant),
-                ),
-                labelStyle: Theme.of(context).textTheme.bodySmall,
+          child: TextFormField(
+            cursorColor: Theme.of(context).colorScheme.onBackground,
+            enableInteractiveSelection: false,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Theme.of(context).colorScheme.onPrimary,
+              border: const OutlineInputBorder(),
+              contentPadding: const EdgeInsets.only(
+                  left: 10.0, top: 0.0, bottom: 0.0, right: 0.0),
+              constraints: const BoxConstraints(maxHeight: 40),
+              labelText: 'Ürün',
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant),
               ),
-              onChanged: (value) {
-                formItem.product = value;
-              },
+              labelStyle: Theme.of(context).textTheme.bodySmall,
             ),
+            onChanged: (value) {
+              formItem.product = value;
+            },
           ),
         ),
         const Spacer(
@@ -249,9 +245,6 @@ class createProposalViewTable extends ConsumerWidget {
                       color: Theme.of(context).colorScheme.onSurfaceVariant),
                 ),
                 suffixText: 'adet',
-                // suffixStyle: TextStyle(
-                //   textBaseline: TextBaseline.ideographic
-                // ),
               ),
               onChanged: (value) {
                 formItem.amount = value;
