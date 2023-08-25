@@ -268,7 +268,7 @@ class createProposalViewTable extends ConsumerWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return const CreateProposalShowDialog();
+                  return CreateProposalShowDialog();
                 },
               );
             },

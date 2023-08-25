@@ -1,4 +1,5 @@
 import 'dart:html' as html;
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
@@ -24,7 +25,7 @@ final createProposalProvider = FutureProvider.autoDispose<CreateProposalModel>((
   OfferModel _contentItems = await ref.watch(offerModelProvider);
   final landingProviderAsyncValue = ref.watch(getLandingViewContentProvider);
   final _company_id = landingProviderAsyncValue.value;
-  List<Uint8List> imageFile = ref.watch(imageProvider.notifier).state;
+  List<File> imageFile = ref.watch(imageProvider.notifier).state;
 
   Map<String, dynamic> _productsAttributes = {};
   for (int i = 0; i < _formItems.length; i++) {
@@ -33,7 +34,7 @@ final createProposalProvider = FutureProvider.autoDispose<CreateProposalModel>((
       "name": _formItems[i].product.toString(),
       "requester_amount": _formItems[i].amount,
       "unit": "Adet",
-      'image': imageFile[0]
+      'image': await MultipartFile.fromFile(imageFile[0].path),
     };
   }
   debugPrint(_productsAttributes.toString());
@@ -49,14 +50,11 @@ final createProposalProvider = FutureProvider.autoDispose<CreateProposalModel>((
       "products_attributes": _productsAttributes,
     }
   };
-  final formData = FormData.fromMap({
-    "form": data
-  });
+  final formData = FormData.fromMap({"form": data});
   debugPrint('Formdata');
   debugPrint('FormData İçeriği: ${formData}');
   try {
-    response = await apiService.post(
-        url: ApiUrls.createProposal, data: data);
+    response = await apiService.post(url: ApiUrls.createProposal, data: data);
     await ref.refresh(getProposalListProvider);
     ref.read(getProposalListProvider.future);
   } catch (e) {

@@ -1,21 +1,12 @@
 import 'dart:developer';
 import 'dart:html' as html;
 import 'dart:io';
-import 'dart:ui';
-
-import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 
-import '../../service/post_service.dart';
-import '../../view_model/create_base64image_model_view.dart';
-import 'create_proposal_view_content.dart';
-import 'create_proposal_view_table.dart';
-
-final imageProvider = StateProvider<List<Uint8List>>((ref) {
+final imageProvider = StateProvider<List<File>>((ref) {
   return [];
 });
 
@@ -99,6 +90,15 @@ class _CreateProposalShowDialogState extends State<CreateProposalShowDialog> {
             children: [
               InkWell(
                 onTap: () async {
+                  FilePickerResult? result =
+                      await FilePicker.platform.pickFiles();
+
+                  if (result != null) {
+                    File file = File(result.files.single.path!);
+                    ref.read(imageProvider.notifier).state = [file];
+                  } else {
+                    // User canceled the picker
+                  }
                   /* List<FormItem> _formItems = await ref.watch(formItemProvider);
                   OfferModel _contentItems =
                       await ref.watch(offerModelProvider);
@@ -125,7 +125,7 @@ class _CreateProposalShowDialogState extends State<CreateProposalShowDialog> {
                       }
                     }
                   }); */
-                  var result = await uploadFile();
+                  /* var result = await uploadFile();                                        ///////////////calisan kisim
                   ref.read(imageProvider.notifier).state = pickedImagesInBytes;
                   final bytes = Uint8List.fromList([
                     137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68,
@@ -140,7 +140,7 @@ class _CreateProposalShowDialogState extends State<CreateProposalShowDialog> {
                   // copy from decodeImageFromList of package:flutter/painting.dart
                   final codec = await instantiateImageCodec(bytes);
                   final frameInfo = await codec.getNextFrame();
-                  var x = frameInfo.image;
+                  var x = frameInfo.image; */ //////////////////////////////////////////calisan kisim
                   /* List<html.File>? imageFiles =
                     await ImagePickerWeb.getMultiImagesAsFile();
                 final formData = FormData.fromMap({
