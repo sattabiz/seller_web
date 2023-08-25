@@ -55,7 +55,7 @@ class _ChatBoxState extends State<ChatBox> {
 
   @override
   Widget build(BuildContext context) {
-    final time = DateTime.now().toUtc();
+    final time = DateTime.now();
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Column(
@@ -148,6 +148,7 @@ class _ChatBoxState extends State<ChatBox> {
             ),
             child: TextField(
               controller: textEditingController,
+              cursorColor: Theme.of(context).colorScheme.onBackground,
               decoration: InputDecoration(
                 hintText: "  Write message...",
                 hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(

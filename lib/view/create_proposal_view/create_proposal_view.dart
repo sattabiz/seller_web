@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
-
 import 'create_proposal_button.dart';
 import 'create_proposal_view_content.dart';
 import 'create_proposal_view_table.dart';
+
 class createProposalView extends ConsumerWidget {
   const createProposalView({Key? key}) : super(key: key);
 
