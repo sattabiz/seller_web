@@ -1,13 +1,16 @@
-import 'dart:developer';
-import 'dart:html' as html;
-import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final imageProvider = StateProvider<List<File>>((ref) {
+import 'create_proposal_view_table.dart';
+
+final imageProvider = StateProvider<List<MultipartFile>>((ref) {
   return [];
+});
+final nameProvider = StateProvider<String>((ref) {
+  return '';
 });
 
 final imagenameProvider =
@@ -41,7 +44,8 @@ class SelectedFilesNotifier extends StateNotifier<List<String>> {
 }
 
 class CreateProposalShowDialog extends StatefulWidget {
-  CreateProposalShowDialog({Key? key}) : super(key: key);
+   final int itemIndex;
+  const CreateProposalShowDialog({Key? key, required this.itemIndex}) : super(key: key);
 
   @override
   State<CreateProposalShowDialog> createState() =>
@@ -90,15 +94,15 @@ class _CreateProposalShowDialogState extends State<CreateProposalShowDialog> {
             children: [
               InkWell(
                 onTap: () async {
-                  FilePickerResult? result =
+                  /* FilePickerResult? result =
                       await FilePicker.platform.pickFiles();
 
                   if (result != null) {
-                    File file = File(result.files.single.path!);
+                    PlatformFile file =result.files.first;
                     ref.read(imageProvider.notifier).state = [file];
                   } else {
                     // User canceled the picker
-                  }
+                  } */
                   /* List<FormItem> _formItems = await ref.watch(formItemProvider);
                   OfferModel _contentItems =
                       await ref.watch(offerModelProvider);
@@ -190,17 +194,14 @@ class _CreateProposalShowDialogState extends State<CreateProposalShowDialog> {
                     }
                   }
                 }); */
-                  /* FilePickerResult? result = await FilePicker.platform.pickFiles();
+                   FilePickerResult? result = await FilePicker.platform.pickFiles();
     
                 if (result != null) {
-                  Uint8List fileBytes = result.files.first.bytes!;
-                  String fileName = result.files.first.name;
-    
-                  // Upload file
-                  await FirebaseStorage.instance
-                      .ref('uploads/$fileName')
-                      .putData(fileBytes);
-                } */
+                  PlatformFile file =result.files.first;
+                  MultipartFile fileToMultipart =  await MultipartFile.fromBytes(file.bytes!,
+                  filename: file.name,);
+                  ref.read(formItemProvider.notifier).updateImage(widget.itemIndex, [fileToMultipart]);
+                } 
                   /* FilePickerResult? result = await FilePicker.platform
                     .pickFiles(type: FileType.image, allowMultiple: true);
                 if (result != null && result.files.isNotEmpty) {
