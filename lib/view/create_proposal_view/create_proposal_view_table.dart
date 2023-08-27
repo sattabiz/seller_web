@@ -1,9 +1,4 @@
-import 'dart:convert';
-import 'dart:html';
-import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../view_model/landing_view_model.dart';
@@ -13,7 +8,7 @@ class FormItem {
   String? category;
   String? product;
   String? amount;
-  List<String>? image;
+  List<MultipartFile>? image;
 
   FormItem({this.category, this.product, this.amount, this.image});
 }
@@ -29,6 +24,14 @@ class FormItemsNotifier extends StateNotifier<List<FormItem>> {
 
   void addItem(FormItem item) {
     state = [...state, item];
+  }
+
+  void updateImage(int index, List<MultipartFile> images) {
+    if (index >= 0 && index < state.length) {
+      state[index].image = images;
+      // Emit a state change to update the UI
+      state = [...state];
+    }
   }
 
   void removeItem(int index) {
@@ -261,7 +264,7 @@ class createProposalViewTable extends ConsumerWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return CreateProposalShowDialog();
+                  return CreateProposalShowDialog(itemIndex: index);
                 },
               );
             },

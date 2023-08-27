@@ -1,16 +1,10 @@
-import 'dart:html' as html;
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seller_point/view_model/proposal_view_model.dart';
 import '../config/api_url.dart';
 import '../model/create_proposal_model.dart';
 import '../service/post_service.dart';
-import '../view/create_proposal_view/create_proposal_show_dialog.dart';
 import '../view/create_proposal_view/create_proposal_view_content.dart';
 import '../view/create_proposal_view/create_proposal_view_table.dart';
 import 'landing_view_model.dart';
@@ -25,19 +19,19 @@ final createProposalProvider = FutureProvider.autoDispose<CreateProposalModel>((
   OfferModel _contentItems = await ref.watch(offerModelProvider);
   final landingProviderAsyncValue = ref.watch(getLandingViewContentProvider);
   final _company_id = landingProviderAsyncValue.value;
-  List<File> imageFile = ref.watch(imageProvider.notifier).state;
 
   Map<String, dynamic> _productsAttributes = {};
+
   for (int i = 0; i < _formItems.length; i++) {
     _productsAttributes['$i'] = {
       "category_name": _formItems[i].category.toString(),
       "name": _formItems[i].product.toString(),
       "requester_amount": _formItems[i].amount,
       "unit": "Adet",
-      'image': await MultipartFile.fromFile(imageFile[0].path),
+      if(_formItems[i].image != null) 'images': _formItems[i].image
     };
   }
-  debugPrint(_productsAttributes.toString());
+
   Map<String, dynamic> data = {
     "supplier_id": _company_id!.companyId,
     "valid_days": ref.watch(offerModelProvider).validDays,
@@ -47,14 +41,17 @@ final createProposalProvider = FutureProvider.autoDispose<CreateProposalModel>((
       "include_shipment_cost":
           ref.watch(offerModelProvider).includeShipmentCost,
       "payment_due_date": ref.watch(offerModelProvider).patmentDueDate,
-      "products_attributes": _productsAttributes,
+      "products_attributes": _productsAttributes
     }
   };
-  final formData = FormData.fromMap({"form": data});
-  debugPrint('Formdata');
-  debugPrint('FormData İçeriği: ${formData}');
+
+  final formData3 = FormData.fromMap(data);
+
+
+
   try {
-    response = await apiService.post(url: ApiUrls.createProposal, data: data);
+    response = await apiService.postFormdata(
+      url: ApiUrls.createProposal, data: formData3);
     await ref.refresh(getProposalListProvider);
     ref.read(getProposalListProvider.future);
   } catch (e) {
@@ -64,9 +61,7 @@ final createProposalProvider = FutureProvider.autoDispose<CreateProposalModel>((
       }
     }
     rethrow;
-  }
-  debugPrint(response.statusCode.toString());
-  debugPrint(response.statusMessage);
+  } 
 
   CreateProposalModel createProposalresponse =
       CreateProposalModel.fromMap(response.data);
