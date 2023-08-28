@@ -9,18 +9,19 @@ import 'nav_drawer_header_button.dart';
 class NavigationRailWidget extends ConsumerStatefulWidget {
   final void Function(int index) onItemTap;
   final int screenIndex;
-  const NavigationRailWidget({
-    Key? key,
+  const NavigationRailWidget(
+    {Key? key,
     required this.onItemTap,
     required this.screenIndex,
-  }) : super(key: key);
+    }) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _NavigationRailWidgetState();
+ ConsumerState<ConsumerStatefulWidget> createState() => _NavigationRailWidgetState();
 }
 
 class _NavigationRailWidgetState extends ConsumerState<NavigationRailWidget> {
+
+
   @override
   Widget build(BuildContext context) {
     // final newValue = ref.refresh(provider);
@@ -39,7 +40,8 @@ class _NavigationRailWidgetState extends ConsumerState<NavigationRailWidget> {
               Overlay.of(context).context.findRenderObject() as RenderBox;
           final RelativeRect position = RelativeRect.fromRect(
             Rect.fromPoints(
-              button.localToGlobal(Offset(button.size.width - 10, 60),
+              button.localToGlobal(
+                  Offset(button.size.width-10, 60),
                   ancestor: overlay),
               button.localToGlobal(
                   button.size.bottomRight(Offset.zero) + Offset(-10, 60),
@@ -106,6 +108,7 @@ class _NavigationRailWidgetState extends ConsumerState<NavigationRailWidget> {
           icon: SvgPicture.asset('assets/order.svg'),
           selectedIcon: SvgPicture.asset('assets/order.svg'),
           label: const Text('Siparişler'),
+
         ),
         NavigationRailDestination(
           icon: SvgPicture.asset('assets/order.svg'),
