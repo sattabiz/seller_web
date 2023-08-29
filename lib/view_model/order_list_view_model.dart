@@ -27,6 +27,7 @@ final getOrderListProvider =
         .map((e) => GetOrderlistModel.fromMap(e))
         .toList();
   }
+  _orderList.sort((a, b) => b.id!.compareTo(a.id!));
   return _orderList;
 });
 

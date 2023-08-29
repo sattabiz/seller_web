@@ -27,6 +27,6 @@ final shipmentProvider = FutureProvider.autoDispose<List<Shipment>>((ref) async 
         .map((e) => Shipment.fromMap(e))
         .toList();
   }
-  
+  _shipmentList.sort((a, b) => b.shipmentId!.compareTo(a.shipmentId!));
   return _shipmentList;
 });
