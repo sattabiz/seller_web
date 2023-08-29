@@ -23,12 +23,12 @@ final getInvoicesProvider = FutureProvider.autoDispose<List<GetInvoicesModel>>((
     rethrow;
   }
 
-  List<GetInvoicesModel> _shipmentList = [];
+  List<GetInvoicesModel> _invoicesList = [];
   if (response.data['invoices'] != null) {
-    _shipmentList = (response.data['invoices'] as List)
+    _invoicesList = (response.data['invoices'] as List)
         .map((e) => GetInvoicesModel.fromMap(e))
         .toList();
   }
-
-  return _shipmentList;
+  _invoicesList.sort((a, b) => b.invoiceId!.compareTo(a.invoiceId!));
+  return _invoicesList;
 });

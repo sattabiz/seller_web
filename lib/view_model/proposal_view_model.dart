@@ -31,5 +31,6 @@ final getProposalListProvider =
         .map((e) => GetProposalModel.fromMap(e))
         .toList();
   }
+  _proposalList.sort((a, b) => b.proposalId!.compareTo(a.proposalId!));
   return _proposalList;
 });
