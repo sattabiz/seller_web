@@ -1,408 +1,171 @@
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'create_proposal_view_table.dart';
 
-final imageProvider = StateProvider<List<MultipartFile>>((ref) {
-  return [];
-});
-final nameProvider = StateProvider<String>((ref) {
-  return '';
-});
-
-final imagenameProvider =
-    StateNotifierProvider.autoDispose<SelectedNameNotifier, List<String>>(
-        (ref) {
-  return SelectedNameNotifier();
-});
-
-class SelectedNameNotifier extends StateNotifier<List<String>> {
-  SelectedNameNotifier() : super([]);
-
-  void addFile(String file) {
-    state = [...state, file];
-  }
-
-  void clearFiles() {
-    state = [];
-  }
-}
-
-class SelectedFilesNotifier extends StateNotifier<List<String>> {
-  SelectedFilesNotifier() : super([]);
-
-  void addFile(String file) {
-    state = [...state, file];
-  }
-
-  void clearFiles() {
-    state = [];
-  }
-}
-
-class CreateProposalShowDialog extends StatefulWidget {
-   final int itemIndex;
-  const CreateProposalShowDialog({Key? key, required this.itemIndex}) : super(key: key);
+class CreateProposalShowDialog extends ConsumerStatefulWidget {
+  final int itemIndex;
+  const CreateProposalShowDialog({
+    super.key,
+    required this.itemIndex,
+  });
 
   @override
-  State<CreateProposalShowDialog> createState() =>
-      _CreateProposalShowDialogState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _State();
 }
 
-class _CreateProposalShowDialogState extends State<CreateProposalShowDialog> {
-  List<PlatformFile>? _paths;
-  List<Uint8List> pickedImagesInBytes = [];
-  Future<String?> uploadFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      onFileLoading: (status) => print(status),
-      allowedExtensions: ['pdf', 'jpg', 'png'],
-    );
+class _State extends ConsumerState<CreateProposalShowDialog> {
+  String? fileName;
 
-    result!.files.forEach((element) {
-      setState(() {
-        pickedImagesInBytes.add(element.bytes!);
-        //selectedImageInBytes = fileResult.files.first.bytes;
-      });
-    });
+  @override
+  void initState() {
+    // debugPrint('init $fileName');
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant CreateProposalShowDialog oldWidget) {
+    // debugPrint('didUpdate $fileName');
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        return AlertDialog(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              const Text('Dosya Yükleme'),
-              const SizedBox(
-                width: 100,
-              ),
-              IconButton(
+    final formItems = ref.read(formItemProvider.notifier);
+    // debugPrint('build $fileName');
+    return AlertDialog(
+      titleTextStyle: Theme.of(context).textTheme.titleLarge,
+      titlePadding: const EdgeInsets.all(0.0),
+      actionsAlignment: MainAxisAlignment.center,
+      title: Container(
+        width: 450,
+        height: 60,
+        constraints: const BoxConstraints(
+          minWidth: 200,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+          color: Theme.of(context).colorScheme.secondaryContainer,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: Container(
+                  padding: const EdgeInsets.only(left: 20),
+                  alignment: Alignment.centerLeft,
+                  child: const Text('Dosya Yükleme')),
+            ),
+            // const SizedBox(
+            //   width: 100,
+            // ),
+            Container(
+              margin: EdgeInsets.only(right: 20),
+              child: IconButton(
+                iconSize: 30,
+                color: Theme.of(context).colorScheme.shadow,
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(Icons.close),
               ),
-            ],
-          ),
-          content: Row(
-            children: [
-              InkWell(
-                onTap: () async {
-                  /* FilePickerResult? result =
-                      await FilePicker.platform.pickFiles();
-
-                  if (result != null) {
-                    PlatformFile file =result.files.first;
-                    ref.read(imageProvider.notifier).state = [file];
-                  } else {
-                    // User canceled the picker
-                  } */
-                  /* List<FormItem> _formItems = await ref.watch(formItemProvider);
-                  OfferModel _contentItems =
-                      await ref.watch(offerModelProvider);
-                  try {
-                    _paths = (await FilePicker.platform.pickFiles(
-                      type: FileType.custom,
-                      allowMultiple: false,
-                      onFileLoading: (FilePickerStatus status) => print(status),
-                      allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
-                    ))
-                        ?.files;
-                  } on PlatformException catch (e) {
-                    log('Unsupported operation' + e.toString());
-                  } catch (e) {
-                    log(e.toString());
-                  }
-                  setState(() {
-                    if (_paths != null) {
-                      if (_paths != null) {
-                        //passing file bytes and file name for API call
-                        debugPrint(_paths!.first.path!);
-                        PostService.uploadFile(
-                            _paths!.first.path!, _paths!.first.name,_formItems, _contentItems);
-                      }
-                    }
-                  }); */
-                  /* var result = await uploadFile();                                        ///////////////calisan kisim
-                  ref.read(imageProvider.notifier).state = pickedImagesInBytes;
-                  final bytes = Uint8List.fromList([
-                    137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68,
-                    82, 0, 0, 0,
-                    1, 0, 0, 0, 1, 8, 6, 0, 0, 0, 31, 21, 196, 137, 0, 0, 0, 10,
-                    73, 68, 65,
-                    84, 120, 156, 99, 0, 1, 0, 0, 5, 0, 1, 13, 10, 45, 180, 0,
-                    0, 0, 0, 73,
-                    69, 78, 68, 174, 66, 96, 130 // prevent dartfmt
-                  ]);
-
-                  // copy from decodeImageFromList of package:flutter/painting.dart
-                  final codec = await instantiateImageCodec(bytes);
-                  final frameInfo = await codec.getNextFrame();
-                  var x = frameInfo.image; */ //////////////////////////////////////////calisan kisim
-                  /* List<html.File>? imageFiles =
-                    await ImagePickerWeb.getMultiImagesAsFile();
-                final formData = FormData.fromMap({
-                  'file':
-                      imageFiles! // <------ I guess this is where the issue is, I also tried file instead of File(file.name)
-                });  */
-
-                  /* FilePickerResult? result = await FilePicker.platform.pickFiles(
-                  type: FileType.custom,
-                  allowedExtensions: ['jpg', 'pdf', 'doc', 'png', 'mp4', 'mkv'],
-                );
+            ),
+          ],
+        ),
+      ),
+      content: Container(
+        height: 100,
+        padding: const EdgeInsets.only(top: 15),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            OutlinedButton(
+              onPressed: () async {
+                FilePickerResult? result =
+                    await FilePicker.platform.pickFiles();
                 if (result != null) {
                   PlatformFile file = result.files.first;
-    
-                  print(file.name);
-                  print(file.bytes);
-                  print(file.size);
-                  print(file.extension);
-                  print(file.path);
-                  var multipartFile = await MultipartFile.fromFile(
-                    file.path!,
+                  MultipartFile fileToMultipart = MultipartFile.fromBytes(
+                    file.bytes!,
+                    filename: file.name,
                   );
-                  FormData formData = FormData.fromMap({
-                    "image": multipartFile, //define your json data here
-                  }); */
-                  /* debugPrint(formData.toString());
-                  ref.read(imageProvider.notifier).state = formData; */
-                  /* try {
-                  _paths = (await FilePicker.platform.pickFiles(
-                    type: FileType.custom,
-                    allowMultiple: false,
-                    onFileLoading: (FilePickerStatus status) => print(status),
-                    allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
-                  ))
-                      ?.files;
-                } on PlatformException catch (e) {
-                  log('Unsupported operation' + e.toString());
-                } catch (e) {
-                  log(e.toString());
+                  ref
+                      .read(formItemProvider.notifier)
+                      .updateImage(widget.itemIndex, [fileToMultipart]);
+
+                  setState(() {
+                    fileName = file.name;
+                    print(fileName);
+                    isImageSelected = true;
+                    didUpdateWidget(widget);
+                  });
                 }
-                setState(() {
-                  if (_paths != null) {
-                    if (_paths != null) {
-                      //passing file bytes and file name for API call
-                      ApiClient.uploadFile(
-                          _paths!.first.bytes!, _paths!.first.name);
-                    }
-                  }
-                }); */
-                   FilePickerResult? result = await FilePicker.platform.pickFiles();
-    
-                if (result != null) {
-                  PlatformFile file =result.files.first;
-                  MultipartFile fileToMultipart =  await MultipartFile.fromBytes(file.bytes!,
-                  filename: file.name,);
-                  ref.read(formItemProvider.notifier).updateImage(widget.itemIndex, [fileToMultipart]);
-                } 
-                  /* FilePickerResult? result = await FilePicker.platform
-                    .pickFiles(type: FileType.image, allowMultiple: true);
-                if (result != null && result.files.isNotEmpty) {
-                   List<MultipartFile> imageToBase64 = result.files            //convert image to base64 
-                          .map((file) => MultipartFile.fromBytes(
-                                file.bytes as List<int>,
-                                filename: base64Encode(file.bytes as List<int>),   //iki defa encode olmadigina emin olun
-                              ))
-                          .toList(); 
-                  List<String> filenames = result.files
-                      .map((file) => file.name)
-                      .toList(); //take image path name
-                  List<String> imageToBase64 = result.files
-                      .map((file) => base64Encode(file.bytes as List<int>))
-                      .toList();
-                  List<String> image = result.files
-                      .map((file) => file.extension as String)
-                      .toList();
-                  for (int i = 0; i < image.length; i++) {
-                     debugPrint(image[i].toString());
-                  }
-                  ref
-                        .read(imageToBase64Provider.notifier).state = image;
-                  ref
-                        .read(imagePathProvider.notifier).state = filenames;
-                  if (imageToBase64 != null) {}
-                } 
-               /*  List<File>? imageFiles = await .getMultiImagesAsFile();
-                debugPrint(imageFiles.toString());
-                ref.read(imagePathProvider.notifier).state = imageFiles!; */ */
-                },
-                child: Container(
-                  width: 85,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.white,
-                      border: Border.all()),
-                  child: const Center(
-                    child: Text('Dosya Ekle'),
+              },
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all(const Size(120, 40)),
+                overlayColor: MaterialStateProperty.all(
+                    Theme.of(context).colorScheme.secondaryContainer),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    side: BorderSide(
+                      color: Theme.of(context).colorScheme.shadow,
+                    ),
                   ),
                 ),
-              )
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Kaydet'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                /* ref.watch(createImageProvider); */
-              },
+              child: Text('Dosya Ekle',
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: Theme.of(context).colorScheme.shadow,
+                      )),
             ),
-          ],
-        );
-      },
-      /* child: AlertDialog(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            const Text('Dosya Yükleme'),
-            const SizedBox(
-              width: 100,
-            ),
-            IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: const Icon(Icons.close),
-            ),
-          ],
-        ),
-        content: Row(
-          children: [
-            InkWell(
-              onTap: () async {
-                List<html.File>? imageFiles =
-                    await ImagePickerWeb.getMultiImagesAsFile();
-                final formData = FormData.fromMap({
-                  'file':
-                      imageFiles! // <------ I guess this is where the issue is, I also tried file instead of File(file.name)
-                }); 
-                /* FilePickerResult? result = await FilePicker.platform.pickFiles(
-                  type: FileType.custom,
-                  allowedExtensions: ['jpg', 'pdf', 'doc', 'png', 'mp4', 'mkv'],
-                );
-                if (result != null) {
-                  PlatformFile file = result.files.first;
-    
-                  print(file.name);
-                  print(file.bytes);
-                  print(file.size);
-                  print(file.extension);
-                  print(file.path);
-                  var multipartFile = await MultipartFile.fromFile(
-                    file.path!,
-                  );
-                  FormData formData = FormData.fromMap({
-                    "image": multipartFile, //define your json data here
-                  }); */
-                  debugPrint(formData.toString());
-                  ref.read(imageProvider.notifier).state = formData;
-                  /* try {
-                  _paths = (await FilePicker.platform.pickFiles(
-                    type: FileType.custom,
-                    allowMultiple: false,
-                    onFileLoading: (FilePickerStatus status) => print(status),
-                    allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
-                  ))
-                      ?.files;
-                } on PlatformException catch (e) {
-                  log('Unsupported operation' + e.toString());
-                } catch (e) {
-                  log(e.toString());
-                }
-                setState(() {
-                  if (_paths != null) {
-                    if (_paths != null) {
-                      //passing file bytes and file name for API call
-                      ApiClient.uploadFile(
-                          _paths!.first.bytes!, _paths!.first.name);
-                    }
-                  }
-                }); */
-                  /* FilePickerResult? result = await FilePicker.platform.pickFiles();
-    
-                if (result != null) {
-                  Uint8List fileBytes = result.files.first.bytes!;
-                  String fileName = result.files.first.name;
-    
-                  // Upload file
-                  await FirebaseStorage.instance
-                      .ref('uploads/$fileName')
-                      .putData(fileBytes);
-                } */
-                  /* FilePickerResult? result = await FilePicker.platform
-                    .pickFiles(type: FileType.image, allowMultiple: true);
-                if (result != null && result.files.isNotEmpty) {
-                   List<MultipartFile> imageToBase64 = result.files            //convert image to base64 
-                          .map((file) => MultipartFile.fromBytes(
-                                file.bytes as List<int>,
-                                filename: base64Encode(file.bytes as List<int>),   //iki defa encode olmadigina emin olun
-                              ))
-                          .toList(); 
-                  List<String> filenames = result.files
-                      .map((file) => file.name)
-                      .toList(); //take image path name
-                  List<String> imageToBase64 = result.files
-                      .map((file) => base64Encode(file.bytes as List<int>))
-                      .toList();
-                  List<String> image = result.files
-                      .map((file) => file.extension as String)
-                      .toList();
-                  for (int i = 0; i < image.length; i++) {
-                     debugPrint(image[i].toString());
-                  }
-                  ref
-                        .read(imageToBase64Provider.notifier).state = image;
-                  ref
-                        .read(imagePathProvider.notifier).state = filenames;
-                  if (imageToBase64 != null) {}
-                } 
-               /*  List<File>? imageFiles = await .getMultiImagesAsFile();
-                debugPrint(imageFiles.toString());
-                ref.read(imagePathProvider.notifier).state = imageFiles!; */ */
-                },
-                
-    
-              child: Container(
-                width: 85,
-                height: 40,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.white,
-                    border: Border.all()),
-                child: const Center(
-                  child: Text('Dosya Ekle'),
+            if (fileName != null)
+              Container(
+                margin: const EdgeInsets.only(left: 10),
+                child: Chip(
+                  side: BorderSide.none,
+                  // labelPadding: EdgeInsets.all(10),
+                  backgroundColor:
+                      Theme.of(context).colorScheme.secondaryContainer,
+                  label: Container(
+                    height: 30,
+                    width: 80,
+                    alignment: Alignment.center,
+                    child: Text(
+                      fileName!,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ),
                 ),
               ),
-            )
           ],
         ),
-        actions: <Widget>[
-          TextButton(
-            style: TextButton.styleFrom(
-              textStyle: Theme.of(context).textTheme.labelLarge,
-            ),
-            child: const Text('Kaydet'),
-            onPressed: () {
-              Navigator.of(context).pop();
-              ref.watch(createImageProvider);
-            },
+      ),
+      actions: <Widget>[
+        ElevatedButton(
+          style: ButtonStyle(
+            fixedSize: MaterialStateProperty.all(const Size(120, 45)),
           ),
-        ],
-      ), */
+          onPressed: () {
+            setState(() {
+              fileName = fileName;
+              isImageSelected = true;
+              didUpdateWidget(widget);
+            });
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'Kaydet',
+            style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+          ),
+        ),
+      ],
     );
   }
 }
-
-//Boyut ayarlama, 5mb limitleme
-//jpg ve pdf

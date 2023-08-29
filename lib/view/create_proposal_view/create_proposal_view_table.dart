@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../utils/widget_helper.dart';
 import '../../view_model/landing_view_model.dart';
 import 'create_proposal_show_dialog.dart';
 
@@ -34,19 +35,22 @@ class FormItemsNotifier extends StateNotifier<List<FormItem>> {
     }
   }
 
+  String getImageName(int index) {
+    if (state[index].image!.first.filename.toString() != null) {
+      return state[index].image!.first.filename.toString();
+    } else {
+      return '-';
+    }
+  }
+
   void removeItem(int index) {
     state = state.where((element) => state.indexOf(element) != index).toList();
   }
 }
 
-String truncateToTwoWords(String text) {
-  var words = text.split(' ');
-  if (words.length > 3) {
-    words = words.take(3).toList();
-    return '${words.join(' ')}...';
-  }
-  return text;
-}
+// GlobalKey<State<StatefulWidget>> iconKey = GlobalKey();
+
+bool isImageSelected = false;
 
 class createProposalViewTable extends ConsumerWidget {
   @override
@@ -258,7 +262,8 @@ class createProposalViewTable extends ConsumerWidget {
         SizedBox(
           width: 50,
           child: IconButton(
-            icon: const Icon(Icons.attach_file),
+            icon: Icon(
+                isImageSelected ? Icons.image_outlined : Icons.attach_file),
             iconSize: 25,
             onPressed: () {
               showDialog(

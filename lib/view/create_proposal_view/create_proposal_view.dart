@@ -11,7 +11,8 @@ class createProposalView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    double screenWidth = MediaQuery.of(context).size.width / 1250; //change function
+    double screenWidth =
+        MediaQuery.of(context).size.width / 1250; //change function
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.center,
       titlePadding: const EdgeInsets.all(0),
@@ -20,8 +21,8 @@ class createProposalView extends ConsumerWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondaryContainer,
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(32),
-            topRight: Radius.circular(32),
+            topLeft: Radius.circular(35),
+            topRight: Radius.circular(35),
           ),
         ),
         width: 1000,
@@ -44,7 +45,8 @@ class createProposalView extends ConsumerWidget {
             Expanded(
               flex: 14,
               child: Text(
-                FlutterI18n.translate(context, 'tr.proposal.new_proposal_request'),
+                FlutterI18n.translate(
+                    context, 'tr.proposal.new_proposal_request'),
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
@@ -81,25 +83,25 @@ class createProposalView extends ConsumerWidget {
         const CreateProposalButton(),
         Container(
           width: 600,
-          constraints:  BoxConstraints(maxWidth: screenWidth *  550, minWidth: screenWidth * 330),
+          constraints: BoxConstraints(
+              maxWidth: screenWidth * 550, minWidth: screenWidth * 330),
         ),
         // const Spacer(flex: 3),
         ElevatedButton(
           style: ButtonStyle(
             fixedSize: MaterialStateProperty.all(const Size(200, 40)),
-            backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primaryContainer),
+            backgroundColor: MaterialStateProperty.all(
+                Theme.of(context).colorScheme.primaryContainer),
           ),
           onPressed: () {
             final formItems = ref.read(formItemProvider.notifier).state;
           },
           child: Text(
-            FlutterI18n.translate(context, 'tr.proposal.save_list_btn'),
-            style: Theme.of(context).textTheme.labelLarge!.copyWith(
-              color: Theme.of(context).colorScheme.onSecondaryContainer,
-            )
-          ),
+              FlutterI18n.translate(context, 'tr.proposal.save_list_btn'),
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  )),
         )
-    
       ],
     );
   }
