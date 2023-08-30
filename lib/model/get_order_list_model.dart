@@ -7,7 +7,7 @@ class GetOrderlistModel {
         required this.companyId,
         required this.supplier,
         required this.supplierErpId, 
-        this.supplierTaxId,                         //dokumanda eksik
+        this.supplierTaxId,
         required this.state,
         this.includeShipmentCost,
         required this.deliveryDate,
@@ -182,7 +182,7 @@ class Product {
         categoryErpId: json["category_erp_id"],
         description: json["description"],
         amount: json["amount"].toDouble(),
-        sendedAmount: json["sended_amount"].toDouble(),
+        sendedAmount: json["sended_amount"],
         unit: json["unit"],
         price: json["price"].toDouble(),
         currencyCode: json["currency_code"],
