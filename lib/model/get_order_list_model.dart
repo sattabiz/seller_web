@@ -1,63 +1,59 @@
 import 'dart:convert';
 
 class GetOrderlistModel {
-  GetOrderlistModel({
-    required this.id,
-    required this.proposalId,
-    // this.demandFiles,
-    required this.companyId,
-    required this.supplier,
-    required this.supplierErpId,
-    this.supplierTaxId,
-    required this.state,
-    this.includeShipmentCost,
-    required this.deliveryDate,
-    required this.paymentDueDate,
-    required this.paymentType,
-    required this.orderDate,
-    required this.demandName,
-    required this.demandNo,
-    required this.demandCreatorName,
-    required this.demandCreatorEmail,
-    required this.procurementName,
-    required this.procurementEmail,
-    this.costCenterName,
-    this.costCenterErpId,
-    this.approvers,
-    required this.products,
-  });
+    GetOrderlistModel({
+        required this.id,
+        required this.proposalId,
+        required this.companyId,
+        required this.supplier,
+        required this.supplierErpId, 
+        this.supplierTaxId,                         //dokumanda eksik
+        required this.state,
+        this.includeShipmentCost,
+        required this.deliveryDate,
+        required this.paymentDueDate,
+        required this.paymentType,
+        required this.orderDate,
+        required this.demandName,
+        required this.demandNo,
+        required this.demandCreatorName,
+        required this.demandCreatorEmail,
+        required this.procurementName,
+        required this.procurementEmail,
+        this.costCenterName,
+        this.costCenterErpId,
+        this.approvers,
+        required this.products,
+    });
 
-  int? id;
-  int? proposalId;
-  // List<String>? demandFiles;
-  int? companyId;
-  String? supplier;
-  String? supplierErpId;
-  String? supplierTaxId;
-  String? state;
-  DateTime? deliveryDate;
-  int? paymentDueDate;
-  dynamic paymentType;
-  DateTime? orderDate;
-  String? demandName;
-  int? demandNo;
-  bool? includeShipmentCost;
-  String? demandCreatorName;
-  String? demandCreatorEmail;
-  String? procurementName;
-  String? procurementEmail;
-  String? costCenterName;
-  String? costCenterErpId;
-  List<Approver>? approvers;
-  List<Product> products;
+    int ?id;
+    int ?proposalId;
+    int ?companyId;
+    String ?supplier;
+    String ?supplierErpId;
+    String ?supplierTaxId;
+    String ?state;
+    DateTime ?deliveryDate;
+    int ?paymentDueDate;
+    dynamic paymentType;
+    DateTime ?orderDate;
+    String ?demandName;
+    int ?demandNo;
+    bool? includeShipmentCost;
+    String ?demandCreatorName;
+    String ?demandCreatorEmail;
+    String ?procurementName;
+    String ?procurementEmail;
+    String ?costCenterName;
+    String ?costCenterErpId;
+    List<Approver> ?approvers;
+    List<Product> products;
 
-  factory GetOrderlistModel.fromJson(String str) =>
-      GetOrderlistModel.fromMap(json.decode(str));
+    factory GetOrderlistModel.fromJson(String str) => GetOrderlistModel.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+    String toJson() => json.encode(toMap());
 
-  factory GetOrderlistModel.fromMap(Map<String, dynamic> json) =>
-      GetOrderlistModel(
+    factory GetOrderlistModel.fromMap(Map<String, dynamic> json) => GetOrderlistModel(
         id: json["id"],
         proposalId: json["proposal_id"],
         companyId: json["company_id"],
@@ -65,9 +61,7 @@ class GetOrderlistModel {
         supplierErpId: json["supplier_erp_id"],
         supplierTaxId: json["supplier_tax_id"],
         state: json["state"],
-        deliveryDate: json["delivery_date"] != null
-            ? DateTime.parse(json["delivery_date"])
-            : null,
+        deliveryDate: json["delivery_date"] != null ? DateTime.parse(json["delivery_date"]) : null,
         paymentDueDate: json["payment_due_date"],
         paymentType: json["payment_type"],
         orderDate: DateTime.parse(json["order_date"]),
@@ -80,13 +74,13 @@ class GetOrderlistModel {
         procurementEmail: json["procurement_email"],
         costCenterName: json["cost_center_name"],
         costCenterErpId: json["cost_center_erp_id"],
-        approvers: List<Approver>.from(
-            json["approvers"].map((x) => Approver.fromMap(x))),
-        products:
-            List<Product>.from(json["products"].map((x) => Product.fromMap(x))),
-      );
+        approvers: List<Approver>.from(json["approvers"].map((x) => Approver.fromMap(x))),
+        products: List<Product>.from(json["products"].map((x) => Product.fromMap(x))),
+    );
+    
+    
 
-  Map<String, dynamic> toMap() => {
+    Map<String, dynamic> toMap() => {
         "id": id,
         "proposal_id": proposalId,
         "company_id": companyId,
@@ -109,132 +103,113 @@ class GetOrderlistModel {
         "cost_center_erp_id": costCenterErpId,
         "approvers": List<dynamic>.from(approvers!.map((x) => x.toMap())),
         "products": List<dynamic>.from(products.map((x) => x.toMap())),
-      };
+    };
+
 
   @override
   String toString() {
     return 'GetOrderListModel{id: $id, proposalId: $proposalId, companyId: $companyId, supplier: $supplier, supplierErpId: $supplierErpId, supplierTaxId: $supplierTaxId, state: $state, deliveryDate: $deliveryDate, paymentDueDate: $paymentDueDate, paymentType: $paymentType, orderDate: $orderDate, demandName: $demandName, demandNo: $demandNo, demandCreatorName: $demandCreatorName, demandCreatorEmail: $demandCreatorEmail, procurementName: $procurementName, procurementEmail: $procurementEmail, costCenterName: $costCenterName, costCenterErpId: $costCenterErpId, includeShipmentCost:$includeShipmentCost approvers: $approvers, products: $products}';
-  }
+  }  
 }
 
 class Approver {
-  Approver({
-    this.approverName,
-    this.approverEmail,
-    this.approvalDate,
-  });
+    Approver({
+        this.approverName,
+        this.approverEmail,
+        this.approvalDate,
+    });
 
-  String? approverName;
-  String? approverEmail;
-  DateTime? approvalDate;
+    String ?approverName;
+    String ?approverEmail;
+    DateTime ?approvalDate;
 
-  factory Approver.fromJson(String str) => Approver.fromMap(json.decode(str));
+    factory Approver.fromJson(String str) => Approver.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+    String toJson() => json.encode(toMap());
 
-  factory Approver.fromMap(Map<String, dynamic> json) => Approver(
+    factory Approver.fromMap(Map<String, dynamic> json) => Approver(
         approverName: json["approver_name"],
         approverEmail: json["approver_email"],
         approvalDate: DateTime.parse(json["approval_date"]),
-      );
+    );
 
-  Map<String, dynamic> toMap() => {
+    Map<String, dynamic> toMap() => {
         "approver_name": approverName,
         "approver_email": approverEmail,
         "approval_date": approvalDate!.toIso8601String(),
-      };
+    };
 }
 
-// class DemandFile {
-//   final String? fileName;
-//   final String? fileUrl;
-
-//   DemandFile({this.fileName, this.fileUrl});
-
-//   factory DemandFile.fromJson(String str) =>
-//       DemandFile.fromMap(json.decode(str));
-
-//   String toJson() => json.encode(toMap());
-
-//   factory DemandFile.fromMap(Map<String, dynamic> json) => DemandFile(
-//         fileName: json.keys.isNotEmpty ? json.keys.first : null,
-//         fileUrl: json.values.isNotEmpty ? json.values.first : null,
-//       );
-
-//   Map<String, dynamic> toMap() => {
-//         if (fileName != null) fileName!: fileUrl,
-//       };
-// }
-
 class Product {
-  Product({
-    required this.productProposalId,
-    required this.name,
-    this.categoryId,
-    this.categoryErpId,
-    this.description,
-    this.amount,
-    this.sendedAmount,
-    this.unit,
-    this.price,
-    this.currencyCode,
-    this.erpId,
-    this.productErpId,
-    this.proposalNote,
-  });
+    Product({
+        required this.productProposalId,
+        required this.name,
+        this.categoryId,
+        this.categoryErpId,
+        this.description,
+        this.amount,
+        this.sendedAmount,
+        this.unit,
+        this.price,
+        this.currencyCode,
+        this.erpId,
+        this.productErpId,
+        this.proposalNote,
+    });
 
-  int productProposalId;
-  String name;
-  int? categoryId;
-  String? categoryErpId;
-  String? description;
-  double? amount;
-  double? sendedAmount;
-  String? unit;
-  double? price;
-  String? currencyCode;
-  String? erpId;
-  String? productErpId;
-  String? proposalNote;
+    int productProposalId;
+    String name;
+    int ?categoryId;
+    String ?categoryErpId;
+    String ?description;
+    double ?amount;
+    double ?sendedAmount;
+    String ?unit;
+    double ?price;
+    String ?currencyCode;
+    String ?erpId;
+    String ?productErpId;
+    String ?proposalNote;
 
-  factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
+    factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+    String toJson() => json.encode(toMap());
 
-  factory Product.fromMap(Map<String, dynamic> json) => Product(
+    factory Product.fromMap(Map<String, dynamic> json) => Product(
         productProposalId: json["product_proposal_id"],
         name: json["name"],
         categoryId: json["category_id"],
         categoryErpId: json["category_erp_id"],
         description: json["description"],
-        amount: json["amount"],
-        sendedAmount: json["sendedAmount"],
+        amount: json["amount"].toDouble(),
+        sendedAmount: json["sended_amount"].toDouble(),
         unit: json["unit"],
         price: json["price"].toDouble(),
         currencyCode: json["currency_code"],
         erpId: json["erp_id"],
         productErpId: json["product_erp_id"],
         proposalNote: json["proposal_note"],
-      );
+    );
 
-  Map<String, dynamic> toMap() => {
+    Map<String, dynamic> toMap() => {
         "product_proposal_id": productProposalId,
         "name": name,
         "category_id": categoryId,
         "category_erp_id": categoryErpId,
         "description": description,
         "amount": amount,
-        "sendedAmount": sendedAmount,
+        'sended_amount': sendedAmount,
         "unit": unit,
         "price": price,
         "currency_code": currencyCode,
         "erp_id": erpId,
         "product_erp_id": productErpId,
         "proposal_note": proposalNote,
-      };
+    };
 
   @override
   String toString() {
-    return 'Product{productProposalId: $productProposalId, name: $name, categoryId: $categoryId, categoryErpId: $categoryErpId, description: $description, amount: $amount, sendedAmount: $sendedAmount, unit: $unit, price: $price, currencyCode: $currencyCode, erpId: $erpId, productErpId: $productErpId, proposalNote: $proposalNote}';
+    return 'Product{productProposalId: $productProposalId, name: $name, categoryId: $categoryId, categoryErpId: $categoryErpId, description: $description, amount: $amount,sendedAmount: $sendedAmount unit: $unit, price: $price, currencyCode: $currencyCode, erpId: $erpId, productErpId: $productErpId, proposalNote: $proposalNote}';
   }
 }
+
