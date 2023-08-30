@@ -9,9 +9,10 @@ class FormItem {
   String? category;
   String? product;
   String? amount;
-  List<MultipartFile>? image;
+  MultipartFile? image;
+  String? filename = '  ';
 
-  FormItem({this.category, this.product, this.amount, this.image});
+  FormItem({this.category, this.product, this.amount, this.image, this.filename});
 }
 
 // State Notifier Provider for form items
@@ -27,21 +28,21 @@ class FormItemsNotifier extends StateNotifier<List<FormItem>> {
     state = [...state, item];
   }
 
-  void updateImage(int index, List<MultipartFile> images) {
+  void updateImage(int index, MultipartFile images) {
     if (index >= 0 && index < state.length) {
       state[index].image = images;
       // Emit a state change to update the UI
       state = [...state];
     }
   }
-
-  String getImageName(int index) {
-    if (state[index].image!.first.filename.toString() != null) {
-      return state[index].image!.first.filename.toString();
-    } else {
-      return '-';
+  void removeImage(int index) {
+    if (index >= 0 && index < state.length) {
+      state[index].image = null;
+      // Emit a state change to update the UI
+      state = [...state];
     }
   }
+
 
   void removeItem(int index) {
     state = state.where((element) => state.indexOf(element) != index).toList();

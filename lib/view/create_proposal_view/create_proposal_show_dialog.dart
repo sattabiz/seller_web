@@ -95,13 +95,12 @@ class _State extends ConsumerState<CreateProposalShowDialog> {
                   );
                   ref
                       .read(formItemProvider.notifier)
-                      .updateImage(widget.itemIndex, [fileToMultipart]);
+                      .updateImage(widget.itemIndex, fileToMultipart);
 
                   setState(() {
                     fileName = file.name;
                     print(fileName);
                     isImageSelected = true;
-                    didUpdateWidget(widget);
                   });
                 }
               },
@@ -123,23 +122,34 @@ class _State extends ConsumerState<CreateProposalShowDialog> {
                         color: Theme.of(context).colorScheme.shadow,
                       )),
             ),
-            if (fileName != null)
+            //if (fileName != null)
               Container(
                 margin: const EdgeInsets.only(left: 10),
-                child: Chip(
+                child: InputChip(
                   side: BorderSide.none,
                   // labelPadding: EdgeInsets.all(10),
                   backgroundColor:
                       Theme.of(context).colorScheme.secondaryContainer,
                   label: Container(
-                    height: 30,
-                    width: 80,
-                    alignment: Alignment.center,
-                    child: Text(
-                      fileName!,
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  ),
+                      height: 30,
+                      width: 80,
+                      alignment: Alignment.center,
+                      child: Text(
+                        ref.watch(formItemProvider)[widget.itemIndex].filename =='  '
+                          ? ' '
+                          : (ref.watch(formItemProvider)[widget.itemIndex].image !=null
+                              ? ref.watch(formItemProvider)[widget.itemIndex].image!.filename ?? ''
+                              : ''
+                              ), 
+                        style: Theme.of(context).textTheme.titleSmall,
+                        softWrap: true,
+                                  )
+                            ),
+                  onDeleted: () {
+                    ref
+                      .read(formItemProvider.notifier)
+                      .removeImage(widget.itemIndex);
+                  },
                 ),
               ),
           ],
