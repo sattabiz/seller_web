@@ -28,9 +28,6 @@ final getOrderListProvider =
         .toList();
   }
   _orderList.sort((a, b) => b.id!.compareTo(a.id!));
-  debugPrint('-----------------');
-  debugPrint(_orderList[0].toString());
-  debugPrint(_orderList[0].products[0].sendedAmount.toString());
   return _orderList;
 });
 
