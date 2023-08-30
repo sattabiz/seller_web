@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:data_table_2/data_table_2.dart';
@@ -132,7 +131,7 @@ class InvoiceTable extends StatelessWidget {
                     ), //product_unit
                     DataCell(
                       Text(
-                        item.price.toString(),
+                        "${item.price.toString()} ${getCurrencySymbol(item.currencyCode.toString())}",
                         textDirection: TextDirection.rtl,
                         textAlign: TextAlign.end,
                         maxLines: 1,
@@ -141,7 +140,7 @@ class InvoiceTable extends StatelessWidget {
                     DataCell(
                       Text(
                       item.price.toString() == 'null' ? '-' 
-                      : calcuteAmount(item.shippedAmount.toString(), item.price.toString()),
+                      : "${calcuteAmount(item.shippedAmount.toString(), item.price.toString())} ${getCurrencySymbol(item.currencyCode.toString())}",
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.end,
                       )

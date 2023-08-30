@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
-
-class SmallCardTable extends StatelessWidget {
+class SmallCardOrderByState extends StatelessWidget {
   final String id;
   final String status;
   final String className;
   final List bodyList;
 
-  const SmallCardTable({ 
-  Key? key, 
-  required this.id,
-  required this.status, 
-  required this.className, 
-  required this.bodyList
-  }) : super(key: key);
+  const SmallCardOrderByState(
+    {Key? key,
+    required this.id,
+    required this.status,
+    required this.className,
+    required this.bodyList})
+    : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Table(
       textDirection: TextDirection.ltr,
       columnWidths: const <int, TableColumnWidth> {
@@ -39,14 +38,12 @@ class SmallCardTable extends StatelessWidget {
               maxLines: 1,
             ),
             Text(
-              status == 'order_approved'
-              ? FlutterI18n.translate(context, "tr.order.order_header")
-              : FlutterI18n.translate(context, "tr.order.amount"),
+              FlutterI18n.translate(context, "tr.order.order_header"),
               style: Theme.of(context).textTheme.labelLarge,
               maxLines: 1,
             ),
             Text(
-              FlutterI18n.translate(context, "tr.order.price"),
+              FlutterI18n.translate(context, "tr.order.ship"),
                 style: Theme.of(context).textTheme.labelLarge,
                 maxLines: 1,
             ),
@@ -66,22 +63,18 @@ class SmallCardTable extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Text(
-                  className == 'proposal'
-                  ? bodyList[i].productName.toString()
-                  : bodyList[i].name.toString(),     
+                  bodyList[i].name.toString(),     
                   style: Theme.of(context).textTheme.bodyMedium,
                   maxLines: 1),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Text(
-                  (className=='invoice' || className=='shipment')
-                  ? '${bodyList[i].shippedAmount} adet'
-                  : '${bodyList[i].amount} adet',
+                  '${bodyList[i].amount} ${bodyList[i].unit}',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
-              bodyList[i].price == null
+              bodyList[i].sendedAmount == null
               ? const Padding(
                 padding:  EdgeInsets.only(top: 4.0, bottom: 4.0),
                   child:  Text('-'),
@@ -89,7 +82,7 @@ class SmallCardTable extends StatelessWidget {
               : Padding(
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Text(
-                  '${bodyList[i].price} ₺',
+                  '${bodyList[i].sendedAmount} ${bodyList[i].unit}  ',
                   style: Theme.of(context).textTheme.bodyMedium,
                   maxLines: 1,
                 ),
