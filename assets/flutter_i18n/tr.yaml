@@ -109,7 +109,7 @@ tr:
     invoice_collecting: "Ödeniyor"
     invoice_approved: "Açık Fatura"
     price: "Fiyat"
-    invoice_date: 'Fatura Tarihi: '
+    invoice_date: 'Fatura Tarihi '
     invoice_no: "Fatura No: "
     create_order_btn: "Onay"
     big_card_header: "Fatura Tarihi:"

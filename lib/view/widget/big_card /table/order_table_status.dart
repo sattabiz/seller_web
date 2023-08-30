@@ -6,14 +6,15 @@ class OrderTableStatus extends StatelessWidget {
   final List productList;
   final String status;
 
-  const OrderTableStatus({ 
+  const OrderTableStatus({
     Key? key,
     required this.productList,
     required this.status,
-     }) : super(key: key);
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
+    debugPrint(productList.toString());
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(10),
@@ -32,8 +33,10 @@ class OrderTableStatus extends StatelessWidget {
           dividerThickness: 0,
           headingTextStyle: Theme.of(context).textTheme.labelMedium,
           dataTextStyle: Theme.of(context).textTheme.bodyMedium,
-          dataRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.onPrimary),
-          headingRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.surfaceVariant),
+          dataRowColor: MaterialStateProperty.all<Color>(
+              Theme.of(context).colorScheme.onPrimary),
+          headingRowColor: MaterialStateProperty.all<Color>(
+              Theme.of(context).colorScheme.surfaceVariant),
           columns: [
             const DataColumn2(
               // fixedWidth: 33,
@@ -52,7 +55,8 @@ class OrderTableStatus extends StatelessWidget {
               size: ColumnSize.M,
             ),
             DataColumn2(
-              label: Text(FlutterI18n.translate(context, "tr.order.order_header")),
+              label:
+                  Text(FlutterI18n.translate(context, "tr.order.order_header")),
               size: ColumnSize.M,
             ),
             DataColumn2(
@@ -66,33 +70,28 @@ class OrderTableStatus extends StatelessWidget {
             ),
           ],
           rows: productList
-            .map(
-              (item) => DataRow2(
-                cells: [
-                  DataCell(Text((productList.indexOf(item) + 1).toString(), textDirection: TextDirection.ltr,)),
+              .map(
+                (item) => DataRow2(cells: [
+                  DataCell(Text(
+                    (productList.indexOf(item) + 1).toString(),
+                    textDirection: TextDirection.ltr,
+                  )),
                   DataCell(Text(item.name.toString())), //product_name
                   DataCell(Text(item.price.toString())), //propsal_note
-                  DataCell(
-                    Text(
-                      '${item.amount} ' ' ${item.unit}',
-                    )
-                  ),
-                  const DataCell(
-                    Text(
-                      '-', //sevk miktari
-                      textDirection: TextDirection.rtl,
-                    )
-                  ),
-                  DataCell(
-                    Text(
-                      FlutterI18n.translate(context, 'tr.order.$status'),
-                      textDirection: TextDirection.rtl,
-                    )
-                  ),
-                ]
-              ),
-            )
-            .toList(),
+                  DataCell(Text(
+                    '${item.amount} ' ' ${item.unit}',
+                  )),
+                  DataCell(Text(
+                    item.sendedAmount.toString(),
+                    textDirection: TextDirection.rtl,
+                  )),
+                  DataCell(Text(
+                    FlutterI18n.translate(context, 'tr.order.$status'),
+                    textDirection: TextDirection.rtl,
+                  )),
+                ]),
+              )
+              .toList(),
         ),
       ),
     );

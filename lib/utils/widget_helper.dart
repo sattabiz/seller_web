@@ -77,6 +77,10 @@ bool checkShipmentState(String status) {
   return status == 'order_on_the_way';
 }
 
+bool checkOrderState(String status) {
+  return status == 'order_confirmed' || status == 'order_prepared' || status == 'order_on_the_way' || status == 'order_delivered';
+}
+
 String invoiceBigCardHeader(String status, String paymentDate, String invoiceDate) {
   if (status == 'invoice_approved') {
     return formattedDate(paymentDate);
@@ -139,6 +143,19 @@ Widget bigCardOrderTable (String status, Widget orderTable, Widget orderTableSta
   }
 }
 
+String getCurrencySymbol(String currencyCode) {
+  switch (currencyCode) {
+    case 'TRY':
+      return '₺';
+    case 'EUR':
+      return '€';
+    case 'USD':
+      return '\$';
+    default:
+      return currencyCode;
+  }
+}
+
 String costCalc(List<dynamic> productsProposalList,String caseName) { 
 
   late int itemAmount;
@@ -170,11 +187,11 @@ for (var item in productsProposalList) {
 
   switch (caseName) {
     case "raw_cost":
-      return '${allItemsRawCost.toStringAsFixed(2)} ₺';  
+      return '${allItemsRawCost.toStringAsFixed(2)} ${getCurrencySymbol(currencyCode)}';  
     case "tax_amount":
-      return '${taxAmount.toStringAsFixed(2)} ₺';/* return '${taxAmount.toStringAsFixed(2)} $currencyCode'; */  
+      return '${taxAmount.toStringAsFixed(2)} ${getCurrencySymbol(currencyCode)}';/* return '${taxAmount.toStringAsFixed(2)} $currencyCode'; */  
     case "total_cost":
-      return '${allItemsTotalCost.toStringAsFixed(2)} ₺';   
+      return '${allItemsTotalCost.toStringAsFixed(2)} ${getCurrencySymbol(currencyCode)}';   
     default:
       return '--';
   }
@@ -193,31 +210,33 @@ String costCalcForShipment(List<dynamic> productsProposalList,String caseName) {
 
   String currencyCode = "empty";
 
-for (var item in productsProposalList) {
+  for (var item in productsProposalList) {
 
-  if (item.currencyCode != null && currencyCode == "empty") {
-    currencyCode = item.currencyCode.toString();
+    if (item.currencyCode != null) {
+      currencyCode = item.currencyCode.toString();
+    } 
+    
     taxRateParameter =  20.00;
-  } 
-  
-  itemAmount = item.shippedAmount ?? 0; 
-  itemPrice = item.price ?? 1; 
+    itemAmount = item.shippedAmount ?? 0; 
+    itemPrice = item.price ?? 1; 
 
-  itemRawCost = itemAmount*itemPrice;
-  allItemsRawCost += itemRawCost;
+    itemRawCost = itemAmount*itemPrice;
+    allItemsRawCost += itemRawCost;
   }
+
+  currencyCode = "₺";
   taxAmount = allItemsRawCost * (taxRateParameter/100);
   allItemsTotalCost = allItemsRawCost + taxAmount;
 
   switch (caseName) {
     case "raw_cost":
-      return '${allItemsRawCost.toStringAsFixed(2)} ₺';  
+      return '${allItemsRawCost.toStringAsFixed(2)} $currencyCode';  
     case "tax_amount":
-      return '${taxAmount.toStringAsFixed(2)} ₺';/* return '${taxAmount.toStringAsFixed(2)} $currencyCode'; */  
+      return '${taxAmount.toStringAsFixed(2)} ₺';
     case "total_cost":
       return '${allItemsTotalCost.toStringAsFixed(2)} ₺';   
     default:
-      return '--';
+      return '-';
   }
 }
 

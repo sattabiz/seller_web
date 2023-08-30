@@ -82,10 +82,14 @@ class ProposalView extends ConsumerWidget {
                               productsProposalList: proposalList[index].productProposals!, 
                               className: className
                             ),
-                            tableInfoPanel: TableInfoPanel(
-                              // row1: "aaaaa",
-                              // row2: "bbbbbb",
-                              // row3: "cccccc",
+                            tableInfoPanel: 
+                            proposalList[index].proposalState.toString() == "pending"
+                            ? const TableInfoPanel(
+                              row1: "-",
+                              row2: "-",
+                              row3: "-",
+                            )
+                            : TableInfoPanel(
                               row1: costCalc(proposalList[index].productProposals!, "raw_cost"),
                               row2: costCalc(proposalList[index].productProposals!, "tax_amount"),
                               row3: costCalc(proposalList[index].productProposals!, "total_cost"),
@@ -104,7 +108,7 @@ class ProposalView extends ConsumerWidget {
                               demandName: proposalList[index].demandListName.toString(),
                               infoRow1: formattedDate(proposalList[index].proposalCreatedAt.toString()),
                               infoRow2: formattedDate(proposalList[index].deliveryDate.toString()),
-                              infoRow3: checkPaymentType(proposalList[index].paymentType.toString()),
+                              infoRow3: proposalList[index].proposalState == "pending" ? "-" : checkPaymentType(proposalList[index].paymentType.toString()),
                               infoRow4: proposalList[index].paymentDueDate.toString(),
                               infoRow5: proposalList[index].proposalDeliveryTime.toString(),
                               infoRow6: checkTraking(proposalList[index].includeShipmentCost!),

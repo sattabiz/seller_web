@@ -85,13 +85,13 @@ class ShipmentTable extends StatelessWidget {
                     ), //product_unit
                     DataCell(
                       Text(
-                        item.price.toString(),
+                        "${item.price.toString()} ${getCurrencySymbol(item.currencyCode.toString())}",
                         textDirection: TextDirection.rtl,
                       )
                     ),
                     DataCell(
                       Text(
-                        calcuteAmount(item.shippedAmount.toString(), item.price.toString()),
+                        "${calcuteAmount(item.shippedAmount.toString(), item.price.toString())} ${getCurrencySymbol(item.currencyCode.toString())}",
                         textDirection: TextDirection.rtl
                       )                 
                     ),

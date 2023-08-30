@@ -134,7 +134,7 @@ class ProposalTable extends StatelessWidget {
                 )), //product_unit
                 DataCell(
                   Text(
-                    item.price.toString() == 'null' ? '-' : item.price.toString(),
+                    item.price.toString() == 'null' ? '-' : "${item.price.toString()} ${getCurrencySymbol(item.currencyCode.toString())}",
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.end,
                     maxLines: 1,
@@ -143,8 +143,8 @@ class ProposalTable extends StatelessWidget {
                 DataCell(
                   Text(
                     item.price.toString() == 'null'
-                        ? '₺ 20000'
-                        : calcuteAmount(item.amount.toString(), item.price.toString()),
+                        ? '-'
+                        : "${calcuteAmount(item.amount.toString(), item.price.toString())} ${getCurrencySymbol(item.currencyCode.toString())}",
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.end,
                   ),
