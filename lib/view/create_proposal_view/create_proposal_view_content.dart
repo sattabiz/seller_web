@@ -50,6 +50,7 @@ class createProposalViewContent extends ConsumerWidget {
       children: [
         TextFormField(
           cursorColor: Theme.of(context).colorScheme.onBackground,
+          keyboardType: TextInputType.number,
           decoration: InputDecoration(
             filled: true,
             fillColor: Theme.of(context).colorScheme.onPrimary,
@@ -66,12 +67,12 @@ class createProposalViewContent extends ConsumerWidget {
                 ),
           ),
           initialValue: topic,
-          validator: (String? value) {
-            if (value == null || value.isEmpty) {
-              return 'Lütfen konu giriniz.';
-            }
-            return null;
-          },
+          // validator: (String? value) {
+          //   if (value == null || value.isEmpty) {
+          //     return 'Lütfen konu giriniz.';
+          //   }
+          //   return null;
+          // },
           onChanged: (value) {
             offerModel.name = value;
             ref.read(offerModelProvider).name=value;
