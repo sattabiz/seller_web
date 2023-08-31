@@ -20,20 +20,19 @@ class _State extends ConsumerState<CreateProposalShowDialog> {
 
   @override
   void initState() {
-    // debugPrint('init $fileName');
     super.initState();
   }
 
-  @override
-  void didUpdateWidget(covariant CreateProposalShowDialog oldWidget) {
-    // debugPrint('didUpdate $fileName');
-    super.didUpdateWidget(oldWidget);
+  bool isFileSelected() {
+    if (ref.watch(formItemProvider)[widget.itemIndex].image == null) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final formItems = ref.read(formItemProvider.notifier);
-    // debugPrint('build $fileName');
     return AlertDialog(
       titleTextStyle: Theme.of(context).textTheme.titleLarge,
       titlePadding: const EdgeInsets.all(0.0),
@@ -60,9 +59,6 @@ class _State extends ConsumerState<CreateProposalShowDialog> {
                   alignment: Alignment.centerLeft,
                   child: const Text('Dosya Yükleme')),
             ),
-            // const SizedBox(
-            //   width: 100,
-            // ),
             Container(
               margin: EdgeInsets.only(right: 20),
               child: IconButton(
@@ -93,15 +89,7 @@ class _State extends ConsumerState<CreateProposalShowDialog> {
                     file.bytes!,
                     filename: file.name,
                   );
-                  ref
-                      .read(formItemProvider.notifier)
-                      .updateImage(widget.itemIndex, fileToMultipart);
-
-                  setState(() {
-                    fileName = file.name;
-                    print(fileName);
-                    isImageSelected = true;
-                  });
+                  ref.read(formItemProvider.notifier).updateImage(widget.itemIndex, fileToMultipart);
                 }
               },
               style: ButtonStyle(
@@ -122,36 +110,31 @@ class _State extends ConsumerState<CreateProposalShowDialog> {
                         color: Theme.of(context).colorScheme.shadow,
                       )),
             ),
-            //if (fileName != null)
-              Container(
-                margin: const EdgeInsets.only(left: 10),
-                child: InputChip(
-                  side: BorderSide.none,
-                  // labelPadding: EdgeInsets.all(10),
-                  backgroundColor:
-                      Theme.of(context).colorScheme.secondaryContainer,
-                  label: Container(
-                      height: 30,
-                      width: 80,
-                      alignment: Alignment.center,
-                      child: Text(
-                        ref.watch(formItemProvider)[widget.itemIndex].filename =='  '
+            if (isFileSelected())
+            Container(
+              margin: const EdgeInsets.only(left: 10),
+              child: InputChip(
+                side: BorderSide.none,
+                backgroundColor:
+                    Theme.of(context).colorScheme.secondaryContainer,
+                label: Container(
+                    height: 30,
+                    width: 80,
+                    alignment: Alignment.center,
+                    child: Text(
+                      ref.watch(formItemProvider)[widget.itemIndex].filename == '  '
                           ? ' '
-                          : (ref.watch(formItemProvider)[widget.itemIndex].image !=null
+                          : (ref.watch(formItemProvider)[widget.itemIndex].image != null
                               ? ref.watch(formItemProvider)[widget.itemIndex].image!.filename ?? ''
-                              : ''
-                              ), 
-                        style: Theme.of(context).textTheme.titleSmall,
-                        softWrap: true,
-                                  )
-                            ),
-                  onDeleted: () {
-                    ref
-                      .read(formItemProvider.notifier)
-                      .removeImage(widget.itemIndex);
-                  },
-                ),
+                              : ''),
+                      style: Theme.of(context).textTheme.titleSmall,
+                      softWrap: true,
+                    )),
+                onDeleted: () {
+                  ref.read(formItemProvider.notifier).removeImage(widget.itemIndex);
+                },
               ),
+            ),
           ],
         ),
       ),
@@ -161,11 +144,6 @@ class _State extends ConsumerState<CreateProposalShowDialog> {
             fixedSize: MaterialStateProperty.all(const Size(120, 45)),
           ),
           onPressed: () {
-            setState(() {
-              fileName = fileName;
-              isImageSelected = true;
-              didUpdateWidget(widget);
-            });
             Navigator.of(context).pop();
           },
           child: Text(
