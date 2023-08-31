@@ -120,8 +120,8 @@ class ShipmentView extends ConsumerWidget {
                             checkShipmentState(shipmentList[index].state.toString())
                             ? InfoShipment(
                               className: className, 
-                              invoiceNo: shipmentList[index].waybillNo.toString(), //invoiceNo eklenecek
-                              infoRow1: formattedDate(shipmentList[index].shipmentDate.toString()), //invoice date eklenecek
+                              invoiceNo: shipmentList[index].invoiceNo.toString(), //invoiceNo eklenecek
+                              infoRow1: formattedDate(shipmentList[index].invoiceDate.toString()), //invoice date eklenecek
                               infoRow2: shipmentList[index].waybillNo.toString(),
                               infoRow3: checkPaymentType(shipmentList[index].paymentType.toString()),
                               infoRow4: shipmentList[index].paymentDueDate.toString(), 
