@@ -127,10 +127,12 @@ class _State extends ConsumerState<CreateProposalShowDialog> {
                           : (ref.watch(formItemProvider)[widget.itemIndex].image != null
                               ? ref.watch(formItemProvider)[widget.itemIndex].image!.filename ?? ''
                               : ''),
-                      style: Theme.of(context).textTheme.titleSmall,
-                      softWrap: false,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                      ),
+                      // softWrap: false,
                       maxLines: 1,
-                      // overflow: TextOverflow.ellipsis,
+                      overflow: TextOverflow.ellipsis,
                     )),
                 onDeleted: () {
                   ref.read(formItemProvider.notifier).removeImage(widget.itemIndex);
