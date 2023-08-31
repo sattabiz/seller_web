@@ -31,27 +31,42 @@ class FormItemsNotifier extends StateNotifier<List<FormItem>> {
   void updateImage(int index, MultipartFile images) {
     if (index >= 0 && index < state.length) {
       state[index].image = images;
-      // Emit a state change to update the UI
       state = [...state];
     }
   }
   void removeImage(int index) {
     if (index >= 0 && index < state.length) {
       state[index].image = null;
-      // Emit a state change to update the UI
       state = [...state];
     }
   }
 
-
   void removeItem(int index) {
     state = state.where((element) => state.indexOf(element) != index).toList();
   }
+
+  bool isImageSelected(int index) {
+    if (index >= 0 && index < state.length) {
+      if (state[index].image == null) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
 }
 
-// GlobalKey<State<StatefulWidget>> iconKey = GlobalKey();
+bool changeIcon(int index, WidgetRef ref) {
+  if (ref.watch(formItemProvider.notifier).isImageSelected(index) == true) {
+    return true;
+  } else {
+    return false;
+  }
+  
 
-bool isImageSelected = false;
+}
 
 class createProposalViewTable extends ConsumerWidget {
   @override
@@ -264,7 +279,7 @@ class createProposalViewTable extends ConsumerWidget {
           width: 50,
           child: IconButton(
             icon: Icon(
-                isImageSelected ? Icons.image_outlined : Icons.attach_file),
+                changeIcon(index, ref) ? Icons.image_outlined : Icons.attach_file),
             iconSize: 25,
             onPressed: () {
               showDialog(
@@ -279,104 +294,4 @@ class createProposalViewTable extends ConsumerWidget {
       ],
     );
   }
-
-  /* @pragma('vm:entry-point')
-  static Route<Object?> _dialogBuilder(
-      BuildContext context, Object? arguments) {
-    return DialogRoute<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              const Text('Dosya Yükleme'),
-              const SizedBox(
-                width: 100,
-              ),
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(Icons.close),
-              ),
-            ],
-          ),
-          content: Row(
-            children: [
-              InkWell(
-                onTap: () async {
-                  FilePickerResult? result = await FilePicker.platform
-                      .pickFiles(type: FileType.image, allowMultiple: true);
-                  if (result != null && result.files.isNotEmpty) {
-                    List<MultipartFile> files = result.files
-                        .map((file) => MultipartFile.fromBytes(
-                              file.bytes as List<int>,
-                              filename: base64Encode(file.bytes as List<int>),
-                            ))
-                        .toList();
-
-                    Uint8List? fileBytes = result.files.first.bytes;
-                    String mimeType = result.files.first.name;
-                    if (fileBytes != null) {
-                      String dataUrl =
-                          'data:image/png;base64,' + base64Encode(fileBytes);
-                      String imageName = 'selected_image.$mimeType';
-                      debugPrint(files[0].filename.toString());
-                      debugPrint(
-                          '------------------------------------------------------------------------------------------------------------');
-                      debugPrint(files[1].filename.toString());
-                    }
-                  }
-                },
-                child: Container(
-                  width: 85,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.white,
-                      border: Border.all()),
-                  child: const Center(
-                    child: Text('Dosya Ekle'),
-                  ),
-                ),
-              )
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Kaydet'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  } */
 }
-
-
-// Future<void> _firstAlert(BuildContext context) async => showDialog<void>(
-//   context: context,
-//   barrierDismissible: false,
-//   builder: (BuildContext context) => AlertDialog(
-//     title: Text('first alert dialog'),
-//     content: SingleChildScrollView(
-//       child: ListBody(
-//         children: <Widget>[
-//           FlutterLogo(size: 80)
-//         ],
-//       ),
-//     ),
-//     actions: <Widget>[
-//       InkWell(
-//         onTap: () => Navigator.of(context).pop(),
-//         child: Text('second alert')),
-//     ],
-//   ),
-// );
