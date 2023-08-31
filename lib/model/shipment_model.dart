@@ -11,6 +11,8 @@ String shipmentToMap(Shipment data) => json.encode(data.toMap());
 //order date ve delivery date eklenebilir  order_id 
 class Shipment {
     final int? shipmentId;
+    final String? invoiceNo;
+    final String? invoiceDate;
     final String? waybillNo;
     final String? shipmentDate;
     final String? carrier;
@@ -30,6 +32,8 @@ class Shipment {
 
     Shipment({
         this.shipmentId,
+        this.invoiceNo,
+        this.invoiceDate,
         this.waybillNo,
         this.shipmentDate,
         this.carrier,
@@ -50,6 +54,8 @@ class Shipment {
 
     factory Shipment.fromMap(Map<String, dynamic> json) => Shipment(
         shipmentId: json["shipment_id"],
+        invoiceNo: json["invoice_no"],
+        invoiceDate: json["invoice_date"],
         waybillNo: json["waybill_no"],
         shipmentDate: json["shipment_date"],
         carrier: json["carrier"],
@@ -70,6 +76,8 @@ class Shipment {
 
     Map<String, dynamic> toMap() => {
         "shipment_id": shipmentId,
+        "invoice_no": invoiceNo,
+        "invoice_date": invoiceDate,
         "waybill_no": waybillNo,
         "shipment_date": shipmentDate,
         "carrier": carrier,
