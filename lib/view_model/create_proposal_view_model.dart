@@ -27,7 +27,7 @@ final createProposalProvider = FutureProvider.autoDispose<CreateProposalModel>((
       "category_name": _formItems[i].category.toString(),
       "name": _formItems[i].product.toString(),
       "requester_amount": _formItems[i].amount,
-      "unit": "Adet",
+      "unit": _formItems[i].unit,
       if(_formItems[i].image != null) 'images': _formItems[i].image
     };
   }

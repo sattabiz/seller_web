@@ -61,12 +61,14 @@ class WebContentModel {
 class Product {
     int categoryId;
     String? title;
+    String? unit;
     String? productDetails;
     String? productImage;
 
     Product({
         required this.categoryId,
         this.title,
+        this.unit,
         this.productDetails,
         this.productImage,
     });
@@ -78,6 +80,7 @@ class Product {
     factory Product.fromMap(Map<String, dynamic> json) => Product(
         categoryId: json["category_id"],
         title: json["title"],
+        unit: json['unit'],
         productDetails: json["product_details"],
         productImage: json["product_image"],
     );
@@ -85,11 +88,12 @@ class Product {
     Map<String, dynamic> toMap() => {
         "category_id": categoryId,
         "title": title,
+        "unit": unit,
         "product_details": productDetails,
         "product_image": productImage,
     };
     @override
     String toString() {
-        return 'Product(categoryId: $categoryId, title: $title, productDetails: $productDetails, productImage: $productImage)';
+        return 'Product(categoryId: $categoryId, title: $title,unit: $unit, productDetails: $productDetails, productImage: $productImage)';
     }
 }

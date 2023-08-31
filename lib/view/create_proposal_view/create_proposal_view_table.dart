@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../model/web_content_model.dart';
 import '../../utils/widget_helper.dart';
 import '../../view_model/landing_view_model.dart';
 import 'create_proposal_show_dialog.dart';
@@ -10,11 +11,12 @@ class FormItem {
   String? category;
   String? product;
   String? amount;
+  String? unit;
   MultipartFile? image;
   String? filename = '  ';
 
   FormItem(
-      {this.category, this.product, this.amount, this.image, this.filename});
+      {this.category, this.product, this.amount, this.unit, this.image, this.filename});
 }
 
 // State Notifier Provider for form items
@@ -74,15 +76,23 @@ bool changeIcon(int index, WidgetRef ref) {
   //  TextEditingController dropDownController = TextEditingController();
   //  final _formKeyTable = GlobalKey<FormState>();
 
-class createProposalViewTable extends ConsumerWidget {
+
+class createProposalViewTable extends ConsumerStatefulWidget {
+  const createProposalViewTable({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _createProposalViewTableState();
+}
+
+class _createProposalViewTableState extends ConsumerState<createProposalViewTable> {
+
+  @override
+  Widget build(BuildContext context,) {
     final formItems = ref.watch(formItemProvider);
     return ref.watch(getLandingViewContentProvider).when(
           data: (webContent) {
             final productDetails =
-                webContent.products!.map((product) => product.title).toList();
+                webContent;
             return Card(
               color: Theme.of(context).colorScheme.onPrimary,
               surfaceTintColor: Theme.of(context).colorScheme.onPrimary,
@@ -160,13 +170,13 @@ class createProposalViewTable extends ConsumerWidget {
   }
 
   Widget _buildItem(BuildContext context, FormItem formItem, int index,
-      WidgetRef ref, List<String?> productDetails) {
+      WidgetRef ref, WebContentModel productDetails) {
     double screenWidth = MediaQuery.of(context).size.width / 1250;
     double screenHeight = MediaQuery.of(context).size.height / 720;
 
     final List<DropdownMenuEntry<String>> dropDownMenuCategory =
         <DropdownMenuEntry<String>>[];
-    productDetails.map((detail) {
+    productDetails.products!.map((product) => product.title).toList().map((detail) {
       dropDownMenuCategory.add(
         DropdownMenuEntry<String>(
           value: detail.toString(),
@@ -224,8 +234,14 @@ class createProposalViewTable extends ConsumerWidget {
             ),
             dropdownMenuEntries: dropDownMenuCategory,
             onSelected: (value) {
-              formItem.category = value;
-            },
+            formItem.category = value;
+            int index = productDetails.products!.map((product) => product.title).toList().indexWhere((element) => element == value);
+            formItem.unit = productDetails.products![index].unit;
+            setState(() {
+              
+            });
+           
+          },
           ),
           const Spacer(
             flex: 1,
@@ -288,7 +304,7 @@ class createProposalViewTable extends ConsumerWidget {
                     borderSide: BorderSide(
                         color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
-                  suffixText: 'adet',
+                  suffixText:formItem.unit,
                 ),
                 onChanged: (value) {
                   formItem.amount = value;
