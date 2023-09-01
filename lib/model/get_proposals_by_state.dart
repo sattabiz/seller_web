@@ -135,6 +135,7 @@ class ProductProposal {
   int? taxRate;
   String? currencyCode;
   double? amount;
+  Map? productFiles;
 
   ProductProposal({
     this.productProposalId,
@@ -156,6 +157,7 @@ class ProductProposal {
     this.taxRate,
     this.currencyCode,
     this.amount,
+    this.productFiles,
   });
 
   @override
@@ -191,7 +193,8 @@ class ProductProposal {
       taxRate: json["tax_rate"],
       currencyCode: json["currency_code"],
       amount: json["amount"],
-    );
+      productFiles: json["product_files"]      
+      );
   }
 
   Map<String, dynamic> toMap() {
@@ -218,3 +221,4 @@ class ProductProposal {
     };
   }
 }
+
