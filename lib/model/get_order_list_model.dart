@@ -155,6 +155,7 @@ class Product {
         this.erpId,
         this.productErpId,
         this.proposalNote,
+        this.productFiles
     });
 
     int productProposalId;
@@ -170,6 +171,7 @@ class Product {
     String ?erpId;
     String ?productErpId;
     String ?proposalNote;
+    Map? productFiles;
 
     factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
 
@@ -189,6 +191,7 @@ class Product {
         erpId: json["erp_id"],
         productErpId: json["product_erp_id"],
         proposalNote: json["proposal_note"],
+        productFiles: json["product_files"]  
     );
 
     Map<String, dynamic> toMap() => {
