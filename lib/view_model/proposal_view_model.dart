@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config/api_url.dart';
 import '../model/get_proposals_by_state.dart';
@@ -31,9 +30,6 @@ final getProposalListProvider =
         .map((e) => GetProposalModel.fromMap(e))
         .toList();
   }
-  if(_proposalList[0].productProposals![0].productFiles != null)(
-    debugPrint(_proposalList[0].productProposals![0].productFiles!.entries.first.toString())
-  );
   _proposalList.sort((a, b) => b.proposalId!.compareTo(a.proposalId!));
   return _proposalList;
 });
