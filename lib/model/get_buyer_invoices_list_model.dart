@@ -1,9 +1,4 @@
 
-
-// To parse this JSON data, do
-//
-//     final getInvoicesModel = getInvoicesModelFromMap(jsonString);
-
 import 'dart:convert';
 
 class GetInvoicesModel {
@@ -89,7 +84,7 @@ class Product {
     int? categoryId;
     String ?categoryErpId;
     String? description;
-    double? shippedAmount;
+    double? amount;
     String? unit;
     double? price;
     String? currencyCode;
@@ -105,7 +100,7 @@ class Product {
         this.categoryId,
         this.categoryErpId,
         this.description,
-        this.shippedAmount,
+        this.amount,
         this.unit,
         this.price,
         this.currencyCode,
@@ -126,7 +121,7 @@ class Product {
         categoryId: json["category_id"],
         categoryErpId: json["category_erp_id"],
         description: json["description"],
-        shippedAmount: json["shipped_amount"],
+        amount: json["shipped_amount"],
         unit: json["unit"],
         price: json["price"],
         currencyCode: json["currency_code"],
@@ -143,7 +138,7 @@ class Product {
         "category_id": categoryId,
         "category_erp_id": categoryErpId,
         "description": description,
-        "shipped_amount": shippedAmount,
+        "shipped_amount": amount,
         "unit": unit,
         "price": price,
         "currency_code": currencyCode,
@@ -151,9 +146,4 @@ class Product {
         "product_erp_id": productErpId,
         "proposal_note": proposalNote,
     };
-
-  @override
-  String toString() {
-    return 'Product(orderId: $orderId, orderPoNo: $orderPoNo, productsProposalId: $productsProposalId, name: $name, categoryId: $categoryId, categoryErpId: $categoryErpId, description: $description, shippedAmount: $shippedAmount, unit: $unit, price: $price, currencyCode: $currencyCode, erpId: $erpId, productErpId: $productErpId, proposalNote: $proposalNote)';
-  }    
 }

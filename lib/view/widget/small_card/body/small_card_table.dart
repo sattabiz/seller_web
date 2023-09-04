@@ -39,9 +39,7 @@ class SmallCardTable extends StatelessWidget {
               maxLines: 1,
             ),
             Text(
-              status == 'order_approved'
-              ? FlutterI18n.translate(context, "tr.order.order_header")
-              : FlutterI18n.translate(context, "tr.order.amount"),
+              FlutterI18n.translate(context, "tr.order.amount"),
               style: Theme.of(context).textTheme.labelLarge,
               maxLines: 1,
             ),
@@ -75,9 +73,7 @@ class SmallCardTable extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Text(
-                  (className=='invoice' || className=='shipment')
-                  ? '${bodyList[i].shippedAmount} adet'
-                  : '${bodyList[i].amount} adet',
+                  '${bodyList[i].amount} adet',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),

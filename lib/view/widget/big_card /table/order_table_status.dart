@@ -76,14 +76,13 @@ class OrderTableStatus extends StatelessWidget {
                     (productList.indexOf(item) + 1).toString(),
                     textDirection: TextDirection.ltr,
                   )),
-                  DataCell(Text(item.name.toString())), //product_name
-                  DataCell(Text(item.price.toString())), //propsal_note
+                  DataCell(Text(item.name.toString())),
+                  DataCell(Text(item.price.toString())),
                   DataCell(Text(
                     '${item.amount} ' ' ${item.unit}',
                   )),
                   DataCell(Text(
-                    item.sendedAmount.toString(),
-                    textDirection: TextDirection.rtl,
+                    "${item.sendedAmount.toString()}" "${item.unit}",
                   )),
                   DataCell(Text(
                     FlutterI18n.translate(context, 'tr.order.$status'),

@@ -1,8 +1,4 @@
-// To parse this JSON data, do
-//
-//     final shipment = shipmentFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Shipment shipmentFromMap(String str) => Shipment.fromMap(json.decode(str));
@@ -105,7 +101,7 @@ class Product {
     final int? categoryId;
     final String? categoryErpId;
     final String? description;
-    final double? shippedAmount;
+    final double? amount;
     final String? unit;
     final double? price;
     final int? taxRate;
@@ -122,7 +118,7 @@ class Product {
         required this.categoryId,
         required this.categoryErpId,
         required this.description,
-        required this.shippedAmount,
+        required this.amount,
         required this.unit,
         required this.price,
         required this.taxRate,
@@ -140,7 +136,7 @@ class Product {
         categoryId: json["category_id"],
         categoryErpId: json["category_erp_id"],
         description: json["description"],
-        shippedAmount: json["shipped_amount"],
+        amount: json["shipped_amount"],
         unit: json["unit"],
         price: json["price"],
         taxRate: json["tax_rate"],
@@ -158,7 +154,7 @@ class Product {
         "category_id": categoryId,
         "category_erp_id": categoryErpId,
         "description": description,
-        "shipped_amount": shippedAmount,
+        "shipped_amount": amount,
         "unit": unit,
         "price": price,
         "tax_rate": taxRate,

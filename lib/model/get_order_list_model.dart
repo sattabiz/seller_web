@@ -151,6 +151,7 @@ class Product {
         this.sendedAmount,
         this.unit,
         this.price,
+        this.taxRate,
         this.currencyCode,
         this.erpId,
         this.productErpId,
@@ -167,6 +168,7 @@ class Product {
     double ?sendedAmount;
     String ?unit;
     double ?price;
+    int ?taxRate;
     String ?currencyCode;
     String ?erpId;
     String ?productErpId;
@@ -187,6 +189,7 @@ class Product {
         sendedAmount: json["sended_amount"],
         unit: json["unit"],
         price: json["price"].toDouble(),
+        taxRate: json["tax_rate"],
         currencyCode: json["currency_code"],
         erpId: json["erp_id"],
         productErpId: json["product_erp_id"],
@@ -212,7 +215,7 @@ class Product {
 
   @override
   String toString() {
-    return 'Product{productProposalId: $productProposalId, name: $name, categoryId: $categoryId, categoryErpId: $categoryErpId, description: $description, amount: $amount,sendedAmount: $sendedAmount unit: $unit, price: $price, currencyCode: $currencyCode, erpId: $erpId, productErpId: $productErpId, proposalNote: $proposalNote}';
+    return 'Product{productProposalId: $productProposalId, name: $name, categoryId: $categoryId, categoryErpId: $categoryErpId, description: $description, amount: $amount, taxRate: $taxRate, sendedAmount: $sendedAmount unit: $unit, price: $price, currencyCode: $currencyCode, erpId: $erpId, productErpId: $productErpId, proposalNote: $proposalNote}';
   }
 }
 

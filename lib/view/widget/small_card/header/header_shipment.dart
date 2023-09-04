@@ -61,6 +61,7 @@ const HeaderShipment({ Key? key, required this.id, required this.status, require
                   id,
                   style:Theme.of(context).textTheme.labelLarge
                 ),
+                const Spacer(flex: 1),
                 Text(
                   FlutterI18n.translate(context, "tr.shipment.date"),
                   style:Theme.of(context).textTheme.bodyLarge!.copyWith(

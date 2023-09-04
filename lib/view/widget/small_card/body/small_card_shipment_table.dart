@@ -65,7 +65,7 @@ class SmallCardShipmentTable extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Text(
-                  '${bodyList[i].shippedAmount} adet',
+                  '${bodyList[i].amount} adet',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),

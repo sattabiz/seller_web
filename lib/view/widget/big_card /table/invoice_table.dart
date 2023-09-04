@@ -123,7 +123,7 @@ class InvoiceTable extends StatelessWidget {
                     ),
                     DataCell(
                       Text(
-                        '${item.shippedAmount} ' ' ${item.unit}',
+                        '${item.amount} ' ' ${item.unit}',
                         textDirection: TextDirection.ltr,
                         textAlign: TextAlign.end,
                         maxLines: 1,
@@ -132,7 +132,6 @@ class InvoiceTable extends StatelessWidget {
                     DataCell(
                       Text(
                         "${item.price.toString()} ${getCurrencySymbol(item.currencyCode.toString())}",
-                        textDirection: TextDirection.rtl,
                         textAlign: TextAlign.end,
                         maxLines: 1,
                       )
@@ -140,8 +139,7 @@ class InvoiceTable extends StatelessWidget {
                     DataCell(
                       Text(
                       item.price.toString() == 'null' ? '-' 
-                      : "${calcuteAmount(item.shippedAmount.toString(), item.price.toString())} ${getCurrencySymbol(item.currencyCode.toString())}",
-                      textDirection: TextDirection.rtl,
+                      : "${calcuteAmount(item.amount.toString(), item.price.toString())} ${getCurrencySymbol(item.currencyCode.toString())}",
                       textAlign: TextAlign.end,
                       )
                     ),

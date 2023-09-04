@@ -1,50 +1,49 @@
+import 'dart:collection';
 
 import 'package:flutter/material.dart';
 
 Map<String, String> statusIconMap = {
-    'pending': 'assets/proposal_pending.svg',
-    'replied': 'assets/exportNotes.svg',
-    'proposal_stvs': 'assets/exportNotes.svg',
-    'last_offer': 'assets/exportNotes.svg',
-    'order_approved': 'assets/exportNotes.svg',
-    'order_confirmed': 'assets/conveyor.svg',
-    'order_prepared': 'assets/trolley.svg',
-    'order_on_the_way': 'assets/shipment.svg',
-    'order_delivered': 'assets/warehouse.svg',
-    'invoice_paid': 'assets/paid.svg',
-    'invoice_discounted': 'assets/paid.svg',
-    'invoice_goods_delivered': 'assets/exportNotes.svg',
-    'invoice_approved_dbs': 'assets/DBS.svg',
-    'invoice_collecting': 'assets/paymentProcess.svg',
-    'invoice_approved': 'assets/notsecure.svg',
-    'delivered': 'assets/package.svg',
-  };
+  'pending': 'assets/proposal_pending.svg',
+  'replied': 'assets/exportNotes.svg',
+  'proposal_stvs': 'assets/exportNotes.svg',
+  'last_offer': 'assets/exportNotes.svg',
+  'order_approved': 'assets/exportNotes.svg',
+  'order_confirmed': 'assets/conveyor.svg',
+  'order_prepared': 'assets/trolley.svg',
+  'order_on_the_way': 'assets/shipment.svg',
+  'order_delivered': 'assets/warehouse.svg',
+  'invoice_paid': 'assets/paid.svg',
+  'invoice_discounted': 'assets/paid.svg',
+  'invoice_goods_delivered': 'assets/exportNotes.svg',
+  'invoice_approved_dbs': 'assets/DBS.svg',
+  'invoice_collecting': 'assets/paymentProcess.svg',
+  'invoice_approved': 'assets/notsecure.svg',
+  'delivered': 'assets/package.svg',
+};
 
-  // formating dateTime
-  String formattedDate(String date) {
-    if (date == 'null') {
-      return '-';
-    }
-    else {
+// formating dateTime
+String formattedDate(String date) {
+  if (date == 'null') {
+    return '-';
+  } else {
     final DateTime parsedDate = DateTime.parse(date);
     return "${parsedDate.day}-${parsedDate.month.toString().padLeft(2, '0')}-${parsedDate.year.toString().padLeft(2, '0')}";
-    }
   }
+}
 
-  String formattedTime(String date) {
-    if (date == 'null') {
-      return '-';
-    }
-    else {
+String formattedTime(String date) {
+  if (date == 'null') {
+    return '-';
+  } else {
     final DateTime parsedDate = DateTime.parse(date);
     return "${parsedDate.hour}:${parsedDate.minute.toString().padLeft(2, '0')}";
-    }
   }
-  
-  // calculate amount for big card table
-  String calcuteAmount(String amount, String price) {
-    return (double.parse(amount) * double.parse(price)).toString();
-  }
+}
+
+// calculate amount for big card table
+String calcuteAmount(String amount, String price) {
+  return (double.parse(amount) * double.parse(price)).toString();
+}
 
 String truncateToTwoWords(String text) {
   var words = text.split(' ');
@@ -58,8 +57,7 @@ String truncateToTwoWords(String text) {
 String checkPaymentType(String paymentType) {
   if (paymentType == 'null') {
     return 'Cari Hesap';
-  }
-  else {
+  } else {
     return paymentType;
   }
 }
@@ -67,8 +65,7 @@ String checkPaymentType(String paymentType) {
 String checkTraking(bool tracking) {
   if (tracking == true) {
     return 'Satıcı';
-  }
-  else {
+  } else {
     return 'Alıcı';
   }
 }
@@ -78,54 +75,64 @@ bool checkShipmentState(String status) {
 }
 
 bool checkOrderState(String status) {
-  return status == 'order_confirmed' || status == 'order_prepared' || status == 'order_on_the_way' || status == 'order_delivered';
+  return status == 'order_confirmed' ||
+      status == 'order_prepared' ||
+      status == 'order_on_the_way' ||
+      status == 'order_delivered';
 }
 
-String invoiceBigCardHeader(String status, String paymentDate, String invoiceDate) {
+bool isFileAttached(List<dynamic> list) {
+  for (var element in list) {
+    if (element.productFiles != null || element.productFiles != [] || element.productFiles != {} || element.productFiles.isNotEmpty) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  throw Exception('No productFiles found in list');
+}
+
+String invoiceBigCardHeader(
+    String status, String paymentDate, String invoiceDate) {
   if (status == 'invoice_approved') {
     return formattedDate(paymentDate);
-  }
-  else {
+  } else {
     return formattedDate(invoiceDate);
   }
 }
 
-String invoiceSmallCardHeaderDate(String status, String paymentDate, String invoiceDate) {
+String invoiceSmallCardHeaderDate(
+    String status, String paymentDate, String invoiceDate) {
   if (status == 'invoice_goods_delivered') {
     return formattedDate(invoiceDate);
-  }
-  else {
+  } else {
     return formattedDate(paymentDate);
   }
 }
 
 String bigCardHeader(String status, String className) {
-
-  if(status == 'invoice_approved' ) {
+  if (status == 'invoice_approved') {
     return 'Ödeme Tarihi: ';
-  }
-  else if(className == 'invoice' && status != 'invoice_approved'){
+  } else if (className == 'invoice' && status != 'invoice_approved') {
     return 'Fatura Tarihi: ';
-  }
-  else if ( className == 'shipment' && status == 'order_on_the_way'){
+  } else if (className == 'shipment' && status == 'order_on_the_way') {
     return 'Sevk Tarihi: ';
-  }
-  else if (className == 'proposal') {
+  } else if (className == 'proposal') {
     return 'Teklif No: ';
-  }
-  else {
+  } else {
     return 'Sipariş No: ';
   }
 }
 
-Widget smallCardShipmentTable(String status, Widget shipmentTable, Widget smallCardTable){
-  if (status == 'order_on_the_way') {
-    return smallCardTable;
-  }
-  else {
-    return shipmentTable;
-  }
-}
+// Widget smallCardShipmentTable(String status, Widget shipmentTable, Widget smallCardTable){
+//   if (status == 'order_on_the_way') {
+//     return smallCardTable;
+//   }
+//   else {
+//     return shipmentTable;
+//   }
+// }
 
 String getOrderIdFromShipmentProductList(List<dynamic> list) {
   for (var element in list) {
@@ -134,11 +141,11 @@ String getOrderIdFromShipmentProductList(List<dynamic> list) {
   throw Exception('No orderId found in shipmentProductList');
 }
 
-Widget bigCardOrderTable (String status, Widget orderTable, Widget orderTableState) {
+Widget bigCardOrderTable(
+    String status, Widget orderTable, Widget orderTableState) {
   if (status == 'order_approved' || status == 'order_pending') {
     return orderTable;
-  }
-  else {
+  } else {
     return orderTableState;
   }
 }
@@ -156,49 +163,51 @@ String getCurrencySymbol(String currencyCode) {
   }
 }
 
-String costCalc(List<dynamic> productsProposalList,String caseName) { 
-
-  late int itemAmount;
-  late double itemPrice;
-  late double itemRawCost;
-  late double taxRateParameter;
-
-  double allItemsRawCost = 0;
-  late double taxAmount;
-  late double allItemsTotalCost;
-
+Map<String, String> calculateTaxRate(List<dynamic> productList) {
+  Map<String, double> taxRateMap = {};
+  Map<String, String> taxRateMap2 = {};
+  late double total;
+  late double taxRate;
+  late double totalWithoutTax;
+  late double totalPrice;
+  totalPrice = 0.0;
+  totalWithoutTax = 0.0;
   String currencyCode = "empty";
 
-for (var item in productsProposalList) {
+  for (var product in productList) {
+    total = (product.price ?? 1) * product.amount; //calculate total price only one product
+    totalWithoutTax += total; //calculate total price without tax
+    taxRate = product.taxRate;
 
-  if (item.currencyCode != null && currencyCode == "empty") {
-    currencyCode = item.currencyCode.toString();
-    taxRateParameter = 20.00; ////invoice ve order modeline taxRate eklenecek
-  } 
-  
-  itemAmount = item.amount ?? 0; 
-  itemPrice = item.price ?? 1; 
+    if (product.currencyCode != null && currencyCode == "empty") {
+      currencyCode = product.currencyCode.toString();
+    }
 
-  itemRawCost = itemAmount*itemPrice;
-  allItemsRawCost += itemRawCost;
+    if (taxRateMap.containsKey(taxRate)) {
+      taxRateMap[taxRate.toString()] = taxRateMap[taxRate]! + (total * taxRate / 100); //calculate tax rate
+      taxRateMap2["KDV(%$taxRate):"] = '${taxRateMap[taxRate.toString()].toString()} ${getCurrencySymbol(currencyCode)}';
+    } else {
+      taxRateMap[taxRate.toString()] = (total * taxRate / 100);
+      taxRateMap2["KDV(%$taxRate):"] = '${taxRateMap[taxRate.toString()].toString()} ${getCurrencySymbol(currencyCode)}';
+    }
   }
-  taxAmount = allItemsRawCost * (taxRateParameter/100);
-  allItemsTotalCost = allItemsRawCost + taxAmount;
 
-  switch (caseName) {
-    case "raw_cost":
-      return '${allItemsRawCost.toStringAsFixed(2)} ${getCurrencySymbol(currencyCode)}';  
-    case "tax_amount":
-      return '${taxAmount.toStringAsFixed(2)} ${getCurrencySymbol(currencyCode)}';/* return '${taxAmount.toStringAsFixed(2)} $currencyCode'; */  
-    case "total_cost":
-      return '${allItemsTotalCost.toStringAsFixed(2)} ${getCurrencySymbol(currencyCode)}';   
-    default:
-      return '--';
-  }
+  taxRateMap.forEach((key, value) {
+    totalPrice += value; //calculate total price with tax
+  });
+
+  taxRateMap["totalWithoutTax"] =
+      totalWithoutTax; //calculate total price without tax
+  taxRateMap["total"] =
+      totalPrice + totalWithoutTax; //calculate total price with tax
+
+  taxRateMap2["Toplam Tutar:"] = '${taxRateMap["totalWithoutTax"].toString()} ${getCurrencySymbol(currencyCode)}';
+  taxRateMap2["Toplam:"] = '${taxRateMap["total"].toString()} ${getCurrencySymbol(currencyCode)}';
+
+  return taxRateMap2;
 }
 
-String costCalcForShipment(List<dynamic> productsProposalList,String caseName) {
-
+String costCalc(List<dynamic> productsProposalList, String caseName) {
   late int itemAmount;
   late double itemPrice;
   late double itemRawCost;
@@ -211,30 +220,70 @@ String costCalcForShipment(List<dynamic> productsProposalList,String caseName) {
   String currencyCode = "empty";
 
   for (var item in productsProposalList) {
-
-    if (item.currencyCode != null) {
+    if (item.currencyCode != null && currencyCode == "empty") {
       currencyCode = item.currencyCode.toString();
-    } 
-    
-    taxRateParameter =  20.00;
-    itemAmount = item.shippedAmount ?? 0; 
-    itemPrice = item.price ?? 1; 
+      taxRateParameter =
+          item.taxRate; ////invoice ve order modeline taxRate eklenecek
+    }
 
-    itemRawCost = itemAmount*itemPrice;
+    itemAmount = item.amount ?? 0;
+    itemPrice = item.price ?? 1;
+
+    itemRawCost = itemAmount * itemPrice;
     allItemsRawCost += itemRawCost;
   }
-
-  currencyCode = "₺";
-  taxAmount = allItemsRawCost * (taxRateParameter/100);
+  taxAmount = allItemsRawCost * (taxRateParameter / 100);
   allItemsTotalCost = allItemsRawCost + taxAmount;
 
   switch (caseName) {
     case "raw_cost":
-      return '${allItemsRawCost.toStringAsFixed(2)} $currencyCode';  
+      return '${allItemsRawCost.toStringAsFixed(2)} ${getCurrencySymbol(currencyCode)}';
+    case "tax_amount":
+      return '${taxAmount.toStringAsFixed(2)} ${getCurrencySymbol(currencyCode)}'; /* return '${taxAmount.toStringAsFixed(2)} $currencyCode'; */
+    case "total_cost":
+      return '${allItemsTotalCost.toStringAsFixed(2)} ${getCurrencySymbol(currencyCode)}';
+    default:
+      return '--';
+  }
+}
+
+String costCalcForShipment(
+    List<dynamic> productsProposalList, String caseName) {
+  late int itemAmount;
+  late double itemPrice;
+  late double itemRawCost;
+  late double taxRateParameter;
+
+  double allItemsRawCost = 0;
+  late double taxAmount;
+  late double allItemsTotalCost;
+
+  String currencyCode = "empty";
+
+  for (var item in productsProposalList) {
+    if (item.currencyCode != null) {
+      currencyCode = item.currencyCode.toString();
+    }
+
+    taxRateParameter = 20.00;
+    itemAmount = item.shippedAmount ?? 0;
+    itemPrice = item.price ?? 1;
+
+    itemRawCost = itemAmount * itemPrice;
+    allItemsRawCost += itemRawCost;
+  }
+
+  currencyCode = "₺";
+  taxAmount = allItemsRawCost * (taxRateParameter / 100);
+  allItemsTotalCost = allItemsRawCost + taxAmount;
+
+  switch (caseName) {
+    case "raw_cost":
+      return '${allItemsRawCost.toStringAsFixed(2)} $currencyCode';
     case "tax_amount":
       return '${taxAmount.toStringAsFixed(2)} ₺';
     case "total_cost":
-      return '${allItemsTotalCost.toStringAsFixed(2)} ₺';   
+      return '${allItemsTotalCost.toStringAsFixed(2)} ₺';
     default:
       return '-';
   }
