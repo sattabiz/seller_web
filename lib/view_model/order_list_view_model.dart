@@ -27,9 +27,8 @@ final getOrderListProvider =
         .map((e) => GetOrderlistModel.fromMap(e))
         .toList();
   }
-  if(_orderList[0].products[0].productFiles != null)(
-    debugPrint(_orderList[0].products[0].productFiles!.entries.first.toString())
-  );
+ 
+ 
   _orderList.sort((a, b) => b.id!.compareTo(a.id!));
   return _orderList;
 });
