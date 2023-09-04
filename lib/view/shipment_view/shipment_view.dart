@@ -7,6 +7,7 @@ import 'package:seller_point/view/widget/big_card%20/header/header.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info_box.dart';
 import 'package:seller_point/view/widget/big_card%20/table/shipment_table.dart';
+import 'package:seller_point/view/widget/small_card/body/body_invoice_header.dart';
 import 'package:seller_point/view/widget/small_card/body/small_card_shipment_table.dart';
 import 'package:seller_point/view/widget/small_card/body/small_card_table.dart';
 import 'package:seller_point/view/widget/small_card/header/header_invoice.dart';
@@ -71,24 +72,20 @@ class ShipmentView extends ConsumerWidget {
                             newMessageSvg: newMessageSvg,
                           ),
                           bodyHeader:
-                           BodyHeader( 
-                            bodyHeader: shipmentList[index].waybillNo.toString(),
+                          checkShipmentState(shipmentList[index].state.toString())
+                          ? BodyInvoiceHeader(
+                            bodyHeader: shipmentList[index].invoiceNo.toString(),
+                          )
+                          : BodyHeader( 
+                            bodyHeader: shipmentList[index].demandListName.toString(),
                           ),
-                          smallCardTable: smallCardShipmentTable(
-                            shipmentList[index].state.toString(),
-                            SmallCardShipmentTable(
-                              id: shipmentList[index].shipmentId.toString(), 
-                              status: shipmentList[index].state.toString(), 
-                              className: className, 
-                              bodyList: shipmentList[index].products,
-                            ),
-                            SmallCardTable(
-                              id: shipmentList[index].shipmentId.toString(), 
-                              status: shipmentList[index].state.toString(), 
-                              className: className, 
-                              bodyList: shipmentList[index].products,
-                            )
+                          smallCardTable: SmallCardTable(
+                            id: shipmentList[index].shipmentId.toString(), 
+                            status: shipmentList[index].state.toString(), 
+                            className: className, 
+                            bodyList: shipmentList[index].products,
                           ),
+                        
                           bigCard: BigCard(
                             id: shipmentList[index].shipmentId.toString(),
                             bigCardHeader: Header(
@@ -103,9 +100,8 @@ class ShipmentView extends ConsumerWidget {
                               className: className
                             ),
                             tableInfoPanel: TableInfoPanel(
-                              row1: costCalcForShipment(shipmentList[index].products, "raw_cost"),
-                              row2: costCalcForShipment(shipmentList[index].products, "tax_amount"),
-                              row3: costCalcForShipment(shipmentList[index].products, "total_cost"),
+                              productList: shipmentList[index].products,
+                              isPending: false,
                             ),
                             buttons: ButtonWidget(
                               className: className,

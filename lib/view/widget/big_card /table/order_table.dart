@@ -83,13 +83,11 @@ class OrderTable extends StatelessWidget {
                   DataCell(
                     Text(
                       "${item.price.toString()} ${getCurrencySymbol(item.currencyCode.toString())}",
-                      textDirection: TextDirection.rtl,
                     )
                   ),
                   DataCell(
                     Text(
                       "${calcuteAmount(item.amount.toString(), item.price.toString())} ${getCurrencySymbol(item.currencyCode.toString())}",
-                      textDirection: TextDirection.rtl,
                     )
                   ),
                 ]

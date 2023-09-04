@@ -79,20 +79,18 @@ class ShipmentTable extends StatelessWidget {
                     DataCell(Text(item.proposalNote.toString())), //propsal_note
                     DataCell(
                       Text(
-                        '${item.shippedAmount} ' ' ${item.unit}',
+                        '${item.amount} ' ' ${item.unit}',
                         // textDirection: TextDirection.rtl,
                       )
                     ), //product_unit
                     DataCell(
                       Text(
                         "${item.price.toString()} ${getCurrencySymbol(item.currencyCode.toString())}",
-                        textDirection: TextDirection.rtl,
                       )
                     ),
                     DataCell(
                       Text(
-                        "${calcuteAmount(item.shippedAmount.toString(), item.price.toString())} ${getCurrencySymbol(item.currencyCode.toString())}",
-                        textDirection: TextDirection.rtl
+                        "${calcuteAmount(item.amount.toString(), item.price.toString())} ${getCurrencySymbol(item.currencyCode.toString())}",
                       )                 
                     ),
                   ]),

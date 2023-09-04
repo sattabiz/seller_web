@@ -50,7 +50,6 @@ class OrderView extends ConsumerWidget {
                       staggeredTileBuilder: (index) =>
                           const StaggeredTile.fit(1),
                       itemBuilder: (context, index) {
-                        // debugPrint(orderList[index].demandFiles.toString());
                         return SmallCard(
                           id: orderList[index].id.toString(),
                           className: className,
@@ -87,7 +86,7 @@ class OrderView extends ConsumerWidget {
                               status: orderList[index].state.toString(),
                             ),
                             bigCardTable: bigCardOrderTable(
-                                orderList[index].state.toString(),
+                              orderList[index].state.toString(),
                                 OrderTable(
                                   className: className,
                                   productList: orderList[index].products,
@@ -95,14 +94,14 @@ class OrderView extends ConsumerWidget {
                                 OrderTableStatus(
                                   status: orderList[index].state.toString(),
                                   productList: orderList[index].products,
-                                )),
-                            tableInfoPanel: TableInfoPanel(
-                              row1: costCalc(
-                                  orderList[index].products, "raw_cost"),
-                              row2: costCalc(
-                                  orderList[index].products, "tax_amount"),
-                              row3: costCalc(
-                                  orderList[index].products, "total_cost"),
+                                )
+                            ),
+                            tableInfoPanel: 
+                            checkOrderState(orderList[index].state.toString())
+                            ? null
+                            : TableInfoPanel(
+                                productList: orderList[index].products,
+                                isPending: false,
                             ),
                             buttons: ButtonWidget(
                               className: className,

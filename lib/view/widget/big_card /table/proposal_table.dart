@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:seller_point/view/widget/big_card%20/info/info_box.dart';
-import 'package:seller_point/view/widget/big_card%20/info/proposal_sum_panel.dart';
 import '../../../../utils/widget_helper.dart';
+import 'dart:js' as js;
 
 class ProposalTable extends StatelessWidget {
   final List productsProposalList;
   final String className;
+  final bool filesAttached;
 
-  const ProposalTable({super.key, required this.productsProposalList, required this.className});
+  const ProposalTable(
+      {super.key, required this.productsProposalList, required this.className, required this.filesAttached});
 
   @override
   Widget build(BuildContext context) {
-    return  ClipRRect(
+    debugPrint(filesAttached.toString());
+    return ClipRRect(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(10),
         topRight: Radius.circular(10),
@@ -30,10 +32,12 @@ class ProposalTable extends StatelessWidget {
           smRatio: 0.3,
           lmRatio: 1.6,
           dividerThickness: 0,
+          empty: const Text(""),
           headingTextStyle: Theme.of(context).textTheme.titleMedium,
           dataTextStyle: Theme.of(context).textTheme.bodyMedium,
           dataRowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-          headingRowColor:MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.surfaceVariant),
+          headingRowColor: MaterialStateProperty.all<Color>(
+              Theme.of(context).colorScheme.surfaceVariant),
           columns: [
             const DataColumn2(
               label: Text('#',
@@ -92,65 +96,63 @@ class ProposalTable extends StatelessWidget {
             ),
           ],
           rows: productsProposalList
-            .map(
-              (item) => DataRow2(cells: [
-                DataCell(
-                  Text(
-                    (productsProposalList.indexOf(item) + 1).toString(),
-                    textDirection: TextDirection.rtl,
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                DataCell(
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Text(
-                      item.productName.toString(),
-                      textDirection: TextDirection.ltr,
-                      textAlign: TextAlign.start,
+              .map(
+                (item) => DataRow2(cells: [
+                  DataCell(
+                    Text(
+                      (productsProposalList.indexOf(item) + 1).toString(),
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.center,
                       maxLines: 1,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ), //product_name
-                DataCell(Text(
-                  item.proposalNote.toString() == 'null'
-                      ? '-'
-                      : item.proposalNote.toString(),
-                  textDirection: TextDirection.ltr,
-                  textAlign: TextAlign.start,
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                  ),
-                )), //propsal_note
-                DataCell(Text(
-                  '${item.amount} ' ' ${item.productUnit}',
-                  textDirection: TextDirection.ltr,
-                  textAlign: TextAlign.end,
-                  maxLines: 1,
-                )), //product_unit
-                DataCell(
-                  Text(
-                    item.price.toString() == 'null' ? '-' : "${item.price.toString()} ${getCurrencySymbol(item.currencyCode.toString())}",
-                    textDirection: TextDirection.rtl,
+                  DataCell(
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        item.productName.toString(),
+                        textDirection: TextDirection.ltr,
+                        textAlign: TextAlign.start,
+                        maxLines: 1,
+                      ),
+                    ),
+                  ), //product_name
+                  DataCell(Text(
+                    item.proposalNote.toString() == 'null'
+                        ? '-'
+                        : item.proposalNote.toString(),
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                    ),
+                  )), //propsal_note
+                  DataCell(Text(
+                    '${item.amount} ' ' ${item.productUnit}',
+                    textDirection: TextDirection.ltr,
                     textAlign: TextAlign.end,
                     maxLines: 1,
-                  )
-                ),
-                DataCell(
-                  Text(
+                  )), //product_unit
+                  DataCell(Text(
                     item.price.toString() == 'null'
                         ? '-'
-                        : "${calcuteAmount(item.amount.toString(), item.price.toString())} ${getCurrencySymbol(item.currencyCode.toString())}",
-                    textDirection: TextDirection.rtl,
+                        : "${item.price.toString()} ${getCurrencySymbol(item.currencyCode.toString())}",
                     textAlign: TextAlign.end,
+                    maxLines: 1,
+                  )),
+                  DataCell(
+                    Text(
+                      item.price.toString() == 'null'
+                          ? '-'
+                          : "${calcuteAmount(item.amount.toString(), item.price.toString())} ${getCurrencySymbol(item.currencyCode.toString())}",
+                      textAlign: TextAlign.end,
+                    ),
                   ),
-                ),
-              ]),
-            )
+                ]),
+              )
               .toList(),
         ),
       ),

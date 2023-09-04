@@ -80,19 +80,18 @@ class ProposalView extends ConsumerWidget {
                             ),
                             bigCardTable: ProposalTable(
                               productsProposalList: proposalList[index].productProposals!, 
-                              className: className
+                              className: className,
+                              filesAttached: isFileAttached(proposalList[index].productProposals!)
                             ),
                             tableInfoPanel: 
                             proposalList[index].proposalState.toString() == "pending"
-                            ? const TableInfoPanel(
-                              row1: "-",
-                              row2: "-",
-                              row3: "-",
+                            ?  TableInfoPanel(
+                              productList: proposalList[index].productProposals!,
+                              isPending: true,
                             )
                             : TableInfoPanel(
-                              row1: costCalc(proposalList[index].productProposals!, "raw_cost"),
-                              row2: costCalc(proposalList[index].productProposals!, "tax_amount"),
-                              row3: costCalc(proposalList[index].productProposals!, "total_cost"),
+                              productList: proposalList[index].productProposals!,
+                              isPending: false,
                             ),
                             buttons: ButtonWidget(
                               className: className,

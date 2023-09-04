@@ -78,6 +78,7 @@ class BigCard extends ConsumerWidget {
                           ),
                         ),
                       ),
+
                       Expanded(
                         flex: 1,
                         child: Padding(
@@ -88,7 +89,9 @@ class BigCard extends ConsumerWidget {
                                 bottomLeft: Radius.circular(10),
                                 bottomRight: Radius.circular(10),
                               ),
-                              color: Theme.of(context).colorScheme.surfaceVariant,
+                              color:  tableInfoPanel == null 
+                              ? Theme.of(context).colorScheme.onPrimary 
+                              : Theme.of(context).colorScheme.surfaceVariant,
                             ),
                             // alignment: Alignment.centerRight,
                             child: Row(

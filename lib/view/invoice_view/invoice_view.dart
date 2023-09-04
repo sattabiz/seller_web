@@ -86,11 +86,10 @@ class InvoiceView extends ConsumerWidget {
                               className: className
                             ),
 
-                            tableInfoPanel: TableInfoPanel(
-                              row1: costCalcForShipment(invoiceList[index].products!, "raw_cost"),
-                              row2: costCalcForShipment(invoiceList[index].products!, "tax_amount"),
-                              row3: costCalcForShipment(invoiceList[index].products!, "total_cost"),
-                            ),
+                            // tableInfoPanel: TableInfoPanel(
+                            //   productList: invoiceList[index].products!,
+                            //   isPending: false,
+                            // ),
 
                             buttons: 
                               invoiceList[index].state.toString() == 'invoice_goods_delivered' //degistirdim 
