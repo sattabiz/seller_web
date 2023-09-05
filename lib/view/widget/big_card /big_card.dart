@@ -80,7 +80,7 @@ class BigCard extends ConsumerWidget {
                       ),
 
                       Expanded(
-                        flex: 1,
+                        flex: 0,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 30.0, right: 16.0),
                           child: Container(

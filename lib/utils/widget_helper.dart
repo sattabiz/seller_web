@@ -1,5 +1,5 @@
 import 'dart:collection';
-
+import 'dart:js' as js;
 import 'package:flutter/material.dart';
 
 Map<String, String> statusIconMap = {
@@ -81,16 +81,51 @@ bool checkOrderState(String status) {
       status == 'order_delivered';
 }
 
-bool isFileAttached(List<dynamic> list) {
+bool isFilesAttached(List<dynamic> list) {
   for (var element in list) {
-    if (element.productFiles != null || element.productFiles != [] || element.productFiles != {} || element.productFiles.isNotEmpty) {
+    if (element.productFiles!.entries.isNotEmpty ||
+        element.productsProposalFiles!.entries.isNotEmpty) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
-  throw Exception('No productFiles found in list');
+  throw Exception('No files found in list');
+}
+
+Widget showProductFiles(Map productFiles) {
+  if (productFiles.entries.isNotEmpty) {
+    return IconButton(
+      iconSize: 25,
+      padding: EdgeInsets.zero,
+      icon: const Icon(Icons.image_outlined),
+      onPressed: () {
+        js.context.callMethod('open', [
+          productFiles.values.first.toString()
+          // .replaceAll("http://", "https://")
+        ]);
+      },
+    );
+  } else {
+    return const Text('-');
+  }
+}
+
+Widget showProductsProposalFiles(Map productsProposalFiles) {
+  if (productsProposalFiles.entries.isNotEmpty) {
+    return IconButton(
+      iconSize: 25,
+      padding: EdgeInsets.zero,
+      icon: const Icon(Icons.image_outlined),
+      onPressed: () {
+        js.context.callMethod('open', [
+          productsProposalFiles.values.first.toString()
+        ]);
+      },
+    );
+  } else {
+    return const Text('-');
+  }
 }
 
 String invoiceBigCardHeader(
@@ -125,15 +160,6 @@ String bigCardHeader(String status, String className) {
   }
 }
 
-// Widget smallCardShipmentTable(String status, Widget shipmentTable, Widget smallCardTable){
-//   if (status == 'order_on_the_way') {
-//     return smallCardTable;
-//   }
-//   else {
-//     return shipmentTable;
-//   }
-// }
-
 String getOrderIdFromShipmentProductList(List<dynamic> list) {
   for (var element in list) {
     return element.orderId.toString();
@@ -165,7 +191,7 @@ String getCurrencySymbol(String currencyCode) {
 
 Map<String, String> calculateTaxRate(List<dynamic> productList) {
   Map<String, double> taxRateMap = {};
-  Map<String, String> taxRateMap2 = {};
+  Map<String, String> getTotalCost = {};
   late double total;
   late double taxRate;
   late double totalWithoutTax;
@@ -175,7 +201,8 @@ Map<String, String> calculateTaxRate(List<dynamic> productList) {
   String currencyCode = "empty";
 
   for (var product in productList) {
-    total = (product.price ?? 1) * product.amount; //calculate total price only one product
+    total = (product.price ?? 1) *
+        product.amount; //calculate total price only one product
     totalWithoutTax += total; //calculate total price without tax
     taxRate = product.taxRate;
 
@@ -184,11 +211,10 @@ Map<String, String> calculateTaxRate(List<dynamic> productList) {
     }
 
     if (taxRateMap.containsKey(taxRate)) {
-      taxRateMap[taxRate.toString()] = taxRateMap[taxRate]! + (total * taxRate / 100); //calculate tax rate
-      taxRateMap2["KDV(%$taxRate):"] = '${taxRateMap[taxRate.toString()].toString()} ${getCurrencySymbol(currencyCode)}';
+      taxRateMap[taxRate.toString()] =
+          taxRateMap[taxRate]! + (total * taxRate / 100); //calculate tax rate
     } else {
       taxRateMap[taxRate.toString()] = (total * taxRate / 100);
-      taxRateMap2["KDV(%$taxRate):"] = '${taxRateMap[taxRate.toString()].toString()} ${getCurrencySymbol(currencyCode)}';
     }
   }
 
@@ -196,15 +222,16 @@ Map<String, String> calculateTaxRate(List<dynamic> productList) {
     totalPrice += value; //calculate total price with tax
   });
 
-  taxRateMap["totalWithoutTax"] =
-      totalWithoutTax; //calculate total price without tax
-  taxRateMap["total"] =
-      totalPrice + totalWithoutTax; //calculate total price with tax
+  taxRateMap["totalWithoutTax"] = totalWithoutTax; //calculate total price without tax
+  taxRateMap["total"] = totalPrice + totalWithoutTax; //calculate total price with tax
+ 
+  getTotalCost["Toplam Tutar:"] = '${taxRateMap["totalWithoutTax"].toString()} ${getCurrencySymbol(currencyCode)}';
+  for ( var product in productList) {
+    getTotalCost["KDV(%${product.taxRate}):"] = '${taxRateMap[product.taxRate.toString()].toString()} ${getCurrencySymbol(currencyCode)}';
+  }
+  getTotalCost["Toplam:"] = '${taxRateMap["total"].toString()} ${getCurrencySymbol(currencyCode)}';
 
-  taxRateMap2["Toplam Tutar:"] = '${taxRateMap["totalWithoutTax"].toString()} ${getCurrencySymbol(currencyCode)}';
-  taxRateMap2["Toplam:"] = '${taxRateMap["total"].toString()} ${getCurrencySymbol(currencyCode)}';
-
-  return taxRateMap2;
+  return getTotalCost;
 }
 
 String costCalc(List<dynamic> productsProposalList, String caseName) {

@@ -7,11 +7,14 @@ import '../../../../utils/widget_helper.dart';
 class OrderTable extends StatelessWidget {
   final List productList;
   final String className;
+  final bool filesAttached;
 
   const OrderTable({
     super.key, 
     required this.productList,
-    required this.className
+    required this.className,
+    required this.filesAttached
+
     });
 
   @override
@@ -30,11 +33,13 @@ class OrderTable extends StatelessWidget {
           dataRowHeight: 30,
           headingRowHeight: 30,
           smRatio: 0.3,
-          lmRatio: 1.2,
-          headingTextStyle: Theme.of(context).textTheme.labelMedium,
+          lmRatio: 1.6,
+          dividerThickness: 0,
+          headingTextStyle: Theme.of(context).textTheme.titleMedium,
           dataTextStyle: Theme.of(context).textTheme.bodyMedium,
-          dataRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.onPrimary),
-          headingRowColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.surfaceVariant),
+          dataRowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+          headingRowColor: MaterialStateProperty.all<Color>(
+              Theme.of(context).colorScheme.surfaceVariant),
           columns: [
             const DataColumn2(
               // fixedWidth: 33,
@@ -49,23 +54,40 @@ class OrderTable extends StatelessWidget {
             DataColumn2(
               label: Text(
                 FlutterI18n.translate(context, "tr.order.description"),
+                textDirection: TextDirection.ltr,
+                textAlign: TextAlign.start,
+              ),
+              size: ColumnSize.L,
+            ),
+            DataColumn2(
+              label: Text(
+                FlutterI18n.translate(context, "tr.order.amount"),
+                textDirection: TextDirection.rtl,
+                textAlign: TextAlign.end,
               ),
               size: ColumnSize.M,
             ),
             DataColumn2(
-              label: Text(FlutterI18n.translate(context, "tr.order.amount")),
-              size: ColumnSize.M,
-            ),
-            DataColumn2(
-              label: Text(FlutterI18n.translate(context, "tr.order.price")),
-              size: ColumnSize.S,
+              label: Text(
+                FlutterI18n.translate(context, "tr.order.price"),
+                textDirection: TextDirection.rtl,
+                textAlign: TextAlign.end,
+              ),
+              size: ColumnSize.S
             ),
             DataColumn2(
               label: Text(FlutterI18n.translate(context, "tr.order.total")),
               numeric: true,
-              // size: ColumnSize.S,
-              fixedWidth: 70,
+              size: ColumnSize.M,
             ),
+            if (filesAttached)
+              const DataColumn2(
+                label: Text(
+                  " ",
+                  textAlign: TextAlign.end,
+                ),
+                fixedWidth: 100
+              ),
           ],
           rows: productList
             .map(
@@ -90,6 +112,16 @@ class OrderTable extends StatelessWidget {
                       "${calcuteAmount(item.amount.toString(), item.price.toString())} ${getCurrencySymbol(item.currencyCode.toString())}",
                     )
                   ),
+                  if (filesAttached)
+                    DataCell(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          showProductFiles(item.productFiles),
+                          showProductsProposalFiles(item.productsProposalFiles),
+                        ],
+                      ),
+                    )
                 ]
               ),
             )

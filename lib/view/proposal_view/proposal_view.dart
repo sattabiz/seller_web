@@ -81,17 +81,19 @@ class ProposalView extends ConsumerWidget {
                             bigCardTable: ProposalTable(
                               productsProposalList: proposalList[index].productProposals!, 
                               className: className,
-                              filesAttached: isFileAttached(proposalList[index].productProposals!)
+                              filesAttached: isFilesAttached(proposalList[index].productProposals!)
                             ),
                             tableInfoPanel: 
                             proposalList[index].proposalState.toString() == "pending"
                             ?  TableInfoPanel(
                               productList: proposalList[index].productProposals!,
                               isPending: true,
+                              isFileAttached: isFilesAttached(proposalList[index].productProposals!)
                             )
                             : TableInfoPanel(
                               productList: proposalList[index].productProposals!,
                               isPending: false,
+                              isFileAttached: isFilesAttached(proposalList[index].productProposals!)
                             ),
                             buttons: ButtonWidget(
                               className: className,
