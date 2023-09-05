@@ -156,7 +156,8 @@ class Product {
         this.erpId,
         this.productErpId,
         this.proposalNote,
-        this.productFiles
+        this.productFiles,
+        this.productsProposalFiles
     });
 
     int productProposalId;
@@ -174,6 +175,7 @@ class Product {
     String ?productErpId;
     String ?proposalNote;
     Map? productFiles;
+    Map? productsProposalFiles;
 
     factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
 
@@ -194,7 +196,8 @@ class Product {
         erpId: json["erp_id"],
         productErpId: json["product_erp_id"],
         proposalNote: json["proposal_note"],
-        productFiles: json["product_files"]  
+        productFiles: json["product_files"],
+        productsProposalFiles: json['products_proposal_files']  
     );
 
     Map<String, dynamic> toMap() => {
@@ -215,7 +218,7 @@ class Product {
 
   @override
   String toString() {
-    return 'Product{productProposalId: $productProposalId, name: $name, categoryId: $categoryId, categoryErpId: $categoryErpId, description: $description, amount: $amount, taxRate: $taxRate, sendedAmount: $sendedAmount unit: $unit, price: $price, currencyCode: $currencyCode, erpId: $erpId, productErpId: $productErpId, proposalNote: $proposalNote}';
+    return 'Product{productProposalId: $productProposalId, name: $name, categoryId: $categoryId, categoryErpId: $categoryErpId, description: $description, amount: $amount, taxRate: $taxRate, sendedAmount: $sendedAmount unit: $unit, price: $price, currencyCode: $currencyCode, erpId: $erpId, productErpId: $productErpId, proposalNote: $proposalNote, productsProposalFiles: $productsProposalFiles}';
   }
 }
 

@@ -136,6 +136,7 @@ class ProductProposal {
   String? currencyCode;
   double? amount;
   Map? productFiles;
+  Map? productsProposalFiles;
 
   ProductProposal({
     this.productProposalId,
@@ -158,11 +159,12 @@ class ProductProposal {
     this.currencyCode,
     this.amount,
     this.productFiles,
+    this.productsProposalFiles
   });
 
   @override
   String toString() {
-    return 'ProductProposal(productProposalId: $productProposalId, productName: $productName, price: $price, url: $url, description: $description, productId: $productId, status: $status, updateCount: $updateCount, equivalentId: $equivalentId, proposalNote: $proposalNote, taxRate: $taxRate, currencyCode: $currencyCode, amount: $amount)';
+    return 'ProductProposal(productProposalId: $productProposalId, productName: $productName, price: $price, url: $url, description: $description, productId: $productId, status: $status, updateCount: $updateCount, equivalentId: $equivalentId, proposalNote: $proposalNote, taxRate: $taxRate, currencyCode: $currencyCode, amount: $amount, productsProposalFiles: $productsProposalFiles)';
   }
 
   factory ProductProposal.fromJson(String str) =>
@@ -193,7 +195,8 @@ class ProductProposal {
       taxRate: json["tax_rate"],
       currencyCode: json["currency_code"],
       amount: json["amount"],
-      productFiles: json["product_files"]      
+      productFiles: json["product_files"],
+      productsProposalFiles: json['products_proposal_files']      
       );
   }
 
