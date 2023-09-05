@@ -90,10 +90,12 @@ class OrderView extends ConsumerWidget {
                                 OrderTable(
                                   className: className,
                                   productList: orderList[index].products,
+                                  filesAttached: isFilesAttached(orderList[index].products)
                                 ),
                                 OrderTableStatus(
                                   status: orderList[index].state.toString(),
                                   productList: orderList[index].products,
+                                  filesAttached: isFilesAttached(orderList[index].products)
                                 )
                             ),
                             tableInfoPanel: 
@@ -102,6 +104,7 @@ class OrderView extends ConsumerWidget {
                             : TableInfoPanel(
                                 productList: orderList[index].products,
                                 isPending: false,
+                                isFileAttached: isFilesAttached(orderList[index].products)
                             ),
                             buttons: ButtonWidget(
                               className: className,

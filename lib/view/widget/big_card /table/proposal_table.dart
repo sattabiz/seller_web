@@ -32,7 +32,6 @@ class ProposalTable extends StatelessWidget {
           smRatio: 0.3,
           lmRatio: 1.6,
           dividerThickness: 0,
-          empty: const Text(""),
           headingTextStyle: Theme.of(context).textTheme.titleMedium,
           dataTextStyle: Theme.of(context).textTheme.bodyMedium,
           dataRowColor: MaterialStateProperty.all<Color>(Colors.transparent),
@@ -94,6 +93,15 @@ class ProposalTable extends StatelessWidget {
               numeric: true,
               size: ColumnSize.M,
             ),
+            if (filesAttached)
+              const DataColumn2(
+                label: Text(
+                  " ",
+                  textAlign: TextAlign.end,
+                ),
+                fixedWidth: 100
+              ),
+            
           ],
           rows: productsProposalList
               .map(
@@ -151,6 +159,16 @@ class ProposalTable extends StatelessWidget {
                       textAlign: TextAlign.end,
                     ),
                   ),
+                  if (filesAttached)
+                    DataCell(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            showProductFiles(item.productFiles),
+                            showProductsProposalFiles(item.productsProposalFiles),
+                          ],
+                        ),
+                      )
                 ]),
               )
               .toList(),

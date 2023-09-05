@@ -2,14 +2,18 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
+import '../../../../utils/widget_helper.dart';
+
 class OrderTableStatus extends StatelessWidget {
   final List productList;
   final String status;
+  final bool filesAttached;
 
   const OrderTableStatus({
     Key? key,
     required this.productList,
     required this.status,
+    required this.filesAttached,
   }) : super(key: key);
 
   @override
@@ -68,6 +72,14 @@ class OrderTableStatus extends StatelessWidget {
               numeric: true,
               size: ColumnSize.M,
             ),
+            if (filesAttached)
+              const DataColumn2(
+                label: Text(
+                  " ",
+                  textAlign: TextAlign.end,
+                ),
+                fixedWidth: 100
+              ),
           ],
           rows: productList
               .map(
@@ -82,12 +94,23 @@ class OrderTableStatus extends StatelessWidget {
                     '${item.amount} ' ' ${item.unit}',
                   )),
                   DataCell(Text(
-                    "${item.sendedAmount.toString()}" "${item.unit}",
+                    "${item.sendedAmount.toString()} " "${item.unit}",
                   )),
-                  DataCell(Text(
-                    FlutterI18n.translate(context, 'tr.order.$status'),
-                    textDirection: TextDirection.rtl,
+                  DataCell(
+                    Text(
+                      FlutterI18n.translate(context, 'tr.order.$status'),
+                      textAlign: TextAlign.center,
                   )),
+                  if (filesAttached)
+                    DataCell(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          showProductFiles(item.productFiles),
+                          showProductsProposalFiles(item.productsProposalFiles),
+                        ],
+                      ),
+                    )                  
                 ]),
               )
               .toList(),
