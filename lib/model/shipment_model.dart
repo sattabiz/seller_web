@@ -109,6 +109,8 @@ class Product {
     final String? erpId;
     final String? productErpId;
     final String? proposalNote;
+    Map? productFiles;
+    Map? productsProposalFiles;
 
     Product({
         required this.orderId,
@@ -126,6 +128,8 @@ class Product {
         required this.erpId,
         required this.productErpId,
         required this.proposalNote,
+        this.productFiles,
+        this.productsProposalFiles
     });
 
     factory Product.fromMap(Map<String, dynamic> json) => Product(
@@ -144,6 +148,8 @@ class Product {
         erpId: json["erp_id"],
         productErpId: json["product_erp_id"],
         proposalNote: json["proposal_note"],
+        productFiles: json["product_files"],
+        productsProposalFiles: json['products_proposal_files']  
     );
 
     Map<String, dynamic> toMap() => {
