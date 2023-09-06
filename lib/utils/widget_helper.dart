@@ -31,6 +31,15 @@ String formattedDate(String date) {
   }
 }
 
+String formettedDateAndTime(String date) {
+  if (date == 'null') {
+    return '-';
+  } else {
+    final DateTime parsedDate = DateTime.parse(date);
+    return "${parsedDate.day}-${parsedDate.month.toString().padLeft(2, '0')} ${parsedDate.hour}:${parsedDate.minute.toString().padLeft(2, '0')}";
+  }
+}
+
 String formattedTime(String date) {
   if (date == 'null') {
     return '-';
