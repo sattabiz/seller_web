@@ -234,9 +234,11 @@ class _createProposalViewTableState extends ConsumerState<createProposalViewTabl
             ),
             dropdownMenuEntries: dropDownMenuCategory,
             onSelected: (value) {
-              formItem.category = value;
-              int index = productDetails.products!.map((product) => product.title).toList().indexWhere((element) => element == value);
-              formItem.unit = productDetails.products![index].unit;
+              setState(() {
+                formItem.category = value;
+                int index = productDetails.products!.map((product) => product.title).toList().indexWhere((element) => element == value);
+                formItem.unit = productDetails.products![index].unit;
+              });
             },
           ),
           const Spacer(
