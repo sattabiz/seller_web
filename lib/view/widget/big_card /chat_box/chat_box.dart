@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../utils/widget_helper.dart';
+import '../../../../view_model/create_message_view_model.dart';
 import '../../../../view_model/get_message_view_model.dart';
 
 class ChatMessage {
@@ -8,6 +9,7 @@ class ChatMessage {
   String messageType;
   ChatMessage({required this.messageContent, required this.messageType});
 }
+final readMessageProvider = StateProvider<String?>((ref) => '')  ;
 
 class ChatBox extends ConsumerStatefulWidget {
   const ChatBox({super.key});
@@ -35,7 +37,9 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
     setState(() {
       // messages.add(ChatMessage(messageContent: value, messageType: "receiver"));
       textEditingController.clear();
-      scrollToMaxExtent();
+      //scrollToMaxExtent();
+      ref.read(readMessageProvider.notifier).state = value;
+      ref.watch(createMessageProvider);
     });
   }
 

@@ -54,8 +54,8 @@ class InvoiceView extends ConsumerWidget {
                           id: invoiceList[index].invoiceId.toString(),
                           className: className,
                           messageId:'invoice_id=${invoiceList[index].invoiceId}',
+                          createMessageMap:{'invoice_id': invoiceList[index].invoiceId} ,
                           status: invoiceList[index].state.toString(),
-
                           headerSmallCard: HeaderInvoice(
                             status: invoiceList[index].state.toString(),
                             headerDate: invoiceSmallCardHeaderDate(invoiceList[index].state.toString(), invoiceList[index].paymentDate.toString(), invoiceList[index].invoiceDate.toString()),
