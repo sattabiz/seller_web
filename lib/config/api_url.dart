@@ -13,6 +13,9 @@ class ApiUrls{
   static String invoices(String supplierId){
     return "$baseUrl/buyer_invoice_list_sp.json?state='invoice_discounted','invoice_goods_delivered','invoice_collecting','invoice_approved_dbs', 'invoice_approved'&supplier_id=$supplierId";
   }
+  static String getMessage (String id){
+    return "$baseUrl/list_messages.json?$id";
+  }
   static const String favoriteList = "$baseUrl/list_favorite_list.json";
   static const String userInfo = "$baseUrl/current_user_info.json";
   static const String createProposal = "$baseUrl/demand_proposal_sp.json";

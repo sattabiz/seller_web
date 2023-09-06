@@ -53,6 +53,7 @@ class OrderView extends ConsumerWidget {
                         return SmallCard(
                           id: orderList[index].id.toString(),
                           className: className,
+                          messageId:'order_id=${orderList[index].id}',
                           status: orderList[index].state.toString(),
                           headerSmallCard: HeaderOrder(
                               id: orderList[index].id.toString(),

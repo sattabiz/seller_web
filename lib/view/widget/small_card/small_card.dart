@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../view_model/get_message_view_model.dart';
+
 
 class BoolNotifier extends StateNotifier<bool> {
   BoolNotifier() : super(false);
@@ -15,7 +17,8 @@ final boolProvider =
     StateNotifierProvider<BoolNotifier, bool>((ref) => BoolNotifier());
 
 final proposalIndexProvider = StateProvider.autoDispose<int?>((ref) => 1);
-final idProvider = StateProvider<String?>((ref) => '');   //for all post service  
+final idProvider = StateProvider<String?>((ref) => '');   //for all post service
+final messageIdProvider = StateProvider<String?>((ref) => '')  ;
 
 final Widget newMessageSvg = SvgPicture.asset(
   'assets/newMessage.svg',
@@ -26,6 +29,7 @@ final Widget newMessageSvg = SvgPicture.asset(
 class SmallCard extends ConsumerWidget {
   final String className;
   final String id;
+  final String messageId;
   final String status;
   final Widget bodyHeader;
   final Widget headerSmallCard;
@@ -37,6 +41,7 @@ class SmallCard extends ConsumerWidget {
     Key? key,
     required this.className,
     required this.id,
+    required this.messageId,
     required this.status,
     required this.bodyHeader,
     required this.headerSmallCard,
@@ -54,6 +59,8 @@ class SmallCard extends ConsumerWidget {
           child: InkWell(
             onTap: () {
               ref.read(idProvider.notifier).state = id;
+              ref.read(messageIdProvider.notifier).state = messageId;
+              ref.watch(getMessageProvider);
               showDialog(
                 context: context,
                 builder: (BuildContext context) {

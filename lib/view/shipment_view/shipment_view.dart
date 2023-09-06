@@ -8,7 +8,6 @@ import 'package:seller_point/view/widget/big_card%20/info/info.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info_box.dart';
 import 'package:seller_point/view/widget/big_card%20/table/shipment_table.dart';
 import 'package:seller_point/view/widget/small_card/body/body_invoice_header.dart';
-import 'package:seller_point/view/widget/small_card/body/small_card_shipment_table.dart';
 import 'package:seller_point/view/widget/small_card/body/small_card_table.dart';
 import 'package:seller_point/view/widget/small_card/header/header_invoice.dart';
 import '../../utils/widget_helper.dart';
@@ -58,6 +57,7 @@ class ShipmentView extends ConsumerWidget {
                         return SmallCard(
                           id: shipmentList[index].shipmentId.toString(),
                           className: className,
+                          messageId:'shipment_id=${shipmentList[index].shipmentId}',
                           status: shipmentList[index].state.toString(),
                           headerSmallCard: 
                           checkShipmentState(shipmentList[index].state.toString())

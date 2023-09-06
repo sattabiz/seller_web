@@ -54,6 +54,7 @@ class ProposalView extends ConsumerWidget {
                         return SmallCard(
                           id: proposalList[index].proposalId.toString(),
                           className: className,
+                          messageId:'proposal_id=${proposalList[index].proposalId}',
                           status: proposalList[index].proposalState.toString(),
                           headerSmallCard: HeaderProposal(
                             id: proposalList[index].proposalId.toString(),
