@@ -10,6 +10,7 @@ import '../../view_model/buyer_invoices_view_model.dart';
 import '../../view_model/invoice_approved_view_model.dart';
 import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/big_card /header/header.dart';
+import '../widget/big_card /info/proposal_sum_panel.dart';
 import '../widget/big_card /table/invoice_table.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
@@ -86,10 +87,11 @@ class InvoiceView extends ConsumerWidget {
                               className: className
                             ),
 
-                            // tableInfoPanel: TableInfoPanel(
-                            //   productList: invoiceList[index].products!,
-                            //   isPending: false,
-                            // ),
+                            tableInfoPanel: TableInfoPanel(
+                              productList: invoiceList[index].products!,
+                              isPending: false,
+                              isFileAttached: false,
+                            ),
 
                             buttons: 
                               invoiceList[index].state.toString() == 'invoice_goods_delivered' //degistirdim 
