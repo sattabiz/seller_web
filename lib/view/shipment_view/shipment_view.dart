@@ -58,6 +58,7 @@ class ShipmentView extends ConsumerWidget {
                           id: shipmentList[index].shipmentId.toString(),
                           className: className,
                           messageId:'shipment_id=${shipmentList[index].shipmentId}',
+                          createMessageMap:{'shipment_id': shipmentList[index].shipmentId} ,
                           status: shipmentList[index].state.toString(),
                           headerSmallCard: 
                           checkShipmentState(shipmentList[index].state.toString())

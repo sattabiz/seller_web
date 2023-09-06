@@ -55,6 +55,7 @@ class ProposalView extends ConsumerWidget {
                           id: proposalList[index].proposalId.toString(),
                           className: className,
                           messageId:'proposal_id=${proposalList[index].proposalId}',
+                          createMessageMap:{'proposal_id': proposalList[index].proposalId} ,
                           status: proposalList[index].proposalState.toString(),
                           headerSmallCard: HeaderProposal(
                             id: proposalList[index].proposalId.toString(),

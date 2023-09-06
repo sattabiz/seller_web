@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../view_model/create_message_view_model.dart';
 import '../../../view_model/get_message_view_model.dart';
+import '../../../view_model/websocket_message_view_model.dart';
 
 
 class BoolNotifier extends StateNotifier<bool> {
@@ -19,6 +21,8 @@ final boolProvider =
 final proposalIndexProvider = StateProvider.autoDispose<int?>((ref) => 1);
 final idProvider = StateProvider<String?>((ref) => '');   //for all post service
 final messageIdProvider = StateProvider<String?>((ref) => '')  ;
+final createMessageMapProvider = StateProvider<Map?>((ref) => {})  ;
+
 
 final Widget newMessageSvg = SvgPicture.asset(
   'assets/newMessage.svg',
@@ -30,6 +34,7 @@ class SmallCard extends ConsumerWidget {
   final String className;
   final String id;
   final String messageId;
+  final Map<String, dynamic> createMessageMap;
   final String status;
   final Widget bodyHeader;
   final Widget headerSmallCard;
@@ -42,6 +47,7 @@ class SmallCard extends ConsumerWidget {
     required this.className,
     required this.id,
     required this.messageId,
+    required this.createMessageMap,
     required this.status,
     required this.bodyHeader,
     required this.headerSmallCard,
@@ -58,9 +64,12 @@ class SmallCard extends ConsumerWidget {
           color: Theme.of(context).colorScheme.surface,
           child: InkWell(
             onTap: () {
+              //debugPrint(createMessageMap.toString());
               ref.read(idProvider.notifier).state = id;
               ref.read(messageIdProvider.notifier).state = messageId;
+              ref.read(createMessageMapProvider.notifier).state = createMessageMap;
               ref.watch(getMessageProvider);
+              //ref.watch(chatProvider);
               showDialog(
                 context: context,
                 builder: (BuildContext context) {

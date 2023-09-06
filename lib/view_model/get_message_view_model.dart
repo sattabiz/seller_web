@@ -16,7 +16,6 @@ final getMessageProvider =
        ref.watch(messageIdProvider);
   try {
     response = await apiService.get(url: ApiUrls.getMessage(messageId!));
-    debugPrint(response.data.toString());
   } catch (e) {
     if (e is DioException) {
       if (e.response?.statusCode != 200) {
