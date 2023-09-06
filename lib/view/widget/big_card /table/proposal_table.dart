@@ -10,7 +10,10 @@ class ProposalTable extends StatelessWidget {
   final bool filesAttached;
 
   const ProposalTable(
-      {super.key, required this.productsProposalList, required this.className, required this.filesAttached});
+      {super.key,
+      required this.productsProposalList,
+      required this.className,
+      required this.filesAttached});
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +38,8 @@ class ProposalTable extends StatelessWidget {
           headingTextStyle: Theme.of(context).textTheme.titleMedium,
           dataTextStyle: Theme.of(context).textTheme.bodyMedium,
           dataRowColor: MaterialStateProperty.all<Color>(Colors.transparent),
-          headingRowColor: MaterialStateProperty.all<Color>(
-              Theme.of(context).colorScheme.surfaceVariant),
+          headingRowColor:
+              MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.surfaceVariant),
           columns: [
             const DataColumn2(
               label: Text('#',
@@ -129,9 +132,7 @@ class ProposalTable extends StatelessWidget {
                     ),
                   ), //product_name
                   DataCell(Text(
-                    item.proposalNote.toString() == 'null'
-                        ? '-'
-                        : item.proposalNote.toString(),
+                    item.proposalNote.toString() == 'null' ? '-' : item.proposalNote.toString(),
                     textDirection: TextDirection.ltr,
                     textAlign: TextAlign.start,
                     style: const TextStyle(
@@ -147,15 +148,17 @@ class ProposalTable extends StatelessWidget {
                   DataCell(Text(
                     item.price.toString() == 'null'
                         ? '-'
-                        : "${item.price.toString()} ${getCurrencySymbol(item.currencyCode.toString())}",
+                        : "${item.price.toString()} ${FlutterI18n.translate(context, "tr.order.currency")}",
+                    textDirection: TextDirection.ltr,
                     textAlign: TextAlign.end,
                     maxLines: 1,
                   )),
                   DataCell(
                     Text(
                       item.price.toString() == 'null'
-                          ? '-'
-                          : "${calcuteAmount(item.amount.toString(), item.price.toString())} ${getCurrencySymbol(item.currencyCode.toString())}",
+                          ? "-"
+                          : "${calcuteAmount(item.amount.toString(), item.price.toString())} ${FlutterI18n.translate(context, "tr.order.currency")}",
+                      textDirection: TextDirection.ltr,
                       textAlign: TextAlign.end,
                     ),
                   ),

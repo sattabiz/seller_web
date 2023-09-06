@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/widget_helper.dart';
 
-
 class Header extends ConsumerWidget {
   final String id;
   final String className;
@@ -21,11 +20,11 @@ class Header extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      constraints: const BoxConstraints.tightFor(height: 85.0),
+      constraints: const BoxConstraints.tightFor(height: 95.0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(32.0),
-        topRight: Radius.circular(32.0),
+          topLeft: Radius.circular(32.0),
+          topRight: Radius.circular(32.0),
         ),
         color: Theme.of(context).colorScheme.secondaryContainer,
       ),
@@ -51,23 +50,26 @@ class Header extends ConsumerWidget {
                     style: Theme.of(context).textTheme.titleLarge!,
                   ),
                 ),
-                Flexible(
-                  child: Align(
-                    alignment: Alignment.centerRight,
+                SizedBox(
+                  child: Card(
+                    color: Colors.transparent,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
                     child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context); // close the big card
-                      },
-                      padding: const EdgeInsets.only(top: 15.0, right: 30.0, bottom: 0.0, left: 0.0),
-                      iconSize: 30.0,
-                      hoverColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
                       icon: Icon(
                         Icons.close,
                         color: Theme.of(context).colorScheme.onSecondaryContainer,
                         opticalSize: 36,
                       ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      iconSize: 35.0,
+                      hoverColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
                     ),
                   ),
                 ),
@@ -82,9 +84,8 @@ class Header extends ConsumerWidget {
                 // headerId
                 Text(
                   bigCardHeader(status, className),
-                  style:Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.w500
-                  ),
+                  style:
+                      Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w500),
                 ),
                 Text(
                   id,

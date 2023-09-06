@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:seller_point/utils/widget_helper.dart';
 
 class TableInfoPanel extends StatelessWidget {
@@ -23,7 +24,7 @@ class TableInfoPanel extends StatelessWidget {
               width: 100,
               child: Text(
                 entry.key,
-                style: Theme.of(context).textTheme.labelMedium,
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(),
               ),
             ))
         .toList();
@@ -37,8 +38,9 @@ class TableInfoPanel extends StatelessWidget {
               child: Text(
                 isPending 
                 ? "-"
-                : entry.value,
-                style: Theme.of(context).textTheme.labelMedium,
+                : "${entry.value} ${FlutterI18n.translate(context, "tr.order.currency")}",
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
+                
               ),
             ))
         .toList();

@@ -66,102 +66,101 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
       data: (message) {
         return Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 30, top: 10),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Container(
-                      // height: height * 0.57,
-                      constraints:
-                          BoxConstraints(minHeight: 200, maxHeight: height * 0.57),
-                      child: ListView.builder(
-                        controller: messageController,
-                        itemCount: message.messages!.length,
-                        physics: const ClampingScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return 
-                          message.messages![index].userID == 0
-                          ? Container(
-                            margin: const EdgeInsets.only(bottom: 10, top: 10),
-                            child: Text(
-                              "${formettedDateAndTime(message.messages![index].createdAt.toString())}   ${message.messages![index].body.toString()}",
-                              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontStyle: FontStyle.italic,
-                              ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 30, top: 10),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          controller: messageController,
+                          itemCount: message.messages!.length,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return 
+                            message.messages![index].userID == 0
+                            ? Container(
+                              margin: const EdgeInsets.only(bottom: 10, top: 10),
+                              child: Text(
+                                "${formettedDateAndTime(message.messages![index].createdAt.toString())}   ${message.messages![index].body.toString()}",
+                                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              )
                             )
-                          )
-                          : Container(
-                            margin: const EdgeInsets.only(bottom: 10),
-                            child: Align(
-                              alignment: (message.messages![index].userID == 1
-                                  ? Alignment.topRight
-                                  : Alignment.topLeft),
-                              child: Container(
-                                width: 150,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: const Radius.circular(8),
-                                    topRight: const Radius.circular(8),
-                                    bottomLeft:
-                                        (message.messages![index].userID == 1
-                                            ? const Radius.circular(10)
-                                            : const Radius.circular(0)),
-                                    bottomRight:
-                                        (message.messages![index].userID == 1
-                                            ? const Radius.circular(0)
-                                            : const Radius.circular(10)),
+                            : Container(
+                              margin: const EdgeInsets.only(bottom: 10),
+                              child: Align(
+                                alignment: (message.messages![index].userID == 1
+                                    ? Alignment.topRight
+                                    : Alignment.topLeft),
+                                child: Container(
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: const Radius.circular(8),
+                                      topRight: const Radius.circular(8),
+                                      bottomLeft:
+                                          (message.messages![index].userID == 1
+                                              ? const Radius.circular(10)
+                                              : const Radius.circular(0)),
+                                      bottomRight:
+                                          (message.messages![index].userID == 1
+                                              ? const Radius.circular(0)
+                                              : const Radius.circular(10)),
+                                    ),
+                                    color: (message.messages![index].userID == 1
+                                        ? Theme.of(context).colorScheme.surfaceVariant
+                                        : Theme.of(context).colorScheme.primaryContainer
+                                    ),
                                   ),
-                                  color: (message.messages![index].userID == 1
-                                      ? Theme.of(context).colorScheme.surfaceVariant
-                                      : Theme.of(context).colorScheme.primaryContainer
-                                  ),
-                                ),
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Text(
-                                        message.messages![index].user.toString(),
-                                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                          fontWeight: FontWeight.bold
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          message.messages![index].user.toString(),
+                                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                            fontWeight: FontWeight.bold
+                                          ),
+                                          maxLines: 1,
                                         ),
-                                        maxLines: 1,
                                       ),
-                                    ),
-                                    const SizedBox(height: 3),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        message.messages![index].body.toString(),
-                                        style:
-                                            Theme.of(context).textTheme.bodySmall,
-                                        maxLines: double.maxFinite.floor(),
+                                      const SizedBox(height: 3),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          message.messages![index].body.toString(),
+                                          style:
+                                              Theme.of(context).textTheme.bodySmall,
+                                          maxLines: double.maxFinite.floor(),
+                                        ),
                                       ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Text(
-                                        formattedTime(message.messages![index].createdAt.toString()),
-                                        style:
-                                            Theme.of(context).textTheme.bodySmall,
+                                      Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Text(
+                                          formattedTime(message.messages![index].createdAt.toString()),
+                                          style:
+                                              Theme.of(context).textTheme.bodySmall,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -177,7 +176,7 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
                   controller: textEditingController,
                   cursorColor: Theme.of(context).colorScheme.onBackground,
                   decoration: InputDecoration(
-                    hintText: "  Write message...",
+                    hintText: "  Mesaj yazın...",
                     hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: Theme.of(context).colorScheme.outline,
                         ),

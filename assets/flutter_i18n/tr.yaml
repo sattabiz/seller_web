@@ -61,6 +61,7 @@ tr:
     state: "Durum"
     ship: "Sevk"
     price: "Fiyat"
+    currency: "₺"
     order_no: "Sipariş No"
     topic: "Konu:"
     delivery_date: "Teslim Tarihi: "
