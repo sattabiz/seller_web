@@ -35,12 +35,14 @@ class GetMessageModel {
 class Message {
     int? id;
     String? body;
+    int? userID;
     String? user;
     String? createdAt;
 
     Message({
         this.id,
         this.body,
+        this.userID,
         this.user,
         this.createdAt,
     });
@@ -52,6 +54,7 @@ class Message {
     factory Message.fromMap(Map<String, dynamic> json) => Message(
         id: json["id"],
         body: json["body"],
+        userID: json['user_id'],
         user: json["user"],
         createdAt: json["created_at"],
     );
