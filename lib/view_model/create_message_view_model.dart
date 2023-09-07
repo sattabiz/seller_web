@@ -9,6 +9,7 @@ import '../config/api_url.dart';
 import '../service/post_service.dart';
 import '../view/widget/big_card /chat_box/chat_box.dart';
 import '../view/widget/small_card/small_card.dart';
+import 'get_message_view_model.dart';
 import 'order_list_view_model.dart';
 
 final createMessageProvider = FutureProvider.autoDispose((ref) async {
@@ -24,6 +25,8 @@ createMessageMapAsyncValue!['body'] = readMessageMapAsyncValue;
 
   try {
     response = await apiService.post(url: ApiUrls.createMessage, data: createMessageMapAsyncValue);
+    await ref.refresh(getMessageProvider);
+            ref.read(getMessageProvider.future);
     //debugPrint(response.toString());
   } catch (e) {
     if (e is DioException) {
