@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:seller_point/utils/widget_helper.dart';
 
 class TableInfoPanel extends StatelessWidget {
@@ -23,7 +24,7 @@ class TableInfoPanel extends StatelessWidget {
               width: 100,
               child: Text(
                 entry.key,
-                style: Theme.of(context).textTheme.labelMedium,
+                style: Theme.of(context).textTheme.labelLarge,
               ),
             ))
         .toList();
@@ -38,7 +39,8 @@ class TableInfoPanel extends StatelessWidget {
                 isPending 
                 ? "-"
                 : entry.value,
-                style: Theme.of(context).textTheme.labelMedium,
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
+                
               ),
             ))
         .toList();
