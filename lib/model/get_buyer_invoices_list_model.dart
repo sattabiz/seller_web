@@ -85,6 +85,7 @@ class Product {
     String ?categoryErpId;
     String? description;
     double? amount;
+    int? taxRate;
     String? unit;
     double? price;
     String? currencyCode;
@@ -103,6 +104,7 @@ class Product {
         this.categoryErpId,
         this.description,
         this.amount,
+        this.taxRate,
         this.unit,
         this.price,
         this.currencyCode,
@@ -126,6 +128,7 @@ class Product {
         categoryErpId: json["category_erp_id"],
         description: json["description"],
         amount: json["shipped_amount"],
+        taxRate: json["tax_rate"],
         unit: json["unit"],
         price: json["price"],
         currencyCode: json["currency_code"],
