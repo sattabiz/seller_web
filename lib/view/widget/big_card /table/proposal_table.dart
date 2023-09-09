@@ -17,7 +17,7 @@ class ProposalTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(filesAttached.toString());
+    //debugPrint(filesAttached.toString());
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(10),
