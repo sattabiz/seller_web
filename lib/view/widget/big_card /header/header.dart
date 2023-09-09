@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../utils/widget_helper.dart';
+import '../../../../view_model/get_message_view_model.dart';
+import '../../../../view_model/websocket_message_view_model.dart';
 
 class Header extends ConsumerWidget {
   final String id;
@@ -64,7 +66,10 @@ class Header extends ConsumerWidget {
                         opticalSize: 36,
                       ),
                       onPressed: () {
+                        ref.read(messagePipeProvider.notifier).state = 2;  //for close the subscription
+                        ref.read(messageRoomIdProvider.notifier).state = 0;
                         Navigator.pop(context);
+                        
                       },
                       iconSize: 35.0,
                       hoverColor: Colors.transparent,
