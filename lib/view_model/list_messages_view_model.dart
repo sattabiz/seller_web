@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../model/message_model.dart';
@@ -12,7 +11,6 @@ class MessageNotifier extends StateNotifier<List<Message>> {
 
   // Add methods to modify the state as needed.
   void addMessage(Message message) {
-    debugPrint(message.body);
     state = [...state, message];
   }
 

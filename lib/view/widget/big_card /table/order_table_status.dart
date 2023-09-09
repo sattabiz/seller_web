@@ -18,7 +18,7 @@ class OrderTableStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(productList.toString());
+    //debugPrint(productList.toString());
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(10),

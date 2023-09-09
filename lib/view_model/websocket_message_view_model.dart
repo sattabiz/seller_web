@@ -10,7 +10,6 @@ import 'list_messages_view_model.dart';
 
 final webSocketProvider = StreamProvider.autoDispose<String>((ref) async* {
   final _jwt = await jwtStorageService().getJwtData();
-  debugPrint(_jwt);
   final socket = WebSocketChannel.connect(
       Uri.parse('wss://test.satta.biz/cable?jwt=$_jwt'));
   int? messageRoomIdAsyncValue = await ref.watch(messageRoomIdProvider);
