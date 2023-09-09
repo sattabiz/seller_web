@@ -69,9 +69,11 @@ class SmallCard extends ConsumerWidget {
               ref.read(messageIdProvider.notifier).state = messageId;
               ref.read(createMessageMapProvider.notifier).state = createMessageMap;
               ref.watch(getMessageProvider);
-              //ref.watch(chatProvider);
+              ref.read(messagePipeProvider.notifier).state = 1; ////for open the subscription
+              ref.watch(webSocketProvider);
               showDialog(
                 context: context,
+                barrierDismissible: false,
                 builder: (BuildContext context) {
                   return Consumer(
                     builder: (context, ref, _) {

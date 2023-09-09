@@ -25,8 +25,8 @@ createMessageMapAsyncValue!['body'] = readMessageMapAsyncValue;
 
   try {
     response = await apiService.post(url: ApiUrls.createMessage, data: createMessageMapAsyncValue);
-    await ref.refresh(getMessageProvider);
-            ref.read(getMessageProvider.future);
+    /* await ref.refresh(getMessageProvider);
+            ref.read(getMessageProvider.future); */
     //debugPrint(response.toString());
   } catch (e) {
     if (e is DioException) {
