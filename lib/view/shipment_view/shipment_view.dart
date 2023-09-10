@@ -16,7 +16,7 @@ import '../../view_model/shipment_delivered_view_model.dart';
 import '../../view_model/shipment_view_model.dart';
 import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/big_card /info/info_shipment.dart';
-import '../widget/big_card /info/proposal_sum_panel.dart';
+import '../widget/big_card /info/table_info_panel.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
 import '../widget/small_card/body/body_header.dart';

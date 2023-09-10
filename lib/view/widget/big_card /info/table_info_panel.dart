@@ -25,6 +25,7 @@ class TableInfoPanel extends StatelessWidget {
               child: Text(
                 entry.key,
                 style: Theme.of(context).textTheme.labelLarge,
+                maxLines: 1,
               ),
             ))
         .toList();
@@ -39,6 +40,7 @@ class TableInfoPanel extends StatelessWidget {
                 isPending 
                 ? "-"
                 : entry.value,
+                maxLines: 1,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
                 
               ),
@@ -53,8 +55,8 @@ class TableInfoPanel extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Column(children: keys),
-                Column(children: values),
+                Flexible(child: Column(children: keys)),
+                Flexible(child: Column(children: values)),
                 isFileAttached == true
                     ? const SizedBox(width: 100)
                     : const SizedBox(width: 0),

@@ -73,7 +73,7 @@ class Info extends ConsumerWidget {
               scrollDirection: Axis.horizontal,
               child: Container(
                 margin: const EdgeInsets.only(bottom: 8.0),
-                constraints: const BoxConstraints.tightFor(width: 500),
+                constraints: const BoxConstraints.tightFor(width: 360.0),
                 child: Table(
                   textDirection: TextDirection.ltr,
                   columnWidths: const <int, TableColumnWidth>{

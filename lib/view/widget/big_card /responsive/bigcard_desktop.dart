@@ -43,14 +43,16 @@ class BigCardDesktop extends ConsumerWidget {
             child: Row(
               children: [
                 Flexible(
-                  flex: 8,
+                  flex: 9,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Expanded(flex: 7, child: infoWidget),
-                          Expanded(flex: 3, child: infoBoxWidget ?? const SizedBox(width: 0)),
+                          Expanded(flex: 8, child: infoWidget),
+                          Container(
+                              constraints: const BoxConstraints.tightFor(width: 270),
+                              child: infoBoxWidget ?? const SizedBox(width: 0)),
                         ],
                       ), //info
                       Expanded(
@@ -98,7 +100,7 @@ class BigCardDesktop extends ConsumerWidget {
                     ],
                   ),
                 ),
-                const Flexible(flex: 4, child: ChatBox()), //ChatBox
+                const Flexible(flex: 3, child: ChatBox()), //ChatBox
               ],
             ),
           ),

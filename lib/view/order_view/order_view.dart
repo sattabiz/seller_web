@@ -5,7 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:seller_point/utils/widget_helper.dart';
 import 'package:seller_point/view/widget/big_card%20/big_card.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info.dart';
-import 'package:seller_point/view/widget/big_card%20/info/proposal_sum_panel.dart';
+import 'package:seller_point/view/widget/big_card%20/info/table_info_panel.dart';
 import 'package:seller_point/view/widget/loading_widget.dart';
 import 'package:seller_point/view/widget/small_card/body/small_card_order_by_state.dart';
 import '../../view_model/order_list_view_model.dart';
