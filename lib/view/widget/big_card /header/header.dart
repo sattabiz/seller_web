@@ -68,6 +68,7 @@ class Header extends ConsumerWidget {
                       onPressed: () {
                         ref.read(messagePipeProvider.notifier).state = 2;  //for close the subscription
                         ref.read(messageRoomIdProvider.notifier).state = 0;
+                        ref.watch(webSocketProvider);
                         Navigator.pop(context);
                         
                       },

@@ -65,7 +65,6 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
 
-    final messageProvider = ref.watch(getMessageProvider);
     final liveChats = ref.watch(liveChatProvider);
     return Column(
       children: [
