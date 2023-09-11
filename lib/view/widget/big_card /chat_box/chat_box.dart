@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seller_point/view/widget/big_card%20/responsive/resposive_bigcard.dart';
 import '../../../../utils/widget_helper.dart';
 import '../../../../view_model/create_message_view_model.dart';
 import '../../../../view_model/get_message_view_model.dart';
@@ -64,6 +65,7 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
 
     final messageProvider = ref.watch(getMessageProvider);
     final liveChats = ref.watch(liveChatProvider);
@@ -84,18 +86,14 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
                     child: ListView.builder(
                       controller: messageController,
                       itemCount: liveChats.length,
-                      physics: const BouncingScrollPhysics(),
+                      physics: const ClampingScrollPhysics(),
                       itemBuilder: (context, index) {
                         return liveChats[index].userID == 0
                             ? Container(
-                                margin:
-                                    const EdgeInsets.only(bottom: 10, top: 10),
+                                margin: const EdgeInsets.only(bottom: 10, top: 10),
                                 child: Text(
                                   "${liveChats[index].createdAt.toString()}   ${liveChats[index].body.toString()}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
+                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                         fontStyle: FontStyle.italic,
                                       ),
                                 ))
@@ -106,27 +104,24 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
                                       ? Alignment.topRight
                                       : Alignment.topLeft),
                                   child: Container(
-                                    width: 150,
+                                    constraints: BoxConstraints.tightFor(
+                                        width: ResponsiveBigCard.isMobile
+                                            ? width * 0.5
+                                            : width * 0.15),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.only(
                                         topLeft: const Radius.circular(8),
                                         topRight: const Radius.circular(8),
-                                        bottomLeft:
-                                            (liveChats[index].userID == 1
-                                                ? const Radius.circular(10)
-                                                : const Radius.circular(0)),
-                                        bottomRight:
-                                            (liveChats[index].userID == 1
-                                                ? const Radius.circular(0)
-                                                : const Radius.circular(10)),
+                                        bottomLeft: (liveChats[index].userID == 1
+                                            ? const Radius.circular(10)
+                                            : const Radius.circular(0)),
+                                        bottomRight: (liveChats[index].userID == 1
+                                            ? const Radius.circular(0)
+                                            : const Radius.circular(10)),
                                       ),
                                       color: (liveChats[index].userID == 1
-                                          ? Theme.of(context)
-                                              .colorScheme
-                                              .surfaceVariant
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .primaryContainer),
+                                          ? Theme.of(context).colorScheme.surfaceVariant
+                                          : Theme.of(context).colorScheme.primaryContainer),
                                     ),
                                     padding: const EdgeInsets.all(10),
                                     child: Column(
@@ -135,12 +130,12 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
                                           alignment: Alignment.topLeft,
                                           child: Text(
                                             liveChats[index].user.toString(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: liveChats[index].userID == 1
+                                                      ? Theme.of(context).colorScheme.secondary
+                                                      : Theme.of(context).colorScheme.primary,
+                                                ),
                                             maxLines: 1,
                                           ),
                                         ),
@@ -149,21 +144,20 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
                                           alignment: Alignment.centerLeft,
                                           child: Text(
                                             liveChats[index].body.toString(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall,
+                                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: 0.2,
+                                                  height: 1.5,
+                                                ),
                                             maxLines: double.maxFinite.floor(),
                                           ),
                                         ),
+                                        const SizedBox(height: 3),
                                         Align(
                                           alignment: Alignment.bottomRight,
                                           child: Text(
-                                            liveChats[index]
-                                                .createdAt
-                                                .toString(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall,
+                                            liveChats[index].createdAt.toString(),
+                                            style: Theme.of(context).textTheme.bodySmall,
                                           ),
                                         ),
                                       ],
@@ -182,7 +176,8 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
         Padding(
           padding: const EdgeInsets.only(right: 30, top: 10),
           child: Container(
-            height: 40,
+            alignment: Alignment.center,
+            height: 50,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Theme.of(context).colorScheme.onPrimary,
@@ -191,7 +186,7 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
               controller: textEditingController,
               cursorColor: Theme.of(context).colorScheme.onBackground,
               decoration: InputDecoration(
-                hintText: "  Mesaj yazın...",
+                hintText: "Bir Mesaj Yazın...",
                 hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       color: Theme.of(context).colorScheme.outline,
                     ),

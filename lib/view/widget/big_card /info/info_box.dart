@@ -2,22 +2,24 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
+import '../../countdown_date.dart';
+
 class InfoBox extends StatelessWidget {
   final String className;
-  final String ?row1;
-  final String ?row2;
-  final String ?row3;
+  final String? row1;
+  final String? row2;
+  final String? row3;
 
-const InfoBox({ 
-  Key? key, 
-  required this.className, 
-  this.row1, 
-  this.row2, 
-  this.row3,
-   }) : super(key: key);
+  const InfoBox({
+    Key? key,
+    required this.className,
+    this.row1,
+    this.row2,
+    this.row3,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0, right: 20.0, left: 20.0),
       child: Container(
@@ -63,7 +65,7 @@ const InfoBox({
                       padding: const EdgeInsets.only(left: 10.0),
                       child: Text(
                         FlutterI18n.translate(context, "tr.$className.row_1"),
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.labelMedium,
                         textDirection: TextDirection.ltr,
                         maxLines: 1,
                       ),
@@ -89,13 +91,13 @@ const InfoBox({
                       padding: const EdgeInsets.only(left: 10.0),
                       child: Text(
                         FlutterI18n.translate(context, "tr.$className.row_2"),
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.labelMedium,
                         textDirection: TextDirection.ltr,
                         maxLines: 1,
                       ),
                     ),
                   ),
-                  // Flexible(child: CountdownDate(headerDate: row2!)),
+                  Flexible(child: CountdownDate(headerDate: row2!)),
                 ],
               ),
             ),
@@ -108,7 +110,7 @@ const InfoBox({
                       padding: const EdgeInsets.only(left: 10.0),
                       child: Text(
                         FlutterI18n.translate(context, "tr.$className.row_3"),
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.labelMedium,
                         textDirection: TextDirection.ltr,
                         maxLines: 1,
                       ),

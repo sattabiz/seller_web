@@ -5,6 +5,7 @@ class ResponsiveBigCard extends StatelessWidget {
 
 final Widget bigCardDesktop;
 final Widget bigCardMobile;
+static bool isMobile = false;
 
   ResponsiveBigCard({required this.bigCardDesktop, required this.bigCardMobile});
 
@@ -16,6 +17,7 @@ final Widget bigCardMobile;
           return bigCardDesktop;
         }
         else{
+          isMobile = true;
           return bigCardMobile;
         }
       },
