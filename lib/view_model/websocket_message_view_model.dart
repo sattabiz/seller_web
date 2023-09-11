@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seller_point/model/message_model.dart';
@@ -8,14 +9,15 @@ import '../storage/jwt_storage.dart';
 import 'get_message_view_model.dart';
 import 'list_messages_view_model.dart';
 
-final webSocketProvider = StreamProvider.autoDispose<String>((ref) async* {
+final webSocketProvider = StreamProvider<WebSocketChannel>((ref) async* {
   final _jwt = await jwtStorageService().getJwtData();
   final socket = WebSocketChannel.connect(
       Uri.parse('wss://test.satta.biz/cable?jwt=$_jwt'));
   int? messageRoomIdAsyncValue = await ref.watch(messageRoomIdProvider);
 
   //print(socket);
-  if (ref.watch(messagePipeProvider) == 1 && ref.watch(messageRoomIdProvider) != 0 ) {
+  if (ref.watch(messagePipeProvider) == 1 &&
+      ref.watch(messageRoomIdProvider) != 0) {
     //for subscription
     final request = {
       "command": "subscribe",
@@ -23,9 +25,9 @@ final webSocketProvider = StreamProvider.autoDispose<String>((ref) async* {
           "{\"channel\":\"MessageRoomChannel\",\"message_room_id\":$messageRoomIdAsyncValue}"
     };
     socket.sink.add(json.encode(request));
-    //print(socket.stream);
+    print(socket.stream);
     await for (final message in socket.stream) {
-      //print(message);
+      print(message);
       if (message.toString().contains('"body"')) {
         WebSocketMessageModel webSocketAsyncValue =
             WebSocketMessageModel.fromMap(json.decode(message!));
@@ -39,18 +41,21 @@ final webSocketProvider = StreamProvider.autoDispose<String>((ref) async* {
         //debugPrint("------------------------------------------------------");
         //debugPrint(currentUserInfoModel.message!.body);
         ref.read(liveChatProvider.notifier).addMessage(lastMessage);
+        yield socket;
       }
+      yield socket;
     }
   } else if (ref.watch(messagePipeProvider) == 2) {
     //for unsubscription
-    socket.sink.close();
-    socket.sink.add(json.encode({
+    final request2 = {
       "command": "unsubscribe",
       "identifier":
           "{\"channel\":\"MessageRoomChannel\",\"message_room_id\":$messageRoomIdAsyncValue}"
-    }));
-    socket.sink.close();
-  } else {}
+    };
+    socket.sink.add(json.encode(request2));
+    print(socket.stream.toString());
+    debugPrint("------------------------------------------------------");
+  }
 });
 
 final messagePipeProvider = StateProvider<int?>((ref) {

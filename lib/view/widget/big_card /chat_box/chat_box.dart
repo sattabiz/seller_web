@@ -67,7 +67,6 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
-    final messageProvider = ref.watch(getMessageProvider);
     final liveChats = ref.watch(liveChatProvider);
     return Column(
       children: [
