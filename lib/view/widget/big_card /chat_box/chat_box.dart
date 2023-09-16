@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:seller_point/view/index.dart';
 import 'package:seller_point/view/widget/big_card%20/responsive/resposive_bigcard.dart';
 import '../../../../utils/widget_helper.dart';
 import '../../../../view_model/create_message_view_model.dart';
 import '../../../../view_model/get_message_view_model.dart';
 import '../../../../view_model/list_messages_view_model.dart';
 import '../../../../view_model/websocket_message_view_model.dart';
-
-class ChatMessage {
-  String messageContent;
-  String messageType;
-  ChatMessage({required this.messageContent, required this.messageType});
-}
 
 final readMessageProvider = StateProvider<String?>((ref) => '');
 
@@ -26,10 +21,16 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
   TextEditingController textEditingController = TextEditingController();
   ScrollController messageController = ScrollController();
 
+  void jumpToMaxExtent() {
+    messageController.jumpTo(
+      messageController.position.maxScrollExtent + messageController.position.extentAfter,
+    );
+  }
+
   void scrollToMaxExtent() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       messageController.animateTo(
-        messageController.position.maxScrollExtent,
+        messageController.position.maxScrollExtent + messageController.position.extentAfter,
         duration: const Duration(milliseconds: 100),
         curve: Curves.easeIn,
       );
@@ -38,29 +39,27 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
 
   void onSubmitted(String value) {
     setState(() {
-      // messages.add(ChatMessage(messageContent: value, messageType: "receiver"));
       textEditingController.clear();
-      //scrollToMaxExtent();
       ref.read(readMessageProvider.notifier).state = value;
       ref.watch(createMessageProvider);
+      Future.delayed(const Duration(milliseconds: 300), () {
+        scrollToMaxExtent();
+      });
     });
   }
 
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(seconds: 1), () {
+      jumpToMaxExtent();
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
   }
-
-  // List<ChatMessage> messages = [
-  //   ChatMessage(messageContent: "Siparis yolda", messageType: "receiver"),
-  //   ChatMessage(
-  //       messageContent: "Elinizde baska urun var mi?", messageType: "sender"),
-  // ];
 
   @override
   Widget build(BuildContext context) {
