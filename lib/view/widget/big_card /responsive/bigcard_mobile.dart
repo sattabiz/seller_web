@@ -27,6 +27,7 @@ class BigCardMobile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final height = MediaQuery.of(context).size.height;
+    ScrollController scrollcontroller = ScrollController();
 
     return Container(
       decoration: BoxDecoration(
@@ -41,7 +42,8 @@ class BigCardMobile extends ConsumerWidget {
           Expanded(
             child: ListView(
               shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
+              controller: scrollcontroller,
+              physics: const PageScrollPhysics(),
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 10.0),
