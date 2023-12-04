@@ -2,27 +2,28 @@ import 'dart:convert';
 
 class GetOrderlistModel {
     GetOrderlistModel({
-        this.id,
-        this.proposalId,
-        this.companyId,
-        this.supplier,
-        this.supplierErpId,
+        required this.id,
+        required this.proposalId,
+        required this.companyId,
+        required this.supplier,
+        required this.supplierErpId, 
         this.supplierTaxId,
-        this.state,
-        this.deliveryDate,
-        this.paymentDueDate,
-        this.paymentType,
-        this.orderDate,
-        this.demandName,
-        this.demandNo,
-        this.demandCreatorName,
-        this.demandCreatorEmail,
-        this.procurementName,
-        this.procurementEmail,
+        required this.state,
+        this.includeShipmentCost,
+        required this.deliveryDate,
+        required this.paymentDueDate,
+        required this.paymentType,
+        required this.orderDate,
+        required this.demandName,
+        required this.demandNo,
+        required this.demandCreatorName,
+        required this.demandCreatorEmail,
+        required this.procurementName,
+        required this.procurementEmail,
         this.costCenterName,
         this.costCenterErpId,
         this.approvers,
-        this.products,
+        required this.products,
     });
 
     int ?id;
@@ -38,6 +39,7 @@ class GetOrderlistModel {
     DateTime ?orderDate;
     String ?demandName;
     int ?demandNo;
+    bool? includeShipmentCost;
     String ?demandCreatorName;
     String ?demandCreatorEmail;
     String ?procurementName;
@@ -45,7 +47,7 @@ class GetOrderlistModel {
     String ?costCenterName;
     String ?costCenterErpId;
     List<Approver> ?approvers;
-    List<Product> ?products;
+    List<Product> products;
 
     factory GetOrderlistModel.fromJson(String str) => GetOrderlistModel.fromMap(json.decode(str));
 
@@ -65,6 +67,7 @@ class GetOrderlistModel {
         orderDate: DateTime.parse(json["order_date"]),
         demandName: json["demand_name"],
         demandNo: json["demand_no"],
+        includeShipmentCost: json["include_shipment_cost"],
         demandCreatorName: json["demand_creator_name"],
         demandCreatorEmail: json["demand_creator_email"],
         procurementName: json["procurement_name"],
@@ -93,18 +96,19 @@ class GetOrderlistModel {
         "demand_no": demandNo,
         "demand_creator_name": demandCreatorName,
         "demand_creator_email": demandCreatorEmail,
+        "include_shipment_cost": includeShipmentCost,
         "procurement_name": procurementName,
         "procurement_email": procurementEmail,
         "cost_center_name": costCenterName,
         "cost_center_erp_id": costCenterErpId,
         "approvers": List<dynamic>.from(approvers!.map((x) => x.toMap())),
-        "products": List<dynamic>.from(products!.map((x) => x.toMap())),
+        "products": List<dynamic>.from(products.map((x) => x.toMap())),
     };
 
 
   @override
   String toString() {
-    return 'GetOrderListModel{id: $id, proposalId: $proposalId, companyId: $companyId, supplier: $supplier, supplierErpId: $supplierErpId, supplierTaxId: $supplierTaxId, state: $state, deliveryDate: $deliveryDate, paymentDueDate: $paymentDueDate, paymentType: $paymentType, orderDate: $orderDate, demandName: $demandName, demandNo: $demandNo, demandCreatorName: $demandCreatorName, demandCreatorEmail: $demandCreatorEmail, procurementName: $procurementName, procurementEmail: $procurementEmail, costCenterName: $costCenterName, costCenterErpId: $costCenterErpId, approvers: $approvers, products: $products}';
+    return 'GetOrderListModel{id: $id, proposalId: $proposalId, companyId: $companyId, supplier: $supplier, supplierErpId: $supplierErpId, supplierTaxId: $supplierTaxId, state: $state, deliveryDate: $deliveryDate, paymentDueDate: $paymentDueDate, paymentType: $paymentType, orderDate: $orderDate, demandName: $demandName, demandNo: $demandNo, demandCreatorName: $demandCreatorName, demandCreatorEmail: $demandCreatorEmail, procurementName: $procurementName, procurementEmail: $procurementEmail, costCenterName: $costCenterName, costCenterErpId: $costCenterErpId, includeShipmentCost:$includeShipmentCost approvers: $approvers, products: $products}';
   }  
 }
 
@@ -138,32 +142,40 @@ class Approver {
 
 class Product {
     Product({
-        this.productProposalId,
-        this.name,
+        required this.productProposalId,
+        required this.name,
         this.categoryId,
         this.categoryErpId,
         this.description,
         this.amount,
+        this.sendedAmount,
         this.unit,
         this.price,
+        this.taxRate,
         this.currencyCode,
         this.erpId,
         this.productErpId,
         this.proposalNote,
+        this.productFiles,
+        this.productsProposalFiles
     });
 
-    int ?productProposalId;
-    String ?name;
+    int productProposalId;
+    String name;
     int ?categoryId;
-    dynamic ?categoryErpId;
+    String ?categoryErpId;
     String ?description;
     double ?amount;
+    double ?sendedAmount;
     String ?unit;
     double ?price;
+    int ?taxRate;
     String ?currencyCode;
-    dynamic erpId;
-    dynamic productErpId;
+    String ?erpId;
+    String ?productErpId;
     String ?proposalNote;
+    Map? productFiles;
+    Map? productsProposalFiles;
 
     factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
 
@@ -176,12 +188,16 @@ class Product {
         categoryErpId: json["category_erp_id"],
         description: json["description"],
         amount: json["amount"].toDouble(),
+        sendedAmount: json["sended_amount"],
         unit: json["unit"],
         price: json["price"].toDouble(),
+        taxRate: json["tax_rate"],
         currencyCode: json["currency_code"],
         erpId: json["erp_id"],
         productErpId: json["product_erp_id"],
         proposalNote: json["proposal_note"],
+        productFiles: json["product_files"],
+        productsProposalFiles: json['products_proposal_files']  
     );
 
     Map<String, dynamic> toMap() => {
@@ -191,6 +207,7 @@ class Product {
         "category_erp_id": categoryErpId,
         "description": description,
         "amount": amount,
+        'sended_amount': sendedAmount,
         "unit": unit,
         "price": price,
         "currency_code": currencyCode,
@@ -201,7 +218,7 @@ class Product {
 
   @override
   String toString() {
-    return 'Product{productProposalId: $productProposalId, name: $name, categoryId: $categoryId, categoryErpId: $categoryErpId, description: $description, amount: $amount, unit: $unit, price: $price, currencyCode: $currencyCode, erpId: $erpId, productErpId: $productErpId, proposalNote: $proposalNote}';
+    return 'Product{productProposalId: $productProposalId, name: $name, categoryId: $categoryId, categoryErpId: $categoryErpId, description: $description, amount: $amount, taxRate: $taxRate, sendedAmount: $sendedAmount unit: $unit, price: $price, currencyCode: $currencyCode, erpId: $erpId, productErpId: $productErpId, proposalNote: $proposalNote, productsProposalFiles: $productsProposalFiles}';
   }
 }
 

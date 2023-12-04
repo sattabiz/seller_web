@@ -1,22 +1,32 @@
 import 'package:flutter/material.dart';
-import '../view/invoice_view/invoice_view.dart';
+import 'package:go_router/go_router.dart';
+import '../view/index.dart';
 import '../view/landing_view/landing_view.dart';
 import '../view/login_view/login_view.dart';
-import 'package:seller_point/view/order_view/order_view.dart';
-import '../view/proposal_view/proposal_view.dart';
-import '../view/shipment_view/shipment_view.dart';
 
-
-
-
-final Map<String, WidgetBuilder> routes = {
-  '/LandingScreen': (BuildContext context) => LandingView(),
-  '/login': (BuildContext context) => LoginView(),
-  '/proposalScreen': (BuildContext context) => proposalView(),
-  '/orderScreen': (BuildContext context) => OrderView(),
-  '/shipmentScreen': (BuildContext context) => ShipmentView(),
-  '/invoiceScreen': (BuildContext context) => invoiceView(),
-
-
-
-};
+final router = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) {
+        return LandingView();
+      },
+      routes: <RouteBase>[
+        GoRoute(
+          path: 'login',
+          pageBuilder: (context, state) => NoTransitionPage<void>(
+            key: state.pageKey,
+            child: const LoginView(),
+          ),
+        ),
+        GoRoute(
+          path: 'index',
+          pageBuilder: (context, state) => NoTransitionPage<void>(
+            key: state.pageKey,
+            child: const Index(),
+          ),
+        ),
+      ]
+    ),
+  ],
+);

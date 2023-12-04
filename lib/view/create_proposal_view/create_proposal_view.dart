@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
-
 import 'create_proposal_button.dart';
 import 'create_proposal_view_content.dart';
 import 'create_proposal_view_table.dart';
+
 class createProposalView extends ConsumerWidget {
   const createProposalView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    double screenWidth =
+        MediaQuery.of(context).size.width / 1250; //change function
     return AlertDialog(
-      titlePadding: EdgeInsets.all(0),
+      actionsAlignment: MainAxisAlignment.center,
+      titlePadding: const EdgeInsets.all(0),
       title: Container(
-        decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30))), //for border radiuss
         alignment: Alignment.center,
-        width: 1250,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondaryContainer,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+        ),
+        width: 1000,
         height: 70,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,17 +45,18 @@ class createProposalView extends ConsumerWidget {
             Expanded(
               flex: 14,
               child: Text(
-                'Yeni Teklif İsteği',
+                FlutterI18n.translate(
+                    context, 'tr.proposal.new_proposal_request'),
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
               ),
             ),
             InkWell(
-              child: SvgPicture.asset(
-                'assets/close.svg',
-                width: 30.0,
-                height: 30.0,
+              child: Icon(
+                Icons.close,
+                size: 35,
+                color: Theme.of(context).colorScheme.shadow,
               ),
               onTap: () => Navigator.of(context).pop(),
             ), // to return to the page
@@ -69,36 +75,34 @@ class createProposalView extends ConsumerWidget {
             children: [
               createProposalViewContent(),
               createProposalViewTable(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  createProposalButton(),
-                  Padding(
-                      padding: const EdgeInsets.only(top: 20.0, right: 16),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          final formItems =
-                              ref.read(formItemProvider.notifier).state;
-
-                          debugPrint('Number of items: ${formItems.length}');
-
-                          for (var item in formItems) {
-                            debugPrint('Category: ${item.category}');
-                            debugPrint('Product: ${item.product}');
-                            debugPrint('Amount: ${item.amount}');
-                          }
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.all(15.0),
-                          child: Text('Listelerime Kaydet'),
-                        ),
-                      ))
-                ],
-              )
             ],
           ),
         ),
       ),
+      actions: [
+        const CreateProposalButton(),
+        Container(
+          width: 600,
+          constraints: BoxConstraints(
+              maxWidth: screenWidth * 550, minWidth: screenWidth * 330),
+        ),
+        // const Spacer(flex: 3),
+        ElevatedButton(
+          style: ButtonStyle(
+            fixedSize: MaterialStateProperty.all(const Size(200, 40)),
+            backgroundColor: MaterialStateProperty.all(
+                Theme.of(context).colorScheme.primaryContainer),
+          ),
+          onPressed: () {
+            final formItems = ref.read(formItemProvider.notifier).state;
+          },
+          child: Text(
+              FlutterI18n.translate(context, 'tr.proposal.save_list_btn'),
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  )),
+        )
+      ],
     );
   }
 }

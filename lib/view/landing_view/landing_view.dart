@@ -6,6 +6,7 @@ import '/view/landing_view/components/introduction.dart';
 import '/view/landing_view/components/app_bar_landing_page.dart';
 import '/view/landing_view/components/products.dart';
 import '/view/landing_view/components/contact.dart';
+import '/view/landing_view/components/products_small.dart';
 
 class LandingView extends ConsumerWidget {
   final int ?sectionIndex;
@@ -23,7 +24,7 @@ class LandingView extends ConsumerWidget {
     final landingProvider = ref.watch(getLandingViewContentProvider);
     return landingProvider.when(
       data: (contentList) {
-      debugPrint("products length: ${contentList.bgImage}");
+        contentList.products!.sort((a, b) => a.categoryId.compareTo(b.categoryId));
         return Scaffold(
           appBar: AppbarLandingPage(scrollController: _scrollController,),
           body: SingleChildScrollView(
@@ -35,26 +36,61 @@ class LandingView extends ConsumerWidget {
                   key: ValueKey(0),
                   controller: _scrollController,
                   index: 0,
-                  child: Introduction(
+                  child:
+                   Introduction(
                     sectionIndex: 0,
                     title: contentList.title ?? " ",
                     introduction: contentList.introduction,
-                    bgImage: contentList.bgImage)
+                    bgImage: contentList.bgImage,
+                    )
                 ),
                 AutoScrollTag(
                   key: const ValueKey(1),
                   controller: _scrollController,
                   index: 1,
-                  child: Column(
-                    children: [
-                      for (int i = 0; i < contentList.products!.length; i++)                      
-                        Products(
-                          sectionIndex: 1,
-                          productDetails: contentList.products![i].productDetails,
-                          productImage: contentList.products![i].productImage,
-                        ),
-                    ],
-                  ),
+                  child: LayoutBuilder(
+                    builder: (BuildContext context, BoxConstraints constraints) {
+                      if (constraints.maxWidth > 800) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            for (int i = 0; contentList.products!.length > i ; i++ )                      
+                              Products(
+                                sectionIndex: 1,
+                                title: contentList.products![i].title ?? " ",
+                                productDetails: contentList.products![i].productDetails,
+                                productImage: contentList.products![i].productImage,
+                              ),
+                          ],
+                        );
+                      } else {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            for (int i = 0; contentList.products!.length > i ; i++ )                      
+                              ProductsSmall(
+                                sectionIndex: 1,
+                                title: contentList.products![i].title ?? " ",
+                                productDetails: contentList.products![i].productDetails,
+                                productImage: contentList.products![i].productImage,
+                              ),
+                          ],
+                        );
+                      }
+                    }
+                ),
+                  // child: Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: [
+                  //     for (int i = 0; contentList.products!.length > i ; i++ )                      
+                  //       Products(
+                  //         sectionIndex: 1,
+                  //         title: contentList.products![i].title ?? " ",
+                  //         productDetails: contentList.products![i].productDetails,
+                  //         productImage: contentList.products![i].productImage,
+                  //       ),
+                  //   ],
+                  // ),
                 ),
                 AutoScrollTag(
                   key: const ValueKey(2),
@@ -63,6 +99,7 @@ class LandingView extends ConsumerWidget {
                   child:  Contact(
                     sectionIndex: 2,
                     address: contentList.address,
+                    contactInfo: contentList.contactInfo,
                     footer: contentList.footer,
                   ),
                 ),

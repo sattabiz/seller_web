@@ -1,9 +1,8 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:seller_point/view/landing_view/components/page_indicator.dart';
 
 class Introduction extends StatelessWidget {
   final int sectionIndex;
@@ -21,40 +20,38 @@ class Introduction extends StatelessWidget {
         
   @override
   Widget build(BuildContext context) {
-    const Color surfaceContainer = Color(0xFFECEEEB);
-    return Stack(
-      children : [
-        Container(  
-        width: double.infinity,
-        height: 600,
-        padding: const EdgeInsets.all(32.0),
-        decoration: BoxDecoration(
-          color: surfaceContainer,
-          image: DecorationImage(
-            image: NetworkImage(bgImage ?? ""),
-            // errorBuilder: (context, error, stackTrace) => const SizedBox(), 
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children:  <Widget>[
-            Title(title),
-            const Padding(padding: EdgeInsets.only(top: 16.0)),
-            SizedBox(
-              width: 500,
-              height: 108,
-              child: About(introduction ?? ""),
-            ),
-            const Spacer(flex: 1),
-            const LogInButton(),
-            const SizedBox(height: 10),
-            const SignIn(),
-      
-          ],
+    return Container(  
+      width: double.infinity,
+      height: 600,
+      padding: const EdgeInsets.only(top: 60.0),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        image: DecorationImage(
+          image: NetworkImage(bgImage ?? ""),
+          // errorBuilder: (context, error, stackTrace) => const SizedBox(), 
+          fit: BoxFit.cover,
         ),
       ),
-      ]
+      child: Flex(
+        direction: Axis.vertical,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children:  <Widget>[
+          // SizedBox(height: screenSize.height / 50),
+          Title(title),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: PageIndicator(paragraphs: introduction!),
+            )),
+          const Spacer(flex: 1),
+          const LogInButton(),
+          const SizedBox(height: 12),
+          const SignIn(),
+          const Spacer(flex: 1),        
+        ],
+      ),
     );
   }
 }
@@ -64,29 +61,16 @@ class Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoSizeText(
-      title, 
-      style: Theme.of(context).textTheme.displayLarge!.copyWith(
-        color: Theme.of(context).colorScheme.onPrimary,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 18.0),
+      child: AutoSizeText(
+        title, 
+        style: Theme.of(context).textTheme.displayLarge!.copyWith(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+        maxLines: 2,
+        textAlign: TextAlign.center,
       ),
-      maxLines: 2
-    );
-  }
-}
-
-class About extends StatelessWidget {
-  final String introduction;
-  const About(this.introduction, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return AutoSizeText(
-      introduction,
-      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-        color: Theme.of(context).colorScheme.onPrimary,
-      ),
-      maxLines: 3,
-      textAlign: TextAlign.center,
     );
   }
 }
@@ -97,11 +81,10 @@ class LogInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        Navigator.pushNamed(context, '/login');
+      onPressed: () { context.go('/login');
       },
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.secondary),
+        backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
         fixedSize: MaterialStateProperty.all<Size>(const Size(150, 50)),
       ), 
       child:  Text(

@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 
 class GetProposalModel {
   int? proposalId;
@@ -19,6 +17,8 @@ class GetProposalModel {
   int? supplierCompanyId;
   String? supervisor;
   String? paymentType;
+  int updateCounter;
+  String demandListName;
   List<ProductProposal>? productProposals;
 
   GetProposalModel({
@@ -39,11 +39,13 @@ class GetProposalModel {
     this.supervisor,
     this.paymentType,
     this.productProposals,
+    required this.updateCounter,
+    required this.demandListName
   });
 
   @override
   String toString() {
-    return 'GetProposalModel(proposalId: $proposalId, demandlistId: $demandlistId, proposalState: $proposalState, supplierCompany: $supplierCompany ,supplierCompany: $supplierCompany, productProposals: $productProposals)';
+    return 'GetProposalModel(proposalId: $proposalId, demandlistId: $demandlistId, proposalState: $proposalState, supplierCompany: $supplierCompany ,supplierCompany: $supplierCompany, productProposals: $productProposals, updateCounter: $updateCounter, demandListName: $demandListName )';
   }
 
   factory GetProposalModel.fromJson(String str) =>
@@ -77,6 +79,8 @@ class GetProposalModel {
       supplierCompanyId: json["supplier_company_id"],
       supervisor: json["supervisor"],
       paymentType: json["payment_type"],
+      updateCounter: json["update_counter"],
+      demandListName: json["demand_list_name"],
       productProposals: json["product_proposals"] == null
           ? null
           : List<ProductProposal>.from(json["product_proposals"]
@@ -102,6 +106,8 @@ class GetProposalModel {
       "supplier_company_id": supplierCompanyId,
       "supervisor": supervisor,
       "payment_type": paymentType,
+      "update_counter": updateCounter,
+      "demand_list_name": demandListName,
       "product_proposals": productProposals == null
           ? []
           : List<dynamic>.from(productProposals!.map((x) => x.toMap())),
@@ -118,7 +124,7 @@ class ProductProposal {
   String? erpId;
   int? companyProductId;
   DateTime? updatedAt;
-  int? price;
+  double? price;
   String? url;
   String? description;
   int? productId;
@@ -128,7 +134,9 @@ class ProductProposal {
   String? proposalNote;
   int? taxRate;
   String? currencyCode;
-  int? amount;
+  double? amount;
+  Map? productFiles;
+  Map? productsProposalFiles;
 
   ProductProposal({
     this.productProposalId,
@@ -150,11 +158,13 @@ class ProductProposal {
     this.taxRate,
     this.currencyCode,
     this.amount,
+    this.productFiles,
+    this.productsProposalFiles
   });
 
   @override
   String toString() {
-    return 'ProductProposal(productProposalId: $productProposalId, productName: $productName, price: $price, url: $url, description: $description, productId: $productId, status: $status, updateCount: $updateCount, equivalentId: $equivalentId, proposalNote: $proposalNote, taxRate: $taxRate, currencyCode: $currencyCode, amount: $amount)';
+    return 'ProductProposal(productProposalId: $productProposalId, productName: $productName, price: $price, url: $url, description: $description, productId: $productId, status: $status, updateCount: $updateCount, equivalentId: $equivalentId, proposalNote: $proposalNote, taxRate: $taxRate, currencyCode: $currencyCode, amount: $amount, productFiles: $productFiles, productsProposalFiles: $productsProposalFiles)';
   }
 
   factory ProductProposal.fromJson(String str) =>
@@ -185,7 +195,9 @@ class ProductProposal {
       taxRate: json["tax_rate"],
       currencyCode: json["currency_code"],
       amount: json["amount"],
-    );
+      productFiles: json["product_files"],
+      productsProposalFiles: json['products_proposal_files']      
+      );
   }
 
   Map<String, dynamic> toMap() {
@@ -212,3 +224,4 @@ class ProductProposal {
     };
   }
 }
+

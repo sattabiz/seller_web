@@ -4,10 +4,8 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_i18n/loaders/decoders/yaml_decode_strategy.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:seller_point/service/env_login.dart';
-
 import 'package:seller_point/utils/routes.dart';
 import '/theme/theme.dart';
-import '/view/landing_view/landing_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,12 +22,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Palet Point',
       debugShowCheckedModeBanner: false,
       theme: theme,
-      routes: routes,
+      routerConfig: router,
       localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         FlutterI18nDelegate(
           missingTranslationHandler: (key, locale) {
             print("--- Missing Key: $key, languageCode: ${locale!.languageCode}");
@@ -45,7 +46,6 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
-      home:  LandingView(),
     );
   }
 }

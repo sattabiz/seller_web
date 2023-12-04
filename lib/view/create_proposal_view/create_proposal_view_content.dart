@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+
 class OfferModel {
   String name;
   String deliveryDate;
   int validDays;
-  int? selectedDay;
-  int? selectedDay2;
+  bool includeShipmentCost;
+  int patmentDueDate;
 
   OfferModel()
       : name = '',
-        deliveryDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now().add(Duration(days: 3, hours: 17 - DateTime.now().hour))),
-        validDays = 3;
+        deliveryDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()
+            .add(Duration(days: 3, hours: 17 - DateTime.now().hour))),
+        validDays = 3,
+        includeShipmentCost = false,
+        patmentDueDate = 30;
 }
 
 final offerModelProvider = Provider<OfferModel>((ref) => OfferModel());
@@ -19,231 +23,280 @@ final offerModelProvider = Provider<OfferModel>((ref) => OfferModel());
 class createProposalViewContent extends ConsumerWidget {
   final String topic;
   createProposalViewContent({this.topic = ' ', Key? key}) : super(key: key);
-  final _dropdownMaxValue = 150;
-  final TextEditingController _topic = TextEditingController();
+  final TextEditingController _paymentDueDate = TextEditingController(text: '30');
+  final TextEditingController _includeShipmentCost = TextEditingController(text: 'Alıcı');
+
   final TextEditingController _deliveryDate = TextEditingController(
     text:
-        DateFormat('yyyy-MM-dd').format(DateTime.now().add(Duration(days: 3))),
+        DateFormat('yyyy-MM-dd').format(DateTime.now().add(const Duration(days: 3))),
   );
   final TextEditingController _validDays = TextEditingController(
     text: DateFormat('yyyy-MM-dd 17:00:00')
-        .format(DateTime.now().add(Duration(days: 3))),
+        .format(DateTime.now().add(const Duration(days: 3))),
   );
-
-  int? _selectedDay;
-  int? _selectedDay2;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final offerModel = ref.read(offerModelProvider);
+    List<DropdownMenuEntry<int>> dropDownMenuDate = [7,15,21,30,45,60,75,90,120,150,180].map((int value) {
+    return DropdownMenuEntry<int>(
+      value: value,
+      label: value.toString(),
+    );
+  }).toList();
 
-    return Container(
-      child: Column(
-        children: [
-          TextFormField(
-            decoration: InputDecoration(
-                filled: true,
-                fillColor: Theme.of(context).colorScheme.surface,
-                border: const UnderlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                hintText: 'Konu',
-                labelText: 'Konu'),
-            initialValue: topic,
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return 'Lütfen konu giriniz.';
-              }
-              return null;
-            },
-            onChanged: (value) {
-              offerModel.name = value;
-            },
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: TextField(
-                  controller: _deliveryDate,
-                  decoration: InputDecoration(
-                    suffixIcon: const Icon(Icons.calendar_month),
-                    filled: true,
-                    fillColor: Theme.of(context).colorScheme.surface,
-                    border: const UnderlineInputBorder(),
-                  ),
-                  readOnly: true,
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1950),
-                        lastDate: DateTime(2100));
-                    if (pickedDate != null) {
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(pickedDate);
-                      _deliveryDate.text =
-                          formattedDate; // <- Bu satır eklenmeli
-                      offerModel.deliveryDate = formattedDate;
-                    } else {}
-                  },
-                ),
-              ),
-              const Spacer(),
-              Expanded(
-                flex: 3,
-                child: TextField(
-                  controller: _validDays,
-                  decoration: InputDecoration(
-                    suffixIcon: const Icon(Icons.calendar_month),
-                    filled: true,
-                    fillColor: Theme.of(context).colorScheme.surface,
-                    border: const UnderlineInputBorder(),
-                  ),
-                  readOnly: true,
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1950),
-                        lastDate: DateTime(2100));
-                    if (pickedDate != null) {
-                      DateTime currentDate = DateTime.now();
-                      int differenceInDays =
-                          pickedDate.difference(currentDate).inDays;
-                      differenceInDays = differenceInDays + 1;
-                      debugPrint(differenceInDays.toString());
+  final offerModel = ref.read(offerModelProvider);
 
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(pickedDate);
-                      _validDays.text = formattedDate;
-                      offerModel.validDays = differenceInDays;
-                    } else {}
-                  },
+    return Column(
+      children: [
+        TextFormField(
+          cursorColor: Theme.of(context).colorScheme.onBackground,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Theme.of(context).colorScheme.onPrimary,
+            labelText: 'Konu',
+            labelStyle: Theme.of(context).textTheme.bodyMedium,
+            focusColor: Theme.of(context).colorScheme.onSecondaryContainer,
+            // constraints: const BoxConstraints(maxHeight: 40),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant),
+            ),
+            floatingLabelStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
+          ),
+          initialValue: topic,
+          // validator: (String? value) {
+          //   if (value == null || value.isEmpty) {
+          //     return 'Lütfen konu giriniz.';
+          //   }
+          //   return null;
+          // },
+          onChanged: (value) {
+            offerModel.name = value;
+            ref.read(offerModelProvider).name=value;
+          },
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Row(
+          children: [
+            Expanded(
+              flex: 3,
+              child: TextField(
+                cursorColor: Theme.of(context).colorScheme.onBackground,
+                controller: _deliveryDate,
+                decoration: InputDecoration(
+                  suffixIcon: const Icon(Icons.calendar_month),
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.onPrimary,
+                  constraints: const BoxConstraints(maxHeight: 40),
+                  border: const UnderlineInputBorder(),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                ),
+                readOnly: true,
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1950),
+                      lastDate: DateTime(2100));
+                  if (pickedDate != null) {
+                    String formattedDate =
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
+                    _deliveryDate.text = formattedDate; // <- Bu satır eklenmeli
+                    offerModel.deliveryDate = formattedDate;
+                    formattedDate=ref.read(offerModelProvider).deliveryDate;
+                  } else {}
+                },
               ),
-              const Spacer(
-                flex: 2,
+            ),
+            const Spacer(),
+            Expanded(
+              flex: 3,
+              child: TextField(
+                cursorColor: Theme.of(context).colorScheme.onBackground,
+                controller: _validDays,
+                decoration: InputDecoration(
+                  suffixIcon: const Icon(Icons.calendar_month),
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.onPrimary,
+                  constraints: const BoxConstraints(maxHeight: 40),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                  border: const UnderlineInputBorder(),
+                ),
+                readOnly: true,
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1950),
+                      lastDate: DateTime(2100));
+                  if (pickedDate != null) {
+                    DateTime currentDate = DateTime.now();
+                    int differenceInDays =
+                        pickedDate.difference(currentDate).inDays;
+                    differenceInDays = differenceInDays + 1;
+
+                    String formattedDate =
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
+                    _validDays.text = formattedDate;
+                    offerModel.validDays = differenceInDays;
+                    differenceInDays=ref.read(offerModelProvider).validDays;
+                  } else {}
+                },
               ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            children: [
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                  flex: 3,
-                  child: Text('Termin Tarihi',
-                      style: Theme.of(context).textTheme.bodySmall)),
-              const Spacer(),
-              Expanded(
-                  flex: 3,
-                  child: Text('Son Teklif Verme Süresi',
-                      style: Theme.of(context).textTheme.bodySmall)),
-              const Spacer(
-                flex: 2,
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            children: [
-              Expanded(
+            ),
+            const Spacer(
+              flex: 2,
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Row(
+          children: [
+            const SizedBox(
+              width: 10,
+            ),
+            Expanded(
                 flex: 3,
-                child: DropdownButtonFormField(
-                  decoration: InputDecoration(
-                      hintText: 'Gun giriniz',
-                      filled: true,
-                      fillColor: Theme.of(context).colorScheme.surface,
-                      border: const UnderlineInputBorder()
-                      ),
-                  isExpanded: true,
-                  alignment: Alignment.centerRight,
-                  value: offerModel.selectedDay ??
-                      120, // Eğer seçilen değer null ise 120'yi kullan
-                  icon: const Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  onChanged: (int? value) {
-                    offerModel.selectedDay = value;
-                  },
-                  items: <int>[for (var i = 0; i <= _dropdownMaxValue; i++) i]
-                      .map<DropdownMenuItem<int>>((int value) {
-                    return DropdownMenuItem(
-                      value: value,
-                      child: Text(value.toString()),
-                    );
-                  }).toList(),
-                ),
-              ),
-              const Spacer(flex: 1,),
-              Expanded(
+                child: Text('Termin Tarihi',
+                    style: Theme.of(context).textTheme.bodySmall)),
+            const Spacer(),
+            Expanded(
                 flex: 3,
-                child: DropdownButtonFormField(
-                  decoration: InputDecoration(
-                      hintText: 'Alıcı',
-                      filled: true,
-                      fillColor: Theme.of(context).colorScheme.surface,
-                      border: const UnderlineInputBorder()),
-                  isExpanded: true,
-                  alignment: Alignment.centerRight,
-                  value: offerModel.selectedDay2,
-                  icon: const Icon(Icons.arrow_downward),
-                  iconSize: 24,
-                  elevation: 16,
-                  onChanged: (int? value) {
-                    offerModel.selectedDay2 = value;
-                  },
-                  items: <int>[for (var i = 0; i <= _dropdownMaxValue; i++) i]
-                      .map<DropdownMenuItem<int>>((int value) {
-                    return DropdownMenuItem(
-                      value: value,
-                      child: Text(value.toString()),
-                    );
-                  }).toList(),
+                child: Text('Son Teklif Verme Süresi',
+                    style: Theme.of(context).textTheme.bodySmall)),
+            const Spacer(
+              flex: 2,
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Row(
+          children: [
+            Expanded(
+              flex: 3,
+              child: DropdownMenu<int>(
+                controller: _paymentDueDate,
+                width: 310,
+                menuHeight: 200,
+                inputDecorationTheme: InputDecorationTheme(
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.onPrimary,
+                  constraints: const BoxConstraints(maxHeight: 40),
+                  contentPadding: EdgeInsets.only(left: 10.0),
+                  floatingLabelAlignment: FloatingLabelAlignment.start,
+                  border: const UnderlineInputBorder(),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                ),        
+                label:  Text(
+                  'Gun',
+                  style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                menuStyle: MenuStyle(
+                  alignment: AlignmentGeometry.lerp(
+                      Alignment.bottomLeft, Alignment.bottomLeft, 0.5,
+                  ),
                 ),
+                onSelected: (value) {
+                  offerModel.patmentDueDate = value ?? 30;
+                  //debugPrint(offerModel.includeShipmentCost.toString());
+                  value = ref.read(offerModelProvider).patmentDueDate;
+                },
+                dropdownMenuEntries: dropDownMenuDate,
               ),
-              const Spacer(flex: 2,)
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            children: [
-              const SizedBox(
-                width: 10,
+            ),
+            const Spacer(
+              flex: 1,
+            ),
+            Expanded(
+              flex: 3,
+              child: DropdownMenu<bool>(
+                width: 310,
+                menuHeight: 200,
+                controller: _includeShipmentCost,
+                inputDecorationTheme: InputDecorationTheme(
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.onPrimary,
+                  constraints: const BoxConstraints(maxHeight: 40),
+                  contentPadding: EdgeInsets.only(left: 10.0),
+                  floatingLabelAlignment: FloatingLabelAlignment.start,
+                  border: const UnderlineInputBorder(),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+                ),        
+                label:  Text(
+                  'Nakliye',
+                  style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                menuStyle: MenuStyle(
+                  alignment: AlignmentGeometry.lerp(
+                      Alignment.bottomLeft, Alignment.bottomLeft, 0.5,
+                  ),
+                ),
+                onSelected: (bool? value) {
+                  offerModel.includeShipmentCost = value ?? false;
+                  //debugPrint(offerModel.includeShipmentCost.toString());
+                  value = ref.read(offerModelProvider).includeShipmentCost;
+                },
+                dropdownMenuEntries: <bool>[true, false]
+                    .map<DropdownMenuEntry<bool>>((bool value) {
+                  return DropdownMenuEntry<bool>(
+                    value: value,
+                    label: value ? "Satıcı" : "Alıcı"
+                  );
+                }).toList(),
               ),
-              Expanded(
-                  flex: 3,
-                  child: Text('Ödeme Vadesi',
-                      style: Theme.of(context).textTheme.bodySmall)),
-              const Spacer(
-                flex: 1,
-              ),
-              Expanded(
-                  flex: 3,
-                  child: Text('Nakliye Ödemesi',
-                      style: Theme.of(context).textTheme.bodySmall)),
-              const Spacer(
-                flex: 2,
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-        ],
-      ),
+            ),
+            const Spacer(
+              flex: 2,
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Row(
+          children: [
+            const SizedBox(
+              width: 10,
+            ),
+            Expanded(
+                flex: 3,
+                child: Text('Ödeme Vadesi',
+                    style: Theme.of(context).textTheme.bodySmall)),
+            const Spacer(
+              flex: 1,
+            ),
+            Expanded(
+                flex: 3,
+                child: Text('Nakliye Ödemesi',
+                    style: Theme.of(context).textTheme.bodySmall)),
+            const Spacer(
+              flex: 2,
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+      ],
     );
   }
 }

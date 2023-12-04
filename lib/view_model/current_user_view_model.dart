@@ -1,21 +1,26 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import '../config/api_url.dart';
 import '../model/get_current_user_info_model.dart';
-import '../service/get_current_user_info_service.dart';
+import '../service/get_services.dart';
 import 'order_list_view_model.dart';
 
 final getCurrentUserInfoProvider = FutureProvider.autoDispose<CurrentUserInfoModel>((ref) async {
-  final autService = UserService();
+  final apiService = ApiService();
+  Response response;
   try {
-    CurrentUserInfoModel _userInfo = await autService.getCurrentUserInfo();
-    return _userInfo;
+    response = await apiService.get(url: ApiUrls.userInfo);
   } catch (e) {
     if (e is DioException) {
       if (e.response?.statusCode != 200) {
         ref.read(navigatorKeyProvider).currentState!.pushNamed("/login");
       }
     }
-    throw e;
+    rethrow;
   }
+
+  CurrentUserInfoModel currentUserInfoModel =
+          CurrentUserInfoModel.fromMap(response.data);
+
+  return currentUserInfoModel;
 });

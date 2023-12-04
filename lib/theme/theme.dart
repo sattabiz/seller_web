@@ -10,7 +10,11 @@ ThemeData theme = ThemeData(
   navigationRailTheme: const NavigationRailThemeData().copyWith(
     backgroundColor: themeColor.primary,
   ),
-  navigationDrawerTheme: const NavigationDrawerThemeData().copyWith(),
+  navigationDrawerTheme: const NavigationDrawerThemeData().copyWith(
+    backgroundColor: themeColor.surface,
+    indicatorSize: const Size(double.maxFinite, 200),
+    indicatorColor: themeColor.primaryContainer,
+  ),
   elevatedButtonTheme: elevatedButtonTheme,
   cardTheme: cardTheme,
 );

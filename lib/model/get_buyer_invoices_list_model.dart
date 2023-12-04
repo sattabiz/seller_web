@@ -1,9 +1,4 @@
 
-
-// To parse this JSON data, do
-//
-//     final getInvoicesModel = getInvoicesModelFromMap(jsonString);
-
 import 'dart:convert';
 
 class GetInvoicesModel {
@@ -89,13 +84,16 @@ class Product {
     int? categoryId;
     String ?categoryErpId;
     String? description;
-    double? shippedAmount;
+    double? amount;
+    int? taxRate;
     String? unit;
     double? price;
     String? currencyCode;
     String ?erpId;
     String ?productErpId;
     String ?proposalNote;
+    Map? productFiles;
+    Map? productsProposalFiles;
 
     Product({
         this.orderId,
@@ -105,13 +103,16 @@ class Product {
         this.categoryId,
         this.categoryErpId,
         this.description,
-        this.shippedAmount,
+        this.amount,
+        this.taxRate,
         this.unit,
         this.price,
         this.currencyCode,
         this.erpId,
         this.productErpId,
         this.proposalNote,
+        this.productFiles,
+        this.productsProposalFiles
     });
 
     factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
@@ -126,13 +127,16 @@ class Product {
         categoryId: json["category_id"],
         categoryErpId: json["category_erp_id"],
         description: json["description"],
-        shippedAmount: json["shipped_amount"],
+        amount: json["shipped_amount"],
+        taxRate: json["tax_rate"],
         unit: json["unit"],
         price: json["price"],
         currencyCode: json["currency_code"],
         erpId: json["erp_id"],
         productErpId: json["product_erp_id"],
         proposalNote: json["proposal_note"],
+        productFiles: json["product_files"],
+        productsProposalFiles: json['products_proposal_files'] 
     );
 
     Map<String, dynamic> toMap() => {
@@ -143,7 +147,7 @@ class Product {
         "category_id": categoryId,
         "category_erp_id": categoryErpId,
         "description": description,
-        "shipped_amount": shippedAmount,
+        "shipped_amount": amount,
         "unit": unit,
         "price": price,
         "currency_code": currencyCode,
@@ -151,9 +155,4 @@ class Product {
         "product_erp_id": productErpId,
         "proposal_note": proposalNote,
     };
-
-  @override
-  String toString() {
-    return 'Product(orderId: $orderId, orderPoNo: $orderPoNo, productsProposalId: $productsProposalId, name: $name, categoryId: $categoryId, categoryErpId: $categoryErpId, description: $description, shippedAmount: $shippedAmount, unit: $unit, price: $price, currencyCode: $currencyCode, erpId: $erpId, productErpId: $productErpId, proposalNote: $proposalNote)';
-  }    
 }

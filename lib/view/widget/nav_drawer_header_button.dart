@@ -1,6 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-
 import '../create_proposal_view/create_proposal_view.dart';
 import '../favorite_list_view/navigation_rail_favorite.dart';
 import '../favorite_list_view/navigation_rail_favorite_content.dart';
@@ -8,11 +6,13 @@ import '../favorite_list_view/navigation_rail_favorite_content.dart';
 enum SampleItem { itemOne, itemTwo }
 
 class DrawerHeaderButton extends StatefulWidget {
+  const DrawerHeaderButton({super.key});
+
   @override
-  _DrawerHeaderButtonState createState() => _DrawerHeaderButtonState();
+  DrawerHeaderButtonState createState() => DrawerHeaderButtonState();
 }
 
-class _DrawerHeaderButtonState extends State<DrawerHeaderButton> {
+class DrawerHeaderButtonState extends State<DrawerHeaderButton> {
   SampleItem? selectedMenu;
   TextEditingController dateInput1 = TextEditingController();
   TextEditingController dateInput2 = TextEditingController();
@@ -99,7 +99,7 @@ class _DrawerHeaderButtonState extends State<DrawerHeaderButton> {
                 ? MediaQuery.of(context).size.height * 0.080
                 : MediaQuery.of(context).size.height * 0.2,
             child: Card(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).colorScheme.primary,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -107,18 +107,18 @@ class _DrawerHeaderButtonState extends State<DrawerHeaderButton> {
                     Flexible(
                         child: Icon(
                       Icons.add,
-                      color: Theme.of(context).colorScheme.onSecondary,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       size: 24,
                     )),
                     const SizedBox(
                       width: 5,
                     ),
                     Flexible(
-                      child: AutoSizeText(
+                      child: Text(
                         'Yeni Teklif İsteği',
                         maxLines: 1,
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                              color: Theme.of(context).colorScheme.onSecondary,
+                              color: Theme.of(context).colorScheme.onPrimary,
                             ),
                       ),
                     ),

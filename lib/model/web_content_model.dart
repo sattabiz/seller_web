@@ -11,6 +11,7 @@ class WebContentModel {
     String? address;
     String? footer;
     String? bgImage;
+    String? contactInfo;
     List<Product>? products;
 
     WebContentModel({
@@ -20,6 +21,7 @@ class WebContentModel {
         this.address,
         this.footer,
         this.bgImage,
+        this.contactInfo,
         this.products,
     });
 
@@ -34,6 +36,7 @@ class WebContentModel {
         address: json["address"],
         footer: json["footer"],
         bgImage: json["bg_image"],
+        contactInfo: json["contact_info"],
         products: json["products"] == null ? [] : List<Product>.from(json["products"]!.map((x) => Product.fromMap(x))),
     );
 
@@ -44,23 +47,28 @@ class WebContentModel {
         "address": address,
         "footer": footer,
         "bg_image": bgImage,
+        "contact_info": contactInfo,
         "products": products == null ? [] : List<dynamic>.from(products!.map((x) => x.toMap())),
     };
 
   @override
   String toString() {
-    return 'WebContentModel(companyId: $companyId, title: $title, introduction: $introduction, address: $address, footer: $footer, bgImage: $bgImage, products: $products)';
+    return 'WebContentModel(companyId: $companyId, title: $title, introduction: $introduction, address: $address, footer: $footer, bgImage: $bgImage, contactInfo: $contactInfo , products: $products)';
   }
-    
+
 }
 
 class Product {
-    int? categoryId;
+    int categoryId;
+    String? title;
+    String? unit;
     String? productDetails;
     String? productImage;
 
     Product({
-        this.categoryId,
+        required this.categoryId,
+        this.title,
+        this.unit,
         this.productDetails,
         this.productImage,
     });
@@ -71,17 +79,21 @@ class Product {
 
     factory Product.fromMap(Map<String, dynamic> json) => Product(
         categoryId: json["category_id"],
+        title: json["title"],
+        unit: json['unit'],
         productDetails: json["product_details"],
         productImage: json["product_image"],
     );
 
     Map<String, dynamic> toMap() => {
         "category_id": categoryId,
+        "title": title,
+        "unit": unit,
         "product_details": productDetails,
         "product_image": productImage,
     };
     @override
     String toString() {
-        return 'Product(categoryId: $categoryId, productDetails: $productDetails, productImage: $productImage)';
+        return 'Product(categoryId: $categoryId, title: $title,unit: $unit, productDetails: $productDetails, productImage: $productImage)';
     }
 }

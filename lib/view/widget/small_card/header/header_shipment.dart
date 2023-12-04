@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,11 +13,10 @@ const HeaderShipment({ Key? key, required this.id, required this.status, require
 
   @override
   Widget build(BuildContext context){
-        const surfaceDim = Color(0xFFD8DBD8);
     return Container(
-      decoration: const BoxDecoration(
-          color: surfaceDim,
-          borderRadius:  BorderRadius.only(
+      decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondaryContainer,
+          borderRadius:  const BorderRadius.only(
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10))),
       child: Padding(
@@ -29,17 +27,17 @@ const HeaderShipment({ Key? key, required this.id, required this.status, require
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Flexible(  // icon
-                  child: SvgPicture.asset(
-                    statusIconMap[status] ?? '', 
-                    semanticsLabel: 'Order Status Icon',
-                    width: 30.0,
-                    height: 30.0,
-                  ),
+                SvgPicture.asset(
+                  statusIconMap[status] ?? '', 
+                  width: 20.0,
+                  height: 20.0,
+                ),
+                const SizedBox(
+                  width: 15,
                 ),
                 Expanded(
-                    flex: 15,
-                    child: AutoSizeText(    // headerStatus
+                    flex: 8,
+                    child: Text(    // headerStatus
                       FlutterI18n.translate(context, "tr.shipment.$status"),
                       style:
                           Theme.of(context).textTheme.titleLarge!,
@@ -53,17 +51,27 @@ const HeaderShipment({ Key? key, required this.id, required this.status, require
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // headerId
-                Flexible(
-                  child: status == 'order_on_the_way'
-                  ? AutoSizeText(FlutterI18n.translate(context, "tr.shipment.shipped_date" ) + headerDate)
-                  :  AutoSizeText(FlutterI18n.translate(context, "tr.order.order_no") + id),
+                Text(
+                  FlutterI18n.translate(context, "tr.order.big_card_header" ),
+                  style:Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.w500
+                  )
                 ),
-                 // header date
-                Flexible( 
-                  child: status == 'order_on_the_way'
-                  ? const SizedBox(width: 1)
-                  :  AutoSizeText(FlutterI18n.translate(context, "tr.shipment.date") + headerDate),
+                Text(
+                  id,
+                  style:Theme.of(context).textTheme.labelLarge
+                ),
+                const Spacer(flex: 1),
+                Text(
+                  FlutterI18n.translate(context, "tr.shipment.date"),
+                  style:Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.w500
+                  ),
+                ),
+                Text(
+                  headerDate,
+                  style:Theme.of(context).textTheme.labelLarge,
+                  maxLines: 1,
                 ),
               ],
             ),

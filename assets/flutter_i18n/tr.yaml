@@ -2,22 +2,26 @@ tr:
   login:
     log_in: "Üye Girişi"
     sign_in: "Üye Ol"
+    logout: "Çıkış Yap"
     e-mail: "E-posta"
     hint_text_email: "ornek@eposta.com"
     email_validation: "Lütfen geçerli bir e-posta adresi giriniz"
     password: "Parola"
+    send: "Gönder"
     password_validation: "Lütfen geçerli bir parola giriniz"
     login_success: "Giriş başarılı"
     login_fail: "E-mail veya parola hatalı"
     forget_password: "Şifremi unuttum"
+    new_password: "Yeni Şifre Talebi"
     login_button: "Giriş Yap"
     contact: "İletişim"
 
   proposal:
     proposals: "Teklifler"
-    pending: "Teklif Istendi"
-    replied: "Teklif verildi"
+    pending: "Teklif İstendi"
+    replied: "Teklif Verildi"
     proposal_stvs: "Teklif Verildi"
+    last_offer: "Son Teklif"
     product: "Ürün"
     amount: "Miktar"
     description: "Tedarikci Notu"
@@ -27,6 +31,21 @@ tr:
     row_1: "Revizyon"
     row_2: "STVS"
     row_3: "TGS"
+    create_proposal_btn: "Teklif İste"
+    save_list_btn: "Listelerime Kaydet"
+    new_proposal_request: "Yeni Teklif İsteği"
+    no_offer: "Teklif verilmedi"
+    create_order_btn: "Sipariş Et"
+    infoRow1: "Teklif Tarihi"
+    infoRow2: "Termin"
+    infoRow5: "Teslim Süresi"
+    create_proposal_header: "Kayıtlı Ürün Listesi"
+    update_btn: "Güncelle"
+    big_card_header: "Teklif No:"
+  proposal_sum:
+    row_t: "Tutar: "
+    row_tx: "KDV(%20): "
+    row_s: "Toplam: "  
   order:
     orders: "Siparişler"
     order_pending: "Teklif İstendi"  
@@ -34,28 +53,36 @@ tr:
     order_confirmed: "Hazırlanıyor"
     order_prepared: "Sevke Hazır"
     order_on_the_way: "Yolda"
-    order_delivered: "Teslim Edildi"
+    order_delivered: "Teslim Alındı"
     no: "No: "
     order_date:  "Sipariş Tarihi: "
     product: "Ürün"
     order_header: "Sipariş"
+    state: "Durum"
     ship: "Sevk"
     price: "Fiyat"
     order_no: "Sipariş No"
     topic: "Konu:"
     delivery_date: "Teslim Tarihi: "
-    payment_type: "Ödeme Şekli: "
+    payment_type: "Ödeme Şekli "
     payment_due_date: "Ödeme Tarihi: "
     demand_no: "Teklif No: "
-    shipment_payment: "Nakliye Ödeme: "
+    shipment_payment: "Nakliye "
     description: "Açıklama"
     amount: "Miktar"
     total: "Tutar"
-    expiry: "Vade: "
+    expiry: "Vade "
+    create_order_btn: "Sipariş Et"
+    reject_btn_big_card: "İptal Et"
+    infoRow1: "Sipariş Tarihi"
+    infoRow2: "Teslim Tarihi"
+    infoRow5: "Teklif No"
+    big_card_header: "Sipariş No:"
+    waybill: "İrsaliye"
   shipment: 
     shipments: "Sevkiyatlar"
     order_on_the_way: "Yoldaki Sevkiyat"
-    delivered: "Hazır"
+    order_prepared: "Hazır"
     shipment_date: "Sevkiyat Tarihi: "
     shipped_date: "Sevk Tarihi: "
     date: "Tarih: "
@@ -65,12 +92,50 @@ tr:
     row_1: "Nakliye"
     row_2: "Takip No"
     row_3: "Adres"
+    create_order_btn: "Teslim Al"
+    infoRow1: "Sipariş Tarihi"
+    infoRow2: "Teslim Tarihi"
+    infoRow5: "Teklif No"
+    big_card_header: "Sipariş No:"
+    header_shipment:
+      order_on_the_way: "Sevk Tarihi: "
+      order_prepared: "Sipariş No: "
+    
   invoice:
     invoices: "Faturalar"
-    invoice_paid: "Ödendi"
-    invoice_discounted: 'Ödeniyor'
+    invoice_goods_delivered: "Onay Bekliyor"
+    invoice_discounted: 'Ödendi'
     invoice_approved_dbs: "DBS Fatura"
-    invoice_pending: "Onay Bekliyor"
+    invoice_collecting: "Ödeniyor"
+    invoice_approved: "Açık Fatura"
     price: "Fiyat"
-    invoice_date: 'Fatura Tarihi: '
+    invoice_date: 'Fatura Tarihi '
+    invoice_no: "Fatura No: "
+    create_order_btn: "Onay"
+    big_card_header: "Fatura Tarihi:"
+    info_row_1:
+      invoice_goods_delivered: "Ödeme Tarihi: "
+      invoice_discounted: 'Fatura Tarihi: '
+      invoice_approved_dbs: "Fatura Tarihi: "
+      invoice_collecting: "Fatura Tarihi: "
+      invoice_approved: "Fatura Tarihi: "
+    info_header:
+      invoice_goods_delivered: "Fatura No: "
+      invoice_discounted: 'Fatura Tarihi: '
+      invoice_approved_dbs: "Fatura Tarihi: "
+      invoice_collecting: "Fatura Tarihi: "
+      invoice_approved: "Fatura Tarihi: "
+    small_card_date: 
+      invoice_goods_delivered: 'Fatura Tarihi '
+      invoice_discounted: "Ödeme Tarihi "
+      invoice_approved_dbs: "Ödeme Tarihi "
+      invoice_collecting: "Ödeme Tarihi "
+      invoice_approved: "Ödeme Tarihi "
+      order_on_the_way: "Sevk Tarihi: "
+
+
+
+    
+
+
 

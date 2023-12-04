@@ -9,7 +9,7 @@ class allMainPageContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding:const EdgeInsets.only(top:5, bottom: 15,right: 20),
-      child: Text(topic, style: Theme.of(context).textTheme.displayLarge,),
+      child: Text(topic, style: Theme.of(context).textTheme.headlineLarge,),
     );
   }
 }

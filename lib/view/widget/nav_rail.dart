@@ -1,55 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../create_proposal_view/create_proposal_view.dart';
 import '../favorite_list_view/navigation_rail_favorite.dart';
 import '../favorite_list_view/navigation_rail_favorite_content.dart';
 import 'nav_drawer_header_button.dart';
 
-class NavigationRailWidget extends StatefulWidget {
-  const NavigationRailWidget({Key? key}) : super(key: key);
+class NavigationRailWidget extends ConsumerStatefulWidget {
+  final void Function(int index) onItemTap;
+  final int screenIndex;
+  const NavigationRailWidget(
+    {Key? key,
+    required this.onItemTap,
+    required this.screenIndex,
+    }) : super(key: key);
 
   @override
-  _NavigationRailWidgetState createState() => _NavigationRailWidgetState();
+ ConsumerState<ConsumerStatefulWidget> createState() => _NavigationRailWidgetState();
 }
 
-class _NavigationRailWidgetState extends State<NavigationRailWidget> {
-  int currentIndex = 0;
-  final _routes = [
-    '/proposalScreen',
-    '/orderScreen',
-    '/shipmentScreen',
-    '/invoiceScreen'
-  ];
+class _NavigationRailWidgetState extends ConsumerState<NavigationRailWidget> {
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final routeName = ModalRoute.of(context)!.settings.name;
-    if (routeName == '/proposalScreen') {
-      currentIndex = 0;
-    } else if (routeName == '/orderScreen') {
-      currentIndex = 1;
-    } else if (routeName == '/shipmentScreen') {
-      currentIndex = 2;
-    } else if (routeName == '/invoiceScreen') {
-      currentIndex = 3;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+    // final newValue = ref.refresh(provider);
+
     return NavigationRail(
-      selectedIndex: currentIndex,
+      backgroundColor: Colors.transparent,
+      selectedIndex: widget.screenIndex,
       groupAlignment: 0,
       labelType: NavigationRailLabelType.all,
-      onDestinationSelected: (int index) {
-        setState(() {
-          currentIndex = index;
-        });
-        Navigator.pushNamed(context, _routes[index]);
-      },
+      onDestinationSelected: widget.onItemTap,
       leading: FloatingActionButton(
         elevation: 0,
         onPressed: () {
@@ -126,6 +108,7 @@ class _NavigationRailWidgetState extends State<NavigationRailWidget> {
           icon: SvgPicture.asset('assets/order.svg'),
           selectedIcon: SvgPicture.asset('assets/order.svg'),
           label: const Text('Siparişler'),
+
         ),
         NavigationRailDestination(
           icon: SvgPicture.asset('assets/order.svg'),

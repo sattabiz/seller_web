@@ -1,26 +1,23 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 class BodyHeader extends StatelessWidget {
-  final String bodyHeader;
-  final String status;
-  final String className;
+  final String ?bodyHeader;
+
   const BodyHeader({ 
   Key? key, 
-    required this.bodyHeader, 
-    required this.status, 
-    required this.className
+     this.bodyHeader, 
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context){
     return  Padding(
-    padding: const EdgeInsets.only(
-        bottom: 8.0, top: 8.0, left: 16.0),
-    child: className == 'invoice' && status == 'order_on_the_way'
-    ? AutoSizeText(FlutterI18n.translate(context, "tr.shipment.invoice_no") + bodyHeader)
-    : Text(bodyHeader)
+      padding: const EdgeInsets.only(
+          bottom: 4.0, top: 5.0, left: 16.0),
+      child: Text(
+        bodyHeader ?? '-',
+        style: Theme.of(context).textTheme.titleMedium,
+        maxLines: 1,
+      ),
     );
   }
 }

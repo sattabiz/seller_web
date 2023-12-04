@@ -1,22 +1,25 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class SecureStorageService {
-  final FlutterSecureStorage _storage = FlutterSecureStorage();
+import '../model/web_content_model.dart';
 
-Future<void> saveName(name)async{
-    await _storage.write(key: 'name', value: name);
+
+class CompanyIdStorageLandingService{
+  late final FlutterSecureStorage _preferences;
+
+  CompanyIdStorageLandingService(){
+    _preferences = FlutterSecureStorage();
   }
-  Future<String> getNameData()async{
-    var _key = await _storage.read(key: 'name');
+
+  Future<void> saveCompanyIdData(WebContentModel webContentData)async{
+
+    await _preferences.write(key: 'company_id', value: webContentData.companyId.toString());
+  }
+  Future<String> getCompanyIdData()async{
+    var _key = await _preferences.read(key: 'company_id');
     return _key ?? '';
   }
-
-  Future<void> saveFullName(fullname)async{
-    await _storage.write(key: 'fullname', value: fullname);
+  Future<void> deleteCompanyIdData() async {
+    await _preferences.delete(key: 'company_id');
   }
-  Future<String> getFullNameData()async{
-    var _key = await _storage.read(key: 'fullname');
-    return _key ?? '';
-  }
-
+  
 }

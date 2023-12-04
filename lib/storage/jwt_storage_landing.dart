@@ -12,14 +12,14 @@ class jwtStorageLandingService{
 
   Future<void> saveJwtData(LoginModel loginModel)async{
 
-    await _preferences.write(key: 'jwt', value: loginModel.jwt);
+    await _preferences.write(key: 'jwtLanding', value: loginModel.jwt);
   }
   Future<String> getJwtData()async{
-    var _key = await _preferences.read(key: 'jwt');
+    var _key = await _preferences.read(key: 'jwtLanding');
     return _key ?? '';
   }
   Future<void> deleteJwtData() async {
-    await _preferences.delete(key: 'jwt');
+    await _preferences.delete(key: 'jwtLanding');
   }
   
 }

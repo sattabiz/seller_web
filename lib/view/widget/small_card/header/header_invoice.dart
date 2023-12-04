@@ -6,43 +6,41 @@ import '../../../../utils/widget_helper.dart';
 
 
 class HeaderInvoice extends StatelessWidget {
-  final String id;
   final String status;
   final String headerDate;
   final String className;
   final Widget ?newMessageSvg;
-const HeaderInvoice({ Key? key, required this.id, required this.status, required this.headerDate, this.newMessageSvg, required this.className }) : super(key: key);
+const HeaderInvoice({ Key? key, required this.status, required this.headerDate, this.newMessageSvg, required this.className }) : super(key: key);
 
   @override
   Widget build(BuildContext context){
-        const surfaceDim = Color(0xFFD8DBD8);
     return Container(
-      decoration: const BoxDecoration(
-          color: surfaceDim,
-          borderRadius:  BorderRadius.only(
+      decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondaryContainer,
+          borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10))),
       child: Padding(
-        padding: const EdgeInsets.only(
-            top: 10, right: 15, left: 20, bottom: 10),
+        padding: const EdgeInsets.only(top: 10, right: 15, left: 20, bottom: 5),
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Flexible(  // icon
-                  child: SvgPicture.asset(
-                    statusIconMap[status] ?? '', 
-                    semanticsLabel: 'Order Status Icon',
-                    width: 30.0,
-                    height: 30.0,
-                  ),
+                SvgPicture.asset(
+                  statusIconMap[status] ?? '', 
+                  width: 20.0,
+                  height: 20.0,
+                ),
+                const SizedBox(
+                  width: 15,
                 ),
                 Expanded(
-                    flex: 15,
-                    child: AutoSizeText(    // headerStatus
+                    flex: 8,
+                    child: Text(    // headerStatus
                       FlutterI18n.translate(context, "tr.$className.$status"),
                       style: Theme.of(context).textTheme.titleLarge!,
+                      maxLines: 1,
                     )),
                 Flexible(child: newMessageSvg ?? const SizedBox(width: 1)),
               ],
@@ -54,11 +52,18 @@ const HeaderInvoice({ Key? key, required this.id, required this.status, required
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // headerId
-                Flexible(
-                  child: status == 'invoice_pending'
-                  ? AutoSizeText(FlutterI18n.translate(context, "tr.invoice.invoice_date" ) + headerDate)
-                  :  AutoSizeText(FlutterI18n.translate(context, "tr.order.payment_due_date") + headerDate),
+                Text(
+                  FlutterI18n.translate(context, "tr.invoice.small_card_date.$status" ),
+                  style:Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.w500
+                  ),
                 ),
+                Text(
+                  headerDate,
+                  style: Theme.of(context).textTheme.labelLarge,
+                  maxLines: 1,
+                ),
+                const Spacer(flex: 2),
               ],
             ),
           ],

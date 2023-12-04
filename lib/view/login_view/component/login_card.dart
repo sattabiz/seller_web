@@ -1,91 +1,116 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:go_router/go_router.dart';
+import 'package:seller_point/view/index.dart';
+import '../../../view_model/buyer_invoices_view_model.dart';
 import '../../../view_model/current_user_view_model.dart';
 import '../../../view_model/login_view_model.dart';
+import '../../../view_model/order_list_view_model.dart';
+import '../../../view_model/proposal_view_model.dart';
+import '../../../view_model/shipment_view_model.dart';
+import '../../landing_view/landing_view.dart';
 
 class loginCard extends ConsumerWidget {
   loginCard({Key? key}) : super(key: key);
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    double screenWidth =
-        MediaQuery.of(context).size.width; //for loginCard width
-    double screenHeight =
-        MediaQuery.of(context).size.height; //for loginCard height
-
     return SingleChildScrollView(
-      child: Container(
-        constraints: BoxConstraints(minHeight: 400, minWidth: 500),
-        width: screenWidth * 0.35,
-        height: screenHeight * 0.45,
-        child: Card(
-          color: Theme.of(context).colorScheme.surfaceVariant,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
+      child: Card(
+        color: Theme.of(context).colorScheme.surface,
+        elevation: 4,
+        child: Container(
+          constraints: const BoxConstraints(
+            minHeight: 300,
+            minWidth: 400,
           ),
+          width: 500,
+          height: 380,
           child: Form(
             key: _formKey,
-            child: Column(
+            child: Flex(
+              direction: Axis.vertical,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Flexible(
+                Expanded(
+                  flex: 4,
                   child: Container(
-                    color: Theme.of(context).colorScheme.surface,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          right: 32.0, left: 32, top: 16, bottom: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: AutoSizeText(
-                                FlutterI18n.translate(
-                                    context, "tr.login.log_in"),
-                                minFontSize: 5,
-                                style: Theme.of(context).textTheme.titleLarge!),
-                          ),
-                          Flexible(
-                            child: IconButton(
-                              icon: const Icon(
-                                Icons.close,
-                                size: 30,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                            ),
-                          ),
-                        ],
+                    // height: 50,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondaryContainer,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(16.0),
+                        topRight: Radius.circular(16.0),
                       ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 25.0),
+                          child: Text(
+                            FlutterI18n.translate(context, "tr.login.log_in"),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  color: Theme.of(context).colorScheme.shadow,
+                                ),
+                          ),
+                        ),
+                        IconButton(
+                          padding: const EdgeInsets.only(right: 25.0),
+                          alignment: Alignment.centerRight,
+                          icon: Icon(
+                            Icons.close,
+                            size: 35,
+                            color: Theme.of(context).colorScheme.shadow,
+                          ),
+                          onPressed: () {
+                            context.go('/');
+                          },
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 45,
-                ),
-                Flexible(
+                const Spacer(flex: 2),
+                Expanded(
+                  flex: 5,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 32.0, right: 32.0),
+                    padding: const EdgeInsets.only(left: 25.0, right: 25.0),
                     child: TextFormField(
+                      cursorColor: Theme.of(context).colorScheme.onBackground,
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Theme.of(context).colorScheme.surface,
-                          border: const UnderlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                        filled: true,
+                        fillColor: Theme.of(context)
+                            .colorScheme
+                            .onPrimary
+                            .withOpacity(0.8),
+                        labelText: FlutterI18n.translate(context, "tr.login.e-mail"),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                        ),
+                        floatingLabelStyle:
+                          Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                           ),
-                          labelText:
-                              FlutterI18n.translate(context, "tr.login.e-mail"),
-                          ),
+                        errorStyle:
+                            Theme.of(context).textTheme.bodySmall!.copyWith(
+                                  color: Theme.of(context).colorScheme.error,
+                                ),
+                      ),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
                           return FlutterI18n.translate(
@@ -96,23 +121,28 @@ class loginCard extends ConsumerWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 45,
-                ),
-                Flexible(
+                Expanded(
+                  flex: 5,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 32.0, right: 32.0),
+                    padding: const EdgeInsets.only(left: 25.0, right: 25.0),
                     child: TextFormField(
+                      cursorColor: Theme.of(context).colorScheme.onBackground,
                       controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Theme.of(context).colorScheme.surface,
-                        border: const UnderlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                        fillColor: Theme.of(context)
+                            .colorScheme
+                            .onPrimary
+                            .withOpacity(0.8),
+                        labelText: FlutterI18n.translate(context, "tr.login.password"),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
                         ),
-                        labelText:
-                            FlutterI18n.translate(context, "tr.login.password"),
+                        floatingLabelStyle:
+                          Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
                       ),
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
@@ -131,18 +161,27 @@ class loginCard extends ConsumerWidget {
                                     password: _passwordController.text);
                             final loginState =
                                 ref.watch(loginViewModelProvider);
+
                             if (loginState == LoginState.success) {
+                              ref.refresh(getCurrentUserInfoProvider);
+                              ref.refresh(getInvoicesProvider);
+                              ref.refresh(getProposalListProvider);
+                              ref.refresh(getOrderListProvider);
+                              ref.refresh(shipmentProvider);
+                              await ref.read(getCurrentUserInfoProvider);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                    content: Text(FlutterI18n.translate(
-                                        context, "tr.login.login_success"))),
+                                  content: Text(FlutterI18n.translate(
+                                      context, "tr.login.login_success")),
+                                ),
                               );
-                              Navigator.pushNamed(context, '/orderScreen');
+                              context.go('/index');
                             } else if (loginState == LoginState.failure) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                    content: Text(FlutterI18n.translate(
-                                        context, "tr.login.login_fail"))),
+                                  content: Text(FlutterI18n.translate(
+                                      context, "tr.login.login_fail")),
+                                ),
                               );
                             }
                           } catch (e) {
@@ -153,28 +192,28 @@ class loginCard extends ConsumerWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 45,
-                ),
                 InkWell(
                   onTap: () => _dialogBuilder(context),
                   child: Text(
                     FlutterI18n.translate(context, "tr.login.forget_password"),
-                    style: const TextStyle(
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline,
-                    ),
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: Theme.of(context).colorScheme.outline,
+                          decoration: TextDecoration.underline,
+                          decorationColor:
+                              Theme.of(context).colorScheme.outline,
+                        ),
                   ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  width: 200,
+                Container(
+                  margin: const EdgeInsets.only(bottom: 10.0),
+                  width: 150,
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
@@ -185,15 +224,18 @@ class loginCard extends ConsumerWidget {
                           final loginState = ref.read(loginViewModelProvider);
 
                           if (loginState == LoginState.success) {
-                            final currentUserInfo = ref.read(getCurrentUserInfoProvider);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                   content: Text(FlutterI18n.translate(
                                       context, "tr.login.login_success"))),
                             );
-                            final currentUserAsyncValue =
-                                ref.watch(getCurrentUserInfoProvider);
-                            await Navigator.pushNamed(context, '/orderScreen');
+                            ref.refresh(getCurrentUserInfoProvider);
+                            ref.refresh(getInvoicesProvider);
+                            ref.refresh(getProposalListProvider);
+                            ref.refresh(getOrderListProvider);
+                            ref.refresh(shipmentProvider);
+                            await ref.read(getCurrentUserInfoProvider);
+                            context.go('/index');
                           } else if (loginState == LoginState.failure) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -214,7 +256,9 @@ class loginCard extends ConsumerWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 40,)
+                const SizedBox(
+                  height: 20,
+                )
               ],
             ),
           ),
@@ -229,24 +273,21 @@ class loginCard extends ConsumerWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Şifremi unuttum'),
-          content: Container(
+          title: Text(FlutterI18n.translate(context, "tr.login.new_password")),
+          content: SizedBox(
             width: 500,
             child: TextFormField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                filled: true,
-                fillColor: Theme.of(context).colorScheme.surface,
-                border: const UnderlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                labelText: 'E-posta',
-                hintText: 'ornek@eposta.com',
+                labelText: FlutterI18n.translate(context, "tr.login.e-mail"),
+                hintText:
+                    FlutterI18n.translate(context, "tr.login.hint_text_email"),
               ),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
-                  return 'Lütfen Email Adresi giriniz.';
+                  return FlutterI18n.translate(
+                      context, "tr.login.email_validation");
                 }
                 return null;
               },
@@ -254,16 +295,16 @@ class loginCard extends ConsumerWidget {
           ),
           actions: <Widget>[
             Center(
-              child: Container(
+              child: SizedBox(
                 width: 150,
                 height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
                   onPressed: () {},
                   child: Text(
-                    'Gönder',
+                    FlutterI18n.translate(context, "tr.login.send"),
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           color: Theme.of(context).colorScheme.onPrimary,
                         ),
