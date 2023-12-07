@@ -1,5 +1,5 @@
 class ApiUrls{
-  static const String baseUrl = String.fromEnvironment('API_URL', defaultValue: 'http://localhost:8001/api/v1');
+  static const String baseUrl = String.fromEnvironment('API_URL', defaultValue: 'https://test.satta.biz/api/v1');
   static const String login = "$baseUrl/login.json";
   static const String logout = "$baseUrl/logout.json";
   static String proposal(String supplierId) {
@@ -17,6 +17,7 @@ class ApiUrls{
     return "$baseUrl/list_messages.json?$id";
   }
   static const String createMessage = "$baseUrl/post_message.json";
+  static const String forgotPassword = "$baseUrl/forgot_password.json";
   static const String favoriteList = "$baseUrl/list_favorite_list.json";
   static const String userInfo = "$baseUrl/current_user_info.json";
   static const String createProposal = "$baseUrl/demand_proposal_sp.json";
