@@ -127,9 +127,8 @@ Widget showProductsProposalFiles(Map productsProposalFiles) {
       padding: EdgeInsets.zero,
       icon: const Icon(Icons.image_outlined),
       onPressed: () {
-        js.context.callMethod('open', [
-          productsProposalFiles.values.first.toString()
-        ]);
+        js.context.callMethod(
+            'open', [productsProposalFiles.values.first.toString()]);
       },
     );
   } else {
@@ -210,6 +209,7 @@ Map<String, String> calculateTaxRate(List<dynamic> productList) {
   String currencyCode = "empty";
 
   for (var product in productList) {
+    debugPrint("${total.toString()}, ${taxRate.toString()}, ${totalWithoutTax.toString()}, ${totalPrice.toString()}");
     total = (product.price ?? 1) *
         product.amount; //calculate total price only one product
     totalWithoutTax += total; //calculate total price without tax
@@ -231,16 +231,19 @@ Map<String, String> calculateTaxRate(List<dynamic> productList) {
     totalPrice += value; //calculate total price with tax
   });
 
-  taxRateMap["totalWithoutTax"] = totalWithoutTax; //calculate total price without tax
-  taxRateMap["total"] = totalPrice + totalWithoutTax; //calculate total price with tax
- 
-  getTotalCost["Toplam Tutar:"] = '${taxRateMap["totalWithoutTax"].toString()} ${getCurrencySymbol(currencyCode)}';
-  for ( var product in productList) {
-    getTotalCost["KDV(%${product.taxRate}):"] = '${taxRateMap[product.taxRate.toString()].toString()} ${getCurrencySymbol(currencyCode)}';
+  taxRateMap["totalWithoutTax"] =
+      totalWithoutTax; //calculate total price without tax
+  taxRateMap["total"] =
+      totalPrice + totalWithoutTax; //calculate total price with tax
+
+  getTotalCost["Toplam Tutar:"] =
+      '${taxRateMap["totalWithoutTax"].toString()} ${getCurrencySymbol(currencyCode)}';
+  for (var product in productList) {
+    getTotalCost["KDV(%${product.taxRate}):"] =
+        '${taxRateMap[product.taxRate.toString()].toString()} ${getCurrencySymbol(currencyCode)}';
   }
-  getTotalCost["Toplam:"] = '${taxRateMap["total"].toString()} ${getCurrencySymbol(currencyCode)}';
+  getTotalCost["Toplam:"] =
+      '${taxRateMap["total"].toString()} ${getCurrencySymbol(currencyCode)}';
 
   return getTotalCost;
 }
-
-

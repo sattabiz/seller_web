@@ -97,7 +97,16 @@ class InfoBox extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Flexible(child: CountdownDate(headerDate: row2!)),
+                  Flexible(
+                    child: className == 'proposal'
+                    ? CountdownDate(headerDate: row2!)
+                    : Text(
+                        row2 == null ? '-' : row2!,
+                        style: Theme.of(context).textTheme.bodySmall,
+                        textDirection: TextDirection.ltr,
+                        maxLines: 1,
+                      ),
+                  ),
                 ],
               ),
             ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
+import '../../../../utils/widget_helper.dart';
+
 
 class SmallCardTable extends StatelessWidget {
   final String id;
@@ -73,7 +75,7 @@ class SmallCardTable extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Text(
-                  '${bodyList[i].amount} adet',
+                  '${bodyList[i].amount} ${bodyList[i].unit}',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
@@ -85,7 +87,7 @@ class SmallCardTable extends StatelessWidget {
               : Padding(
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Text(
-                  '${bodyList[i].price} ₺',
+                  '${bodyList[i].price} ${getCurrencySymbol(bodyList[i].currencyCode)}',
                   style: Theme.of(context).textTheme.bodyMedium,
                   maxLines: 1,
                 ),
