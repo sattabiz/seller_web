@@ -200,8 +200,8 @@ String getCurrencySymbol(String currencyCode) {
 Map<String, String> calculateTaxRate(List<dynamic> productList) {
   Map<String, double> taxRateMap = {};
   Map<String, String> getTotalCost = {};
-  late double total;
-  late double taxRate;
+  double? total;
+  double taxRate = 0.0;
   late double totalWithoutTax;
   late double totalPrice;
   totalPrice = 0.0;
@@ -209,11 +209,11 @@ Map<String, String> calculateTaxRate(List<dynamic> productList) {
   String currencyCode = "empty";
 
   for (var product in productList) {
-    debugPrint("${total.toString()}, ${taxRate.toString()}, ${totalWithoutTax.toString()}, ${totalPrice.toString()}");
     total = (product.price ?? 1) *
         product.amount; //calculate total price only one product
-    totalWithoutTax += total; //calculate total price without tax
-    taxRate = product.taxRate;
+    totalWithoutTax += total!; //calculate total price without tax
+    taxRate = product.taxRate ?? 0.0;
+    debugPrint("${total.toString()}, ${taxRate.toString()}, ${totalWithoutTax.toString()}, ${totalPrice.toString()}");
 
     if (product.currencyCode != null && currencyCode == "empty") {
       currencyCode = product.currencyCode.toString();
