@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import '../create_proposal_view/create_proposal_view.dart';
 import '../favorite_list_view/navigation_rail_favorite.dart';
 import '../favorite_list_view/navigation_rail_favorite_content.dart';
@@ -88,6 +88,87 @@ class DrawerHeaderButtonState extends State<DrawerHeaderButton> {
                       });
                   break;
               }
+            });
+          },
+          child: Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+            width: MediaQuery.of(context).size.width > 1500
+                ? MediaQuery.of(context).size.width * 0.13
+                : MediaQuery.of(context).size.width * 0.6,
+            height: MediaQuery.of(context).size.width > 800
+                ? MediaQuery.of(context).size.height * 0.080
+                : MediaQuery.of(context).size.height * 0.2,
+            child: Card(
+              color: Theme.of(context).colorScheme.primary,
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                        child: Icon(
+                      Icons.add,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      size: 24,
+                    )),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Flexible(
+                      child: Text(
+                        'Yeni Teklif İsteği',
+                        maxLines: 1,
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }),
+    );
+  }
+}
+ */
+
+import 'package:flutter/material.dart';
+import '../create_proposal_view/create_proposal_view.dart';
+
+enum SampleItem { itemOne, itemTwo }
+
+class DrawerHeaderButton extends StatefulWidget {
+  const DrawerHeaderButton({super.key});
+
+  @override
+  DrawerHeaderButtonState createState() => DrawerHeaderButtonState();
+}
+
+class DrawerHeaderButtonState extends State<DrawerHeaderButton> {
+  SampleItem? selectedMenu;
+  TextEditingController dateInput1 = TextEditingController();
+  TextEditingController dateInput2 = TextEditingController();
+  int? _selectedDay;
+  @override
+  void initState() {
+    dateInput1.text = ""; //set the initial value of text field for termin
+    dateInput2.text =
+        ""; //set the initial value of text field for son teklif verme suresi
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Builder(builder: (BuildContext context) {
+        return InkWell(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+              return const createProposalView();
             });
           },
           child: Container(
