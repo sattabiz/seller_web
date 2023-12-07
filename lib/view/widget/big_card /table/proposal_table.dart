@@ -140,7 +140,7 @@ class ProposalTable extends StatelessWidget {
                     ),
                   )), //propsal_note
                   DataCell(Text(
-                    '${item.amount} ' ' ${item.productUnit}',
+                    '${item.amount} ' ' ${item.unit}',
                     textDirection: TextDirection.ltr,
                     textAlign: TextAlign.end,
                     maxLines: 1,
