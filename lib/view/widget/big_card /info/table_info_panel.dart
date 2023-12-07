@@ -16,7 +16,6 @@ class TableInfoPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(productList.toString());
     List<Widget> keys = calculateTaxRate(productList)
         .entries
         .map((entry) => Container(

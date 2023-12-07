@@ -213,7 +213,6 @@ Map<String, String> calculateTaxRate(List<dynamic> productList) {
         product.amount; //calculate total price only one product
     totalWithoutTax += total!; //calculate total price without tax
     taxRate = product.taxRate ?? 0.0;
-    debugPrint("${total.toString()}, ${taxRate.toString()}, ${totalWithoutTax.toString()}, ${totalPrice.toString()}");
 
     if (product.currencyCode != null && currencyCode == "empty") {
       currencyCode = product.currencyCode.toString();
