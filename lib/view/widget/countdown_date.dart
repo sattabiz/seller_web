@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
@@ -15,39 +17,52 @@ class CountdownDate extends StatefulWidget {
 }
 
 class _CountdownDateState extends State<CountdownDate> {
+  late DateTime parsedDate;
+  Duration? remainingTime;
+  Timer? timer;
 
-  String formatTime(int time) {
-    return time.toString().padLeft(2, '0');
+  @override
+  void initState() {
+    super.initState();
+
+    parsedDate = DateTime.parse(widget.headerDate);
+
+    calculateRemainingTime();
+
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      calculateRemainingTime();
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+
+  void calculateRemainingTime() {
+    DateTime now = DateTime.now();
+    if (now.isBefore(parsedDate)) {
+      remainingTime = parsedDate.difference(now);
+
+      //for update counter
+      setState(() {});
+    } else {
+      remainingTime = Duration.zero;
+      //if time is up, cancel timer
+      timer?.cancel();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    DateTime parsedDate = DateTime.parse(widget.headerDate);
-    Duration formattedDate = parsedDate.difference(DateTime.now());
-    return Countdown(
-      seconds: formattedDate.inSeconds,
-      build: (_, double time) {
-        int timeInt = time.toInt();
-        final int days = timeInt ~/ (24 * 3600);
-        timeInt = timeInt % (24 * 3600);
-        final int hours = timeInt ~/ 3600;
-        timeInt %= 3600;
-        final int minutes = timeInt ~/ 60;
-        final int seconds = timeInt % 60;
+    String remainingTimeString =
+        "${remainingTime?.inDays} G ${remainingTime?.inHours.remainder(24).toString().padLeft(2, '0')}:${remainingTime?.inMinutes.remainder(60).toString().padLeft(2, '0')}:${remainingTime?.inSeconds.remainder(60).toString().padLeft(2, '0')}";
 
-        String formattedHours = formatTime(hours);
-        String formattedMinutes = formatTime(minutes);
-        String formattedSeconds = formatTime(seconds);
-
-        return Text(
-          "$days G $formattedHours:$formattedMinutes:$formattedSeconds",
-          style: Theme.of(context).textTheme.bodySmall,
-        );
-      },
-      interval: Duration(seconds: 1),
-      onFinished: () {
-        print('Zaman doldu!');
-      },
+    return Text(
+      remainingTimeString,
+      style: const TextStyle(color: Colors.black, fontSize: 12),
     );
   }
 }

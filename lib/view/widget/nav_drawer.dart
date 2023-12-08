@@ -82,13 +82,6 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
                   ),
                 ),
               ),
-              Text(
-                '24',
-                textAlign: TextAlign.right,
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
-              ),
             ],
           ),
         ),
@@ -112,13 +105,6 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
                     color: Theme.of(context).colorScheme.onPrimaryContainer,
                   ),
-                ),
-              ),
-              Text(
-                '24',
-                textAlign: TextAlign.right,
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),
               ),
             ],
@@ -146,13 +132,6 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
                   ),
                 ),
               ),
-              Text(
-                '24',
-                textAlign: TextAlign.right,
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
-              ),
             ],
           ),
         ),
@@ -178,13 +157,13 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
                   ),
                 ),
               ),
-              Text(
-                '24',
-                textAlign: TextAlign.right,
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
-              ),
+              // Text(
+              //   '24',
+              //   textAlign: TextAlign.right,
+              //   style: Theme.of(context).textTheme.labelMedium!.copyWith(
+              //     color: Theme.of(context).colorScheme.onPrimaryContainer,
+              //   ),
+              // ),
             ],
           ),
         ),

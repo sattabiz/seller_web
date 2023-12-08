@@ -119,7 +119,7 @@ class ProductProposal {
   int? productProposalId;
   String? productName;
   String? productCategory;
-  String? productUnit;
+  String? unit;
   String? productErpId;
   String? erpId;
   int? companyProductId;
@@ -142,7 +142,7 @@ class ProductProposal {
     this.productProposalId,
     this.productName,
     this.productCategory,
-    this.productUnit,
+    this.unit,
     this.productErpId,
     this.erpId,
     this.companyProductId,
@@ -177,7 +177,7 @@ class ProductProposal {
       productProposalId: json["product_proposal_id"],
       productName: json["product_name"],
       productCategory: json["product_category"],
-      productUnit: json["product_unit"],
+      unit: json["product_unit"],
       productErpId: json["product_erp_id"],
       erpId: json["erp_id"],
       companyProductId: json["company_product_id"],
@@ -205,7 +205,7 @@ class ProductProposal {
       "product_proposal_id": productProposalId,
       "product_name": productName,
       "product_category": productCategory,
-      "product_unit": productUnit,
+      "product_unit": unit,
       "product_erp_id": productErpId,
       "erp_id": erpId,
       "company_product_id": companyProductId,

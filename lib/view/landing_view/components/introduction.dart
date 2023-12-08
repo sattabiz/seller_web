@@ -48,7 +48,7 @@ class Introduction extends StatelessWidget {
           const Spacer(flex: 1),
           const LogInButton(),
           const SizedBox(height: 12),
-          const SignIn(),
+          // const SignIn(),
           const Spacer(flex: 1),        
         ],
       ),
@@ -98,30 +98,30 @@ class LogInButton extends StatelessWidget {
   }
 }
 
-class SignIn extends StatelessWidget {
-  const SignIn ({super.key});
+// class SignIn extends StatelessWidget {
+//   const SignIn ({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    const Color surfaceContainer = Color(0xFFECEEEB);
-    return TextButton(
-      style: TextButton.styleFrom(
-        splashFactory: NoSplash.splashFactory,
-        foregroundColor: surfaceContainer,
-      ),
-      onPressed: () {},
-      child:  Text(
-        FlutterI18n.translate(context, "tr.login.sign_in"), 
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onPrimary,
-          fontSize: 20,
-          fontWeight: FontWeight.w500,
-          decoration: TextDecoration.underline,
-          decorationColor: Theme.of(context).colorScheme.onPrimary,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     const Color surfaceContainer = Color(0xFFECEEEB);
+//     return TextButton(
+//       style: TextButton.styleFrom(
+//         splashFactory: NoSplash.splashFactory,
+//         foregroundColor: surfaceContainer,
+//       ),
+//       onPressed: () {},
+//       child:  Text(
+//         FlutterI18n.translate(context, "tr.login.sign_in"), 
+//         style: TextStyle(
+//           color: Theme.of(context).colorScheme.onPrimary,
+//           fontSize: 20,
+//           fontWeight: FontWeight.w500,
+//           decoration: TextDecoration.underline,
+//           decorationColor: Theme.of(context).colorScheme.onPrimary,
+//         ),
+//         textAlign: TextAlign.center,
+//       ),
+//     );
+//   }
+// }
 

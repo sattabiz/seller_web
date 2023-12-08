@@ -14,7 +14,8 @@ class createProposalView extends ConsumerWidget {
     double screenWidth =
         MediaQuery.of(context).size.width / 1250; //change function
     return AlertDialog(
-      actionsAlignment: MainAxisAlignment.center,
+      actionsAlignment: MainAxisAlignment.start,
+      actionsPadding: const EdgeInsets.only(left: 40.0, bottom: 20.0),
       titlePadding: const EdgeInsets.all(0),
       title: Container(
         alignment: Alignment.center,
@@ -79,29 +80,29 @@ class createProposalView extends ConsumerWidget {
           ),
         ),
       ),
-      actions: [
-        const CreateProposalButton(),
-        Container(
-          width: 600,
-          constraints: BoxConstraints(
-              maxWidth: screenWidth * 550, minWidth: screenWidth * 330),
-        ),
-        // const Spacer(flex: 3),
-        ElevatedButton(
-          style: ButtonStyle(
-            fixedSize: MaterialStateProperty.all(const Size(200, 40)),
-            backgroundColor: MaterialStateProperty.all(
-                Theme.of(context).colorScheme.primaryContainer),
-          ),
-          onPressed: () {
-            final formItems = ref.read(formItemProvider.notifier).state;
-          },
-          child: Text(
-              FlutterI18n.translate(context, 'tr.proposal.save_list_btn'),
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  )),
-        )
+      actions: const [
+         CreateProposalButton(),
+        // Container(
+        //   width: 600,
+        //   constraints: BoxConstraints(
+        //       maxWidth: screenWidth * 550, minWidth: screenWidth * 330),
+        // ),
+        // // const Spacer(flex: 3),
+        // ElevatedButton(
+        //   style: ButtonStyle(
+        //     fixedSize: MaterialStateProperty.all(const Size(200, 40)),
+        //     backgroundColor: MaterialStateProperty.all(
+        //         Theme.of(context).colorScheme.primaryContainer),
+        //   ),
+        //   onPressed: () {
+        //     final formItems = ref.read(formItemProvider.notifier).state;
+        //   },
+        //   child: Text(
+        //       FlutterI18n.translate(context, 'tr.proposal.save_list_btn'),
+        //       style: Theme.of(context).textTheme.labelLarge!.copyWith(
+        //             color: Theme.of(context).colorScheme.onSecondaryContainer,
+        //           )),
+        // )
       ],
     );
   }

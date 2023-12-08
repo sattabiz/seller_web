@@ -79,18 +79,6 @@ class LandingView extends ConsumerWidget {
                       }
                     }
                 ),
-                  // child: Column(
-                  //   crossAxisAlignment: CrossAxisAlignment.center,
-                  //   children: [
-                  //     for (int i = 0; contentList.products!.length > i ; i++ )                      
-                  //       Products(
-                  //         sectionIndex: 1,
-                  //         title: contentList.products![i].title ?? " ",
-                  //         productDetails: contentList.products![i].productDetails,
-                  //         productImage: contentList.products![i].productImage,
-                  //       ),
-                  //   ],
-                  // ),
                 ),
                 AutoScrollTag(
                   key: const ValueKey(2),

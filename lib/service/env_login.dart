@@ -10,9 +10,9 @@ class LandingPageService {
   final Dio _dio = Dio(); // Singleton instance
   final jwtStorageLandingService _jwtStorage;
   static const _defaultUser =
-      String.fromEnvironment('USERNAME', defaultValue: 'defaultuser');
+      String.fromEnvironment('USERNAME', defaultValue: 'sattadestekpaletpoint@satta.biz');
   static const _defaultPass =
-      String.fromEnvironment('PASSWORD', defaultValue: 'defaultpass');
+      String.fromEnvironment('PASSWORD', defaultValue: 'paletpoint');
 
   LandingPageService() : _jwtStorage = jwtStorageLandingService();
 

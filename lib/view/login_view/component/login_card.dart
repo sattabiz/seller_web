@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:seller_point/view/index.dart';
 import '../../../view_model/buyer_invoices_view_model.dart';
 import '../../../view_model/current_user_view_model.dart';
+import '../../../view_model/forgot_password_view_model.dart';
 import '../../../view_model/login_view_model.dart';
 import '../../../view_model/order_list_view_model.dart';
 import '../../../view_model/proposal_view_model.dart';
 import '../../../view_model/shipment_view_model.dart';
-import '../../landing_view/landing_view.dart';
 
 class loginCard extends ConsumerWidget {
   loginCard({Key? key}) : super(key: key);
@@ -193,7 +192,7 @@ class loginCard extends ConsumerWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () => _dialogBuilder(context),
+                  onTap: () => _dialogBuilder(context, ref),
                   child: Text(
                     FlutterI18n.translate(context, "tr.login.forget_password"),
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -267,7 +266,7 @@ class loginCard extends ConsumerWidget {
     );
   }
 
-  Future<void> _dialogBuilder(BuildContext context) {
+  Future<void> _dialogBuilder(BuildContext context, WidgetRef ref) {
     TextEditingController _emailController = TextEditingController();
     return showDialog<void>(
       context: context,
@@ -302,7 +301,15 @@ class loginCard extends ConsumerWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
-                  onPressed: () {},
+                  onPressed: () async{
+                    await ref.read(forgotPasswordProvider.notifier).forgotPassword(email: _emailController.text);
+                    final responseData = ref.watch(forgotPasswordProvider);
+                    if(responseData["status"]== 200){
+                      Navigator.pop(context);
+                    }else{
+                       const SnackBar(content: Text("Email yanlis"), duration: Duration(seconds: 2),backgroundColor: Colors.black,);
+                    }
+                  },
                   child: Text(
                     FlutterI18n.translate(context, "tr.login.send"),
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
