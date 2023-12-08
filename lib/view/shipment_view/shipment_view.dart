@@ -70,7 +70,7 @@ class ShipmentView extends ConsumerWidget {
                             id: getOrderIdFromShipmentProductList(shipmentList[index].products),
                             status: shipmentList[index].state.toString(),
                             headerDate: formattedDate(shipmentList[index].shipmentDate.toString()), 
-                            newMessageSvg: newMessageSvg,
+                            newMessageSvg: newMessageSvg(shipmentList[index].notification!, shipmentList[index].messageNotification!),
                           ),
                           bodyHeader:
                           checkShipmentState(shipmentList[index].state.toString())

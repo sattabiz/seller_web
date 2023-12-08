@@ -19,29 +19,32 @@ class GetProposalModel {
   String? paymentType;
   int updateCounter;
   String demandListName;
+  bool? notification;
+  bool? messageNotification;
   List<ProductProposal>? productProposals;
 
-  GetProposalModel({
-    this.proposalId,
-    this.demandlistId,
-    this.proposalCreatedAt,
-    this.proposalUpdatedAt,
-    this.proposalState,
-    this.proposalValidPeriod,
-    this.proposalDeliveryTime,
-    this.proposalValidDate,
-    this.includeShipmentCost,
-    this.paymentDueDate,
-    this.deliveryDate,
-    this.supplierCompany,
-    this.supplierErpId,
-    this.supplierCompanyId,
-    this.supervisor,
-    this.paymentType,
-    this.productProposals,
-    required this.updateCounter,
-    required this.demandListName
-  });
+  GetProposalModel(
+      {this.proposalId,
+      this.demandlistId,
+      this.proposalCreatedAt,
+      this.proposalUpdatedAt,
+      this.proposalState,
+      this.proposalValidPeriod,
+      this.proposalDeliveryTime,
+      this.proposalValidDate,
+      this.includeShipmentCost,
+      this.paymentDueDate,
+      this.deliveryDate,
+      this.supplierCompany,
+      this.supplierErpId,
+      this.supplierCompanyId,
+      this.supervisor,
+      this.paymentType,
+      this.notification,
+      this.messageNotification,
+      this.productProposals,
+      required this.updateCounter,
+      required this.demandListName});
 
   @override
   String toString() {
@@ -81,10 +84,12 @@ class GetProposalModel {
       paymentType: json["payment_type"],
       updateCounter: json["update_counter"],
       demandListName: json["demand_list_name"],
+      notification: json["notification"],
+      messageNotification: json["message_notification"],
       productProposals: json["product_proposals"] == null
           ? null
-          : List<ProductProposal>.from(json["product_proposals"]
-              .map((x) => ProductProposal.fromMap(x))),
+          : List<ProductProposal>.from(
+              json["product_proposals"].map((x) => ProductProposal.fromMap(x))),
     );
   }
 
@@ -138,29 +143,28 @@ class ProductProposal {
   Map? productFiles;
   Map? productsProposalFiles;
 
-  ProductProposal({
-    this.productProposalId,
-    this.productName,
-    this.productCategory,
-    this.unit,
-    this.productErpId,
-    this.erpId,
-    this.companyProductId,
-    this.updatedAt,
-    this.price,
-    this.url,
-    this.description,
-    this.productId,
-    this.status,
-    this.updateCount,
-    this.equivalentId,
-    this.proposalNote,
-    this.taxRate,
-    this.currencyCode,
-    this.amount,
-    this.productFiles,
-    this.productsProposalFiles
-  });
+  ProductProposal(
+      {this.productProposalId,
+      this.productName,
+      this.productCategory,
+      this.unit,
+      this.productErpId,
+      this.erpId,
+      this.companyProductId,
+      this.updatedAt,
+      this.price,
+      this.url,
+      this.description,
+      this.productId,
+      this.status,
+      this.updateCount,
+      this.equivalentId,
+      this.proposalNote,
+      this.taxRate,
+      this.currencyCode,
+      this.amount,
+      this.productFiles,
+      this.productsProposalFiles});
 
   @override
   String toString() {
@@ -174,30 +178,29 @@ class ProductProposal {
 
   factory ProductProposal.fromMap(Map<String, dynamic> json) {
     return ProductProposal(
-      productProposalId: json["product_proposal_id"],
-      productName: json["product_name"],
-      productCategory: json["product_category"],
-      unit: json["product_unit"],
-      productErpId: json["product_erp_id"],
-      erpId: json["erp_id"],
-      companyProductId: json["company_product_id"],
-      updatedAt: json["updated_at"] == null
-          ? null
-          : DateTime.parse(json["updated_at"]),
-      price: json["price"],
-      url: json["url"],
-      description: json["description"],
-      productId: json["product_id"],
-      status: json["status"],
-      updateCount: json["update_count"],
-      equivalentId: json["equivalent_id"],
-      proposalNote: json["proposal_note"],
-      taxRate: json["tax_rate"],
-      currencyCode: json["currency_code"],
-      amount: json["amount"],
-      productFiles: json["product_files"],
-      productsProposalFiles: json['products_proposal_files']      
-      );
+        productProposalId: json["product_proposal_id"],
+        productName: json["product_name"],
+        productCategory: json["product_category"],
+        unit: json["product_unit"],
+        productErpId: json["product_erp_id"],
+        erpId: json["erp_id"],
+        companyProductId: json["company_product_id"],
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        price: json["price"],
+        url: json["url"],
+        description: json["description"],
+        productId: json["product_id"],
+        status: json["status"],
+        updateCount: json["update_count"],
+        equivalentId: json["equivalent_id"],
+        proposalNote: json["proposal_note"],
+        taxRate: json["tax_rate"],
+        currencyCode: json["currency_code"],
+        amount: json["amount"],
+        productFiles: json["product_files"],
+        productsProposalFiles: json['products_proposal_files']);
   }
 
   Map<String, dynamic> toMap() {
@@ -224,4 +227,3 @@ class ProductProposal {
     };
   }
 }
-

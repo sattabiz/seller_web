@@ -23,13 +23,6 @@ final idProvider = StateProvider<String?>((ref) => '');   //for all post service
 final messageIdProvider = StateProvider<String?>((ref) => '')  ;
 final createMessageMapProvider = StateProvider<Map?>((ref) => {})  ;
 
-
-final Widget newMessageSvg = SvgPicture.asset(
-  'assets/newMessage.svg',
-  width: 22.0,
-  height: 20.0,
-);
-
 class SmallCard extends ConsumerWidget {
   final String className;
   final String id;

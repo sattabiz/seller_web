@@ -15,6 +15,8 @@ class GetInvoicesModel {
     String? totalTlPrice;
     String? sellerName;
     String ?sellerErpId;
+    bool? notification;
+    bool? messageNotification;
     List<Product>? products;
     GetInvoicesModel({
         this.invoiceId,
@@ -30,6 +32,8 @@ class GetInvoicesModel {
         this.totalTlPrice,
         this.sellerName,
         this.sellerErpId,
+        this.notification,
+        this.messageNotification,
         this.products,
     });
 
@@ -51,6 +55,8 @@ class GetInvoicesModel {
         totalTlPrice: json["total_tl_price"],
         sellerName: json["seller_name"],
         sellerErpId: json["seller_erp_id"],
+        notification: json["notification"],
+        messageNotification: json["message_notification"],
         products: json["products"] == null ? [] : List<Product>.from(json["products"]!.map((x) => Product.fromMap(x))),
     );
 
