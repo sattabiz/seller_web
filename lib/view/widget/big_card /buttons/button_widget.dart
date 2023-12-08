@@ -35,7 +35,7 @@ class ButtonWidget extends StatelessWidget {
 
           const SizedBox(width: 10.0),
 
-          const RejectButton(),
+          // const RejectButton(),
         ],
       ),
     );

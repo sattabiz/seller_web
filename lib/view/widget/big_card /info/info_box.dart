@@ -74,7 +74,7 @@ class InfoBox extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: Text(
-                      row1!,
+                      row1! == "null" ? '-' : row1!,
                       style: Theme.of(context).textTheme.bodySmall,
                       textDirection: TextDirection.ltr,
                       maxLines: 1,
@@ -101,7 +101,7 @@ class InfoBox extends StatelessWidget {
                     child: className == 'proposal'
                     ? CountdownDate(headerDate: row2!)
                     : Text(
-                        row2 == null ? '-' : row2!,
+                        row2 == "null" ? '-' : row2!,
                         style: Theme.of(context).textTheme.bodySmall,
                         textDirection: TextDirection.ltr,
                         maxLines: 1,
@@ -127,8 +127,8 @@ class InfoBox extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 2,
-                    child: AutoSizeText(
-                      '-',
+                    child: Text(
+                      row3 == "null" ? '-' : row3!,
                       style: Theme.of(context).textTheme.bodySmall,
                       textDirection: TextDirection.ltr,
                       maxLines: 1,
