@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seller_point/view/index.dart';
 import 'package:seller_point/view/widget/big_card%20/responsive/resposive_bigcard.dart';
+import '../../../../model/get_current_user_info_model.dart';
 import '../../../../utils/widget_helper.dart';
 import '../../../../view_model/create_message_view_model.dart';
 import '../../../../view_model/get_message_view_model.dart';
@@ -43,6 +44,7 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    //  CurrentUserInfoModel userInfo = ref.watch(userIdProvider);
     // ref.watch(webSocketProvider);
     final liveChats = ref.watch(liveChatProvider).reversed.toList();
     return Column(

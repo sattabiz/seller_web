@@ -59,7 +59,7 @@ class InvoiceView extends ConsumerWidget {
                           headerSmallCard: HeaderInvoice(
                             status: invoiceList[index].state.toString(),
                             headerDate: invoiceSmallCardHeaderDate(invoiceList[index].state.toString(), invoiceList[index].paymentDate.toString(), invoiceList[index].invoiceDate.toString()),
-                            newMessageSvg: newMessageSvg, 
+                            newMessageSvg: newMessageSvg(invoiceList[index].notification!, invoiceList[index].messageNotification!),  
                             className: className
                           ),
 

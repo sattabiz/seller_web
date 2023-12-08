@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:js' as js;
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 Map<String, String> statusIconMap = {
   'pending': 'assets/proposal_pending.svg',
@@ -49,6 +50,26 @@ String formattedTime(String date) {
   }
 }
 
+Widget newMessageSvg(bool notification, bool messageNotification) {
+  return Row(
+    children: [
+      notification
+      ? SvgPicture.asset(
+          'assets/alert-error.svg',
+          width: 22.0,
+          height: 20.0,
+        )
+      : const SizedBox(width: 1),
+      messageNotification
+      ? SvgPicture.asset(
+        'assets/newMessage.svg',
+        width: 22.0,
+        height: 20.0,
+      )
+      : const SizedBox(width: 1),
+    ],
+  );
+} 
 // calculate amount for big card table
 String calcuteAmount(String amount, String price) {
   return (double.parse(amount) * double.parse(price)).toString();

@@ -61,7 +61,7 @@ class OrderView extends ConsumerWidget {
                               status: orderList[index].state.toString(),
                               headerDate: formattedDate(
                                   orderList[index].orderDate.toString()),
-                              newMessageSvg: newMessageSvg,
+                              newMessageSvg: newMessageSvg(orderList[index].notification!, orderList[index].messageNotification!), 
                               className: className),
                           bodyHeader: BodyHeader(
                             bodyHeader: orderList[index].demandName.toString(),

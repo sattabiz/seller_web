@@ -61,7 +61,7 @@ class ProposalView extends ConsumerWidget {
                             id: proposalList[index].proposalId.toString(),
                             status: proposalList[index].proposalState.toString(),
                             headerDate: proposalList[index].proposalValidDate.toString(),
-                            newMessageSvg: newMessageSvg, 
+                            newMessageSvg: newMessageSvg(proposalList[index].notification!, proposalList[index].messageNotification!), 
                             className: className
                           ),
                           bodyHeader: BodyHeader( 

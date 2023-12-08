@@ -24,6 +24,8 @@ class Shipment {
     final int? paymentDueDate;
     final bool? includeShipmentCost;
     final String? demandListName;
+    bool? notification;
+    bool? messageNotification;
     final List<Product> products;
 
     Shipment({
@@ -45,6 +47,8 @@ class Shipment {
         this.paymentDueDate,
         this.includeShipmentCost,
         this.demandListName,
+        this.notification,
+        this.messageNotification,
         required this.products,
     });
 
@@ -67,6 +71,8 @@ class Shipment {
         paymentDueDate: json["payment_due_date"],
         includeShipmentCost: json["include_shipment_cost"],
         demandListName: json["demand_list_name"],
+        notification: json["notification"],
+        messageNotification: json["message_notification"],
         products: List<Product>.from(json["products"].map((x) => Product.fromMap(x))),
     );
 
