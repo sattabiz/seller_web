@@ -3,6 +3,7 @@ tr:
     log_in: "Üye Girişi"
     sign_in: "Üye Ol"
     logout: "Çıkış Yap"
+    address: "Adres"
     e-mail: "E-posta"
     hint_text_email: "ornek@eposta.com"
     email_validation: "Lütfen geçerli bir e-posta adresi giriniz"
@@ -15,6 +16,24 @@ tr:
     new_password: "Yeni Şifre Talebi"
     login_button: "Giriş Yap"
     contact: "İletişim"
+  address_dialog:
+    address_btn: "Yeni Adres"
+    update: "Adres Güncelle"
+    validation_msg: "Boş bırakılamaz."
+    title: "Tanım"
+    address: "Adres"
+    city: "Şehir"
+    phone: "Telefon"
+    update_btn: "Güncelle"
+    save_btn: "Kaydet"
+  company_info:
+    header: "Firma Bilgileri"
+    firm: "Firma"
+    contact_user: "Yetkili"
+    phone: "Telefon"
+    tax_office: "Vergi Dairesi"
+    tax_no: "Vergi No"
+    user_agreement: "Kullanıcı Sözleşmesi"
 
   proposal:
     proposals: "Teklifler"

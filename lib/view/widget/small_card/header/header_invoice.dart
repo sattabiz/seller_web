@@ -36,7 +36,7 @@ const HeaderInvoice({ Key? key, required this.status, required this.headerDate, 
                   width: 15,
                 ),
                 Expanded(
-                    flex: 8,
+                    flex: 7,
                     child: Text(    // headerStatus
                       FlutterI18n.translate(context, "tr.$className.$status"),
                       style: Theme.of(context).textTheme.titleLarge!,
