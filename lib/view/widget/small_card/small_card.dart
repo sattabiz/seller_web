@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
-
-import '../../../view_model/create_message_view_model.dart';
+import 'package:seller_point/model/get_buyer_invoices_list_model.dart';
+import '../../../view_model/buyer_invoices_view_model.dart';
 import '../../../view_model/get_message_view_model.dart';
 import '../../../view_model/websocket_message_view_model.dart';
 
@@ -24,6 +23,7 @@ final messageIdProvider = StateProvider<String?>((ref) => '')  ;
 final createMessageMapProvider = StateProvider<Map?>((ref) => {})  ;
 
 class SmallCard extends ConsumerWidget {
+  final GetInvoicesModel? invoice;
   final String className;
   final String id;
   final String messageId;
@@ -38,6 +38,7 @@ class SmallCard extends ConsumerWidget {
   const SmallCard({
     Key? key,
     required this.className,
+    this.invoice,
     required this.id,
     required this.messageId,
     required this.createMessageMap,
@@ -56,7 +57,11 @@ class SmallCard extends ConsumerWidget {
           elevation: 0,
           color: Theme.of(context).colorScheme.surface,
           child: InkWell(
-            onTap: () {
+            onTap: () async{
+              if(className == "invoice"){
+                ref.read(invoiceIndexProvider.notifier).state = invoice!;
+                ref.watch(invoiceCurrenciesIndexProvider);
+              }
               //debugPrint(createMessageMap.toString());
               ref.read(idProvider.notifier).state = id;
               ref.read(messageIdProvider.notifier).state = messageId;

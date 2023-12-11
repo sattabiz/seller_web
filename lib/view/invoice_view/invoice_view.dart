@@ -10,6 +10,7 @@ import '../../view_model/buyer_invoices_view_model.dart';
 import '../../view_model/invoice_approved_view_model.dart';
 import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/big_card /header/header.dart';
+import '../widget/big_card /info/table_info_invoice.dart';
 import '../widget/big_card /info/table_info_panel.dart';
 import '../widget/big_card /table/invoice_table.dart';
 import '../widget/loading_widget.dart';
@@ -52,6 +53,7 @@ class InvoiceView extends ConsumerWidget {
                       itemBuilder: (context, index) {
                         return SmallCard(
                           id: invoiceList[index].invoiceId.toString(),
+                          invoice: invoiceList[index],
                           className: className,
                           messageId:'invoice_id=${invoiceList[index].invoiceId}',
                           createMessageMap:{'invoice_id': invoiceList[index].invoiceId} ,
@@ -87,8 +89,11 @@ class InvoiceView extends ConsumerWidget {
                               className: className
                             ),
 
-                            tableInfoPanel: TableInfoPanel(
+                            tableInfoPanel: TableInfoInvoice(
                               productList: invoiceList[index].products!,
+                              className: className,
+                              price: invoiceList[index].totalTlPrice,
+                              priceWithoutVat: invoiceList[index].priceWithoutVat,
                               isPending: false,
                               isFileAttached: false,
                             ),
