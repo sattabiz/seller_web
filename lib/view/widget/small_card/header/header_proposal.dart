@@ -45,7 +45,7 @@ class HeaderProposal extends StatelessWidget {
                   width: 15,
                 ),
                 Expanded(
-                    flex: 8,
+                    flex: 7,
                     child: Text(    // headerStatus
                       FlutterI18n.translate(context, "tr.proposal.$status"),
                       style: Theme.of(context).textTheme.titleLarge!,

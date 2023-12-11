@@ -36,7 +36,7 @@ const HeaderShipment({ Key? key, required this.id, required this.status, require
                   width: 15,
                 ),
                 Expanded(
-                    flex: 8,
+                    flex: 7,
                     child: Text(    // headerStatus
                       FlutterI18n.translate(context, "tr.shipment.$status"),
                       style:

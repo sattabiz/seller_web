@@ -4,12 +4,14 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:seller_point/view/address/address.dart';
+import 'package:seller_point/view/company_info/company_info.dart';
 import '../../storage/jwt_storage.dart';
 import '../../view_model/current_user_view_model.dart';
 import '../../view_model/logout_view_model.dart';
 import '../../view_model/provider_controller.dart';
 
-enum SampleItem { itemOne, itemTwo }
+enum SampleItem { itemOne, itemTwo, itemThree }
 
 class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
   const AppbarTop({Key? key}) : super(key: key);
@@ -104,32 +106,57 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
                 showMenu(
                     context: context,
                     position: position,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                     items: <PopupMenuEntry<SampleItem>>[
                       PopupMenuItem<SampleItem>(
                         value: SampleItem.itemOne,
+                        child: Text(
+                            FlutterI18n.translate(context, 'tr.company_info.firm')),
+                      ),
+                      PopupMenuItem<SampleItem>(
+                        value: SampleItem.itemTwo,
+                        child: Text(
+                            FlutterI18n.translate(context, 'tr.login.address')),
+                      ),
+                      PopupMenuItem<SampleItem>(
+                        value: SampleItem.itemThree,
                         child: Text(FlutterI18n.translate(context, 'tr.login.logout')),
                       ),
-                    ]).then((SampleItem? item) async {
-                  if (item == SampleItem.itemOne) {
-                    final logoutViewModel =
-                        ref.read(logoutViewModelProvider.notifier);
-                    await logoutViewModel.logout();
+                    ]
+                  ).then((SampleItem? item) async {
+                    if (item == SampleItem.itemThree) {
+                      final logoutViewModel =
+                          ref.read(logoutViewModelProvider.notifier);
+                      await logoutViewModel.logout();
 
-                    if (logoutViewModel.state == LogoutState.success) {
-                      final _jwt = await jwtStorageService().getJwtData();
-                      ref.read(drawerCountProvider.notifier).state = 0;                      
-                      context.go('/');
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                            content: Text(
-                                'Çıkış işlemi başarısız oldu: ${logoutViewModel.errorMessage}')),
+                      if (logoutViewModel.state == LogoutState.success) {
+                        final _jwt = await jwtStorageService().getJwtData();
+                        ref.read(drawerCountProvider.notifier).state = 0;                      
+                        context.go('/');
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text(
+                                  'Çıkış işlemi başarısız oldu: ${logoutViewModel.errorMessage}')),
+                        );
+                      }
+                    } else if (item == SampleItem.itemTwo) {
+                      showDialog(
+                        context: context, 
+                        builder: (BuildContext context) {
+                          return Address();
+                        }
+                      );
+                    } else if (item == SampleItem.itemOne) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CompanyInfo();
+                        }
                       );
                     }
                   }
-                });
+                );
               },
             ),
           ),

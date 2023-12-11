@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:js' as js;
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_svg/svg.dart';
 
 Map<String, String> statusIconMap = {
@@ -21,6 +22,126 @@ Map<String, String> statusIconMap = {
   'invoice_approved': 'assets/notsecure.svg',
   'delivered': 'assets/package.svg',
 };
+
+List<String> CITY_LIST = [
+  'Adana',
+  'Adıyaman',
+  'Afyon',
+  'Ağrı',
+  'Aksaray',
+  'Amasya',
+  'Ankara',
+  'Antalya',
+  'Ardahan',
+  'Artvin',
+  'Aydın',
+  'Balıkesir',
+  'Bartın',
+  'Batman',
+  'Bayburt',
+  'Bilecik',
+  'Bingöl',
+  'Bitlis',
+  'Bolu',
+  'Burdur',
+  'Bursa',
+  'Çanakkale',
+  'Çankırı',
+  'Çorum',
+  'Denizli',
+  'Diyarbakır',
+  'Düzce',
+  'Edirne',
+  'Elazığ',
+  'Erzincan',
+  'Erzurum',
+  'Eskişehir',
+  'Gaziantep',
+  'Giresun',
+  'Gümüşhane',
+  'Hakkari',
+  'Hatay',
+  'Iğdır',
+  'Isparta',
+  'İstanbul',
+  'İzmir',
+  'Kahramanmaraş',
+  'Karabük',
+  'Karaman',
+  'Kars',
+  'Kastamonu',
+  'Kayseri',
+  'Kırıkkale',
+  'Kırklareli',
+  'Kırşehir',
+  'Kilis',
+  'Kocaeli',
+  'Konya',
+  'Kütahya',
+  'Malatya',
+  'Manisa',
+  'Mardin',
+  'Mersin',
+  'Muğla',
+  'Muş',
+  'Nevşehir',
+  'Niğde',
+  'Ordu',
+  'Osmaniye',
+  'Rize',
+  'Sakarya',
+  'Samsun',
+  'Siirt',
+  'Sinop',
+  'Sivas',
+  'Şanlıurfa',
+  'Şırnak',
+  'Tekirdağ',
+  'Tokat',
+  'Trabzon',
+  'Tunceli',
+  'Uşak',
+  'Van',
+  'Yalova',
+  'Yozgat',
+  'Zonguldak'
+];
+
+Widget customTextField(BuildContext context, String label) {
+  return SizedBox(
+    width: 350,
+    child: TextFormField(
+      cursorColor: Theme.of(context).colorScheme.onSurfaceVariant,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Theme.of(context).colorScheme.onSecondary,
+        contentPadding: const EdgeInsets.only(left: 10.0, bottom: 20.0),
+        isDense: true,
+        labelText: label,
+        labelStyle: Theme.of(context)
+            .textTheme
+            .bodySmall!
+            .copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+        focusedBorder: UnderlineInputBorder(
+          borderSide:
+              BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        border: UnderlineInputBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+      ),
+      onChanged: (value) {},
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return FlutterI18n.translate(
+              context, 'tr.address_dialog.validation_msg');
+        }
+        return null;
+      },
+    ),
+  );
+}
 
 // formating dateTime
 String formattedDate(String date) {
