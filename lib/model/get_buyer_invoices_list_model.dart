@@ -17,6 +17,7 @@ class GetInvoicesModel {
     String ?sellerErpId;
     bool? notification;
     bool? messageNotification;
+    Map? foreignCurrencies;
     List<Product>? products;
     GetInvoicesModel({
         this.invoiceId,
@@ -34,6 +35,7 @@ class GetInvoicesModel {
         this.sellerErpId,
         this.notification,
         this.messageNotification,
+        this.foreignCurrencies,
         this.products,
     });
 
@@ -57,6 +59,7 @@ class GetInvoicesModel {
         sellerErpId: json["seller_erp_id"],
         notification: json["notification"],
         messageNotification: json["message_notification"],
+        foreignCurrencies: json["foreign_currencies"],
         products: json["products"] == null ? [] : List<Product>.from(json["products"]!.map((x) => Product.fromMap(x))),
     );
 
