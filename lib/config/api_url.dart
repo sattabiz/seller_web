@@ -2,6 +2,10 @@ class ApiUrls{
   static const String baseUrl = String.fromEnvironment('API_URL', defaultValue: 'https://test.satta.biz/api/v1');
   static const String login = "$baseUrl/login.json";
   static const String logout = "$baseUrl/logout.json";
+  static const String baseWebSocket = String.fromEnvironment('WEB_SOCKET', defaultValue: 'wss://satta.biz/cable?jwt=');
+  static String webSocket (String _jwt){
+    return "$baseWebSocket$_jwt";
+  }
   static String proposal(String supplierId) {
     return "$baseUrl/proposals_by_state_sp.json?proposal_state='pending','replied','proposal_stvs','last_offer'&supplier_id=$supplierId";}
   static String order (String supplierId){

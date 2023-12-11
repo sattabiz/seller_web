@@ -64,7 +64,8 @@ class ShipmentView extends ConsumerWidget {
                           checkShipmentState(shipmentList[index].state.toString())
                           ? HeaderInvoice(
                             status: shipmentList[index].state.toString(),
-                            headerDate: formattedDate(shipmentList[index].deliveryDate.toString()), 
+                            headerDate: formattedDate(shipmentList[index].deliveryDate.toString()),
+                            newMessageSvg: newMessageSvg(shipmentList[index].notification!, shipmentList[index].messageNotification!),
                             className: className)
                           : HeaderShipment(
                             id: getOrderIdFromShipmentProductList(shipmentList[index].products),

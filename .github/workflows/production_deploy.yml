@@ -19,11 +19,12 @@ jobs:
           channel: 'stable'
     - run: flutter config --enable-web
     - run: flutter create .
-    - run: flutter build web --web-renderer html --dart-define=API_URL=$API_URL --dart-define=USERNAME=$USERNAME --dart-define=PASSWORD=$PASSWORD
+    - run: flutter build web --web-renderer html --dart-define=API_URL=$API_URL --dart-define=USERNAME=$USERNAME --dart-define=PASSWORD=$PASSWORD --dart-define=WEB_SOCKET=$WEB_SOCKET
       env:
         API_URL: ${{ secrets.API_URL }}
         USERNAME: ${{ secrets.SERVICE_USER }}
         PASSWORD: ${{ secrets.SERVICE_PASSWORD }}
+        WEB_SOCKET: ${{ secrets.WEB_SOCKET}}
     - uses: easingthemes/ssh-deploy@v4.1.8
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}

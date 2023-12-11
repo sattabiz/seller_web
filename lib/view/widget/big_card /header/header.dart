@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:seller_point/view_model/buyer_invoices_view_model.dart';
+import 'package:seller_point/view_model/order_list_view_model.dart';
 
 import '../../../../utils/widget_helper.dart';
 import '../../../../view_model/get_message_view_model.dart';
+import '../../../../view_model/proposal_view_model.dart';
+import '../../../../view_model/shipment_view_model.dart';
 import '../../../../view_model/websocket_message_view_model.dart';
 
 class Header extends ConsumerWidget {
@@ -65,10 +69,19 @@ class Header extends ConsumerWidget {
                         color: Theme.of(context).colorScheme.onSecondaryContainer,
                         opticalSize: 36,
                       ),
-                      onPressed: () {
+                      onPressed: () async{
                         ref.read(messagePipeProvider.notifier).state = 2;  //for close the subscription
                         ref.read(messageRoomIdProvider.notifier).state = 0;
                         ref.watch(webSocketProvider);
+                        if(className == "proposal"){
+                          ref.refresh(getProposalListProvider);
+                        }else if(className == "order"){
+                          ref.refresh(getOrderListProvider);
+                        }else if(className == "shipment"){
+                          ref.refresh(shipmentProvider);
+                        }else{
+                          ref.refresh(getInvoicesProvider);
+                        }
                         Navigator.pop(context);
                         
                       },
