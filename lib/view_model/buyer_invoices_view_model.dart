@@ -43,7 +43,6 @@ final invoiceCurrenciesIndexProvider = StateProvider<String?>((ref) {
   GetInvoicesModel invoice = ref.watch(invoiceIndexProvider);
   List<Product> products = invoice.products!;
   List<String> currencies = [];
-  debugPrint(invoice.toString());
   for(Product product in products){
     if(product.currencyCode != "TRY"){
       if(product.currencyCode == "USD"){
