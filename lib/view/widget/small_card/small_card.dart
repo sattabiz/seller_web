@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seller_point/model/get_buyer_invoices_list_model.dart';
 import '../../../view_model/buyer_invoices_view_model.dart';
+import '../../../view_model/customer_addresses_view_model.dart';
 import '../../../view_model/get_message_view_model.dart';
 import '../../../view_model/websocket_message_view_model.dart';
 
@@ -62,6 +63,7 @@ class SmallCard extends ConsumerWidget {
                 ref.read(invoiceIndexProvider.notifier).state = invoice!;
                 ref.watch(invoiceCurrenciesIndexProvider);
               }
+              ref.watch(getCustomerAddressesProvider);
               //debugPrint(createMessageMap.toString());
               ref.read(idProvider.notifier).state = id;
               ref.read(messageIdProvider.notifier).state = messageId;
