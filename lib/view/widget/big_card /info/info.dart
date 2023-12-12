@@ -66,7 +66,7 @@ class Info extends ConsumerWidget {
             columnWidths: const <int, TableColumnWidth>{
                 0: FlexColumnWidth(0.4),
                 1: FlexColumnWidth(0.8),
-                2: FlexColumnWidth(0.3),
+                2: FlexColumnWidth(0.4),
                 3: FlexColumnWidth(0.6),
             },
             children: [

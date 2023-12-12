@@ -3,7 +3,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import '../../../../utils/widget_helper.dart';
 
 class InfoInvoice extends StatelessWidget {
-  final String invoiceNo; //demand_name
+  final String invoiceNo;
   final String invoiceDate;
   final dynamic paymentType;
   final String orderId;
@@ -13,7 +13,7 @@ class InfoInvoice extends StatelessWidget {
 
   const InfoInvoice({
   Key? key,
-  required this.invoiceNo,  //invoice'da gib fatura no yollacanacak
+  required this.invoiceNo,
   required this.invoiceDate,
   required this.paymentType,
   required this.orderId,
@@ -33,7 +33,7 @@ class InfoInvoice extends StatelessWidget {
           Row(     //row 1
             children:  [
               Text( FlutterI18n.translate(context, "tr.invoice.invoice_no"),
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),                     
                 ),
@@ -41,7 +41,7 @@ class InfoInvoice extends StatelessWidget {
               Expanded(
                 child: Text(
                   invoiceNo,
-                  style: Theme.of(context).textTheme.titleSmall,
+                  style: Theme.of(context).textTheme.titleMedium,
                   maxLines: 3,
                 ),
               ),                  
@@ -49,10 +49,11 @@ class InfoInvoice extends StatelessWidget {
           ),
           const SizedBox(height: 14.0),
           Table(                   
-            textDirection: TextDirection.ltr,       
+            textDirection: TextDirection.ltr,
+            defaultColumnWidth: const FlexColumnWidth(0.2),       
             columnWidths: const <int, TableColumnWidth> {
               0: FlexColumnWidth(0.1),
-              1: FlexColumnWidth(0.6),
+              1: FlexColumnWidth(0.3),
             },
             children: [
               TableRow(
