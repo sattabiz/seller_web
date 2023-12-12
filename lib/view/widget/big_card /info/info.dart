@@ -46,7 +46,7 @@ class Info extends ConsumerWidget {
               Text(
                 FlutterI18n.translate(context, "tr.order.topic"),
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w600,
                     ),
               ),
               const SizedBox(width: 10.0),
@@ -54,9 +54,7 @@ class Info extends ConsumerWidget {
                 flex: 4,
                 child: Text(
                   demandName == "null" ? '-' : demandName,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                  style: Theme.of(context).textTheme.bodyLarge,
                   maxLines: 1,
                 ),
               ),
@@ -66,67 +64,75 @@ class Info extends ConsumerWidget {
           Table(
             textDirection: TextDirection.ltr,
             columnWidths: const <int, TableColumnWidth>{
-                0: FlexColumnWidth(0.3),
-                1: FlexColumnWidth(0.6),
+                0: FlexColumnWidth(0.4),
+                1: FlexColumnWidth(0.8),
                 2: FlexColumnWidth(0.3),
-                3: FlexColumnWidth(0.8),
+                3: FlexColumnWidth(0.6),
             },
             children: [
               TableRow(
                 children: <Widget>[
                   Text(
                     FlutterI18n.translate(context, "tr.$className.infoRow1"),
-                    style: Theme.of(context).textTheme.labelLarge,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     maxLines: 1,
                   ),
                   Text(
                     infoRow1 ?? '-',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyLarge,
                     maxLines: 1,
                   ),
                   Text(
                     FlutterI18n.translate(context, "tr.$className.infoRow2"),
-                    style: Theme.of(context).textTheme.labelLarge,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     maxLines: 1,
                   ),
                   Text(
                     infoRow2 ?? '-',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyLarge,
                     maxLines: 1,
                   ),
                 ],
               ),
               TableRow(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
                       FlutterI18n.translate(context, "tr.order.payment_type"),
-                      style: Theme.of(context).textTheme.labelLarge,
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                       maxLines: 1,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
                       infoRow3 == null ? '-' : infoRow3!,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodyLarge,
                       maxLines: 1,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
                       FlutterI18n.translate(context, "tr.order.expiry"),
-                      style: Theme.of(context).textTheme.labelLarge,
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                       maxLines: 1,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
                       infoRow4 ?? '-',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodyLarge,
                       maxLines: 1,
                     ),
                   ),
@@ -136,22 +142,26 @@ class Info extends ConsumerWidget {
                 children: <Widget>[
                   Text(
                     FlutterI18n.translate(context, "tr.$className.infoRow5"),
-                    style: Theme.of(context).textTheme.labelLarge,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                     maxLines: 1,
                   ),
                   Text(
                     infoRow5 ?? '-',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyLarge,
                     maxLines: 1,
                   ),
                   Text(
                     FlutterI18n.translate(context, "tr.order.shipment_payment"),
-                    style: Theme.of(context).textTheme.labelLarge,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                     maxLines: 1,
                   ),
                   Text(
                     infoRow6 ?? '-',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyLarge,
                     maxLines: 1,
                   ),
                 ],
