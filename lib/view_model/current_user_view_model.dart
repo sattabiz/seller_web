@@ -22,5 +22,11 @@ final getCurrentUserInfoProvider = FutureProvider.autoDispose<CurrentUserInfoMod
   CurrentUserInfoModel currentUserInfoModel =
           CurrentUserInfoModel.fromMap(response.data);
 
+  ref.read(customerIdProvider.notifier).state = currentUserInfoModel.company!.id;
   return currentUserInfoModel;
+});
+
+
+final customerIdProvider = StateProvider<int?>((ref) {
+  return ;
 });

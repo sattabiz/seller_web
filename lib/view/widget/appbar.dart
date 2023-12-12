@@ -5,9 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:seller_point/view/address/address.dart';
+import 'package:seller_point/view/address/update_address.dart';
 import 'package:seller_point/view/company_info/company_info.dart';
 import '../../storage/jwt_storage.dart';
 import '../../view_model/current_user_view_model.dart';
+import '../../view_model/customer_addresses_view_model.dart';
 import '../../view_model/logout_view_model.dart';
 import '../../view_model/provider_controller.dart';
 
@@ -114,6 +116,10 @@ class AppbarTop extends ConsumerWidget implements PreferredSizeWidget {
                             FlutterI18n.translate(context, 'tr.company_info.firm')),
                       ),
                       PopupMenuItem<SampleItem>(
+                        onTap: () async{
+                          ref.watch(getCustomerAddressesProvider);
+                          ref.refresh(addressProvider);
+                        },
                         value: SampleItem.itemTwo,
                         child: Text(
                             FlutterI18n.translate(context, 'tr.login.address')),
