@@ -33,7 +33,9 @@ class InfoInvoice extends StatelessWidget {
           Row(     //row 1
             children:  [
               Text( FlutterI18n.translate(context, "tr.invoice.invoice_no"),
-                style: Theme.of(context).textTheme.titleSmall,                     
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),                     
                 ),
               const SizedBox(width: 10.0),
               Expanded(
@@ -57,12 +59,14 @@ class InfoInvoice extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     FlutterI18n.translate(context, "tr.invoice.info_row_1.$status"),
-                    style: Theme.of(context).textTheme.labelLarge,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                     maxLines: 1,                        
                   ),
                   Text(
                     formattedDate(invoiceDate),
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyLarge,
                     maxLines: 1,                        
                   ), 
                   
@@ -70,19 +74,21 @@ class InfoInvoice extends StatelessWidget {
               ),
               TableRow(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
                       FlutterI18n.translate(context, "tr.order.payment_type"),
-                      style: Theme.of(context).textTheme.labelLarge,       
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),       
                       maxLines: 1,                              
                     ),
                   ),                                
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
                       paymentType,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodyLarge,
                       maxLines: 1,                                     
                     ),
                   ),  
@@ -92,12 +98,14 @@ class InfoInvoice extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     FlutterI18n.translate(context, "tr.order.order_no"),
-                    style: Theme.of(context).textTheme.labelLarge,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                     maxLines: 1,                        
                   ),                            
                   Text(
                     orderId,
-                    style: Theme.of(context).textTheme.bodyMedium, 
+                    style: Theme.of(context).textTheme.bodyLarge, 
                     maxLines: 1,                       
                   ), 
                 ],
