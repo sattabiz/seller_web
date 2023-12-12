@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:seller_point/view/index.dart';
 import 'package:seller_point/view/widget/big_card%20/responsive/resposive_bigcard.dart';
 import '../../../../model/get_current_user_info_model.dart';
-import '../../../../utils/widget_helper.dart';
 import '../../../../view_model/create_message_view_model.dart';
-import '../../../../view_model/get_message_view_model.dart';
+import '../../../../view_model/current_user_view_model.dart';
 import '../../../../view_model/list_messages_view_model.dart';
-import '../../../../view_model/websocket_message_view_model.dart';
+
 
 final readMessageProvider = StateProvider<String?>((ref) => '');
 
@@ -47,6 +45,7 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
     //  CurrentUserInfoModel userInfo = ref.watch(userIdProvider);
     // ref.watch(webSocketProvider);
     final liveChats = ref.watch(liveChatProvider).reversed.toList();
+    CurrentUserInfoModel userInfo = ref.watch(userIdProvider);
     return Column(
       children: [
         Expanded(
@@ -67,7 +66,7 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
                       physics: const ClampingScrollPhysics(),
                       reverse: true,
                       itemBuilder: (context, index) {
-                        return liveChats[index].userID == 0
+                        return liveChats[index].user == "Sistem"
                             ? Container(
                                 margin:
                                     const EdgeInsets.only(bottom: 10, top: 10),
@@ -83,7 +82,7 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
                             : Container(
                                 margin: const EdgeInsets.only(bottom: 10),
                                 child: Align(
-                                  alignment: (liveChats[index].userID == 1
+                                  alignment: (liveChats[index].userID == userInfo.currentUser!.id
                                       ? Alignment.topRight
                                       : Alignment.topLeft),
                                   child: Container(
@@ -96,15 +95,15 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
                                         topLeft: const Radius.circular(8),
                                         topRight: const Radius.circular(8),
                                         bottomLeft:
-                                            (liveChats[index].userID == 1
+                                            (liveChats[index].userID == userInfo.currentUser!.id
                                                 ? const Radius.circular(10)
                                                 : const Radius.circular(0)),
                                         bottomRight:
-                                            (liveChats[index].userID == 1
+                                            (liveChats[index].userID == userInfo.currentUser!.id
                                                 ? const Radius.circular(0)
                                                 : const Radius.circular(10)),
                                       ),
-                                      color: (liveChats[index].userID == 1
+                                      color: (liveChats[index].userID == userInfo.currentUser!.id
                                           ? Theme.of(context)
                                               .colorScheme
                                               .surfaceVariant
@@ -125,8 +124,7 @@ class _ChatBoxState extends ConsumerState<ChatBox> {
                                                 .copyWith(
                                                   fontWeight: FontWeight.bold,
                                                   color:
-                                                      liveChats[index].userID ==
-                                                              1
+                                                      liveChats[index].userID == userInfo.currentUser!.id
                                                           ? Theme.of(context)
                                                               .colorScheme
                                                               .secondary
