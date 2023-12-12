@@ -63,149 +63,100 @@ class Info extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 14.0),
-          Scrollbar(
-            scrollbarOrientation: ScrollbarOrientation.bottom,
-            controller: _scrollController,
-            thumbVisibility: true,
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              controller: _scrollController,
-              scrollDirection: Axis.horizontal,
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 8.0),
-                constraints: const BoxConstraints.tightFor(width: 360.0),
-                child: Table(
-                  textDirection: TextDirection.ltr,
-                  columnWidths: const <int, TableColumnWidth>{
-                    0: FlexColumnWidth(0.8),
-                    1: FlexColumnWidth(0.7),
-                    2: FlexColumnWidth(0.6),
-                    3: FlexColumnWidth(0.5),
-                  },
-                  children: [
-                    TableRow(
-                      children: <Widget>[
-                        Baseline(
-                          baseline: 16.0,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Text(
-                            FlutterI18n.translate(context, "tr.$className.infoRow1"),
-                            style: Theme.of(context).textTheme.labelLarge,
-                            maxLines: 1,
-                          ),
-                        ),
-                        Baseline(
-                          baseline: 16.0,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Text(
-                            infoRow1 ?? '-',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            maxLines: 1,
-                          ),
-                        ),
-                        Baseline(
-                          baseline: 16.0,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Text(
-                            FlutterI18n.translate(context, "tr.$className.infoRow2"),
-                            style: Theme.of(context).textTheme.labelLarge,
-                            maxLines: 1,
-                          ),
-                        ),
-                        Baseline(
-                          baseline: 16.0,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Text(
-                            infoRow2 ?? '-',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            maxLines: 1,
-                          ),
-                        ),
-                      ],
+          Table(
+            textDirection: TextDirection.ltr,
+            columnWidths: const <int, TableColumnWidth>{
+                0: FlexColumnWidth(0.3),
+                1: FlexColumnWidth(0.6),
+                2: FlexColumnWidth(0.3),
+                3: FlexColumnWidth(0.8),
+            },
+            children: [
+              TableRow(
+                children: <Widget>[
+                  Text(
+                    FlutterI18n.translate(context, "tr.$className.infoRow1"),
+                    style: Theme.of(context).textTheme.labelLarge,
+                    maxLines: 1,
+                  ),
+                  Text(
+                    infoRow1 ?? '-',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    maxLines: 1,
+                  ),
+                  Text(
+                    FlutterI18n.translate(context, "tr.$className.infoRow2"),
+                    style: Theme.of(context).textTheme.labelLarge,
+                    maxLines: 1,
+                  ),
+                  Text(
+                    infoRow2 ?? '-',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    maxLines: 1,
+                  ),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: Text(
+                      FlutterI18n.translate(context, "tr.order.payment_type"),
+                      style: Theme.of(context).textTheme.labelLarge,
+                      maxLines: 1,
                     ),
-                    TableRow(
-                      children: <Widget>[
-                        Baseline(
-                          baseline: 16.0,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Text(
-                            FlutterI18n.translate(context, "tr.order.payment_type"),
-                            style: Theme.of(context).textTheme.labelLarge,
-                            maxLines: 1,
-                          ),
-                        ),
-                        Baseline(
-                          baseline: 16.0,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Text(
-                            infoRow3 == null ? '-' : infoRow3!,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            maxLines: 1,
-                          ),
-                        ),
-                        Baseline(
-                          baseline: 16.0,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Text(
-                            FlutterI18n.translate(context, "tr.order.expiry"),
-                            style: Theme.of(context).textTheme.labelLarge,
-                            maxLines: 1,
-                          ),
-                        ),
-                        Baseline(
-                          baseline: 16.0,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Text(
-                            infoRow4 ?? '-',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            maxLines: 1,
-                          ),
-                        ),
-                      ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: Text(
+                      infoRow3 == null ? '-' : infoRow3!,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      maxLines: 1,
                     ),
-                    TableRow(
-                      children: <Widget>[
-                        Baseline(
-                          baseline: 16.0,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Text(
-                            FlutterI18n.translate(context, "tr.$className.infoRow5"),
-                            style: Theme.of(context).textTheme.labelLarge,
-                            maxLines: 1,
-                          ),
-                        ),
-                        Baseline(
-                          baseline: 16.0,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Text(
-                            infoRow5 ?? '-',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            maxLines: 1,
-                          ),
-                        ),
-                        Baseline(
-                          baseline: 16.0,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Text(
-                            FlutterI18n.translate(context, "tr.order.shipment_payment"),
-                            style: Theme.of(context).textTheme.labelLarge,
-                            maxLines: 1,
-                          ),
-                        ),
-                        Baseline(
-                          baseline: 16.0,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Text(
-                            infoRow6 ?? '-',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            maxLines: 1,
-                          ),
-                        ),
-                      ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: Text(
+                      FlutterI18n.translate(context, "tr.order.expiry"),
+                      style: Theme.of(context).textTheme.labelLarge,
+                      maxLines: 1,
                     ),
-                  ],
-                )),
-            ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: Text(
+                      infoRow4 ?? '-',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      maxLines: 1,
+                    ),
+                  ),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  Text(
+                    FlutterI18n.translate(context, "tr.$className.infoRow5"),
+                    style: Theme.of(context).textTheme.labelLarge,
+                    maxLines: 1,
+                  ),
+                  Text(
+                    infoRow5 ?? '-',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    maxLines: 1,
+                  ),
+                  Text(
+                    FlutterI18n.translate(context, "tr.order.shipment_payment"),
+                    style: Theme.of(context).textTheme.labelLarge,
+                    maxLines: 1,
+                  ),
+                  Text(
+                    infoRow6 ?? '-',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    maxLines: 1,
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),
