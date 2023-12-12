@@ -24,6 +24,7 @@ Map<String, String> statusIconMap = {
 };
 
 List<String> CITY_LIST = [
+  'Lütfen şehir seçiniz.',
   'Adana',
   'Adıyaman',
   'Afyon',
@@ -107,41 +108,6 @@ List<String> CITY_LIST = [
   'Zonguldak'
 ];
 
-Widget customTextField(BuildContext context, String label) {
-  return SizedBox(
-    width: 350,
-    child: TextFormField(
-      cursorColor: Theme.of(context).colorScheme.onSurfaceVariant,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Theme.of(context).colorScheme.onSecondary,
-        contentPadding: const EdgeInsets.only(left: 10.0, bottom: 20.0),
-        isDense: true,
-        labelText: label,
-        labelStyle: Theme.of(context)
-            .textTheme
-            .bodySmall!
-            .copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-        focusedBorder: UnderlineInputBorder(
-          borderSide:
-              BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        border: UnderlineInputBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-      ),
-      onChanged: (value) {},
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return FlutterI18n.translate(
-              context, 'tr.address_dialog.validation_msg');
-        }
-        return null;
-      },
-    ),
-  );
-}
 
 // formating dateTime
 String formattedDate(String date) {

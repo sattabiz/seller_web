@@ -63,7 +63,6 @@ class SmallCard extends ConsumerWidget {
                 ref.read(invoiceIndexProvider.notifier).state = invoice!;
                 ref.watch(invoiceCurrenciesIndexProvider);
               }
-              ref.watch(getCustomerAddressesProvider);
               //debugPrint(createMessageMap.toString());
               ref.read(idProvider.notifier).state = id;
               ref.read(messageIdProvider.notifier).state = messageId;

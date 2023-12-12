@@ -1,18 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../model/customer_addresses_model.dart';
 import '../../utils/widget_helper.dart';
+import '../../view_model/create_update_address_view_model.dart';
+final addressProvider = StateProvider<Map<String, dynamic>?>((ref) {
+  Map<String, dynamic> addresMap = {
+    "existing_address_id": null,
+    "name": null,
+    "address": null,
+    "city": null,
+    "phone": null,
+  };
+  return addresMap;
+},);
 
 class UpdateAddress extends ConsumerStatefulWidget {
-  const UpdateAddress({super.key});
+  CustomerAddresses? addresses;
+  UpdateAddress({super.key, this.addresses});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _UpdateAddressState();
 }
 
 class _UpdateAddressState extends ConsumerState<UpdateAddress> {
+  late final TextEditingController _nameController;
+  late final TextEditingController _addresController;
+  late final TextEditingController _phoneController;
+  late String dropdownInitialValue;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _nameController = TextEditingController();
+    _addresController = TextEditingController();
+    _phoneController = TextEditingController();
+    dropdownInitialValue = widget.addresses!.city ?? "Lütfen şehir seçiniz.";
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _addresController;
+    _nameController;
+    _phoneController;
+  }
 
   final _key = GlobalKey<FormState>();
 
@@ -52,7 +86,11 @@ class _UpdateAddressState extends ConsumerState<UpdateAddress> {
                   Icons.close,
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  dynamic value = ref.watch(addressProvider);
+                  ref.refresh(addressProvider);
+                },
               ),
             ],
           ),
@@ -61,11 +99,12 @@ class _UpdateAddressState extends ConsumerState<UpdateAddress> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 20),
-            customTextField(context, FlutterI18n.translate(context, 'tr.address_dialog.title')),
+            customTextField(context, FlutterI18n.translate(context, 'tr.address_dialog.title'), widget.addresses!.name!, _nameController, "name"),
             const SizedBox(height: 20),
-            customTextField(context, FlutterI18n.translate(context, 'tr.address_dialog.address')),
+            customTextField(context, FlutterI18n.translate(context, 'tr.address_dialog.address'), widget.addresses!.address!, _addresController, "address"),
             const SizedBox(height: 20),
             DropdownButtonFormField<String>(
+              value: dropdownInitialValue,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Theme.of(context).colorScheme.onSecondary,
@@ -101,20 +140,29 @@ class _UpdateAddressState extends ConsumerState<UpdateAddress> {
                 );
               }).toList(),
               onChanged: (value) {
-                // dropdownValue = value.toString();
+                dropdownInitialValue = value!;
               },
             ),
             const SizedBox(height: 20),
-            customTextField(context, FlutterI18n.translate(context, 'tr.address_dialog.phone')),
+            customTextField(context, FlutterI18n.translate(context, 'tr.address_dialog.phone'), widget.addresses!.phone!, _phoneController, "phone"),
             const SizedBox(height: 20),
           ],
         ),
         actions: [
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async{
               if (_key.currentState!.validate()) {
                 debugPrint('Form doğrulandı');
               }
+              ref.read(addressProvider.notifier).state = {
+                "existing_address_id": widget.addresses!.id,
+                "name": _nameController.text,
+                "address": _addresController.text,
+                "city": dropdownInitialValue,
+                "phone": _phoneController.text,
+              };
+              await ref.watch(addressFutureProvider);
+              Navigator.of(context).pop();
             },
             style: ButtonStyle(
               fixedSize: MaterialStateProperty.all(
@@ -128,6 +176,47 @@ class _UpdateAddressState extends ConsumerState<UpdateAddress> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+
+  Widget customTextField(BuildContext context, String label, String? value, TextEditingController controller, String keyValue) {
+    controller.text = value!;
+    return SizedBox(
+      width: 350,
+      child: TextFormField(
+        cursorColor: Theme.of(context).colorScheme.onSurfaceVariant,
+        controller: controller,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Theme.of(context).colorScheme.onSecondary,
+          contentPadding: const EdgeInsets.only(left: 10.0, bottom: 20.0),
+          isDense: true,
+          labelText: label,
+          labelStyle: Theme.of(context)
+              .textTheme
+              .bodySmall!
+              .copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          focusedBorder: UnderlineInputBorder(
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.onSurfaceVariant),
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          border: UnderlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+        ),
+        onChanged: (value) {
+          ref.read(addressProvider.notifier).state?.update(keyValue, (value) => controller.text);
+        },
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return FlutterI18n.translate(
+                context, 'tr.address_dialog.validation_msg');
+          }
+          return null;
+        },
       ),
     );
   }

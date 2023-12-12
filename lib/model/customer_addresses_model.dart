@@ -4,12 +4,14 @@ class CustomerAddresses {
     int? id;
     String? name;
     String? address;
+    String? city;
     String? phone;
 
     CustomerAddresses({
         this.id,
         this.name,
         this.address,
+        this.city,
         this.phone,
     });
 
@@ -20,6 +22,19 @@ class CustomerAddresses {
         id: json["id"],
         name: json["name"],
         address: json["address"],
+        city: json["city"],
         phone: json["phone"]
     );
+
+    String toJson() => json.encode(toMap());
+
+
+    Map<String, dynamic> toMap() => {
+        "id": id,
+        "name": name,
+        "address": address,
+        "city": city,
+        "phone": phone,
+    };
+
 }

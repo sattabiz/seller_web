@@ -78,11 +78,12 @@ class Address extends ConsumerWidget {
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         color: Theme.of(context).colorScheme.onSurfaceVariant),
                   ),
-                  onTap: () {
+                  onTap: () async{
+                    ref.refresh(addressProvider);
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return UpdateAddress();
+                        return UpdateAddress(addresses: data[index],);
                       }
                     );
                   },
@@ -96,6 +97,7 @@ class Address extends ConsumerWidget {
                 showDialog(
                   context: context,
                   builder: (context) {
+                    ref.refresh(addressProvider);
                     return CreateAddress();
                   }
                 );
