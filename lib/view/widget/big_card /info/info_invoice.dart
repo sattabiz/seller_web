@@ -47,18 +47,17 @@ class InfoInvoice extends StatelessWidget {
           ),
           const SizedBox(height: 14.0),
           Table(                   
-            textDirection: TextDirection.ltr,
-            defaultColumnWidth: const FlexColumnWidth(1.0),            
+            textDirection: TextDirection.ltr,       
             columnWidths: const <int, TableColumnWidth> {
               0: FlexColumnWidth(0.1),
-              1: FlexColumnWidth(0.3),
+              1: FlexColumnWidth(0.6),
             },
             children: [
               TableRow(
                 children: <Widget>[
                   Text(
                     FlutterI18n.translate(context, "tr.invoice.info_row_1.$status"),
-                    style: Theme.of(context).textTheme.labelMedium,
+                    style: Theme.of(context).textTheme.labelLarge,
                     maxLines: 1,                        
                   ),
                   Text(
@@ -75,7 +74,7 @@ class InfoInvoice extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
                       FlutterI18n.translate(context, "tr.order.payment_type"),
-                      style: Theme.of(context).textTheme.labelMedium,       
+                      style: Theme.of(context).textTheme.labelLarge,       
                       maxLines: 1,                              
                     ),
                   ),                                
@@ -93,7 +92,7 @@ class InfoInvoice extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     FlutterI18n.translate(context, "tr.order.order_no"),
-                    style: Theme.of(context).textTheme.labelMedium,
+                    style: Theme.of(context).textTheme.labelLarge,
                     maxLines: 1,                        
                   ),                            
                   Text(
