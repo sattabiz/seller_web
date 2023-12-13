@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:seller_point/utils/widget_helper.dart';
 import 'package:seller_point/view/widget/big_card%20/big_card.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info_invoice.dart';
+import 'package:seller_point/view/widget/big_card%20/table/order_table.dart';
 import 'package:seller_point/view/widget/small_card/body/small_card_table.dart';
 import '../../view_model/buyer_invoices_view_model.dart';
 import '../../view_model/invoice_approved_view_model.dart';
@@ -12,7 +13,6 @@ import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/big_card /header/header.dart';
 import '../widget/big_card /info/table_info_invoice.dart';
 import '../widget/big_card /info/table_info_panel.dart';
-import '../widget/big_card /table/invoice_table.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
 import '../widget/small_card/body/body_invoice_header.dart';
@@ -84,9 +84,10 @@ class InvoiceView extends ConsumerWidget {
                               status: invoiceList[index].state.toString(),
                             ),
 
-                            bigCardTable: InvoiceTable(
-                              invoiceProductList: invoiceList[index].products!, 
-                              className: className
+                            bigCardTable: OrderTable(
+                              productList: invoiceList[index].products!, 
+                              className: className,
+                              filesAttached: false,
                             ),
 
                             tableInfoPanel: TableInfoInvoice(

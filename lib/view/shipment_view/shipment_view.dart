@@ -6,7 +6,6 @@ import 'package:seller_point/view/widget/big_card%20/big_card.dart';
 import 'package:seller_point/view/widget/big_card%20/header/header.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info.dart';
 import 'package:seller_point/view/widget/big_card%20/info/info_box.dart';
-import 'package:seller_point/view/widget/big_card%20/table/shipment_table.dart';
 import 'package:seller_point/view/widget/small_card/body/body_invoice_header.dart';
 import 'package:seller_point/view/widget/small_card/body/small_card_table.dart';
 import 'package:seller_point/view/widget/small_card/header/header_invoice.dart';
@@ -17,6 +16,7 @@ import '../../view_model/shipment_view_model.dart';
 import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/big_card /info/info_shipment.dart';
 import '../widget/big_card /info/table_info_panel.dart';
+import '../widget/big_card /table/order_table.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';
 import '../widget/small_card/body/body_header.dart';
@@ -97,9 +97,10 @@ class ShipmentView extends ConsumerWidget {
                               ? formattedDate(shipmentList[index].deliveryDate.toString())
                               : getOrderIdFromShipmentProductList(shipmentList[index].products),
                             ), 
-                            bigCardTable: ShipmentTable(
-                              shipmentProductList: shipmentList[index].products, 
-                              className: className
+                            bigCardTable: OrderTable(
+                              productList: shipmentList[index].products, 
+                              className: className,
+                              filesAttached: false,
                             ),
                             // tableInfoPanel: TableInfoPanel(
                             //   productList: shipmentList[index].products,
