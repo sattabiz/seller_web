@@ -141,7 +141,7 @@ class ShipmentView extends ConsumerWidget {
                               className: className,
                               row1: shipmentList[index].carrier.toString(),
                               row2: shipmentList[index].trackingNo.toString(),
-                              row3: shipmentList[index].address.toString(),
+                              row3: shipmentList[index].contactInformationName.toString(),
                             ),
                           ),
                         );
