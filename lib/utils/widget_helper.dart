@@ -300,6 +300,8 @@ String getCurrencySymbol(String currencyCode) {
       return '€';
     case 'USD':
       return '\$';
+    case 'GBP':
+      return '£';
     default:
       return currencyCode;
   }

@@ -97,7 +97,7 @@ class InvoiceView extends ConsumerWidget {
                               isPending: false,
                               isFileAttached: false,
                             ),
-
+                            
                             buttons: 
                               invoiceList[index].state.toString() == 'invoice_goods_delivered' //degistirdim 
                               ? ButtonWidget(

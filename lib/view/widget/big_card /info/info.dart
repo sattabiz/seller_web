@@ -113,7 +113,7 @@ class Info extends ConsumerWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Text(
-                      infoRow3 == null ? '-' : infoRow3!,
+                      infoRow3 == null ? 'Cari Hesap' : infoRow3!,
                       style: Theme.of(context).textTheme.bodyLarge,
                       maxLines: 1,
                     ),

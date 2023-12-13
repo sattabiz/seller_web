@@ -100,14 +100,14 @@ class OrderView extends ConsumerWidget {
                                   filesAttached: isFilesAttached(orderList[index].products)
                                 )
                             ),
-                            tableInfoPanel: 
-                            checkOrderState(orderList[index].state.toString())
-                            ? null
-                            : TableInfoPanel(
-                                productList: orderList[index].products,
-                                isPending: false,
-                                isFileAttached: isFilesAttached(orderList[index].products)
-                            ),
+                            // tableInfoPanel: 
+                            // checkOrderState(orderList[index].state.toString())
+                            // ? null
+                            // : TableInfoPanel(
+                            //     productList: orderList[index].products,
+                            //     isPending: false,
+                            //     isFileAttached: isFilesAttached(orderList[index].products)
+                            // ),
                             buttons: ButtonWidget(
                               className: className,
                               status: orderList[index].state.toString(),
