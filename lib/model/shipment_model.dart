@@ -18,6 +18,7 @@ class Shipment {
     final String? senderErpId;
     final int? proposalId;
     final String? address;
+    final String? contactInformationName;
     final String? orderDate;
     final String? deliveryDate;
     final String? paymentType;
@@ -42,6 +43,7 @@ class Shipment {
         this.proposalId,
         this.address,
         this.orderDate,
+        this.contactInformationName,
         this.deliveryDate,
         this.paymentType,
         this.paymentDueDate,
@@ -65,6 +67,7 @@ class Shipment {
         senderErpId: json["sender_erp_id"],
         proposalId: json["proposal_id"],
         address: json["address"],
+        contactInformationName: json["contact_information_name"],
         orderDate:json["order_date"],
         deliveryDate:json["delivery_date"],
         paymentType: json["payment_type"],
