@@ -101,11 +101,11 @@ class ShipmentView extends ConsumerWidget {
                               shipmentProductList: shipmentList[index].products, 
                               className: className
                             ),
-                            tableInfoPanel: TableInfoPanel(
-                              productList: shipmentList[index].products,
-                              isFileAttached: false,
-                              isPending: false,
-                            ),
+                            // tableInfoPanel: TableInfoPanel(
+                            //   productList: shipmentList[index].products,
+                            //   isFileAttached: false,
+                            //   isPending: false,
+                            // ),
                             buttons: ButtonWidget(
                               className: className,
                               status: shipmentList[index].state.toString(),
