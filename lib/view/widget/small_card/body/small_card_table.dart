@@ -25,7 +25,7 @@ class SmallCardTable extends StatelessWidget {
       columnWidths: const <int, TableColumnWidth> {
         0: FlexColumnWidth(0.2),
         1: FlexColumnWidth(0.6),
-        2: FlexColumnWidth(0.4),
+        2: FlexColumnWidth(0.3),
         3: FlexColumnWidth(0.3),
       },
       children: [
@@ -44,6 +44,7 @@ class SmallCardTable extends StatelessWidget {
               FlutterI18n.translate(context, "tr.order.amount"),
               style: Theme.of(context).textTheme.labelLarge,
               maxLines: 1,
+              // textDirection: TextDirection.rtl,
             ),
             Text(
               FlutterI18n.translate(context, "tr.order.price"),
@@ -77,6 +78,7 @@ class SmallCardTable extends StatelessWidget {
                 child: Text(
                   '${bodyList[i].amount} ${bodyList[i].unit}',
                   style: Theme.of(context).textTheme.bodyMedium,
+                  // textAlign: TextAlign.right,
                 ),
               ),
               bodyList[i].price == null
