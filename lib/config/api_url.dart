@@ -2,6 +2,10 @@ class ApiUrls{
   static const String baseUrl = String.fromEnvironment('API_URL', defaultValue: 'https://test.satta.biz/api/v1');
   static const String login = "$baseUrl/login.json";
   static const String logout = "$baseUrl/logout.json";
+  static const String baseWebSocket = String.fromEnvironment('WEB_SOCKET', defaultValue: 'wss://satta.biz/cable?jwt=');
+  static String webSocket (String _jwt){
+    return "$baseWebSocket$_jwt";
+  }
   static String proposal(String supplierId) {
     return "$baseUrl/proposals_by_state_sp.json?proposal_state='pending','replied','proposal_stvs','last_offer'&supplier_id=$supplierId";}
   static String order (String supplierId){
@@ -13,9 +17,13 @@ class ApiUrls{
   static String invoices(String supplierId){
     return "$baseUrl/buyer_invoice_list_sp.json?state='invoice_discounted','invoice_goods_delivered','invoice_collecting','invoice_approved_dbs', 'invoice_approved'&supplier_id=$supplierId";
   }
+  static String customerAddresses(String companyId){
+    return "$baseUrl/list_avaliable_customer_addresses.json?customer_company_id=$companyId";
+  }
   static String getMessage (String id){
     return "$baseUrl/list_messages.json?$id";
   }
+  static const String createUpdateAddress = "$baseUrl/create_contact_information.json";
   static const String createMessage = "$baseUrl/post_message.json";
   static const String forgotPassword = "$baseUrl/forgot_password.json";
   static const String favoriteList = "$baseUrl/list_favorite_list.json";

@@ -90,7 +90,6 @@ class BigCardDesktop extends ConsumerWidget {
                             // alignment: Alignment.centerRight,
                             child: Row(
                               children: [
-                                const Spacer(),
                                 tableInfoPanel ?? const SizedBox(width: 0),
                               ],
                             ),

@@ -18,12 +18,15 @@ class Shipment {
     final String? senderErpId;
     final int? proposalId;
     final String? address;
+    final String? contactInformationName;
     final String? orderDate;
     final String? deliveryDate;
     final String? paymentType;
     final int? paymentDueDate;
     final bool? includeShipmentCost;
     final String? demandListName;
+    bool? notification;
+    bool? messageNotification;
     final List<Product> products;
 
     Shipment({
@@ -40,11 +43,14 @@ class Shipment {
         this.proposalId,
         this.address,
         this.orderDate,
+        this.contactInformationName,
         this.deliveryDate,
         this.paymentType,
         this.paymentDueDate,
         this.includeShipmentCost,
         this.demandListName,
+        this.notification,
+        this.messageNotification,
         required this.products,
     });
 
@@ -61,12 +67,15 @@ class Shipment {
         senderErpId: json["sender_erp_id"],
         proposalId: json["proposal_id"],
         address: json["address"],
+        contactInformationName: json["contact_information_name"],
         orderDate:json["order_date"],
         deliveryDate:json["delivery_date"],
         paymentType: json["payment_type"],
         paymentDueDate: json["payment_due_date"],
         includeShipmentCost: json["include_shipment_cost"],
         demandListName: json["demand_list_name"],
+        notification: json["notification"],
+        messageNotification: json["message_notification"],
         products: List<Product>.from(json["products"].map((x) => Product.fromMap(x))),
     );
 

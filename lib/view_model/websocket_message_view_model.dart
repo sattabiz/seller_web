@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seller_point/model/message_model.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import '../config/api_url.dart';
 import '../model/web_socket_message_model.dart';
 import '../storage/jwt_storage.dart';
 import 'get_message_view_model.dart';
@@ -11,8 +12,8 @@ import 'list_messages_view_model.dart';
 
 final webSocketProvider = StreamProvider<WebSocketChannel>((ref) async* {
   final _jwt = await jwtStorageService().getJwtData();
-  final socket = WebSocketChannel.connect(
-      Uri.parse('wss://test.satta.biz/cable?jwt=$_jwt'));
+  String url = ApiUrls.webSocket(_jwt);
+  final socket = WebSocketChannel.connect(Uri.parse(url));
   int? messageRoomIdAsyncValue = await ref.watch(messageRoomIdProvider);
 
   //print(socket);
@@ -53,8 +54,8 @@ final webSocketProvider = StreamProvider<WebSocketChannel>((ref) async* {
           "{\"channel\":\"MessageRoomChannel\",\"message_room_id\":$messageRoomIdAsyncValue}"
     };
     socket.sink.add(json.encode(request2));
-    print(socket.stream.toString());
-    debugPrint("------------------------------------------------------");
+    //print(socket.stream.toString());
+    //debugPrint("------------------------------------------------------");
   }
 });
 

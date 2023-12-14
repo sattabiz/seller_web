@@ -22,7 +22,10 @@ class GetOrderlistModel {
         required this.procurementEmail,
         this.costCenterName,
         this.costCenterErpId,
+        this.notification,
+        this.messageNotification,
         this.approvers,
+
         required this.products,
     });
 
@@ -46,6 +49,8 @@ class GetOrderlistModel {
     String ?procurementEmail;
     String ?costCenterName;
     String ?costCenterErpId;
+    bool? notification;
+    bool? messageNotification;
     List<Approver> ?approvers;
     List<Product> products;
 
@@ -74,6 +79,8 @@ class GetOrderlistModel {
         procurementEmail: json["procurement_email"],
         costCenterName: json["cost_center_name"],
         costCenterErpId: json["cost_center_erp_id"],
+        notification: json["notification"],
+        messageNotification: json["message_notification"],
         approvers: List<Approver>.from(json["approvers"].map((x) => Approver.fromMap(x))),
         products: List<Product>.from(json["products"].map((x) => Product.fromMap(x))),
     );

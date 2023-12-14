@@ -87,7 +87,7 @@ class BigCardMobile extends ConsumerWidget {
                     ),
                     child: Row(
                       children: [
-                        const Spacer(),
+                        // const Spacer(),
                         tableInfoPanel ?? const SizedBox(width: 0),
                       ],
                     ),

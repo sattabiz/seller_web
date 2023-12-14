@@ -1,6 +1,8 @@
 import 'dart:collection';
 import 'dart:js' as js;
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_svg/svg.dart';
 
 Map<String, String> statusIconMap = {
   'pending': 'assets/proposal_pending.svg',
@@ -20,6 +22,92 @@ Map<String, String> statusIconMap = {
   'invoice_approved': 'assets/notsecure.svg',
   'delivered': 'assets/package.svg',
 };
+
+List<String> CITY_LIST = [
+  'Lütfen şehir seçiniz.',
+  'Adana',
+  'Adıyaman',
+  'Afyon',
+  'Ağrı',
+  'Aksaray',
+  'Amasya',
+  'Ankara',
+  'Antalya',
+  'Ardahan',
+  'Artvin',
+  'Aydın',
+  'Balıkesir',
+  'Bartın',
+  'Batman',
+  'Bayburt',
+  'Bilecik',
+  'Bingöl',
+  'Bitlis',
+  'Bolu',
+  'Burdur',
+  'Bursa',
+  'Çanakkale',
+  'Çankırı',
+  'Çorum',
+  'Denizli',
+  'Diyarbakır',
+  'Düzce',
+  'Edirne',
+  'Elazığ',
+  'Erzincan',
+  'Erzurum',
+  'Eskişehir',
+  'Gaziantep',
+  'Giresun',
+  'Gümüşhane',
+  'Hakkari',
+  'Hatay',
+  'Iğdır',
+  'Isparta',
+  'İstanbul',
+  'İzmir',
+  'Kahramanmaraş',
+  'Karabük',
+  'Karaman',
+  'Kars',
+  'Kastamonu',
+  'Kayseri',
+  'Kırıkkale',
+  'Kırklareli',
+  'Kırşehir',
+  'Kilis',
+  'Kocaeli',
+  'Konya',
+  'Kütahya',
+  'Malatya',
+  'Manisa',
+  'Mardin',
+  'Mersin',
+  'Muğla',
+  'Muş',
+  'Nevşehir',
+  'Niğde',
+  'Ordu',
+  'Osmaniye',
+  'Rize',
+  'Sakarya',
+  'Samsun',
+  'Siirt',
+  'Sinop',
+  'Sivas',
+  'Şanlıurfa',
+  'Şırnak',
+  'Tekirdağ',
+  'Tokat',
+  'Trabzon',
+  'Tunceli',
+  'Uşak',
+  'Van',
+  'Yalova',
+  'Yozgat',
+  'Zonguldak'
+];
+
 
 // formating dateTime
 String formattedDate(String date) {
@@ -49,6 +137,26 @@ String formattedTime(String date) {
   }
 }
 
+Widget newMessageSvg(bool notification, bool messageNotification) {
+  return Row(
+    children: [
+      notification
+      ? SvgPicture.asset(
+          'assets/alert-error.svg',
+          width: 22.0,
+          height: 20.0,
+        )
+      : const SizedBox(width: 1),
+      messageNotification
+      ? SvgPicture.asset(
+        'assets/newMessage.svg',
+        width: 22.0,
+        height: 20.0,
+      )
+      : const SizedBox(width: 1),
+    ],
+  );
+} 
 // calculate amount for big card table
 String calcuteAmount(String amount, String price) {
   return (double.parse(amount) * double.parse(price)).toString();
@@ -192,6 +300,8 @@ String getCurrencySymbol(String currencyCode) {
       return '€';
     case 'USD':
       return '\$';
+    case 'GBP':
+      return '£';
     default:
       return currencyCode;
   }

@@ -42,11 +42,13 @@ class ProposalTable extends StatelessWidget {
               MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.surfaceVariant),
           columns: [
             const DataColumn2(
-              label: Text('#',
-                  textDirection: TextDirection.rtl,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              label: Text(
+                '#',
+                textDirection: TextDirection.rtl,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                style: TextStyle(fontWeight: FontWeight.bold)
+              ),
               numeric: true,
               fixedWidth: 20,
             ),
@@ -131,13 +133,14 @@ class ProposalTable extends StatelessWidget {
                       ),
                     ),
                   ), //product_name
-                  DataCell(Text(
-                    item.proposalNote.toString() == 'null' ? '-' : item.proposalNote.toString(),
-                    textDirection: TextDirection.ltr,
-                    textAlign: TextAlign.start,
-                    style: const TextStyle(
-                      fontSize: 12.0,
-                    ),
+                  DataCell(
+                    Text(
+                      item.proposalNote.toString() == 'null' ? '-' : item.proposalNote.toString(),
+                      textDirection: TextDirection.ltr,
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                      ),
                   )), //propsal_note
                   DataCell(Text(
                     '${item.amount} ' ' ${item.unit}',

@@ -61,7 +61,7 @@ class OrderView extends ConsumerWidget {
                               status: orderList[index].state.toString(),
                               headerDate: formattedDate(
                                   orderList[index].orderDate.toString()),
-                              newMessageSvg: newMessageSvg,
+                              newMessageSvg: newMessageSvg(orderList[index].notification!, orderList[index].messageNotification!), 
                               className: className),
                           bodyHeader: BodyHeader(
                             bodyHeader: orderList[index].demandName.toString(),
@@ -100,14 +100,14 @@ class OrderView extends ConsumerWidget {
                                   filesAttached: isFilesAttached(orderList[index].products)
                                 )
                             ),
-                            tableInfoPanel: 
-                            checkOrderState(orderList[index].state.toString())
-                            ? null
-                            : TableInfoPanel(
-                                productList: orderList[index].products,
-                                isPending: false,
-                                isFileAttached: isFilesAttached(orderList[index].products)
-                            ),
+                            // tableInfoPanel: 
+                            // checkOrderState(orderList[index].state.toString())
+                            // ? null
+                            // : TableInfoPanel(
+                            //     productList: orderList[index].products,
+                            //     isPending: false,
+                            //     isFileAttached: isFilesAttached(orderList[index].products)
+                            // ),
                             buttons: ButtonWidget(
                               className: className,
                               status: orderList[index].state.toString(),

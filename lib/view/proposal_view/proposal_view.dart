@@ -61,7 +61,7 @@ class ProposalView extends ConsumerWidget {
                             id: proposalList[index].proposalId.toString(),
                             status: proposalList[index].proposalState.toString(),
                             headerDate: proposalList[index].proposalValidDate.toString(),
-                            newMessageSvg: newMessageSvg, 
+                            newMessageSvg: newMessageSvg(proposalList[index].notification!, proposalList[index].messageNotification!), 
                             className: className
                           ),
                           bodyHeader: BodyHeader( 
@@ -85,18 +85,18 @@ class ProposalView extends ConsumerWidget {
                               className: className,
                               filesAttached: isFilesAttached(proposalList[index].productProposals!)
                             ),
-                            tableInfoPanel: 
-                            proposalList[index].proposalState.toString() == "pending"
-                            ?  TableInfoPanel(
-                              productList: proposalList[index].productProposals!,
-                              isPending: true,
-                              isFileAttached: isFilesAttached(proposalList[index].productProposals!)
-                            )
-                            : TableInfoPanel(
-                              productList: proposalList[index].productProposals!,
-                              isPending: false,
-                              isFileAttached: isFilesAttached(proposalList[index].productProposals!)
-                            ),
+                            // tableInfoPanel: 
+                            // proposalList[index].proposalState.toString() == "pending"
+                            // ?  TableInfoPanel(
+                            //   productList: proposalList[index].productProposals!,
+                            //   isPending: true,
+                            //   isFileAttached: isFilesAttached(proposalList[index].productProposals!)
+                            // )
+                            // : TableInfoPanel(
+                            //   productList: proposalList[index].productProposals!,
+                            //   isPending: false,
+                            //   isFileAttached: isFilesAttached(proposalList[index].productProposals!)
+                            // ),
                             buttons: ButtonWidget(
                               className: className,
                               status: proposalList[index].proposalState.toString(),
