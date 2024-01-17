@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:universal_html/html.dart' as html;
+
+Future<void> openFile() async {
+  var bytes = await rootBundle.load("assets/privacy_policy.pdf");
+
+  final blob = html.Blob([bytes], 'application/pdf');
+  final url = html.Url.createObjectUrlFromBlob(blob);
+  html.window.open(url, "_blank");
+  html.Url.revokeObjectUrl(url);
+}
 
 class Contact extends ConsumerWidget {
   final int sectionIndex;
@@ -46,13 +57,22 @@ class Contact extends ConsumerWidget {
             maxLines: 3,
             textAlign: TextAlign.center,
           ),
-          const Spacer(flex: 3),
+          const Spacer(flex: 1),
+          TextButton(
+            onPressed: openFile,
+            child: Text(
+              FlutterI18n.translate(context, "tr.login.privacy_policy"),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+            )
+          ),
+          const Spacer(flex: 1),
           Text(
             footer ?? " ",
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const Spacer(flex: 1)
-
         ],
       ),
     );
