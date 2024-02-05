@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:seller_point/view/invoice_view/invoice_view.dart';
 import 'package:seller_point/view/order_view/order_view.dart';
 import 'package:seller_point/view/proposal_view/proposal_view.dart';
+import 'package:seller_point/view/development_process/development_process.dart';
 import 'package:seller_point/view/shipment_view/shipment_view.dart';
 import 'package:seller_point/view/widget/appbar.dart';
 import 'package:seller_point/view/widget/nav_drawer.dart';
@@ -81,11 +83,14 @@ class _IndexState extends ConsumerState<Index> {
                 Expanded(
                   child: IndexedStack(
                     index: screenIndex,
-                    children: const  [
-                      ProposalView(),
-                      OrderView(),
-                      ShipmentView(),
-                      InvoiceView(),
+                    children:  [
+                      const ProposalView(),
+                      const OrderView(),
+                      const ShipmentView(),
+                      const InvoiceView(),
+                      DevelopmentProcessView(text: "Hurda özelliği geliştirme sürecinde. Hurdalar için hurdapalet@paletpoint.biz mailine mail atabilirsiniz.", topic: FlutterI18n.translate(context, 'tr.scrap.scraps')),
+                      DevelopmentProcessView(text: "Fırsat ürünleri geliştirme sürecinde. Fırsat ürünleri için firsat@paletpoint.com mailine mail atabilirsiniz.", topic: FlutterI18n.translate(context, 'tr.offer_products.offer_products')),
+                      DevelopmentProcessView(text: "Press takoz ürünleri geliştirme sürecinde. Press takoz için presstakoz@paletpoint.com mailine mail atabilirsiniz.", topic: FlutterI18n.translate(context, 'tr.press_wedge.press_wedges'))
                     ]
                   ),
                 ),
@@ -110,11 +115,14 @@ class _IndexState extends ConsumerState<Index> {
                     flex: 10,
                     child: IndexedStack(
                       index: screenIndex,
-                      children: const  [
-                        ProposalView(),
-                        OrderView(),
-                        ShipmentView(),
-                        InvoiceView(),
+                      children:   [
+                        const ProposalView(),
+                        const OrderView(),
+                        const ShipmentView(),
+                        const InvoiceView(),
+                        DevelopmentProcessView(text: "Hurda özelliği geliştirme sürecinde. Hurdalar için hurdapalet@paletpoint.biz mailine mail atabilirsiniz.", topic: FlutterI18n.translate(context, 'tr.scrap.scraps')),
+                        DevelopmentProcessView(text: "Fırsat ürünleri geliştirme sürecinde. Fırsat ürünleri için firsat@paletpoint.com mailine mail atabilirsiniz.", topic: FlutterI18n.translate(context, 'tr.offer_products.offer_products')),
+                        DevelopmentProcessView(text: "Press Takoz ürünleri geliştirme sürecinde. Press takoz için presstakoz@paletpoint.com mailine mail atabilirsiniz.", topic: FlutterI18n.translate(context, 'tr.press_wedge.press_wedges'))
                       ]
                     ),
                   ),

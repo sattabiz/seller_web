@@ -120,6 +120,21 @@ class _NavigationRailWidgetState extends ConsumerState<NavigationRailWidget> {
           selectedIcon: SvgPicture.asset('assets/invoice.svg'),
           label: const Text('Faturalar'),
         ),
+        NavigationRailDestination(
+          icon: SvgPicture.asset('assets/hurda.svg'),
+          selectedIcon: SvgPicture.asset('assets/hurda.svg'),
+          label: const Text('Hurdalar'),
+        ),
+        NavigationRailDestination(
+          icon: SvgPicture.asset('assets/hurda.svg'),
+          selectedIcon: SvgPicture.asset('assets/hurda.svg'),
+          label: const Text('Fırsat Ürünleri'),
+        ),
+        NavigationRailDestination(
+          icon: SvgPicture.asset('assets/hurda.svg'),
+          selectedIcon: SvgPicture.asset('assets/hurda.svg'),
+          label: const Text('Press Takoz'),
+        ),
       ],
     );
   }

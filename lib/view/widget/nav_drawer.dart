@@ -10,11 +10,13 @@ class Destination {
   final String svgPath;
 }
 
- List<Destination> destinations = const <Destination>[
+List<Destination> destinations = const <Destination>[
   Destination('Teklifler', 'assets/proposal.svg'),
   Destination('Siparisler', 'assets/order.svg'),
   Destination('Sevkiyatlar', 'assets/shipment.svg'),
   Destination('Faturalar', 'assets/invoice.svg'),
+  Destination('Hurdalar', 'assets/hurda.svg'),
+  Destination('Fırsat Ürünleri', 'assets/hurda.svg'),
 ];
 
 class NavigationRailDrawer extends ConsumerStatefulWidget {
@@ -25,14 +27,14 @@ class NavigationRailDrawer extends ConsumerStatefulWidget {
     super.key,
     required this.onItemTap,
     required this.screenIndex,
-    });
+  });
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _NavigationRailDrawerState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _NavigationRailDrawerState();
 }
 
 class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -56,9 +58,8 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 30.0),
-          child: Text(
-            'İşlemler',
-            style: Theme.of(context).textTheme.titleMedium),
+          child:
+              Text('İşlemler', style: Theme.of(context).textTheme.titleMedium),
         ),
         const SizedBox(
           height: 24,
@@ -78,8 +79,8 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
                   FlutterI18n.translate(context, 'tr.proposal.proposals'),
                   textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  ),
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
                 ),
               ),
             ],
@@ -103,8 +104,8 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
                   FlutterI18n.translate(context, 'tr.order.orders'),
                   textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  ),
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
                 ),
               ),
             ],
@@ -128,8 +129,8 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
                   FlutterI18n.translate(context, 'tr.shipment.shipments'),
                   textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  ),
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
                 ),
               ),
             ],
@@ -153,17 +154,88 @@ class _NavigationRailDrawerState extends ConsumerState<NavigationRailDrawer> {
                   FlutterI18n.translate(context, 'tr.invoice.invoices'),
                   textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  ),
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
                 ),
               ),
-              // Text(
-              //   '24',
-              //   textAlign: TextAlign.right,
-              //   style: Theme.of(context).textTheme.labelMedium!.copyWith(
-              //     color: Theme.of(context).colorScheme.onPrimaryContainer,
-              //   ),
-              // ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        NavigationDrawerDestination(
+          icon: SvgPicture.asset(
+            'assets/hurda.svg',
+            width: 20.0,
+            height: 20.0,
+          ),
+          label: Row(
+            children: [
+              const SizedBox(width: 10),
+              SizedBox(
+                width: screenWidth * 0.14,
+                child: Text(
+                  FlutterI18n.translate(context, 'tr.scrap.scraps'),
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                ),
+              ),
+              
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        NavigationDrawerDestination(
+          icon: SvgPicture.asset(
+            'assets/hurda.svg',
+            width: 20.0,
+            height: 20.0,
+          ),
+          label: Row(
+            children: [
+              const SizedBox(width: 10),
+              SizedBox(
+                width: screenWidth * 0.14,
+                child: Text(
+                  FlutterI18n.translate(context, 'tr.offer_products.offer_products'),
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                ),
+              ),
+              
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        NavigationDrawerDestination(
+          icon: SvgPicture.asset(
+            'assets/hurda.svg',
+            width: 20.0,
+            height: 20.0,
+          ),
+          label: Row(
+            children: [
+              const SizedBox(width: 10),
+              SizedBox(
+                width: screenWidth * 0.14,
+                child: Text(
+                  FlutterI18n.translate(context, 'tr.press_wedge.press_wedges'),
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                ),
+              ),
+              
             ],
           ),
         ),
