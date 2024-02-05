@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:seller_point/view/landing_view/components/page_indicator.dart';
 
@@ -25,12 +26,7 @@ class Introduction extends StatelessWidget {
       height: 600,
       padding: const EdgeInsets.only(top: 60.0),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        image: DecorationImage(
-          image: NetworkImage(bgImage ?? ""),
-          // errorBuilder: (context, error, stackTrace) => const SizedBox(), 
-          fit: BoxFit.cover,
-        ),
+        color: Theme.of(context).colorScheme.secondary,
       ),
       child: Flex(
         direction: Axis.vertical,
@@ -39,10 +35,17 @@ class Introduction extends StatelessWidget {
         children:  <Widget>[
           // SizedBox(height: screenSize.height / 50),
           Title(title),
+          AutoSizeText(
+            "Ahşap palet buluşma noktası",
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),            
+          ),
           Expanded(
             flex: 2,
             child: Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              padding: const EdgeInsets.only(left: 10, right: 10),
               child: PageIndicator(paragraphs: introduction!),
             )),
           const Spacer(flex: 1),
@@ -63,14 +66,13 @@ class Title extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 18.0),
-      child: AutoSizeText(
-        title, 
-        style: Theme.of(context).textTheme.displayLarge!.copyWith(
-          color: Theme.of(context).colorScheme.onPrimary,
-        ),
-        maxLines: 2,
-        textAlign: TextAlign.center,
-      ),
+      child: SvgPicture.asset(
+          'assets/white-logo.svg',
+          height: 80,
+          // width: 200,
+          fit: BoxFit.fill,
+          // alignment: Alignment.centerRight,
+        )
     );
   }
 }
