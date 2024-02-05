@@ -11,7 +11,6 @@ import '../../view_model/create_order_view_model.dart';
 import '../../view_model/proposal_view_model.dart';
 import '../widget/big_card /buttons/button_widget.dart';
 import '../widget/big_card /info/info_box.dart';
-import '../widget/big_card /info/table_info_panel.dart';
 import '../widget/big_card /table/proposal_table.dart';
 import '../widget/loading_widget.dart';
 import '../widget/main_page_content.dart';

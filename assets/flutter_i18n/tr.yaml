@@ -152,6 +152,12 @@ tr:
       invoice_collecting: "Ödeme Tarihi "
       invoice_approved: "Ödeme Tarihi "
       order_on_the_way: "Sevk Tarihi: "
+  scrap:
+    scraps: "Hurda"
+  offer_products:
+    offer_products: "Fırsat Ürünleri"
+  press_wedge:
+    press_wedges: "Press Takoz"
 
 
 
