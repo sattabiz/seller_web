@@ -16,6 +16,7 @@ tr:
     new_password: "Yeni Şifre Talebi"
     login_button: "Giriş Yap"
     contact: "İletişim"
+    privacy_policy: "Gizlilik Politikası"
   address_dialog:
     address_btn: "Yeni Adres"
     update: "Adres Güncelle"
